@@ -433,7 +433,7 @@ class Cperson extends CI_Controller
         echo json_encode($output);
     }
 
-    //  Fitur upload berkas
+    //  Fitur form upload berkas
     public function berkas()
     {
         $id = $this->input->post('idperson');
@@ -441,119 +441,115 @@ class Cperson extends CI_Controller
         $this->load->view('menu_person/berkas', $data);
     }
 
+    //  Fitur upload berkas
+
     public function simpan_berkas()
     {
         $config['upload_path'] = '../gambar/foto/';
         $config['allowed_types'] = 'gif|jpg|png';
         $config['encrypt_name'] = TRUE;
-
         $this->load->library('upload', $config);
-        if ($this->upload->do_upload("foto")) {
-            $data = array('upload_data' => $this->upload->data());
-
-            $id_santri = $this->input->post('idperson');
-            $image = $data['upload_data']['file_name'];
-            $data_update = array('foto_warna_santri' =>  $image,);
-
-            $result = $this->Mperson->simpan_upload_berkas(array('id_person' => $id_santri), $data_update);
-            echo json_encode($result);
+        if (!empty($this->upload->do_upload('foto'))) {
+            $data =  array(
+                'upload_foto' => $this->upload->data(),
+            );
+            $id = $this->input->post('idperson');
+            $idperson = $this->input->post('idperson');
+            $fotos = $data['upload_foto']['file_name'];
+            $data =  array(
+                'foto_warna_santri' => $fotos
+            );
+            $this->Mperson->upload_foto_santri(array('id_person' => $idperson), $data, $id);
         }
+        
+        $configr['upload_path'] = '../gambar/wali/';
+        $configr['allowed_types'] = 'gif|jpg|png';
+        $configr['encrypt_name'] = TRUE;
+        $this->upload->initialize($configr);
+        if (!empty($this->upload->do_upload('wali'))) {
+            $data =  array(
+                'upload_wali' => $this->upload->data(),
+            );
+            $id = $this->input->post('idperson');
+            $idperson = $this->input->post('idperson');
+            $foto = $data['upload_wali']['file_name'];
+            $data =  array(
+                'foto_wali_santri_warna' => $foto
+            );
+            $this->Mperson->upload_foto_wali(array('id_person' => $idperson), $data, $id);
+        }
+
+        $configs['upload_path'] = '../gambar/kk/';
+        $configs['allowed_types'] = 'gif|jpg|png';
+        $configs['encrypt_name'] = TRUE;
+        $this->upload->initialize($configs);
+        if (!empty($this->upload->do_upload('kk'))) {
+            $data =  array(
+                'upload_kk' => $this->upload->data(),
+            );
+            $id = $this->input->post('idperson');
+            $idperson = $this->input->post('idperson');
+            $fotog = $data['upload_kk']['file_name'];
+            $data =  array(
+                'foto_scan_kk' => $fotog
+            );
+            $this->Mperson->upload_foto_kk(array('id_person' => $idperson), $data, $id);
+        }
+
+        $configt['upload_path'] = '../gambar/akta/';
+        $configt['allowed_types'] = 'gif|jpg|png';
+        $configt['encrypt_name'] = TRUE;
+        $this->upload->initialize($configt);
+        if (!empty($this->upload->do_upload('akta'))) {
+            $data =  array(
+                'upload_akta' => $this->upload->data(),
+            );
+            $id = $this->input->post('idperson');
+            $idperson = $this->input->post('idperson');
+            $fotogs = $data['upload_akta']['file_name'];
+            $data =  array(
+                'foto_scan_akta' => $fotogs
+            );
+            $this->Mperson->upload_foto_akta(array('id_person' => $idperson), $data, $id);
+        }
+
+        $configm['upload_path'] = '../gambar/skck/';
+        $configm['allowed_types'] = 'gif|jpg|png';
+        $configm['encrypt_name'] = TRUE;
+        $this->upload->initialize($configm);
+        if (!empty($this->upload->do_upload('skck'))) {
+            $data =  array(
+                'upload_skck' => $this->upload->data(),
+            );
+            $id = $this->input->post('idperson');
+            $idperson = $this->input->post('idperson');
+            $fotot = $data['upload_skck']['file_name'];
+            $data =  array(
+                'foto_scan_skck' => $fotot
+            );
+            $this->Mperson->upload_foto_skck(array('id_person' => $idperson), $data, $id);
+        }
+
+        $confign['upload_path'] = '../gambar/ket_sehat/';
+        $confign['allowed_types'] = 'gif|jpg|png';
+        $confign['encrypt_name'] = TRUE;
+        $this->upload->initialize($confign);
+        if (!empty($this->upload->do_upload('ket_sehat'))) {
+            $data =  array(
+                'upload_ket_sehat' => $this->upload->data(),
+            );
+            $id = $this->input->post('idperson');
+            $idperson = $this->input->post('idperson');
+            $fotom = $data['upload_ket_sehat']['file_name'];
+            $data =  array(
+                'foto_scan_ket_sehat' => $fotom
+            );
+            $this->Mperson->upload_foto_skck(array('id_person' => $idperson), $data, $id);
+        }
+
     }
 
-    public function simpan_berkas_foto_wl()
-    {
-        $config['upload_path'] = '../gambar/wali/';
-        $config['allowed_types'] = 'gif|jpg|png';
-        $config['encrypt_name'] = TRUE;
-
-        $this->load->library('upload', $config);
-        if ($this->upload->do_upload("wali")) {
-            $data = array('upload_data' => $this->upload->data());
-
-            $id_santri = $this->input->post('idperson');
-            $image = $data['upload_data']['file_name'];
-            $data_update = array('foto_wali_santri_warna' => $image,);
-
-            $result = $this->Mperson->simpan_upload_berkas(array('id_person' => $id_santri), $data_update);
-            echo json_encode($result);
-        }
-    }
-
-    public function simpan_berkas_kk()
-    {
-        $config['upload_path'] = '../gambar/kk/';
-        $config['allowed_types'] = 'gif|jpg|png';
-        $config['encrypt_name'] = TRUE;
-
-        $this->load->library('upload', $config);
-        if ($this->upload->do_upload("kk")) {
-            $data = array('upload_data' => $this->upload->data());
-
-            $id_santri = $this->input->post('idperson');
-            $image = $data['upload_data']['file_name'];
-            $data_update = array('foto_scan_kk' => $image,);
-
-            $result = $this->Mperson->simpan_upload_berkas(array('id_person' => $id_santri), $data_update);
-            echo json_encode($result);
-        }
-    }
-
-    public function simpan_berkas_akta()
-    {
-        $config['upload_path'] = '../gambar/akta/';
-        $config['allowed_types'] = 'gif|jpg|png';
-        $config['encrypt_name'] = TRUE;
-
-        $this->load->library('upload', $config);
-        if ($this->upload->do_upload("akta")) {
-            $data = array('upload_data' => $this->upload->data());
-
-            $id_santri = $this->input->post('idperson');
-            $image = $data['upload_data']['file_name'];
-            $data_update = array('foto_scan_akta' => $image,);
-
-            $result = $this->Mperson->simpan_upload_berkas(array('id_person' => $id_santri), $data_update);
-            echo json_encode($result);
-        }
-    }
-
-    public function simpan_berkas_skck()
-    {
-        $config['upload_path'] = '../gambar/skck/';
-        $config['allowed_types'] = 'gif|jpg|png';
-        $config['encrypt_name'] = TRUE;
-
-        $this->load->library('upload', $config);
-        if ($this->upload->do_upload("skck")) {
-            $data = array('upload_data' => $this->upload->data());
-
-            $id_santri = $this->input->post('idperson');
-            $image = $data['upload_data']['file_name'];
-            $data_update = array('foto_scan_skck' => $image,);
-
-            $result = $this->Mperson->simpan_upload_berkas(array('id_person' => $id_santri), $data_update);
-            echo json_encode($result);
-        }
-    }
-
-    public function simpan_berkas_ket_sehat()
-    {
-        $config['upload_path'] = '../gambar/sukes/';
-        $config['allowed_types'] = 'gif|jpg|png';
-        $config['encrypt_name'] = TRUE;
-
-        $this->load->library('upload', $config);
-        if ($this->upload->do_upload("ket_sehat")) {
-            $data = array('upload_data' => $this->upload->data());
-
-            $id_santri = $this->input->post('idperson');
-            $image = $data['upload_data']['file_name'];
-            $data_update = array('foto_scan_ket_sehat' => $image,);
-
-            $result = $this->Mperson->simpan_upload_berkas(array('id_person' => $id_santri), $data_update);
-            echo json_encode($result);
-        }
-    }
+   
     // fitur download
     public function download_foto()
     {
