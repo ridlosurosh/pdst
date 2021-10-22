@@ -238,7 +238,15 @@
                                 <tr>
                                     <td>Desa Wali</td>
                                     <td>:</td>
-                                    <td><?= $data_alamat->nama_desa_w ?></td>
+                                    <td>
+                                    <?php
+                                        if (empty($data_alamat->nama_desa_w)) {
+                                            echo "-----" ;
+                                        } else {
+                                            echo $data_alamat->nama_desa_w;
+                                        }
+                                    ?>     
+                                    </td>
                                 </tr>
                             </table>
                         </div>
@@ -247,17 +255,41 @@
                                 <tr>
                                     <td>Kecamatan Wali</td>
                                     <td>:</td>
-                                    <td><?= $data_alamat->nama_kec_w ?></td>
+                                    <td>
+                                    <?php
+                                        if (empty($data_alamat->nama_kec_w)) {
+                                            echo "-----" ;
+                                        } else {
+                                            echo $data_alamat->nama_kec_w;
+                                        }
+                                    ?>    
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Kabupaten Wali</td>
                                     <td>:</td>
-                                    <td><?= $data_alamat->nama_kab_w ?></td>
+                                    <td>
+                                    <?php
+                                        if (empty($data_alamat->nama_kab_w)) {
+                                            echo "-----" ;
+                                        } else {
+                                            echo $data_alamat->nama_kab_w;
+                                        }
+                                    ?>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Provinsi Wali</td>
                                     <td>:</td>
-                                    <td><?= $data_alamat->nama_prov_w ?></td>
+                                    <td>
+                                    <?php
+                                        if (empty($data_alamat->nama_prov_w)) {
+                                            echo "-----" ;
+                                        } else {
+                                            echo $data_alamat->nama_prov_w ;
+                                        }
+                                    ?>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Kode Pos Wali</td>
