@@ -1,0 +1,690 @@
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
+
+class Cperson extends CI_Controller
+{
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Mperson');
+        $this->load->helper(array('url', 'form', 'download'));
+    }
+
+    // Fitur data santri aktif
+    public function menu_santri()
+    {
+        $output['santri'] = $this->Mperson->santri_aktif_all();
+        $this->load->view('menu_person/santri', $output);
+    }
+
+    // Fitur tambah santri
+    public function tambah_santri_1()
+    {
+        $output = array(
+            'provinsi' => $this->Mperson->get_provinsi()->result()
+        );
+        $this->load->view('menu_person/tambah/santri_tambah', $output);
+    }
+
+    public function st_1()
+    {
+        $id = $this->input->post('o');
+        $data = array(
+            'santri' => $this->Mperson->santri_terakhir($id),
+            'provinsi' => $this->Mperson->get_provinsi()->result()
+        );
+        $this->load->view('menu_person/tambah/st_1', $data);
+    }
+
+    public function tambah_santri_2()
+    {
+        $id = $this->input->post('o');
+        $data = array('santri' => $this->Mperson->santri_terakhir($id));
+        $this->load->view('menu_person/tambah/santri_tambah_v2', $data);
+    }
+
+    public function st_2()
+    {
+        $id = $this->input->post('o');
+        $data = array(
+            'santri' => $this->Mperson->santri_terakhir($id),
+            'ayah' => $this->Mperson->data_mahrom_a($id),
+            'ibu' => $this->Mperson->data_mahrom_i($id)
+        );
+        $this->load->view('menu_person/tambah/st_2', $data);
+    }
+
+    public function tambah_santri_3()
+    {
+        $id = $this->input->post('o');
+        $data = array(
+            'santri' => $this->Mperson->santri_terakhir($id),
+            'provinsi' => $this->Mperson->get_provinsi()->result()
+        );
+        $this->load->view('menu_person/tambah/santri_tambah_v3', $data);
+    }
+
+    public function st_3()
+    {
+        $id = $this->input->post('o');
+        $data = array(
+            'santri' => $this->Mperson->santri_terakhir($id),
+            'provinsi' => $this->Mperson->get_provinsi()->result()
+        );
+        $this->load->view('menu_person/tambah/st_3', $data);
+    }
+
+    public function tambah_santri_4()
+    {
+        $id = $this->input->post('o');
+        $data = array(
+            'santri' => $this->Mperson->santri_terakhir($id),
+            'wilayah' => $this->Mperson->get_wilayah()->result()
+        );
+        $this->load->view('menu_person/tambah/santri_tambah_v4', $data);
+    }
+
+    // Fitur Simpan
+    public function simpan_santri_v1()
+    {
+        $santri_terakhir = $this->Mperson->santri_terakhir_diinput();
+        $countsantri_terakhir = $santri_terakhir[0]->jumlah;
+
+        if ($countsantri_terakhir == NULL) {
+            $nomor_induk_baru = '0001';
+        } else {
+            $kode = '0000';
+            $panjang = 4 - strlen($countsantri_terakhir);
+            $countsantri_terakhir++;
+            $nomor_induk_baru = substr($kode, 0, $panjang) . $countsantri_terakhir;
+        }
+        $niupnya = $nomor_induk_baru;
+        $t_l = $this->input->post('tanggal_lahir');
+        $bulan = $this->input->post('bulan_lahir');
+        $thn = $this->input->post('tahun_lahir');
+        $tgl = $t_l . $bulan . $thn;
+        $thn_daftar = substr(date("Y"), 2, 4);
+        if ($this->input->post('jenis_kelamin') == "Perempuan") {
+            $kode_awal = "02";
+        } else {
+            $kode_awal = "01";
+        }
+
+        $tgl_lahir = $thn . '-' . $bulan . '-' . $t_l;
+        $data = array(
+            'nik' => $this->input->post('nik'),
+            'niup' => $kode_awal . $thn_daftar . $tgl . $niupnya,
+            'nama' => $this->input->post('nama'),
+            'tempat_lahir' => $this->input->post('tempat_lahir'),
+            'tanggal_lahir' => $tgl_lahir,
+            'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+            'alamat_lengkap' => $this->input->post('alamat_lengkap'),
+            'desa' => $this->input->post('desa'),
+            'kec' => $this->input->post('kec'),
+            'kab' => $this->input->post('kab'),
+            'prov' => $this->input->post('prov'),
+            'pos' => $this->input->post('pos'),
+            'dlm_klrg' => $this->input->post('dlm_klrg'),
+            'ank_ke' => $this->input->post('ank_ke'),
+            'sdr' => $this->input->post('sdr'),
+            'pndkn_a' => "0",
+            'pkrjn_a' => "0",
+            'pndkn_i' => "0",
+            'pkrjn_i' => "0",
+            'pndkn_w' => "0",
+            'pkrjn_w' => "0",
+            'pndptn_w' => "0",
+        );
+        $i = $this->Mperson->simpan($data);
+        $p = array('i' => $i);
+        echo json_encode($p);
+    }
+
+    public function simpan_santri_v2()
+    {
+        $id = $this->input->post('o');
+        $tgl_a = $this->input->post('tanggal_lahir_a');
+        $bln_a = $this->input->post('bulan_lahir_a');
+        $thn_a = $this->input->post('tahun_lahir_a');
+        $tgl_lahir_a = $thn_a . '-' . $bln_a . '-' . $tgl_a;
+        $tgl_i = $this->input->post('tanggal_lahir_i');
+        $bln_i = $this->input->post('bulan_lahir_i');
+        $thn_i = $this->input->post('tahun_lahir_i');
+        $tgl_lahir_i = $thn_i . '-' . $bln_i . '-' . $tgl_i;
+        $data1 = array(
+            'nik_a' => $this->input->post('nik_a'),
+            'nm_a' => $this->input->post('nm_a'),
+            'tgl_lahir_a' => $tgl_lahir_a,
+            'pndkn_a' => $this->input->post('pndkn_a'),
+            'pkrjn_a' => $this->input->post('pkrjn_a'),
+            'nik_i' => $this->input->post('nik_i'),
+            'nm_i' => $this->input->post('nm_i'),
+            'tgl_lahir_i' => $tgl_lahir_i,
+            'pndkn_i' => $this->input->post('pndkn_i'),
+            'pkrjn_i' => $this->input->post('pkrjn_i'),
+        );
+        $this->Mperson->simpan_ortu(array('id_person' => $id), $data1);
+        $data_a = array(
+            'nik_m' => $this->input->post('nik_a'),
+            'nama_mahrom' => $this->input->post('nm_a'),
+            'tanggal_lahir' => $tgl_lahir_a,
+            'alamat_mahrom' => $this->input->post('alamat_a'),
+            'hubungan' => "Ayah",
+        );
+        $a = $this->Mperson->simpan_ayah($data_a);
+        $detail_a = array(
+            'id_person' => $id,
+            'id_mahrom' => $a
+        );
+        $this->Mperson->detail_ayah($detail_a);
+        $data_i = array(
+            'nik_m' => $this->input->post('nik_i'),
+            'nama_mahrom' => $this->input->post('nm_i'),
+            'tanggal_lahir' => $tgl_lahir_i,
+            'alamat_mahrom' => $this->input->post('alamat_i'),
+            'hubungan' => "Ibu",
+        );
+        $i = $this->Mperson->simpan_ibu($data_i);
+        $detail_i = array(
+            'id_person' => $id,
+            'id_mahrom' => $i
+        );
+        $this->Mperson->detail_ibu($detail_i);
+        $p = array('i' => $id);
+        echo json_encode($p);
+    }
+
+    public function simpan_santri_v3()
+    {
+        $id = $this->input->post('o');
+        $data1 = array(
+            'nik_w' =>  $this->input->post('nik_w'),
+            'nm_w' => $this->input->post('nm_w'),
+            'pndkn_w' => $this->input->post('pndkn_w'),
+            'pkrjn_w' => $this->input->post('pkrjn_w'),
+            'hp_w' => $this->input->post('hp_w'),
+            'telp_w' => $this->input->post('telp_w'),
+            'pndptn_w' => $this->input->post('pndptn_w'),
+            'almt_w' => $this->input->post('almt_w'),
+            'pos_w' => $this->input->post('pos_w'),
+            'desa_w' => $this->input->post('desa_w'),
+            'kec_w' => $this->input->post('kec_w'),
+            'kab_w' => $this->input->post('kab_w'),
+            'prov_w' => $this->input->post('prov_w'),
+            'pndkn' => $this->input->post('pndkn')
+        );
+        $this->Mperson->simpan_ortu(array('id_person' => $id), $data1);
+        $p = array('i' => $id);
+        echo json_encode($p);
+    }
+
+    public function simpan_santri_v4()
+    {
+        $data = array(
+            'id_person' => $this->input->post('o'),
+            'id_kamar' => $this->input->post('kamar'),
+            'tgl_penetapan' => $this->input->post('tgl_penetapan')
+        );
+        $this->Mperson->simpan_penempatan($data);
+        $pesan = "ya";
+        $sukses = "Data Berhasil Disimpan";
+        $output = array(
+            'pesan' => $pesan,
+            'sukses' => $sukses
+        );
+        echo json_encode($output);
+    }
+
+    // Ambil Wilayah Indonesia
+    public function get_kabupaten()
+    {
+        $id = $this->input->post('id', TRUE);
+        $output = $this->Mperson->get_kabupaten($id)->result();
+        echo json_encode($output);
+    }
+
+    public function get_kecamatan()
+    {
+        $id = $this->input->post('id', TRUE);
+        $output = $this->Mperson->get_kecamatan($id)->result();
+        echo json_encode($output);
+    }
+
+    public function get_desa()
+    {
+        $id = $this->input->post('id', TRUE);
+        $output = $this->Mperson->get_desa($id)->result();
+        echo json_encode($output);
+    }
+
+    // Ambil Data Blok, dan Kamar
+    public function get_blok()
+    {
+        $id = $this->input->post('id', TRUE);
+        $output = $this->Mperson->get_blok($id)->result();
+        echo json_encode($output);
+    }
+
+    public function get_kamar()
+    {
+        $id = $this->input->post('id', TRUE);
+        $output = $this->Mperson->get_kamar($id)->result();
+        echo json_encode($output);
+    }
+
+    // Edit santri
+    public function form_edit_santri()
+    {
+        $id = $this->input->post('o');
+        $data = array(
+            'santri' => $this->Mperson->santri_terakhir($id),
+            'provinsi' => $this->Mperson->get_provinsi()->result()
+        );
+        $this->load->view('menu_person/edit/santri_edit', $data);
+    }
+
+    public function form_edit_santri_2()
+    {
+        $id = $this->input->post('o');
+        $data = array(
+            'santri' => $this->Mperson->santri_terakhir($id),
+            'ayah' => $this->Mperson->data_mahrom_a($id),
+            'ibu' => $this->Mperson->data_mahrom_i($id)
+        );
+        $this->load->view('menu_person/edit/santri_edit_v2', $data);
+    }
+
+    public function form_edit_santri_3()
+    {
+        $id = $this->input->post('o');
+        $data = array(
+            'santri' => $this->Mperson->santri_terakhir($id),
+            'provinsi' => $this->Mperson->get_provinsi()->result()
+        );
+        $this->load->view('menu_person/edit/santri_edit_v3', $data);
+    }
+
+    public function form_edit_santri_4()
+    {
+        $id = $this->input->post('o');
+        $data = array(
+            'kamar' => $this->Mperson->domisili($id),
+            'santri' => $this->Mperson->santri_terakhir($id),
+            'wilayah' => $this->Mperson->get_wilayah()->result()
+        );
+        $this->load->view('menu_person/edit/santri_edit_v4', $data);
+    }
+
+    public function edit_santri_v1()
+    {
+        $id = $this->input->post('o');
+        $t_l = $this->input->post('tanggal_lahir');
+        $bulan = $this->input->post('bulan_lahir');
+        $thn = $this->input->post('tahun_lahir');
+        $tgl_lahir = $thn . '-' . $bulan . '-' . $t_l;
+        $data = array(
+            'nik' => $this->input->post('nik'),
+            'nama' => $this->input->post('nama'),
+            'tempat_lahir' => $this->input->post('tempat_lahir'),
+            'tanggal_lahir' => $tgl_lahir,
+            'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+            'alamat_lengkap' => $this->input->post('alamat_lengkap'),
+            'desa' => $this->input->post('desa'),
+            'kec' => $this->input->post('kec'),
+            'kab' => $this->input->post('kab'),
+            'prov' => $this->input->post('prov'),
+            'pos' => $this->input->post('pos'),
+            'dlm_klrg' => $this->input->post('dlm_klrg'),
+            'ank_ke' => $this->input->post('ank_ke'),
+            'sdr' => $this->input->post('sdr'),
+        );
+        $this->Mperson->edit_santri(array('id_person' => $id), $data);
+        $p = array('i' => $id);
+        echo json_encode($p);
+    }
+
+    public function edit_santri_v2()
+    {
+        $id = $this->input->post('o');
+        $id_a = $this->input->post('a');
+        $id_i = $this->input->post('i');
+        $tgl_a = $this->input->post('tanggal_lahir_a');
+        $bln_a = $this->input->post('bulan_lahir_a');
+        $thn_a = $this->input->post('tahun_lahir_a');
+        $tgl_lahir_a = $thn_a . '-' . $bln_a . '-' . $tgl_a;
+        $tgl_i = $this->input->post('tanggal_lahir_i');
+        $bln_i = $this->input->post('bulan_lahir_i');
+        $thn_i = $this->input->post('tahun_lahir_i');
+        $tgl_lahir_i = $thn_i . '-' . $bln_i . '-' . $tgl_i;
+        $data1 = array(
+            'nik_a' => $this->input->post('nik_a'),
+            'nm_a' => $this->input->post('nm_a'),
+            'tgl_lahir_a' => $tgl_lahir_a,
+            'pndkn_a' => $this->input->post('pndkn_a'),
+            'pkrjn_a' => $this->input->post('pkrjn_a'),
+            'nik_i' => $this->input->post('nik_i'),
+            'nm_i' => $this->input->post('nm_i'),
+            'tgl_lahir_i' => $tgl_lahir_i,
+            'pndkn_i' => $this->input->post('pndkn_i'),
+            'pkrjn_i' => $this->input->post('pkrjn_i'),
+        );
+        $this->Mperson->simpan_ortu(array('id_person' => $id), $data1);
+        $data_a = array(
+            'nik_m' => $this->input->post('nik_a'),
+            'nama_mahrom' => $this->input->post('nm_a'),
+            'tanggal_lahir' => $tgl_lahir_a,
+            'alamat_mahrom' => $this->input->post('alamat_a'),
+            'hubungan' => "Ayah",
+        );
+        $this->Mperson->edit_ayah(array('id_mahrom' => $id_a), $data_a);
+        $data_i = array(
+            'nik_m' => $this->input->post('nik_i'),
+            'nama_mahrom' => $this->input->post('nm_i'),
+            'tanggal_lahir' => $tgl_lahir_i,
+            'alamat_mahrom' => $this->input->post('alamat_i'),
+            'hubungan' => "Ibu",
+        );
+        $this->Mperson->edit_ibu(array('id_mahrom' => $id_i), $data_i);
+        $p = array('i' => $id);
+        echo json_encode($p);
+    }
+
+    public function edit_santri_v3()
+    {
+        $id = $this->input->post('o');
+        $data1 = array(
+            'nik_w' =>  $this->input->post('nik_w'),
+            'nm_w' => $this->input->post('nm_w'),
+            'pndkn_w' => $this->input->post('pndkn_w'),
+            'pkrjn_w' => $this->input->post('pkrjn_w'),
+            'hp_w' => $this->input->post('hp_w'),
+            'telp_w' => $this->input->post('telp_w'),
+            'pndptn_w' => $this->input->post('pndptn_w'),
+            'almt_w' => $this->input->post('almt_w'),
+            'pos_w' => $this->input->post('pos_w'),
+            'desa_w' => $this->input->post('desa_w'),
+            'kec_w' => $this->input->post('kec_w'),
+            'kab_w' => $this->input->post('kab_w'),
+            'prov_w' => $this->input->post('prov_w'),
+            'pndkn' => $this->input->post('pndkn'),
+            'tgl_daftar' => date('d-m-Y H:i:s')
+        );
+        $this->Mperson->simpan_ortu(array('id_person' => $id), $data1);
+        $p = array('i' => $id);
+        echo json_encode($p);
+    }
+
+    public function edit_santri_v4()
+    {
+        $id = $this->input->post('history');
+        $data = array(
+            'id_kamar' => $this->input->post('kamar'),
+            'tgl_penetapan' => $this->input->post('tgl_penetapan'),
+            'aktif' => "Ya"
+        );
+        $this->Mperson->edit_penempatan(array('id_history' => $id), $data);
+        $pesan = "ya";
+        $sukses = "Data Berhasil Diedit";
+        $output = array(
+            'pesan' => $pesan,
+            'sukses' => $sukses
+        );
+        echo json_encode($output);
+    }
+
+    //  Fitur upload berkas
+    public function berkas()
+    {
+        $id = $this->input->post('idperson');
+        $data = $this->Mperson->santri_id($id);
+        $this->load->view('menu_person/berkas', $data);
+    }
+
+    public function simpan_berkas()
+    {
+        $config['upload_path'] = '../gambar/foto/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['encrypt_name'] = TRUE;
+
+        $this->load->library('upload', $config);
+        if ($this->upload->do_upload("foto")) {
+            $data = array('upload_data' => $this->upload->data());
+
+            $id_santri = $this->input->post('idperson');
+            $image = $data['upload_data']['file_name'];
+            $data_update = array('foto_warna_santri' =>  $image,);
+
+            $result = $this->Mperson->simpan_upload_berkas(array('id_person' => $id_santri), $data_update);
+            echo json_encode($result);
+        }
+    }
+
+    public function simpan_berkas_foto_wl()
+    {
+        $config['upload_path'] = '../gambar/wali/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['encrypt_name'] = TRUE;
+
+        $this->load->library('upload', $config);
+        if ($this->upload->do_upload("wali")) {
+            $data = array('upload_data' => $this->upload->data());
+
+            $id_santri = $this->input->post('idperson');
+            $image = $data['upload_data']['file_name'];
+            $data_update = array('foto_wali_santri_warna' => $image,);
+
+            $result = $this->Mperson->simpan_upload_berkas(array('id_person' => $id_santri), $data_update);
+            echo json_encode($result);
+        }
+    }
+
+    public function simpan_berkas_kk()
+    {
+        $config['upload_path'] = '../gambar/kk/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['encrypt_name'] = TRUE;
+
+        $this->load->library('upload', $config);
+        if ($this->upload->do_upload("kk")) {
+            $data = array('upload_data' => $this->upload->data());
+
+            $id_santri = $this->input->post('idperson');
+            $image = $data['upload_data']['file_name'];
+            $data_update = array('foto_scan_kk' => $image,);
+
+            $result = $this->Mperson->simpan_upload_berkas(array('id_person' => $id_santri), $data_update);
+            echo json_encode($result);
+        }
+    }
+
+    public function simpan_berkas_akta()
+    {
+        $config['upload_path'] = '../gambar/akta/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['encrypt_name'] = TRUE;
+
+        $this->load->library('upload', $config);
+        if ($this->upload->do_upload("akta")) {
+            $data = array('upload_data' => $this->upload->data());
+
+            $id_santri = $this->input->post('idperson');
+            $image = $data['upload_data']['file_name'];
+            $data_update = array('foto_scan_akta' => $image,);
+
+            $result = $this->Mperson->simpan_upload_berkas(array('id_person' => $id_santri), $data_update);
+            echo json_encode($result);
+        }
+    }
+
+    public function simpan_berkas_skck()
+    {
+        $config['upload_path'] = '../gambar/skck/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['encrypt_name'] = TRUE;
+
+        $this->load->library('upload', $config);
+        if ($this->upload->do_upload("skck")) {
+            $data = array('upload_data' => $this->upload->data());
+
+            $id_santri = $this->input->post('idperson');
+            $image = $data['upload_data']['file_name'];
+            $data_update = array('foto_scan_skck' => $image,);
+
+            $result = $this->Mperson->simpan_upload_berkas(array('id_person' => $id_santri), $data_update);
+            echo json_encode($result);
+        }
+    }
+
+    public function simpan_berkas_ket_sehat()
+    {
+        $config['upload_path'] = '../gambar/sukes/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['encrypt_name'] = TRUE;
+
+        $this->load->library('upload', $config);
+        if ($this->upload->do_upload("ket_sehat")) {
+            $data = array('upload_data' => $this->upload->data());
+
+            $id_santri = $this->input->post('idperson');
+            $image = $data['upload_data']['file_name'];
+            $data_update = array('foto_scan_ket_sehat' => $image,);
+
+            $result = $this->Mperson->simpan_upload_berkas(array('id_person' => $id_santri), $data_update);
+            echo json_encode($result);
+        }
+    }
+    // fitur download
+    public function download_foto()
+    {
+        $filename = $this->input->get('nama');
+        $fileContents = file_get_contents(site_url('../gambar/foto/' . $filename));
+        $file = $filename;
+        force_download($file, $fileContents);
+    }
+
+    public function download_wali()
+    {
+        $filename = $this->input->get('nama');
+        $fileContents = file_get_contents(site_url('../gambar/wali/' . $filename));
+        $file = $filename;
+        force_download($file, $fileContents);
+    }
+
+    public function download_kk()
+    {
+        $filename = $this->input->get('nama');
+        $fileContents = file_get_contents(site_url('../gambar/kk/' . $filename));
+        $file = $filename;
+        force_download($file, $fileContents);
+    }
+
+    public function download_akta()
+    {
+        $filename = $this->input->get('nama');
+        $fileContents = file_get_contents(site_url('../gambar/akta/' . $filename));
+        $file = $filename;
+        force_download($file, $fileContents);
+    }
+
+    public function download_skck()
+    {
+        $filename = $this->input->get('nama');
+        $fileContents = file_get_contents(site_url('../gambar/skck/' . $filename));
+        $file = $filename;
+        force_download($file, $fileContents);
+    }
+
+    public function download_sukes()
+    {
+        $filename = $this->input->get('nama');
+        $fileContents = file_get_contents(site_url('../gambar/sukes/' . $filename));
+        $file = $filename;
+        force_download($file, $fileContents);
+    }
+
+    // Fitur detail santri
+    public function detail_santri()
+    {
+        $id = $this->input->post('idperson');
+        $data = array(
+            'data' => $this->Mperson->santri_idx($id),
+            'data_alamat' => $this->Mperson->alamat_wali($id),
+            'mahrom' => $this->Mperson->data_mahrom($id),
+            'domisili' => $this->Mperson->data_domisili($id)
+        );
+        $this->load->view('menu_person/detail_santri', $data);
+    }
+
+    // Fitur print formulir Surat Pernyataan Santri dan Wali
+    public function print_santri()
+    {
+        $id = $this->input->post('idperson');
+        $data = array(
+            'data' => $this->Mperson->santri_idx($id)
+        );
+        $this->load->view('menu_person/print', $data);
+    }
+
+    public function cetak()
+    {
+        $id = $this->input->get('id');
+        $data = array(
+            'data' => $this->Mperson->santri_idx($id),
+            'data_alamat' => $this->Mperson->alamat_wali($id)
+        );
+        $this->load->view('menu_person/cetak_formulir', $data);
+    }
+
+    public function cetak_p()
+    {
+        $id = $this->input->get('id');
+        $data = array(
+            'data' => $this->Mperson->santri_idx($id)
+        );
+        $this->load->view('menu_person/pernyataan_santri', $data);
+    }
+
+    public function cetak_ws()
+    {
+        $id = $this->input->get('id');
+        $data = array(
+            'data' => $this->Mperson->santri_idx($id),
+            'data_alamat' => $this->Mperson->alamat_wali($id)
+        );
+        $this->load->view('menu_person/pernyataan_wali', $data);
+    }
+
+    // Fitur tambah Mahrom
+    public function form_tambah_mahrom()
+    {
+        $id = $this->input->post('idperson');
+        $data = array(
+            'santri' => $this->Mperson->santri_id($id),
+            'mahrom' => $this->Mperson->data_mahrom($id),
+        );
+        $this->load->view('menu_mahrom/mahrom_tambah', $data);
+    }
+
+    public function simpan_detail_mahrom()
+    {
+        $data1 = array(
+            'nik_m' => $this->input->post('nik'),
+            'nama_mahrom' => $this->input->post('nama'),
+            'hubungan' => $this->input->post('hubungan'),
+            'alamat_mahrom' => $this->input->post('alamat'),
+            'tanggal_lahir' => $this->input->post('tanggal')
+        );
+        $last_id = $this->Mperson->simpan_data_mahrom($data1);
+        $data2 = array(
+            'id_person' => $this->input->post('id_person'),
+            'id_mahrom' => $last_id
+        );
+        $this->Mperson->simpan_detail_mahrom($data2);
+        $pesan = "ya";
+        $output = array(
+            'pesan' => $pesan
+        );
+        echo json_encode($output);
+    }
+}
