@@ -78,9 +78,9 @@
 										<button type="button" class="btn btn-sm btn-primary" title="Upload" onclick="berkas('<?= $value->id_person ?>')">
 											<i class="fas fa-image"></i>
 										</button>
-										<button type="button" class="btn btn-sm btn-success" title="Mahrom" onclick="form_tambah_mahrom('<?= $value->id_person ?>')">
+										<!-- <button type="button" class="btn btn-sm btn-success" title="Mahrom" onclick="form_tambah_mahrom('<?= $value->id_person ?>')">
 											<i class="fas fa-users"></i>
-										</button>
+										</button> -->
 										<button type="button" class="btn btn-sm btn-secondary" title="Cetak" onclick="print_santri('<?= $value->id_person ?>')">
 											<i class="fas fa-print"></i>
 										</button>
