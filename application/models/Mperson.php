@@ -76,7 +76,7 @@ class Mperson extends CI_Model
         return $query->result();
     }
 
-    public function simpan_ortu($id, $data1)
+    public function simpan_santri_v2($id, $data1)
     {
         $this->db->update('tb_person', $data1, $id);
     }
