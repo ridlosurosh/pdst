@@ -1,7 +1,15 @@
 <?php
 $namaBulan = array("", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember");
-$waktu_a = explode("-", $ayah->tanggal_lahir);
-$waktu_i = explode("-", $ibu->tanggal_lahir);
+if (empty($ayah->tanggal_lahir)) {
+   $waktu_a = "ko";
+} else {
+    $waktu_a =  explode("-", $ayah->tanggal_lahir);
+}
+if (empty($ibu->tanggal_lahir)) {
+    $waktu_i = "ko";
+ } else {
+     $waktu_i = explode("-", $ibu->tanggal_lahir);
+ }
 ?>
 <section class="content-header">
     <div class="container-fluid">
@@ -24,13 +32,13 @@ $waktu_i = explode("-", $ibu->tanggal_lahir);
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">NIK AYAH</label>
-                                        <input type="number" name="nik_a" class="form-control" value="<?= $ayah->nik_m ?>" autocomplete="off">
+                                        <input type="number" name="nik_a" class="form-control" value="<?= empty($ayah->nik_m) ? "--" : $ayah->nik_m ?>" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="col-md-9">
                                     <div class="form-group">
                                         <label for="">NAMA AYAH</label>
-                                        <input type="text" class="form-control" name="nm_a" value="<?= $ayah->nama_mahrom ?>" autocomplete="off">
+                                        <input type="text" class="form-control" name="nm_a" value="<?= empty($ayah->nama_mahrom) ? "--" : $ayah->nama_mahrom ?>" autocomplete="off">
                                     </div>
                                 </div>
                             </div>
@@ -175,7 +183,7 @@ $waktu_i = explode("-", $ibu->tanggal_lahir);
                                 <div class="col-md-9">
                                     <div class="form-group">
                                         <label for="">ALAMAT LENGKAP AYAH SESUAI KTP</label>
-                                        <textarea name="alamat_a" id="" class="form-control"><?= $ayah->alamat_mahrom ?></textarea>
+                                        <textarea name="alamat_a" id="" class="form-control"><?= empty($ayah->alamat_mahrom) ? "--" : $ayah->alamat_mahrom ?></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -388,13 +396,13 @@ $waktu_i = explode("-", $ibu->tanggal_lahir);
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">NIK IBU</label>
-                                        <input type="number" name="nik_i" class="form-control" value="<?= $ibu->nik_m ?>" autocomplete="off">
+                                        <input type="number" name="nik_i" class="form-control" value="<?= empty($ibu->nik_m) ? "--" : $ibu->nik_m ?>" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="col-md-9">
                                     <div class="form-group">
                                         <label for="">NAMA IBU</label>
-                                        <input type="text" class="form-control" name="nm_i" value="<?= $ibu->nama_mahrom ?>" autocomplete="off">
+                                        <input type="text" class="form-control" name="nm_i" value="<?= empty($ibu->nama_mahrom) ? "--" : $ibu->nama_mahrom ?>" autocomplete="off">
                                     </div>
                                 </div>
                             </div>
@@ -539,7 +547,7 @@ $waktu_i = explode("-", $ibu->tanggal_lahir);
                                 <div class="col-md-9">
                                     <div class="form-group">
                                         <label for="">ALAMAT LENGKAP IBU SESUAI KTP</label>
-                                        <textarea name="alamat_i" class="form-control"><?= $ibu->alamat_mahrom ?></textarea>
+                                        <textarea name="alamat_i" class="form-control"><?= empty($ibu->alamat_mahrom) ? "--" : $ibu->alamat_mahrom ?></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -762,8 +770,8 @@ $waktu_i = explode("-", $ibu->tanggal_lahir);
                                 </div>
                             </div>
                             <input type="hidden" name="o" value="<?= $santri->id_person ?>">
-                            <input type="hidden" name="a" value="<?= $ayah->id_mahrom ?>">
-                            <input type="hidden" name="i" value="<?= $ibu->id_mahrom ?>">
+                            <input type="hidden" name="a" value="<?= empty($ayah->id_mahrom) ? "0" : $ayah->id_mahrom ?>">
+                            <input type="hidden" name="i" value="<?= empty($ibu->id_mahrom) ? "0" : $ibu->id_mahrom ?>">
                         </div>
                         <div class="card-footer">
                             <button type="button" class="btn btn-danger" onclick="menu_santri()"><i class="fas fa-reply"></i> Kembali Ke Data Santri</button>
