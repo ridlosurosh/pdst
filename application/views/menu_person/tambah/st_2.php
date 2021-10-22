@@ -24,7 +24,7 @@ $waktu_i = explode("-", $ibu->tanggal_lahir);
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">NIK AYAH</label>
-                                        <input type="number" name="nik_a" class="form-control" value="<?= $ayah->nik ?>" autocomplete="off">
+                                        <input type="number" name="nik_a" class="form-control" value="<?= $ayah->nik_m ?>" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="col-md-9">
@@ -388,7 +388,7 @@ $waktu_i = explode("-", $ibu->tanggal_lahir);
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">NIK IBU</label>
-                                        <input type="number" name="nik_i" class="form-control" value="<?= $ibu->nik ?>" autocomplete="off">
+                                        <input type="number" name="nik_i" class="form-control" value="<?= $ibu->nik_m ?>" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="col-md-9">
