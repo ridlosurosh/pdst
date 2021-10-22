@@ -130,11 +130,59 @@ class Mperson extends CI_Model
         return $query->row();
     }
 
-    // fitur upload berkas
-    public function simpan_upload_berkas($id, $data)
+    // fitur upload berkas foto santri
+    public function upload_foto_santri($idperson, $data, $id)
     {
-        return $this->db->update('tb_person', $data, $id);
+        $this->db->where('id_person', $id);
+        $query = $this->db->get('tb_person')->row();
+        unlink('../gambar/foto/' . $query->foto_warna_santri);
+        $this->db->update('tb_person', $data, $idperson);
     }
+
+     // fitur upload berkas foto wali santri
+     public function upload_foto_wali($idperson, $data, $id)
+     {
+        $this->db->where('id_person', $id);
+        $query = $this->db->get('tb_person')->row();
+         unlink('../gambar/wali/' . $query->foto_wali_santri_warna);
+         $this->db->update('tb_person', $data, $idperson);
+     }
+
+     // fitur upload berkas foto scan kk
+     public function upload_foto_kk($idperson, $data, $id)
+     {
+        $this->db->where('id_person', $id);
+        $query = $this->db->get('tb_person')->row();
+         unlink('../gambar/kk/' . $query->foto_scan_kk);
+         $this->db->update('tb_person', $data, $idperson);
+     }
+
+      // fitur upload berkas foto scan akata
+      public function upload_foto_akta($idperson, $data, $id)
+      {
+         $this->db->where('id_person', $id);
+         $query = $this->db->get('tb_person')->row();
+          unlink('../gambar/akta/' . $query->foto_scan_akta);
+          $this->db->update('tb_person', $data, $idperson);
+      }
+
+       // fitur upload berkas foto scan skck
+       public function upload_foto_skck($idperson, $data, $id)
+       {
+          $this->db->where('id_person', $id);
+          $query = $this->db->get('tb_person')->row();
+           unlink('../gambar/skck/' . $query->foto_scan_skck);
+           $this->db->update('tb_person', $data, $idperson);
+       }
+
+        // fitur upload berkas foto scan kec
+        public function upload_foto_kec($idperson, $data, $id)
+        {
+           $this->db->where('id_person', $id);
+           $query = $this->db->get('tb_person')->row();
+            unlink('../gambar/sukes/' . $query->foto_scan_ket_sehat);
+            $this->db->update('tb_person', $data, $idperson);
+        }
 
     // fitur tambah mahrom
     public function simpan_data_mahrom($data1)
