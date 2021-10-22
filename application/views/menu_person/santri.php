@@ -139,8 +139,20 @@
 	});
 
 	function tambah_santri() {
-		$.post('<?= site_url('Cperson/tambah_santri_1') ?>', function(Res) {
-			$('#ini_isinya').html(Res);
+		$.ajax({
+			url: "<?= site_url('Cperson/simpan_santri') ?>",
+			data: $('#tambah_santri').serialize(),
+			type: 'POST',
+			dataType: 'JSON',
+			success: function(data) {
+				var o = data.i;
+				$.post('<?= site_url('Cperson/tambah_santri_1') ?>', {
+					o: o
+				}, function(Res) {
+
+					$('#ini_isinya').html(Res);
+				});
+			}
 		});
 	}
 
