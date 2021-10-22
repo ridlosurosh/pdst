@@ -11,7 +11,7 @@
 	<div class="col-sm-3"></div>
 	<div class="contianer-fluid">
 		<div class="card">
-			<div class="card-header p-1">
+			<!-- <div class="card-header p-1">
 				<div class="row">
 					<div class="col-sm-3">
 						<select name="" id="tahun" class="form-control">
@@ -35,7 +35,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 			<div class="card-body p-1">
 				<h3 class="card-title"><a class="btn btn-block btn-sm bg-teal btn-circle" id="tambah_santri" href="#" onclick="tambah_santri()"><i class="fas fa-plus "></i> Tambah Data</a></h3>
 				<table id="example1" class="table">
