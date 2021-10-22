@@ -21,7 +21,9 @@ class Cperson extends CI_Controller
     // Fitur tambah santri
     public function tambah_santri_1()
     {
+        $id = $this->input->post('o');
         $output = array(
+            'santri' => $this->Mperson->santri_terakhir($id),
             'provinsi' => $this->Mperson->get_provinsi()->result()
         );
         $this->load->view('menu_person/tambah/santri_tambah', $output);
@@ -86,8 +88,64 @@ class Cperson extends CI_Controller
     }
 
     // Fitur Simpan
+    public function simpan_santri()
+    {
+        $data = array(
+            'niup' => "",
+            'nik' => "",
+            'nama' => "",
+            'tempat_lahir' => "",
+            'tanggal_lahir' => "",
+            'jenis_kelamin' => "",
+            'dlm_klrg' => "",
+            'ank_ke' => "",
+            'sdr' => "",
+            'alamat_lengkap' => "",
+            'desa' => "",
+            'kec' => "",
+            'kab' => "",
+            'prov' => "",
+            'pos' => "",
+            'pndkn' => "",
+            'nik_a' => "",
+            'nm_a' => "",
+            'tgl_lahir_a' => "",
+            'pndkn_a' => "",
+            'pkrjn_a' => "",
+            'nik_i' => "",
+            'nm_i' => "",
+            'tgl_lahir_i' => "",
+            'pndkn_i' => "",
+            'pkrjn_i' => "",
+            'nik_w' => "",
+            'nm_w' => "",
+            'pndkn_w' => "",
+            'pkrjn_w' => "",
+            'pndptn_w' => "",
+            'almt_w' => "",
+            'desa_w' => "",
+            'kec_w' => "",
+            'kab_w' => "",
+            'prov_w' => "",
+            'pos_w' => "",
+            'hp_w' => "",
+            'telp_w' => "",
+            'foto_warna_santri' => "",
+            'foto_wali_santri_warna' => "",
+            'foto_scan_kk' => "",
+            'foto_scan_akta' => "",
+            'foto_scan_skck' => "",
+            'foto_scan_ket_sehat' => "",
+            'status' => "",
+            'tgl_daftar' => "",
+        );
+        $i = $this->Mperson->simpan($data);
+        $p = array('i' => $i);
+        echo json_encode($p);
+    }
     public function simpan_santri_v1()
     {
+        $id = $this->input->post('o');
         $santri_terakhir = $this->Mperson->santri_terakhir_diinput();
         $countsantri_terakhir = $santri_terakhir[0]->jumlah;
 
@@ -96,7 +154,7 @@ class Cperson extends CI_Controller
         } else {
             $kode = '0000';
             $panjang = 4 - strlen($countsantri_terakhir);
-            $countsantri_terakhir++;
+            // $countsantri_terakhir++;
             $nomor_induk_baru = substr($kode, 0, $panjang) . $countsantri_terakhir;
         }
         $niupnya = $nomor_induk_baru;
@@ -112,7 +170,7 @@ class Cperson extends CI_Controller
         }
 
         $tgl_lahir = $thn . '-' . $bulan . '-' . $t_l;
-        $data = array(
+        $data1 = array(
             'nik' => $this->input->post('nik'),
             'niup' => $kode_awal . $thn_daftar . $tgl . $niupnya,
             'nama' => $this->input->post('nama'),
@@ -136,8 +194,8 @@ class Cperson extends CI_Controller
             'pkrjn_w' => "0",
             'pndptn_w' => "0",
         );
-        $i = $this->Mperson->simpan($data);
-        $p = array('i' => $i);
+        $this->Mperson->simpan_santri_v2(array('id_person' => $id), $data1);
+        $p = array('i' => $id);
         echo json_encode($p);
     }
 
@@ -164,7 +222,7 @@ class Cperson extends CI_Controller
             'pndkn_i' => $this->input->post('pndkn_i'),
             'pkrjn_i' => $this->input->post('pkrjn_i'),
         );
-        $this->Mperson->simpan_ortu(array('id_person' => $id), $data1);
+        $this->Mperson->simpan_santri_v2(array('id_person' => $id), $data1);
         $data_a = array(
             'nik_m' => $this->input->post('nik_a'),
             'nama_mahrom' => $this->input->post('nm_a'),
@@ -214,7 +272,7 @@ class Cperson extends CI_Controller
             'prov_w' => $this->input->post('prov_w'),
             'pndkn' => $this->input->post('pndkn')
         );
-        $this->Mperson->simpan_ortu(array('id_person' => $id), $data1);
+        $this->Mperson->simpan_santri_v2(array('id_person' => $id), $data1);
         $p = array('i' => $id);
         echo json_encode($p);
     }
