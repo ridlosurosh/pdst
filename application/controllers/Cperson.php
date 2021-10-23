@@ -36,7 +36,7 @@ class Cperson extends CI_Controller
             'santri' => $this->Mperson->santri_terakhir($id),
             'provinsi' => $this->Mperson->get_provinsi()->result()
         );
-        $this->load->view('menu_person/tambah/st_1', $data);
+        $this->load->view('menu_person/tambah/santri_tambah', $data);
     }
 
     public function tambah_santri_2()
@@ -186,13 +186,6 @@ class Cperson extends CI_Controller
             'dlm_klrg' => $this->input->post('dlm_klrg'),
             'ank_ke' => $this->input->post('ank_ke'),
             'sdr' => $this->input->post('sdr'),
-            'pndkn_a' => "0",
-            'pkrjn_a' => "0",
-            'pndkn_i' => "0",
-            'pkrjn_i' => "0",
-            'pndkn_w' => "0",
-            'pkrjn_w' => "0",
-            'pndptn_w' => "0",
         );
         $this->Mperson->simpan_santri_v2(array('id_person' => $id), $data1);
         $p = array('i' => $id);
@@ -519,7 +512,7 @@ class Cperson extends CI_Controller
             );
             $this->Mperson->upload_foto_santri(array('id_person' => $idperson), $data, $id);
         }
-        
+
         $configr['upload_path'] = '../gambar/wali/';
         $configr['allowed_types'] = 'gif|jpg|png';
         $configr['encrypt_name'] = TRUE;
@@ -604,10 +597,9 @@ class Cperson extends CI_Controller
             );
             $this->Mperson->upload_foto_skck(array('id_person' => $idperson), $data, $id);
         }
-
     }
 
-   
+
     // fitur download
     public function download_foto()
     {
