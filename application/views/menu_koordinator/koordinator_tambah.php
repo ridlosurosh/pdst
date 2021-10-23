@@ -1,3 +1,20 @@
+<style>
+#toggle{
+    position: absolute;
+    top: 320px;
+    right: 20px;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    background: url(plugin/dist/img/show.png);
+    background-size: cover;
+    cursor: pointer;
+}
+#toggle.hide{
+    background: url(plugin/dist/img/hide.png);
+    background-size: cover;
+}
+</style>
 <section class="content-header">
 	<div class="container-fluid">
 		<div class="row mb-2">
@@ -21,12 +38,8 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										<label class="col-form-label" for="nama_pengajar">Pilih Nama Pengurus</label>
-										<input type="text" class="form-control" name="nama_pengajar" id="nama_santri" placeholder="nama" style="width: 100%;">
+										<input type="text" class="form-control" name="nama_pengajar" id="nama_santri" placeholder="nama" style="width: 100%;" autocomplete="off">
 										<input type="hidden" name="idperson" id="idperson">
-									</div>
-									<div class="form-group">
-										<label class="col-form-label" for="alamat">NIUP</label>
-										<input type="text" class="form-control" name="niup" id="alamat" placeholder="0000000000000000" readonly>
 									</div>
 									<div class="form-group">
 										<label for="jabatan" class="col-form-label">Jabatan</label>
@@ -67,8 +80,23 @@
 									</div>
 									<div class="form-group">
 										<label for="pass" class="col-form-label">Password</label>
-										<input type="password" class="form-control" name="pass" id="pass">
+										<input type="password" class="form-control" name="pass" id="password">
+										<div id="toggle" onclick="showHide();"></div>
 									</div>
+									<script>
+										 var password = document.getElementById('password');
+										var toggle = document.getElementById('toggle');
+										
+										function showHide(){
+											if(password.type === 'password'){
+												password.setAttribute('type', 'text');
+												toggle.classList.add('hide')
+											} else{
+												password.setAttribute('type', 'password');
+												toggle.classList.remove('hide')
+											}
+										}
+									</script>
 								</div>
 							</div>
 
@@ -87,41 +115,51 @@
 	$(function() {
 		$('#reservation').daterangepicker();
 
-		UI_santri();
-		$('#nama_santri').focus();
+		$('#nama_santri').on('input', function() {
+            UI_Nama_Santri();
+            $("#namanya").val("");
+        });
 		var i = $('#reservation').val();
-		// alert(i);
 	});
 
 
-	function UI_santri() {
-		var options = {
-			url: "<?= site_url('Ckoordinator/otomatis_santri'); ?>",
-			getValue: "nama",
-			list: {
-				match: {
-					enabled: true
-				},
-				onKeyEnterEvent: function() {
-					var id = $("#nama_santri").getSelectedItemData().id_person;
-					$("#idperson").val(id).trigger("change");
-					var alamat = $("#nama_santri").getSelectedItemData().niup;
-					$("#alamat").val(alamat).trigger("change");
-					var nama = $("#nama_santri").getSelectedItemData().nama;
-					$("#namanya").val(nama).trigger("change");
-				},
-				onClickEvent: function() {
-					var id = $("#nama_santri").getSelectedItemData().id_person;
-					$("#idperson").val(id).trigger("change");
-					var alamat = $("#nama_santri").getSelectedItemData().niup;
-					$("#alamat").val(alamat).trigger("change");
-					var nama = $("#nama_santri").getSelectedItemData().nama;
-					$("#namanya").val(nama).trigger("change");
-				}
-			}
-		};
-		$("#nama_santri").easyAutocomplete(options);
-	}
+	function UI_Nama_Santri() {
+        $('#nama_santri').autocomplete({
+            minLength: 1,
+            autoFocus: true,
+            source: function(req, res) {
+                $.ajax({
+                    url: "<?= site_url('Ckoordinator/ui_nama_santri') ?>",
+                    data: {
+                        cari: $('#nama_santri').val()
+                    },
+                    dataType: 'json',
+                    type: "POST",
+                    success: function(data) {
+                        res(data);
+                    }
+                });
+            },
+            select: function(event, ui) {
+                if (ui.item.sukses === true) {
+                    $('#idperson').val(ui.item.id_person);
+                    $('#nama_santri').val(ui.item.nama);
+                    $('#namanya').val(ui.item.nama);
+                    return false;
+                } else {
+                    return false;
+                }
+            },
+            create: function() {
+                $(this).data('ui-autocomplete')._renderItem = function(ul, item) {
+                    return $("<li></li>")
+                        .data("item.autocomplete", item)
+                        .append("<a class='nav-link active'><strong>" + item.nama + "</strong> <br/><small>Niup : " + item.niup + "</small></a>")
+                        .appendTo(ul);
+                };
+            }
+        });
+    }
 
 	$('#angkat').on('change', function() {
 		var ll = $(this).val();
