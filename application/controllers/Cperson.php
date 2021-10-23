@@ -42,7 +42,11 @@ class Cperson extends CI_Controller
     public function tambah_santri_2()
     {
         $id = $this->input->post('o');
-        $data = array('santri' => $this->Mperson->santri_terakhir($id));
+        $data = array(
+            'santri' => $this->Mperson->santri_terakhir($id),
+            'ayah' => $this->Mperson->data_mahrom_a($id),
+            'ibu' => $this->Mperson->data_mahrom_i($id)
+        );
         $this->load->view('menu_person/tambah/santri_tambah_v2', $data);
     }
 
@@ -54,6 +58,7 @@ class Cperson extends CI_Controller
             'ayah' => $this->Mperson->data_mahrom_a($id),
             'ibu' => $this->Mperson->data_mahrom_i($id)
         );
+
         $this->load->view('menu_person/tambah/st_2', $data);
     }
 
