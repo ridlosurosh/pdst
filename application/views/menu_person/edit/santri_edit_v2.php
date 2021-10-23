@@ -1,15 +1,15 @@
 <?php
 $namaBulan = array("", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember");
 if (empty($ayah->tanggal_lahir)) {
-   $waktu_a = "ko";
+    $waktu_a = "ko";
 } else {
     $waktu_a =  explode("-", $ayah->tanggal_lahir);
 }
 if (empty($ibu->tanggal_lahir)) {
     $waktu_i = "ko";
- } else {
-     $waktu_i = explode("-", $ibu->tanggal_lahir);
- }
+} else {
+    $waktu_i = explode("-", $ibu->tanggal_lahir);
+}
 ?>
 <section class="content-header">
     <div class="container-fluid">
