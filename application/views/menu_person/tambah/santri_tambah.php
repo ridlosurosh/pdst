@@ -31,10 +31,10 @@ $waktu = explode("-", $santri->tanggal_lahir);
         </div>
     </div>
 </section>
-<input type="hidden" name="prov" id="prov" value="<?= $prov ?>">
-<input type="hidden" name="kabi" id="kab" value="<?= $kab ?>">
-<input type="hidden" name="kec" id="kec" value="<?= $kec ?>">
-<input type="hidden" name="desa" id="des" value="<?= $desa ?>">
+<input type="text" name="prov" id="prov" value="<?= $prov ?>">
+<input type="text" name="kabi" id="kab" value="<?= $kab ?>">
+<input type="text" name="kec" id="kec" value="<?= $kec ?>">
+<input type="text" name="desa" id="des" value="<?= $desa ?>">
 <section class="content">
     <div class="container-fluid">
         <div class="row">
@@ -357,7 +357,7 @@ $waktu = explode("-", $santri->tanggal_lahir);
                                                         url: "<?php echo site_url('Cperson/get_kecamatan'); ?>",
                                                         method: "POST",
                                                         data: {
-                                                            id: id
+                                                            id: kabupaten
                                                         },
                                                         async: true,
                                                         dataType: 'json',
@@ -423,7 +423,7 @@ $waktu = explode("-", $santri->tanggal_lahir);
                                                         url: "<?php echo site_url('Cperson/get_desa'); ?>",
                                                         method: "POST",
                                                         data: {
-                                                            id: id
+                                                            id: kecamatan
                                                         },
                                                         async: true,
                                                         dataType: 'json',
@@ -451,7 +451,7 @@ $waktu = explode("-", $santri->tanggal_lahir);
                             </div>
                         </div>
                         <div class="card-footer">
-                            <!-- <button class="btn btn-danger"><i class="fas fa-times"></i> Batal</button> -->
+                            <button class="btn btn-danger"><i class="fas fa-times"></i> Batal</button>
                             <button class="btn btn-info float-right">Simpan dan Lanjut <i class="fas fa-arrow-right"></i></button>
                         </div>
                     </div>
