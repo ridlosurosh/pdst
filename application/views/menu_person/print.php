@@ -5,9 +5,15 @@
             <div class="col-md-10 offset-1">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="text-danger"><b><?= $data->nama ?></b></h4>
-                        <h4>[<?= $data->niup ?>]</h4>
+                        <div class="card-title">
+                            <h4 class="text-danger"><b><?= $data->nama ?></b></h4>
+                            <h4>[<?= $data->niup ?>]</h4>
+                        </div>
+                        <div class="card-tools">
+                            <button onclick= "menu_santri()" class="btn bg-danger"> <i class="fa fa-reply"> </i> Kembali </button>
+                        </div>
                     </div>
+                    
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6 offset-3">
