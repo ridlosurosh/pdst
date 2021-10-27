@@ -1,3 +1,20 @@
+<style>
+#toggle{
+    position: absolute;
+    top: 320px;
+    right: 20px;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    background: url(plugin/dist/img/show.png);
+    background-size: cover;
+    cursor: pointer;
+}
+#toggle.hide{
+    background: url(plugin/dist/img/hide.png);
+    background-size: cover;
+}
+</style>
 <section class="content-header">
 	<div class="container-fluid">
 		<div class="row mb-2">
@@ -28,10 +45,6 @@
 										<label class="col-form-label" for="nama_pengajar">Pilih Nama Pengurus</label>
 										<input type="text" class="form-control" name="nama_pengajar" id="nama_santri" value="<?= $pengurus->nama ?>" readonly>
 										<input type="hidden" name="idperson" id="idperson" value="<?= $pengurus->id_person ?>">
-									</div>
-									<div class="form-group">
-										<label class="col-form-label" for="alamat">NIUP</label>
-										<input type="text" class="form-control" name="niup" id="alamat" value="<?= $pengurus->niup ?>" readonly>
 									</div>
 									<div class="form-group">
 										<label for="jabatan" class="col-form-label">Jabatan</label>
@@ -74,8 +87,23 @@
 									</div>
 									<div class="form-group">
 										<label for="pass" class="col-form-label">Password</label>
-										<input type="password" class="form-control" name="pass" id="pass" value="<?= $akun->password ?>">
+										<input type="password" class="form-control" name="pass" id="password" value="<?=  $akun->password ?>">
+										<div id="toggle" onclick="showHide();"></div>
 									</div>
+									<script>
+										 var password = document.getElementById('password');
+										var toggle = document.getElementById('toggle');
+										
+										function showHide(){
+											if(password.type === 'password'){
+												password.setAttribute('type', 'text');
+												toggle.classList.add('hide')
+											} else{
+												password.setAttribute('type', 'password');
+												toggle.classList.remove('hide')
+											}
+										}
+									</script>
 								</div>
 							</div>
 						</form>
