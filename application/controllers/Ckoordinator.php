@@ -9,6 +9,7 @@ class Ckoordinator extends CI_Controller
         parent::__construct();
         $this->load->model('Mkoordinator');
         $this->load->model('Mperson');
+        $this->load->library('encryption');
     }
 
     public function menu_koordinator()
@@ -25,20 +26,31 @@ class Ckoordinator extends CI_Controller
         $this->load->view('menu_koordinator/koordinator_tambah', $output);
     }
 
-    public function otomatis_santri()
+    public function ui_nama_santri()
     {
-        $q = $this->Mkoordinator->otomatis_santri();
+        $cari = $this->input->post('cari');
+        $q = $this->db->from('tb_person')
+            ->order_by('nama', 'ASC')
+            ->group_start()
+            ->like('nama', $cari, 'both')
+            ->or_like('niup', $cari, 'both')
+            ->group_end()
+            ->where('status', 'aktif')
+            ->get();
         if ($q->num_rows() > 0) {
             foreach ($q->result_array() as $k) {
                 $data[] = [
+                    'sukses' => true,
                     'nama' => $k['nama'],
                     'id_person' => $k['id_person'],
-                    'niup' => $k['niup']
+                    'niup' => $k['niup'],
                 ];
             }
         } else {
             $data[] = [
-                'nama' => "Tidak ada",
+                'sukses' => false,
+                'nama' =>  '<span style="color:red">' . $cari . '</span> tidak ditemukan',
+                'niup' =>  '<span style="color:red">' . $cari . '</span> tidak ditemukan',
             ];
         }
         echo json_encode($data);
@@ -49,6 +61,7 @@ class Ckoordinator extends CI_Controller
         $angkat = $this->input->post('tanggal_diangkat');
         $berhenti = $this->input->post('tanggal_berhenti');
         $masa = $angkat . ' s/d ' . $berhenti;
+        $pass =  $this->input->post('pass');
         // $y = $this->input->post('masa_bakti');
         // $h = explode('/', $y);
         // $g = implode('-', $h);
@@ -66,7 +79,7 @@ class Ckoordinator extends CI_Controller
             'id_pengurus' => $last_id,
             'nama' => $this->input->post('nama'),
             'username' => $this->input->post('username'),
-            'password' => $this->input->post('pass')
+            'password' => $this->encryption->encrypt($pass)
         );
         $this->Mkoordinator->simpan_akun($data2);
         $pesan = "ya";
