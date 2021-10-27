@@ -25,20 +25,20 @@ if (empty($ibu->tanggal_lahir)) {
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
-                <form id="form_edit_santri_v2">
+                <form id="form_tambah_santri_v2">
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">NIK AYAH</label>
-                                        <input type="number" name="nik_a" class="form-control" value="<?= empty($ayah->nik_m) ? "--" : $ayah->nik_m ?>" autocomplete="off">
+                                        <input type="number" name="nik_a" class="form-control" value="<?= empty($ayah->nik_m) ? "" : $ayah->nik_m ?>" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="col-md-9">
                                     <div class="form-group">
                                         <label for="">NAMA AYAH</label>
-                                        <input type="text" class="form-control" name="nm_a" value="<?= empty($ayah->nama_mahrom) ? "--" : $ayah->nama_mahrom ?>" autocomplete="off">
+                                        <input type="text" class="form-control" name="nm_a" value="<?= empty($ayah->nama_mahrom) ? "" : $ayah->nama_mahrom ?>" autocomplete="off">
                                     </div>
                                 </div>
                             </div>
@@ -183,7 +183,7 @@ if (empty($ibu->tanggal_lahir)) {
                                 <div class="col-md-9">
                                     <div class="form-group">
                                         <label for="">ALAMAT LENGKAP AYAH SESUAI KTP</label>
-                                        <textarea name="alamat_a" id="" class="form-control"><?= empty($ayah->alamat_mahrom) ? "--" : $ayah->alamat_mahrom ?></textarea>
+                                        <textarea name="alamat_a" id="" class="form-control"><?= empty($ayah->alamat_mahrom) ? "" : $ayah->alamat_mahrom ?></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -396,13 +396,13 @@ if (empty($ibu->tanggal_lahir)) {
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">NIK IBU</label>
-                                        <input type="number" name="nik_i" class="form-control" value="<?= empty($ibu->nik_m) ? "--" : $ibu->nik_m ?>" autocomplete="off">
+                                        <input type="number" name="nik_i" class="form-control" value="<?= empty($ibu->nik_m) ? "" : $ibu->nik_m ?>" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="col-md-9">
                                     <div class="form-group">
                                         <label for="">NAMA IBU</label>
-                                        <input type="text" class="form-control" name="nm_i" value="<?= empty($ibu->nama_mahrom) ? "--" : $ibu->nama_mahrom ?>" autocomplete="off">
+                                        <input type="text" class="form-control" name="nm_i" value="<?= empty($ibu->nama_mahrom) ? "" : $ibu->nama_mahrom ?>" autocomplete="off">
                                     </div>
                                 </div>
                             </div>
@@ -547,7 +547,7 @@ if (empty($ibu->tanggal_lahir)) {
                                 <div class="col-md-9">
                                     <div class="form-group">
                                         <label for="">ALAMAT LENGKAP IBU SESUAI KTP</label>
-                                        <textarea name="alamat_i" class="form-control"><?= empty($ibu->alamat_mahrom) ? "--" : $ibu->alamat_mahrom ?></textarea>
+                                        <textarea name="alamat_i" class="form-control"><?= empty($ibu->alamat_mahrom) ? "" : $ibu->alamat_mahrom ?></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -778,20 +778,7 @@ if (empty($ibu->tanggal_lahir)) {
                             <div class="float-right">
                                 <button type="button" onclick="kembali_lagi('<?= $santri->id_person ?>')" class="btn btn-info"><i class="fas fa-arrow-left"></i> Kembali</button>
                                 <button class="btn btn-info" id="simpan">Simpan dan Lanjut <i class="fas fa-arrow-right"></i></button>
-                                <button class="btn btn-success" id="update">Simpan dan Lanjut <i class="fas fa-arrow-right"></i></button>
                             </div>
-                            <script>
-                                $(document).ready(function() {
-                                    var mahromnya = $('#ayah').val()
-                                    if (mahromnya == 0) {
-                                        $('#update').hide()
-                                        $('#simpan').show()
-                                    } else {
-                                        $('#simpan').hide()
-                                        $('#update').show()
-                                    }
-                                })
-                            </script>
                         </div>
                     </div>
                 </form>
@@ -880,8 +867,8 @@ if (empty($ibu->tanggal_lahir)) {
         messages: {
             nik_a: {
                 required: "Tidak Boleh Kosong",
-                maxlength: "NIK lebih dari 16 digit",
-                minlength: "NIK kurang dari 16 digit"
+                maxlength: "NIK Tidak Boleh lebih dari 16 digit",
+                minlength: "NIK Tidak Boleh kurang dari 16 digit"
             },
             nm_a: {
                 required: "Tidak Boleh Kosong"
@@ -906,8 +893,8 @@ if (empty($ibu->tanggal_lahir)) {
             },
             nik_i: {
                 required: "Tidak Boleh Kosong",
-                maxlength: "NIK lebih dari 16 digit",
-                minlength: "NIK kurang dari 16 digit"
+                maxlength: "NIK Tidak Boleh lebih dari 16 digit",
+                minlength: "NIK Tidak Boleh kurang dari 16 digit"
             },
             nm_i: {
                 required: "Tidak Boleh Kosong"
@@ -936,9 +923,6 @@ if (empty($ibu->tanggal_lahir)) {
             error.addClass('invalid-feedback');
             element.closest('.form-group').append(error);
         },
-        // highlight: function(element, errorClass, validClass) {
-        //     $(element).addClass('is-invalid');
-        // },
         unhighlight: function(element, errorClass, validClass) {
             $(element).removeClass('is-invalid');
         },
