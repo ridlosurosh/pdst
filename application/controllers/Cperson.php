@@ -29,15 +29,7 @@ class Cperson extends CI_Controller
         $this->load->view('menu_person/tambah/santri_tambah', $output);
     }
 
-    public function st_1()
-    {
-        $id = $this->input->post('o');
-        $data = array(
-            'santri' => $this->Mperson->santri_terakhir($id),
-            'provinsi' => $this->Mperson->get_provinsi()->result()
-        );
-        $this->load->view('menu_person/tambah/santri_tambah', $data);
-    }
+
 
     public function tambah_santri_2()
     {
@@ -151,11 +143,18 @@ class Cperson extends CI_Controller
         } else {
             $kode_awal = "01";
         }
+        $nomornya = $kode_awal . $thn_daftar . $tgl . $niupnya;
+        $uu = $this->input->post('uu');
+        if ($uu == "") {
+            $niup = $nomornya;
+        } else {
+            $niup = $uu;
+        }
 
         $tgl_lahir = $thn . '-' . $bulan . '-' . $t_l;
         $data1 = array(
             'nik' => $this->input->post('nik'),
-            'niup' => $kode_awal . $thn_daftar . $tgl . $niupnya,
+            'niup' => $niup,
             'nama' => $this->input->post('nama'),
             'tempat_lahir' => $this->input->post('tempat_lahir'),
             'tanggal_lahir' => $tgl_lahir,
