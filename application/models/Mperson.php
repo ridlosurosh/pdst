@@ -72,7 +72,8 @@ class Mperson extends CI_Model
 
     public function santri_terakhir_diinput()
     {
-        $query = $this->db->query('SELECT MAX(id_person) as jumlah FROM `tb_person`');
+        // $query = $this->db->query('SELECT MAX(id_person) as jumlah FROM `tb_person`');
+        $query = $this->db->query('SELECT * FROM `tb_person` WHERE id_person IN (SELECT MAX(id_person) FROM `tb_person`)');
         return $query->result();
     }
 
