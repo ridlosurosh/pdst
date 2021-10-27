@@ -788,7 +788,7 @@ if (empty($ibu->tanggal_lahir)) {
 </section>
 <script>
     function kembali_lagi(id) {
-        $.post('<?= site_url('Cperson/st_1') ?>', {
+        $.post('<?= site_url('Cperson/tambah_santri_1') ?>', {
             o: id
         }, function(Res) {
             $('#ini_isinya').html(Res);
