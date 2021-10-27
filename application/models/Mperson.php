@@ -50,7 +50,7 @@ class Mperson extends CI_Model
     {
         $this->db->from('tb_person');
         $this->db->order_by("id_person", "desc");
-        // $this->db->where('status', 'aktif');
+        $this->db->where('status', 'aktif');
         $query = $this->db->get();
         return $query->result();
     }
@@ -73,7 +73,7 @@ class Mperson extends CI_Model
     public function santri_terakhir_diinput()
     {
         // $query = $this->db->query('SELECT MAX(id_person) as jumlah FROM `tb_person`');
-        $query = $this->db->query('SELECT * FROM `tb_person` WHERE id_person IN (SELECT MAX(id_person) FROM `tb_person`)');
+        $query = $this->db->query('SELECT COUNT(niup) AS jumlah FROM `tb_person` WHERE niup');
         return $query->result();
     }
 
