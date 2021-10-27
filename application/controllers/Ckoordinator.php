@@ -9,7 +9,6 @@ class Ckoordinator extends CI_Controller
         parent::__construct();
         $this->load->model('Mkoordinator');
         $this->load->model('Mperson');
-        $this->load->library('encryption');
     }
 
     public function menu_koordinator()
@@ -62,9 +61,6 @@ class Ckoordinator extends CI_Controller
         $berhenti = $this->input->post('tanggal_berhenti');
         $masa = $angkat . ' s/d ' . $berhenti;
         $pass =  $this->input->post('pass');
-        // $y = $this->input->post('masa_bakti');
-        // $h = explode('/', $y);
-        // $g = implode('-', $h);
 
         $data1 = array(
             'id_person' => $this->input->post('idperson'),
@@ -79,7 +75,7 @@ class Ckoordinator extends CI_Controller
             'id_pengurus' => $last_id,
             'nama' => $this->input->post('nama'),
             'username' => $this->input->post('username'),
-            'password' => $this->encryption->encrypt($pass)
+            'password' => $pass
         );
         $this->Mkoordinator->simpan_akun($data2);
         $pesan = "ya";
