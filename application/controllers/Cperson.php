@@ -137,7 +137,7 @@ class Cperson extends CI_Controller
         } else {
             $kode = '0000';
             $panjang = 4 - strlen($countsantri_terakhir);
-            // $countsantri_terakhir++;
+            $countsantri_terakhir++;
             $nomor_induk_baru = substr($kode, 0, $panjang) . $countsantri_terakhir;
         }
         $niupnya = $nomor_induk_baru;
