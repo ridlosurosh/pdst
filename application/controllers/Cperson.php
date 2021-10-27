@@ -50,18 +50,6 @@ class Cperson extends CI_Controller
         $this->load->view('menu_person/tambah/santri_tambah_v2', $data);
     }
 
-    public function st_2()
-    {
-        $id = $this->input->post('o');
-        $data = array(
-            'santri' => $this->Mperson->santri_terakhir($id),
-            'ayah' => $this->Mperson->data_mahrom_a($id),
-            'ibu' => $this->Mperson->data_mahrom_i($id)
-        );
-
-        $this->load->view('menu_person/tambah/st_2', $data);
-    }
-
     public function tambah_santri_3()
     {
         $id = $this->input->post('o');
@@ -70,16 +58,6 @@ class Cperson extends CI_Controller
             'provinsi' => $this->Mperson->get_provinsi()->result()
         );
         $this->load->view('menu_person/tambah/santri_tambah_v3', $data);
-    }
-
-    public function st_3()
-    {
-        $id = $this->input->post('o');
-        $data = array(
-            'santri' => $this->Mperson->santri_terakhir($id),
-            'provinsi' => $this->Mperson->get_provinsi()->result()
-        );
-        $this->load->view('menu_person/tambah/st_3', $data);
     }
 
     public function tambah_santri_4()
@@ -221,32 +199,57 @@ class Cperson extends CI_Controller
             'pkrjn_i' => $this->input->post('pkrjn_i'),
         );
         $this->Mperson->simpan_santri_v2(array('id_person' => $id), $data1);
-        $data_a = array(
-            'nik_m' => $this->input->post('nik_a'),
-            'nama_mahrom' => $this->input->post('nm_a'),
-            'tanggal_lahir' => $tgl_lahir_a,
-            'alamat_mahrom' => $this->input->post('alamat_a'),
-            'hubungan' => "Ayah",
-        );
-        $a = $this->Mperson->simpan_ayah($data_a);
-        $detail_a = array(
-            'id_person' => $id,
-            'id_mahrom' => $a
-        );
-        $this->Mperson->detail_ayah($detail_a);
-        $data_i = array(
-            'nik_m' => $this->input->post('nik_i'),
-            'nama_mahrom' => $this->input->post('nm_i'),
-            'tanggal_lahir' => $tgl_lahir_i,
-            'alamat_mahrom' => $this->input->post('alamat_i'),
-            'hubungan' => "Ibu",
-        );
-        $i = $this->Mperson->simpan_ibu($data_i);
-        $detail_i = array(
-            'id_person' => $id,
-            'id_mahrom' => $i
-        );
-        $this->Mperson->detail_ibu($detail_i);
+        $id_a = $this->input->post('a');
+        if ($id_a == 0) {
+            $data_a = array(
+                'nik_m' => $this->input->post('nik_a'),
+                'nama_mahrom' => $this->input->post('nm_a'),
+                'tanggal_lahir' => $tgl_lahir_a,
+                'alamat_mahrom' => $this->input->post('alamat_a'),
+                'hubungan' => "Ayah",
+            );
+            $a = $this->Mperson->simpan_ayah($data_a);
+            $detail_a = array(
+                'id_person' => $id,
+                'id_mahrom' => $a
+            );
+            $this->Mperson->detail_ayah($detail_a);
+        } else {
+            $data_a = array(
+                'nik_m' => $this->input->post('nik_a'),
+                'nama_mahrom' => $this->input->post('nm_a'),
+                'tanggal_lahir' => $tgl_lahir_a,
+                'alamat_mahrom' => $this->input->post('alamat_a'),
+                'hubungan' => "Ayah",
+            );
+            $this->Mperson->edit_ayah(array('id_mahrom' => $id_a), $data_a);
+        }
+        $id_i = $this->input->post('i');
+        if ($id_i == 0) {
+            $data_i = array(
+                'nik_m' => $this->input->post('nik_i'),
+                'nama_mahrom' => $this->input->post('nm_i'),
+                'tanggal_lahir' => $tgl_lahir_i,
+                'alamat_mahrom' => $this->input->post('alamat_i'),
+                'hubungan' => "Ibu",
+            );
+            $i = $this->Mperson->simpan_ibu($data_i);
+            $detail_i = array(
+                'id_person' => $id,
+                'id_mahrom' => $i
+            );
+            $this->Mperson->detail_ibu($detail_i);
+        } else {
+            $data_i = array(
+                'nik_m' => $this->input->post('nik_i'),
+                'nama_mahrom' => $this->input->post('nm_i'),
+                'tanggal_lahir' => $tgl_lahir_i,
+                'alamat_mahrom' => $this->input->post('alamat_i'),
+                'hubungan' => "Ibu",
+            );
+            $this->Mperson->edit_ibu(array('id_mahrom' => $id_i), $data_i);
+        }
+
         $p = array('i' => $id);
         echo json_encode($p);
     }
