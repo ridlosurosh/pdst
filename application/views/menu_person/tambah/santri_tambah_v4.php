@@ -67,7 +67,7 @@
 </section>
 <script>
     function kembali_cuk(id) {
-        $.post('<?= site_url('Cperson/st_3') ?>', {
+        $.post('<?= site_url('Cperson/tambah_santri_3') ?>', {
             o: id
         }, function(Res) {
             $('#ini_isinya').html(Res);
