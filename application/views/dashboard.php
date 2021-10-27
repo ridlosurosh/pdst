@@ -15,7 +15,7 @@ if (isset($this->session->userdata['logged_in'])) {
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="<?= site_url() ?>plugin/fontawesome-free/css/all.min.css">
 	<!-- Ekko Lightbox -->
-	<link rel="stylesheet" href="<?= site_url() ?>plugin/ekko-lightbox/ekko-lightbox.css">
+	<!-- <link rel="stylesheet" href="<?= site_url() ?>plugin/ekko-lightbox/ekko-lightbox.css"> -->
 	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 	<link rel="stylesheet" href="<?= site_url() ?>plugin/dist/css/adminlte.min.css">
 	<link rel="stylesheet" href="<?= site_url() ?>plugin/icheck-bootstrap/icheck-bootstrap.min.css">
@@ -233,7 +233,7 @@ if (isset($this->session->userdata['logged_in'])) {
 	<script src="<?= site_url() ?>plugin/jquery/jQuery.print.min.js"></script>
 	<script src="<?= site_url() ?>plugin/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<!-- Ekko Lightbox -->
-	<script src="<?= site_url() ?>plugin/ekko-lightbox/ekko-lightbox.min.js"></script>
+	<!-- <script src="<?= site_url() ?>plugin/ekko-lightbox/ekko-lightbox.min.js"></script> -->
 	<script src="<?= site_url() ?>plugin/dist/js/adminlte.min.js"></script>
 	<script src="<?= site_url() ?>plugin/dist/js/demo.js"></script>
 	<!-- date-range-picker -->
