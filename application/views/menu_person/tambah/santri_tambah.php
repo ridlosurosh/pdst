@@ -31,17 +31,17 @@ $waktu = explode("-", $santri->tanggal_lahir);
         </div>
     </div>
 </section>
-<input type="text" name="prov" id="prov" value="<?= $prov ?>">
-<input type="text" name="kabi" id="kab" value="<?= $kab ?>">
-<input type="text" name="kec" id="kec" value="<?= $kec ?>">
-<input type="text" name="desa" id="des" value="<?= $desa ?>">
+<input type="hidden" name="prov" id="prov" value="<?= $prov ?>">
+<input type="hidden" name="kabi" id="kab" value="<?= $kab ?>">
+<input type="hidden" name="kec" id="kec" value="<?= $kec ?>">
+<input type="hidden" name="desa" id="des" value="<?= $desa ?>">
 <section class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <form id="form_tambah_santri">
                     <div class="card">
-                        <input type="text" name="o" class="col-sm-2" value="<?= $santri->id_person ?>">
+                        <input type="hidden" name="o" class="col-sm-2" value="<?= $santri->id_person ?>">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-3">
