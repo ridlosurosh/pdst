@@ -242,9 +242,13 @@
                 success: function(data) {
                     swal.fire({
                         title: "PDST NAA",
-                        text: "Berkas KK Berhasil Diupload",
+                        text: "Berkas Berhasil Diupload",
                         type: "success"
-                    })
+                    }).then(okay => {
+                        if (okay) {
+                         menu_santri();  
+                        }
+                    });
                 }
             });
         });
