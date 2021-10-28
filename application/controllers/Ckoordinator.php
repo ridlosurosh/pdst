@@ -74,11 +74,20 @@ class Ckoordinator extends CI_Controller
         $masa = $angkat . ' s/d ' . $berhenti;
         $pass =  $this->input->post('pass');
 
-        // $jabatan = $this->db->query("SELECT COUNT(id_jabatan)  FROM `tb_pengurus` WHERE id_jabatan = '1'");
-        // if ($jabatan > 0 ) {
-        //     $pesan = "tidak";
-        //     $sukses = "Data Berhasil Ditambahkan";
-        // } else {
+        
+        $ketum = $this->db->where('id_jabatan', '1')
+                            ->get('tb_pengurus')
+                            ->num_rows();
+        $waka_ketum = $this->db->where('id_jabatan', '2')
+                            ->get('tb_pengurus')
+                            ->num_rows();
+        if ($ketum > 0  && $this->input->post('jabatan') === "1") {
+            $pesan = "tidak";
+            $sukses = " ketum tidak boleh lebih dari satu ";
+        } elseif ($waka_ketum > 0  && $this->input->post('jabatan') === "2") {
+            $pesan = "tidak";
+            $sukses = "wakil ketum tidak boleh lebih dari satu";
+        } else {
         $data1 = array(
             'id_person' => $this->input->post('idperson'),
             'id_jabatan' => $this->input->post('jabatan'),
@@ -97,7 +106,7 @@ class Ckoordinator extends CI_Controller
         $this->Mkoordinator->simpan_akun($data2);
         $pesan = "ya";
         $sukses = "Data Berhasil Ditambahkan";
-    // }
+    }
         
         $output = array(
             'pesan' => $pesan,
@@ -134,6 +143,21 @@ class Ckoordinator extends CI_Controller
         $angkat = $this->input->post('tanggal_diangkat');
         $berhenti = $this->input->post('tanggal_berhenti');
         $masa = $angkat . ' s/d ' . $berhenti;
+
+        // $ketum = $this->db->where('id_jabatan', '1')
+        //                     ->get('tb_pengurus')
+        //                     ->num_rows();
+        // $waka_ketum = $this->db->where('id_jabatan', '2')
+        //                     ->get('tb_pengurus')
+        //                     ->num_rows();
+        // if ($ketum > 0  && $this->input->post('jabatan') === "1") {
+        //     $pesan = "tidak";
+        //     $sukses = " ketum tidak boleh lebih dari satu ";
+        // } elseif ($waka_ketum > 0  && $this->input->post('jabatan') === "2") {
+        //     $pesan = "tidak";
+        //     $sukses = "wakil ketum tidak boleh lebih dari satu";
+        // } else {
+
         $data = array(
             'id_person' => $this->input->post('idperson'),
             'id_jabatan' => $this->input->post('jabatan'),
@@ -150,6 +174,7 @@ class Ckoordinator extends CI_Controller
         $this->Mkoordinator->edit_akun(array('id_login' => $idnya), $data2);
         $pesan = "ya";
         $sukses = "Data Berhasil Diedit";
+    // }
         $output = array(
             'pesan' => $pesan,
             'sukses' => $sukses
