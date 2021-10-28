@@ -162,11 +162,7 @@
         });
     }
 
-		// if ($('#pengangkatan').val() === "") {
-		// 	$('#angkat').prop('disabled', true);
-		// } else {
-		// 	$('#angkat').prop('disabled', false);
-		// }
+		
 
 	$('#angkat').on('change', function() {
 		var ll = $(this).val();
