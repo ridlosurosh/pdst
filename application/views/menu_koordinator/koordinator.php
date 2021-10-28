@@ -18,8 +18,8 @@
 						<th>NIUP</th>
 						<th>NAMA</th>
 						<th>JABATAN</th>
-						<th>TANGGAL DIANGKAT</th>
 						<th>MASA BAKTI</th>
+						<th>STATUS</th>
 						<th>AKSI</th>
 					</tr>
 				</thead>
@@ -32,7 +32,7 @@
 							<td><?= $value->niup ?></td>
 							<td><?= $value->nama ?></td>
 							<td><?= $value->nm_jabatan ?></td>
-							<td><?= date('d-F-Y', strtotime($value->tanggal_diangkat)) ?></td>
+							<td><?= $value->masa_bakti?></td>
 							<?php
 							if ($value->status == 'aktif') {
 								$st = "<span class='badge bg-primary'>Aktif</span>";
