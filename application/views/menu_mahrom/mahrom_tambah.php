@@ -14,7 +14,7 @@
 			<div class="col-12">
 				<div class="card">
 					<div class="card-header p-1">
-						<button type="button" id="btn-tambah" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-xl" data-backdrop="static" data-keyboard="false">
+						<button type="button" id="btn-tambah" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ModalaAdd" data-backdrop="static">
 							<i class="fas fa-plus"></i> Tambah Data
 						</button>
 					</div>
@@ -38,14 +38,16 @@
 										<td><?= $value->nik_m ?></td>
 										<td><?= $value->nama_mahrom ?></td>
 										<td><?= $value->tanggal_lahir ?></td>
-										<td><?= $value->hubungan ?></td>
+										<td><?= $mahrom = $value->hubungan ?></td>
+										<?php if ($mahrom == "Ayah") {
+											$tombol = '';
+										} elseif ($mahrom == "Ibu") {
+											$tombol = '';
+										} else {
+											$tombol = '<button class="btn btn-sm btn-primary" id="btn-edit" data-id="<?= $value->id_mahrom ?>" data-toggle="modal" data-target="#modal-xl"><i class="fas fa-edit"></i></button>';
+										} ?>
 										<td>
-											<button class="btn btn-sm btn-primary" id="btn-edit" data-id="<?= $value->id_mahrom ?>" data-toggle="modal" data-target="#modal-xl"><i class="fas fa-edit"></i></button>
-											<input type="hidden" class="nik_m" value="<?= $value->nik_m ?>">
-											<input type="hidden" class="nama_m" value="<?= $value->nama_mahrom ?>">
-											<input type="hidden" class="tanggal_m" value="<?= $value->tanggal_lahir ?>">
-											<input type="hidden" class="hubungan" value="<?= $value->hubungan ?>">
-											<input type="hidden" class="alamat" value="<?= $value->alamat_mahrom ?>">
+											<?= $tombol ?>
 										</td>
 									</tr>
 								<?php } ?>
@@ -57,16 +59,14 @@
 		</div>
 	</div>
 </section>
-<div class="modal fade xl" id="modal-xl" role="dialog" tabindex="-1" aria-hidden="true">
-	<div class="modal-dialog modal-xl">
-		<form id="form_tambah_mahrom">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title"><span id="judul_modal"></span></h4>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
+<div class="modal fade" id="ModalaAdd" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h3 class="modal-title" id="myModalLabel">Tambah Mahrom</h3>
+			</div>
+			<form class="form-horizontal">
 				<div class="modal-body">
 					<input type="text" name="id_person" id="idperson" value="<?= $santri->id_person ?>">
 					<div class="row">
@@ -87,8 +87,6 @@
 								<label for="hubungan">HUBUNGAN</label>
 								<select name="hubungan" id="hubungan_m" class="form-control">
 									<option value="">-Pilih Hubungan-</option>
-									<option value="Ayah">Ayah</option>
-									<option value="Ibu">Ibu</option>
 									<option value="Ayah Tiri">Ayah Tiri</option>
 									<option value="Ibu Tiri">Ibu Tiri</option>
 									<option value="Kakek(Dari Ayah)">Kakek(Dari Ayah)</option>
@@ -121,14 +119,16 @@
 						</div>
 					</div>
 				</div>
-				<div class="modal-footer justify-content-between">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" id="btn_simpan" onclick="simpan_mahrom()"><i class="fas fa-save"></i> Simpan</button>
+
+				<div class="modal-footer">
+					<button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+					<button class="btn btn-info" id="btn_simpan">Simpan</button>
 				</div>
-			</div>
-		</form>
+			</form>
+		</div>
 	</div>
 </div>
+
 <script>
 	$(document).ready(function() {
 		$("#example1").DataTable({
