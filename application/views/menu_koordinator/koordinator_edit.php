@@ -30,11 +30,7 @@
 			<div class="col-12">
 				<div class="card card-outline card-teal">
 					<div class="card-header">
-						<h3 class="card-title">Edit Koordinator Dan User</h3>
-						<div class="card-tools">
-							<button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-								<i class="fas fa-minus"></i></button>
-						</div>
+						
 					</div>
 					<div class="card-body">
 						<form role="form" id="form_edit_pengurus">
