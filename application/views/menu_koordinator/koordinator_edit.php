@@ -46,7 +46,19 @@
 										<label for="jabatan" class="col-form-label">Jabatan</label>
 										<select name="jabatan" id="jabatan" class="form-control select2">
 											<option selected hidden value="<?= $pengurus->id_jabatan ?>"><?= $pengurus->nm_jabatan ?></option>
-											<?php foreach ($jabatan as $value) { ?>
+											<?php 
+
+											if ($pengurus->id_jabatan === "1" || $pengurus->id_jabatan === "2") {
+												$jabatan = $this->db->get_where('tb_jabatan')->result();
+											} else {
+												$jabatan = $this->db->from('tb_jabatan')
+												->where_not_in('id_jabatan', '1')
+												->where_not_in('id_jabatan', '2')
+												->get()
+												->result();
+											}
+											foreach ($jabatan as $value) { ?>
+												
 												<option value="<?= $value->id_jabatan ?>"><?= $value->nm_jabatan ?></option>
 											<?php } ?>
 										</select>
