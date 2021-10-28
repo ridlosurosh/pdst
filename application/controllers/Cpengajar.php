@@ -29,7 +29,7 @@ class Cpengajar extends CI_Controller
                                     ->get();
         if ($id_guru_lawas->num_rows() > 0 ) {
             foreach ($id_guru_lawas->result_array() as  $e) {
-                $dat = $e['id_person'];
+                $dat[] = $e['id_person'];
             }
         } else {
             $dat = ['0'];
