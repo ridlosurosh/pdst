@@ -22,14 +22,7 @@ class Mkoordinator extends CI_Model
         return $query->result();
     }
 
-    public function otomatis_santri()
-    {
-        $this->db->where('status', 'Aktif');
-        $this->db->from('tb_person');
-        $this->db->order_by('nama', 'ASC');
-        $query = $this->db->get();
-        return $query;
-    }
+   
 
     public function simpan_pengurus($data1)
     {
