@@ -111,6 +111,16 @@ class Mperson extends CI_Model
         $this->db->insert('tb_history', $data);
     }
 
+    public function batalkan($id)
+    {
+        return $this->db->delete('tb_person', array('id_person'  =>  $id));
+    }
+
+    public function simpan_alumni($data2)
+    {
+        return $this->db->insert('tb_alumni', $data2);
+    }
+
     // Fitur edit santri
     public function edit_santri($id, $data)
     {
