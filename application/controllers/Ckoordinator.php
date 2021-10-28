@@ -27,6 +27,17 @@ class Ckoordinator extends CI_Controller
 
     public function ui_nama_santri()
     {
+        $id_pengurus_lawas = $this->db->select('id_person')
+                                    ->from('tb_pengurus')
+                                    ->where('status','Aktif')
+                                    ->get();
+        if ($id_pengurus_lawas->num_rows() > 0 ) {
+            foreach ($id_pengurus_lawas->result_array() as  $e) {
+                $dat = $e['id_person'];
+            }
+        } else {
+            $dat = ['0'];
+        }
         $cari = $this->input->post('cari');
         $q = $this->db->from('tb_person')
             ->order_by('nama', 'ASC')
@@ -34,6 +45,7 @@ class Ckoordinator extends CI_Controller
             ->like('nama', $cari, 'both')
             ->or_like('niup', $cari, 'both')
             ->group_end()
+            ->where_not_in('id_person', $dat)
             ->where('status', 'aktif')
             ->get();
         if ($q->num_rows() > 0) {
