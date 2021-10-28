@@ -20,14 +20,15 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-form-label" for="nama_pengajar">Pilih Nama Pengajar</label>
-                                <input type="text" class="form-control" name="nama_pengajar" id="nama_pengajar" placeholder="nama">
+                                <input type="text" class="form-control" name="nama_pengajar" id="nama_pengajar" placeholder="nama" >
                                 <input type="hidden" name="id_person" id="id_pengajar">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="col-form-label" for="alamat">NIUP</label>
-                                <input type="text" class="form-control" name="alamat_lengkap" id="alamat" placeholder="0000000000000000" readonly>
+                                <label class="col-form-label" for="alamat">Alamat</label>
+                                <textarea name=""  class="form-control" id="alamat" cols="30" rows="2" readonly></textarea>
+                                <!-- <input type="text" name="alamat_lengkap" id="" placeholder="alamat" readonly> -->
                             </div>
                         </div>
                     </div>
@@ -43,35 +44,55 @@
 
 <script>
     $(function() {
-        UI_pengajar_dari_dalam();
         $('#nama_pengajar').focus();
+        $('#nama_pengajar').on('input', function() {
+            UI_Pengajar();
+            $("#alamat").val("");
+        });
 
     });
 
-    function UI_pengajar_dari_dalam() {
-        var options = {
-            url: "<?= site_url('Cpengajar/otomatis_pengajar_dari_dalam'); ?>",
-            getValue: "nama",
-            list: {
-                match: {
-                    enabled: true
-                },
-                onKeyEnterEvent: function() {
-                    var id = $("#nama_pengajar").getSelectedItemData().id_person;
-                    $("#id_pengajar").val(id).trigger("change");
-                    var alamat = $("#nama_pengajar").getSelectedItemData().niup;
-                    $("#alamat").val(alamat).trigger("change");
-                },
-                onClickEvent: function() {
-                    var id = $("#nama_pengajar").getSelectedItemData().id_person;
-                    $("#id_pengajar").val(id).trigger("change");
-                    var alamat = $("#nama_pengajar").getSelectedItemData().niup;
-                    $("#alamat").val(alamat).trigger("change");
+    function UI_Pengajar() {
+        $('#nama_pengajar').autocomplete({
+            minLength: 1,
+            autoFocus: true,
+            source: function(req, res) {
+                $.ajax({
+                    url: "<?= site_url('Cpengajar/UI_Pengajar') ?>",
+                    data: {
+                        cari: $('#nama_pengajar').val()
+                    },
+                    dataType: 'json',
+                    type: "POST",
+                    success: function(data) {
+                        res(data);
+                    }
+                });
+            },
+            select: function(event, ui) {
+                if (ui.item.sukses === true) {
+                    $('#id_pengajar').val(ui.item.id_person);
+                    $('#nama_pengajar').val(ui.item.nama);
+                    $('#alamat').val(ui.item.alamat);
+                    return false;
+                } else {
+                    return false;
                 }
+            },
+            create: function() {
+                $(this).data('ui-autocomplete')._renderItem = function(ul, item) {
+                    return $("<li></li>")
+                        .data("item.autocomplete", item)
+                        .append("<a class='nav-link active'><strong>" + item.nama + "</strong> <br/><small>Niup : " + item.niup + "</small></a>")
+                        .appendTo(ul);
+                };
             }
-        };
-        $("#nama_pengajar").easyAutocomplete(options);
+        });
     }
+
+
+    
+
 
     function simpan_guru_nubdah() {
         $.ajax({
