@@ -56,14 +56,19 @@
 										<input type="date" name="tanggal_diangkat" class="form-control" id="pengangkatan" value="<?= $pengurus->tanggal_diangkat ?>">
 									</div>
 									<div class="form-group">
+										<?php 
+										$tgl1 = new DateTime($pengurus->tanggal_diangkat);
+										$tgl2 = new DateTime($pengurus->tanggal_berhenti);
+										$jarak = $tgl2->diff($tgl1);
+										$hasil =  $jarak->days;
+										?>
 										<label for="tanggal" class="col-form-label">Masa Bakti</label>
 										<select class="form-control" name="" id="angkat">
-											<option selected hidden><?= $pengurus->masa_bakti ?></option>
-											<option value="365">1 Tahun</option>
-											<option value="730">2 Tahun</option>
-											<option value="1095">3 Tahun</option>
-											<option value="1460">4 Tahun</option>
-											<option value="1825">5 Tahun</option>
+											<option <?= $hasil == "365"  ? "selected " : "" ?> value="365">1 Tahun</option>
+											<option <?= $hasil == "730"  ? "selected " : "" ?> value="730">2 Tahun</option>
+											<option <?= $hasil == "1095"  ? "selected " : "" ?> value="1095">3 Tahun</option>
+											<option <?= $hasil == "1460"  ? "selected " : "" ?> value="1460">4 Tahun</option>
+											<option <?= $hasil == "1825"  ? "selected " : "" ?> value="1825">5 Tahun</option>
 										</select>
 									</div>
 								</div>
@@ -113,7 +118,11 @@
 		</div>
 	</div>
 </section>
+
 <script>
+	// $(function () {
+	// 	CalcDiff();
+	// })
 	function edit_koordinator() {
 		$.ajax({
 			url: "<?= site_url('Ckoordinator/edit_koordinator') ?>",
@@ -151,4 +160,9 @@
 		$('#berhenti').val(someFormattedDate);
 
 	})
+
+	function CalcDiff(){
+	var a = $('#selisih').val();
+	$('#angkat').append("<option>jhff</option>")
+	}
 </script>
