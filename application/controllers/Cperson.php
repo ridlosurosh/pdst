@@ -697,7 +697,7 @@ class Cperson extends CI_Controller
         $data = array(
             'data' => $this->Mperson->santri_idx($id),
             'data_alamat' => $this->Mperson->alamat_wali($id),
-            'mahrom' => $this->Mperson->data_mahrom($id),
+            'mahrom' => $this->Mperson->data_mahromnya($id),
             'domisili' => $this->Mperson->data_domisili($id)
         );
         $this->load->view('menu_person/detail_santri', $data);
@@ -755,6 +755,7 @@ class Cperson extends CI_Controller
 
     public function simpan_detail_mahrom()
     {
+        // $hubungan 
         $data1 = array(
             'nik_m' => $this->input->post('nik'),
             'nama_mahrom' => $this->input->post('nama'),
@@ -769,8 +770,10 @@ class Cperson extends CI_Controller
         );
         $this->Mperson->simpan_detail_mahrom($data2);
         $pesan = "ya";
+        $sukses = "berhasil";
         $output = array(
-            'pesan' => $pesan
+            'pesan' => $pesan,
+            'sukses' => $sukses
         );
         echo json_encode($output);
     }
