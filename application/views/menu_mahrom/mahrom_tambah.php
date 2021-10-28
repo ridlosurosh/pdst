@@ -9,17 +9,34 @@
 </section>
 <section class="content">
 	<div class="container-fluid">
-		<input type="text" id="idnya" value="<?= $santri->id_person ?>">
-		<div class="row">
-			<div class="col-12">
-				<div class="card">
-					<div class="card-header p-1">
+		<div class="card">
+			<div class="card-body pb-4">
+				<div class="row">
+					<div class="col-md-3">
+						Yang Termasuk Mahrom adalah :
+						<ol>
+							<li>Ayah</li>
+							<li>Ibu</li>
+							<li>Ayah Tiri</li>
+							<li>Ibu Tiri</li>
+							<li>Kakek (Dari Ayah)</li>
+							<li>Nenek (Dari Ayah)</li>
+							<li>Kakek (Dari Ibu)</li>
+							<li>Nenek (Dari Ibu)</li>
+							<li>Kakak Kandung</li>
+							<li>Adik Kandung</li>
+							<li>Keponakan</li>
+							<li>Paman (Saudara Ayah)</li>
+							<li>Bibi (Saudara Ayah)</li>
+							<li>Paman (Saudara Ibu)</li>
+							<li>Bibi (Saudara Ibu)</li>
+						</ol>
+					</div>
+					<div class="col-md-9">
 						<button type="button" id="btn-tambah" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ModalaAdd" data-backdrop="static">
 							<i class="fas fa-plus"></i> Tambah Data
 						</button>
-					</div>
-					<div class="card-body p-1">
-						<table id="example1" class="table">
+						<table id="example1" class="table table-bordered">
 							<thead>
 								<tr>
 									<th>NO</th>
@@ -56,17 +73,24 @@
 					</div>
 				</div>
 			</div>
+			<div class="card-footer">
+				<button type="button" class="btn btn-danger" onclick="batal('<?= $santri->id_person ?>')"><i class="fas fa-times"></i> Batal</button>
+				<div class="float-right">
+					<button type="button" onclick="kembali_lagi('<?= $santri->id_person ?>')" class="btn btn-info"><i class="fas fa-arrow-left"></i> Kembali</button>
+					<button class="btn btn-info" id="simpan">Simpan <i class="fas fa-arrow-right"></i></button>
+				</div>
+			</div>
 		</div>
 	</div>
 </section>
 <div class="modal fade" id="ModalaAdd" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
-	<div class="modal-dialog">
+	<div class="modal-dialog modal-xl">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 				<h3 class="modal-title" id="myModalLabel">Tambah Mahrom</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 			</div>
-			<form class="form-horizontal">
+			<form class="form-horizontal" id="form_tambah_mahrom">
 				<div class="modal-body">
 					<input type="text" name="id_person" id="idperson" value="<?= $santri->id_person ?>">
 					<div class="row">
@@ -120,9 +144,9 @@
 					</div>
 				</div>
 
-				<div class="modal-footer">
-					<button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
-					<button class="btn btn-info" id="btn_simpan">Simpan</button>
+				<div class="modal-footer justify-content-between">
+					<button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+					<button type="button" class="btn btn-info" id="btn_simpan" onclick="simpan_mahrom()">Simpan</button>
 				</div>
 			</form>
 		</div>
@@ -145,16 +169,28 @@
 		})
 	});
 
-	function simpan_mahrom() {
-		$.ajax({
-			url: "<?= site_url('Cperson/simpan_detail_mahrom') ?>",
-			data: $('#form_tambah_mahrom').serialize(),
-			type: 'POST',
-			dataType: 'JSON',
-			success: function(data) {
-				$('#Modal-xl').modal('hide');
-				form_tambah_mahrom('<?= $santri->id_person ?>')
-			}
-		});
-	}
+	$(document).ready(function() {
+		$('#btn_simpan').on('click', function() {
+			$.ajax({
+				url: "<?= site_url('Cperson/simpan_detail_mahrom') ?>",
+				data: $('#form_tambah_mahrom').serialize(),
+				type: 'POST',
+				dataType: 'JSON',
+				success: function(data) {
+					if (data.pesan === "ya") {
+						$('#ModalaAdd').modal('hide');
+						swal.fire({
+							title: "PDST NAA",
+							text: data.sukses,
+							type: "success"
+						}).then(okay => {
+							if (okay) {
+								form_tambah_mahrom('<?= $santri->id_person ?>')
+							}
+						})
+					}
+				}
+			});
+		})
+	})
 </script>
