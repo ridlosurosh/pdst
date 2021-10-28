@@ -211,6 +211,16 @@
 							menu_koordinator();
 						}
 					});
+				} else {
+					swal.fire({
+						title: "PDST NAA",
+						text: data.sukses,
+						type: "warning"
+					}).then(okay => {
+						if (okay) {
+							// menu_koordinator();
+						}
+					});
 				}
 			}
 		})
