@@ -48,7 +48,7 @@ $waktu = explode("-", $santri->tanggal_lahir);
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">NIK SANTRI</label>
-                                        <input type="number" class="form-control" name="nik" value="<?= $santri->nik ?>" autocomplete="off">
+                                        <input type="number" class="form-control" name="nik" id="nik" value="<?= $santri->nik ?>" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="col-md-9">
@@ -207,13 +207,13 @@ $waktu = explode("-", $santri->tanggal_lahir);
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">ANAK KE</label>
-                                        <input type="number" class="form-control" name="ank_ke" value="<?= $santri->ank_ke ?>" autocomplete="off">
+                                        <input type="number" id="ank_ke" class="form-control" name="ank_ke" id="ank_ke" value="<?= $santri->ank_ke ?>" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">JUMLAH SAUDARA</label>
-                                        <input type="number" class="form-control" name="sdr" value="<?= $santri->sdr ?>" autocomplete="off">
+                                        <input type="number" id="sdr" class="form-control" name="sdr" value="<?= $santri->sdr ?>" autocomplete="off">
                                     </div>
                                 </div>
                             </div>
@@ -227,7 +227,7 @@ $waktu = explode("-", $santri->tanggal_lahir);
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">KODE POS</label>
-                                        <input type="number" class="form-control" name="pos" value="<?= $santri->pos ?>" autocomplete="off">
+                                        <input type="number" id="pos" class="form-control" name="pos" value="<?= $santri->pos ?>" autocomplete="off">
                                     </div>
                                 </div>
                             </div>
@@ -452,7 +452,7 @@ $waktu = explode("-", $santri->tanggal_lahir);
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button class="btn btn-danger"><i class="fas fa-times"></i> Batal</button>
+                            <button type="button" class="btn btn-danger" onclick="batalkan('<?= $santri->id_person ?>')"><i class="fas fa-times"></i> Batal</button>
                             <button class="btn btn-info float-right">Simpan dan Lanjut <i class="fas fa-arrow-right"></i></button>
                         </div>
                     </div>
@@ -461,9 +461,16 @@ $waktu = explode("-", $santri->tanggal_lahir);
         </div>
     </div>
 </section>
-
-
 <script>
+    $(document).ready(function() {
+        $("#nik, #ank_ke, #sdr, #pos").keypress(function(e) {
+            var charCode = (e.which) ? e.which : e.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+        });
+    });
+
     $(function() {
         $('.select2').select2({
             theme: 'bootstrap4'
@@ -610,4 +617,40 @@ $waktu = explode("-", $santri->tanggal_lahir);
             });
         }
     })
+
+    function batalkan(id) {
+        swal.fire({
+            title: 'PDST NAA',
+            text: "Anda Yakin Untuk Membatalkan ?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'YA',
+            cancelButtonText: 'TIDAK',
+            preConfirm: function() {
+                return new Promise(function(resolve) {
+                    $.ajax({
+                            url: 'Cperson/batal',
+                            type: 'POST',
+                            data: {
+                                id: id
+                            },
+                            dataType: 'json'
+                        })
+                        .fail(function() {
+                            swal.fire({
+                                title: "PDST NAA",
+                                text: "Berhasil Dibatalkan",
+                                type: "success"
+                            }).then(okay => {
+                                if (okay) {
+                                    menu_santri();
+                                }
+                            });
+                        });
+                });
+            }
+        });
+    }
 </script>

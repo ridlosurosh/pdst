@@ -78,11 +78,14 @@
 										<button type="button" class="btn btn-sm btn-primary" title="Upload" onclick="berkas('<?= $value->id_person ?>')">
 											<i class="fas fa-image"></i>
 										</button>
-										<!-- <button type="button" class="btn btn-sm btn-success" title="Mahrom" onclick="form_tambah_mahrom('<?= $value->id_person ?>')">
+										<button type="button" class="btn btn-sm btn-success" title="Mahrom" onclick="form_tambah_mahrom('<?= $value->id_person ?>')">
 											<i class="fas fa-users"></i>
-										</button> -->
+										</button>
 										<button type="button" class="btn btn-sm btn-secondary" title="Cetak" onclick="print_santri('<?= $value->id_person ?>')">
 											<i class="fas fa-print"></i>
+										</button>
+										<button type="button" class="btn btn-sm btn-danger" title="Hapus" onclick="nonaktifkan_santri('<?= $value->id_person ?>')">
+											<i class="fas fa-user-slash"></i>
 										</button>
 									</div>
 								</td>
@@ -195,5 +198,41 @@
 			$('#ini_isinya').html(Res);
 		})
 
+	}
+
+	function nonaktifkan_santri(id) {
+		swal.fire({
+			title: 'PDST NAA',
+			text: "Anda Yakin Untuk Menghapus Santri Ini ?",
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'YA',
+			cancelButtonText: 'TIDAK',
+			preConfirm: function() {
+				return new Promise(function(resolve) {
+					$.ajax({
+							url: 'Cperson/nonaktif',
+							type: 'POST',
+							data: {
+								id: id
+							},
+							dataType: 'json'
+						})
+						.fail(function() {
+							swal.fire({
+								title: "PDST NAA",
+								text: "Berhasil dihapus",
+								type: "success"
+							}).then(okay => {
+								if (okay) {
+									menu_santri();
+								}
+							});
+						});
+				});
+			}
+		});
 	}
 </script>

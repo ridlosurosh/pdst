@@ -44,7 +44,7 @@ if ($santri->desa_w == "") {
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">NIK WALI</label>
-                                        <input type="number" class="form-control" name="nik_w" value="<?= $santri->nik_w ?>" autocomplete="off">
+                                        <input type="number" class="form-control" name="nik_w" id="nik_w" value="<?= $santri->nik_w ?>" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -327,13 +327,13 @@ if ($santri->desa_w == "") {
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">NO HP WALI</label>
-                                        <input type="number" class="form-control" name="hp_w" value="<?= $santri->hp_w ?>" autocomplete="off">
+                                        <input type="number" class="form-control" id="hp_w" name="hp_w" value="<?= $santri->hp_w ?>" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">NO TELP WALI</label>
-                                        <input type="number" class="form-control" name="telp_w" value="<?= $santri->telp_w ?>" autocomplete="off">
+                                        <input type="number" class="form-control" id="telp_w" name="telp_w" value="<?= $santri->telp_w ?>" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -380,7 +380,7 @@ if ($santri->desa_w == "") {
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">KODE POS</label>
-                                        <input type="number" class="form-control" name="pos_w" value="<?= $santri->pos_w ?>" autocomplete="off">
+                                        <input type="number" class="form-control" id="pos_w" name="pos_w" value="<?= $santri->pos_w ?>" autocomplete="off">
                                     </div>
                                 </div>
                             </div>
@@ -680,7 +680,7 @@ if ($santri->desa_w == "") {
                             <input type="hidden" name="o" value="<?= $santri->id_person ?>">
                         </div>
                         <div class="card-footer">
-                            <!-- <button type="button" class="btn btn-danger" onclick="menu_santri()"><i class="fas fa-reply"></i> Kembali Ke Data Santri</button> -->
+                            <button type="button" class="btn btn-danger" onclick="dibatalkan('<?= $santri->id_person ?>')"><i class="fas fa-times"></i> Batal</button>
                             <div class="float-right">
                                 <button type="button" class="btn btn-info" onclick="kembali_pole('<?= $santri->id_person ?>')"><i class="fas fa-arrow-left"></i> Kembali</button>
                                 <button class="btn btn-info">Simpan dan Lanjut <i class="fas fa-arrow-right"></i></button>
@@ -693,6 +693,15 @@ if ($santri->desa_w == "") {
     </div>
 </section>
 <script>
+    $(document).ready(function() {
+        $("#nik_w, #hp_w, #telp_w, #pos_w").keypress(function(e) {
+            var charCode = (e.which) ? e.which : e.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+        });
+    });
+
     function kembali_pole(id) {
         $.post('<?= site_url('Cperson/tambah_santri_2') ?>', {
             o: id
@@ -913,4 +922,40 @@ if ($santri->desa_w == "") {
             });
         }
     });
+
+    function dibatalkan(id) {
+        swal.fire({
+            title: 'PDST NAA',
+            text: "Anda Yakin Untuk Membatalkan ?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'YA',
+            cancelButtonText: 'TIDAK',
+            preConfirm: function() {
+                return new Promise(function(resolve) {
+                    $.ajax({
+                            url: 'Cperson/batal',
+                            type: 'POST',
+                            data: {
+                                id: id
+                            },
+                            dataType: 'json'
+                        })
+                        .fail(function() {
+                            swal.fire({
+                                title: "PDST NAA",
+                                text: "Berhasil Dibatalkan",
+                                type: "success"
+                            }).then(okay => {
+                                if (okay) {
+                                    menu_santri();
+                                }
+                            });
+                        });
+                });
+            }
+        });
+    }
 </script>

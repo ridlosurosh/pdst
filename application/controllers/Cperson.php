@@ -143,33 +143,47 @@ class Cperson extends CI_Controller
         } else {
             $kode_awal = "01";
         }
-        $nomornya = $kode_awal . $thn_daftar . $tgl . $niupnya;
         $uu = $this->input->post('uu');
         if ($uu == "") {
-            $niup = $nomornya;
+            $tgl_lahir = $thn . '-' . $bulan . '-' . $t_l;
+            $data1 = array(
+                'nik' => $this->input->post('nik'),
+                'niup' => $kode_awal . $thn_daftar . $tgl . $niupnya,
+                'nama' => $this->input->post('nama'),
+                'tempat_lahir' => $this->input->post('tempat_lahir'),
+                'tanggal_lahir' => $tgl_lahir,
+                'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+                'alamat_lengkap' => $this->input->post('alamat_lengkap'),
+                'desa' => $this->input->post('desa'),
+                'kec' => $this->input->post('kec'),
+                'kab' => $this->input->post('kab'),
+                'prov' => $this->input->post('prov'),
+                'pos' => $this->input->post('pos'),
+                'dlm_klrg' => $this->input->post('dlm_klrg'),
+                'ank_ke' => $this->input->post('ank_ke'),
+                'sdr' => $this->input->post('sdr'),
+            );
+            $this->Mperson->simpan_santri_v2(array('id_person' => $id), $data1);
         } else {
-            $niup = $uu;
+            $tgl_lahir = $thn . '-' . $bulan . '-' . $t_l;
+            $data1 = array(
+                'nik' => $this->input->post('nik'),
+                'nama' => $this->input->post('nama'),
+                'tempat_lahir' => $this->input->post('tempat_lahir'),
+                'tanggal_lahir' => $tgl_lahir,
+                'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+                'alamat_lengkap' => $this->input->post('alamat_lengkap'),
+                'desa' => $this->input->post('desa'),
+                'kec' => $this->input->post('kec'),
+                'kab' => $this->input->post('kab'),
+                'prov' => $this->input->post('prov'),
+                'pos' => $this->input->post('pos'),
+                'dlm_klrg' => $this->input->post('dlm_klrg'),
+                'ank_ke' => $this->input->post('ank_ke'),
+                'sdr' => $this->input->post('sdr'),
+            );
+            $this->Mperson->simpan_santri_v2(array('id_person' => $id), $data1);
         }
-
-        $tgl_lahir = $thn . '-' . $bulan . '-' . $t_l;
-        $data1 = array(
-            'nik' => $this->input->post('nik'),
-            'niup' => $niup,
-            'nama' => $this->input->post('nama'),
-            'tempat_lahir' => $this->input->post('tempat_lahir'),
-            'tanggal_lahir' => $tgl_lahir,
-            'jenis_kelamin' => $this->input->post('jenis_kelamin'),
-            'alamat_lengkap' => $this->input->post('alamat_lengkap'),
-            'desa' => $this->input->post('desa'),
-            'kec' => $this->input->post('kec'),
-            'kab' => $this->input->post('kab'),
-            'prov' => $this->input->post('prov'),
-            'pos' => $this->input->post('pos'),
-            'dlm_klrg' => $this->input->post('dlm_klrg'),
-            'ank_ke' => $this->input->post('ank_ke'),
-            'sdr' => $this->input->post('sdr'),
-        );
-        $this->Mperson->simpan_santri_v2(array('id_person' => $id), $data1);
         $p = array('i' => $id);
         echo json_encode($p);
     }
@@ -270,7 +284,9 @@ class Cperson extends CI_Controller
             'kec_w' => $this->input->post('kec_w'),
             'kab_w' => $this->input->post('kab_w'),
             'prov_w' => $this->input->post('prov_w'),
-            'pndkn' => $this->input->post('pndkn')
+            'pndkn' => $this->input->post('pndkn'),
+            'status' => "aktif",
+            'tgl_daftar' => date('Y-m-d H:i:s')
         );
         $this->Mperson->simpan_santri_v2(array('id_person' => $id), $data1);
         $p = array('i' => $id);
@@ -292,6 +308,25 @@ class Cperson extends CI_Controller
             'sukses' => $sukses
         );
         echo json_encode($output);
+    }
+
+    public function batal()
+    {
+        $id = $this->input->post('id');
+        $data = $this->Mperson->batalkan($id);
+        json_encode($data);
+    }
+
+    public function nonaktif()
+    {
+        $id = $this->input->post('id');
+        $data1 = array('status' => "tidak");
+        $this->Mperson->simpan_santri_v2(array('id_person' => $id), $data1);
+        $data2 = array(
+            'id_person' => $this->input->post('id'),
+            'tgl_berhenti' => date('Y-m-d')
+        );
+        $this->Mperson->simpan_alumni($data2);
     }
 
     // Ambil Wilayah Indonesia
@@ -466,7 +501,6 @@ class Cperson extends CI_Controller
             'kab_w' => $this->input->post('kab_w'),
             'prov_w' => $this->input->post('prov_w'),
             'pndkn' => $this->input->post('pndkn'),
-            'tgl_daftar' => date('d-m-Y H:i:s')
         );
         $this->Mperson->simpan_ortu(array('id_person' => $id), $data1);
         $p = array('i' => $id);
