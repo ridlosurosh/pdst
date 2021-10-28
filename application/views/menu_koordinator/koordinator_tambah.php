@@ -56,7 +56,7 @@
 									<div class="form-group">
 										<label for="tanggal" class="col-form-label">Masa Bakti</label>
 										<select class="form-control" name="" id="angkat">
-											<option selected hidden>Pilih Masa Bakti</option>
+											<option selected hidden value="0">Pilih Masa Bakti</option>
 											<option value="365">1 Tahun</option>
 											<option value="730">2 Tahun</option>
 											<option value="1095">3 Tahun</option>
@@ -113,6 +113,7 @@
 </section>
 <script>
 	$(function() {
+		
 		$('#reservation').daterangepicker();
 
 		$('#nama_santri').on('input', function() {
@@ -161,6 +162,12 @@
         });
     }
 
+		// if ($('#pengangkatan').val() === "") {
+		// 	$('#angkat').prop('disabled', true);
+		// } else {
+		// 	$('#angkat').prop('disabled', false);
+		// }
+
 	$('#angkat').on('change', function() {
 		var ll = $(this).val();
 		var bb = $('#pengangkatan').val();
@@ -172,8 +179,21 @@
 		var mm = date.getMonth() + 1;
 		var y = date.getFullYear();
 		var someFormattedDate = y + '-' + mm + '-' + dd;
-
+		if (bb === "") {
+		$('#berhenti').val('0000-00-00');
+		$('#pengangkatan').focus();
+		swal.fire({
+		title: "Tanggal Penganggkatan Harus di Isi dulu",
+		type: "warning"
+		}).then(okay => {
+			if (okay) {
+				$('#berhenti').val("");
+				$('#angkat').val('0');
+					}
+			});
+		} else {
 		$('#berhenti').val(someFormattedDate);
+		}
 
 	})
 
