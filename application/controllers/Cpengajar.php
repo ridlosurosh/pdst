@@ -26,10 +26,13 @@ class Cpengajar extends CI_Controller
         $id_guru_lawas = $this->db->select('id_person')
                                     ->from('tb_guru_nubdah')
                                     ->where('status_guru_nubdah','Aktif')
-                                    ->get()
-                                    ->result_array();
-        foreach ($id_guru_lawas as  $e) {
-            $dat = $e['id_person'];
+                                    ->get();
+        if ($id_guru_lawas->num_rows() > 0 ) {
+            foreach ($id_guru_lawas->result_array() as  $e) {
+                $dat = $e['id_person'];
+            }
+        } else {
+            $dat = ['0'];
         }
         $cari = $this->input->post('cari');
         $q = $this->Mpengajar->ui_pengajar($cari, $dat);
