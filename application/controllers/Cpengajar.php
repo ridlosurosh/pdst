@@ -21,20 +21,33 @@ class Cpengajar extends CI_Controller
         $this->load->view('menu_pengajar/pengajar_tambah');
     }
 
-    public function otomatis_pengajar_dari_dalam()
+    public function ui_pengajar()
     {
-        $q = $this->Mpengajar->otomatis_pengajar_dari_dalam();
+        $id_guru_lawas = $this->db->select('id_person')
+                                    ->from('tb_guru_nubdah')
+                                    ->where('status_guru_nubdah','Aktif')
+                                    ->get()
+                                    ->result_array();
+        foreach ($id_guru_lawas as  $e) {
+            $dat = $e['id_person'];
+        }
+        $cari = $this->input->post('cari');
+        $q = $this->Mpengajar->ui_pengajar($cari, $dat);
         if ($q->num_rows() > 0) {
             foreach ($q->result_array() as $k) {
                 $data[] = [
+                    'sukses' => true,
                     'nama' => $k['nama'],
                     'id_person' => $k['id_person'],
-                    'niup' => $k['niup']
+                    'niup' => $k['niup'],
+                    'alamat' => $k['alamat_lengkap'],
                 ];
             }
         } else {
             $data[] = [
-                'nama' => "Tidak ada",
+                'sukses' => false,
+                'nama' =>  '<span style="color:red">' . $cari . '</span> tidak ditemukan',
+                'niup' =>  '<span style="color:red">' . $cari . '</span> tidak ditemukan',
             ];
         }
         echo json_encode($data);
