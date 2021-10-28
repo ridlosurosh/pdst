@@ -32,7 +32,7 @@ if (empty($ibu->tanggal_lahir)) {
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">NIK AYAH</label>
-                                        <input type="number" name="nik_a" class="form-control" value="<?= empty($ayah->nik_m) ? "" : $ayah->nik_m ?>" autocomplete="off">
+                                        <input type="number" name="nik_a" id="nik_a" class="form-control" value="<?= empty($ayah->nik_m) ? "" : $ayah->nik_m ?>" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="col-md-9">
@@ -396,7 +396,7 @@ if (empty($ibu->tanggal_lahir)) {
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">NIK IBU</label>
-                                        <input type="number" name="nik_i" class="form-control" value="<?= empty($ibu->nik_m) ? "" : $ibu->nik_m ?>" autocomplete="off">
+                                        <input type="number" name="nik_i" id="nik_i" class="form-control" value="<?= empty($ibu->nik_m) ? "" : $ibu->nik_m ?>" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="col-md-9">
@@ -769,12 +769,12 @@ if (empty($ibu->tanggal_lahir)) {
                                     </div>
                                 </div>
                             </div>
-                            <input type="text" name="o" value="<?= $santri->id_person ?>">
-                            <input type="text" name="a" id="ayah" value="<?= empty($ayah->id_mahrom) ? "0" : $ayah->id_mahrom ?>">
-                            <input type="text" name="i" value="<?= empty($ibu->id_mahrom) ? "0" : $ibu->id_mahrom ?>">
+                            <input type="hidden" name="o" value="<?= $santri->id_person ?>">
+                            <input type="hidden" name="a" id="ayah" value="<?= empty($ayah->id_mahrom) ? "0" : $ayah->id_mahrom ?>">
+                            <input type="hidden" name="i" value="<?= empty($ibu->id_mahrom) ? "0" : $ibu->id_mahrom ?>">
                         </div>
                         <div class="card-footer">
-                            <button type="button" class="btn btn-danger" onclick="menu_santri()"><i class="fas fa-reply"></i> Kembali Ke Data Santri</button>
+                            <button type="button" class="btn btn-danger" onclick="batal('<?= $santri->id_person ?>')"><i class="fas fa-times"></i> Batal</button>
                             <div class="float-right">
                                 <button type="button" onclick="kembali_lagi('<?= $santri->id_person ?>')" class="btn btn-info"><i class="fas fa-arrow-left"></i> Kembali</button>
                                 <button class="btn btn-info" id="simpan">Simpan dan Lanjut <i class="fas fa-arrow-right"></i></button>
@@ -787,6 +787,15 @@ if (empty($ibu->tanggal_lahir)) {
     </div>
 </section>
 <script>
+    $(document).ready(function() {
+        $("#nik_a, #nik_i").keypress(function(e) {
+            var charCode = (e.which) ? e.which : e.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+        });
+    });
+
     function kembali_lagi(id) {
         $.post('<?= site_url('Cperson/tambah_santri_1') ?>', {
             o: id
@@ -944,4 +953,40 @@ if (empty($ibu->tanggal_lahir)) {
             });
         }
     })
+
+    function batal(id) {
+        swal.fire({
+            title: 'PDST NAA',
+            text: "Anda Yakin Untuk Membatalkan ?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'YA',
+            cancelButtonText: 'TIDAK',
+            preConfirm: function() {
+                return new Promise(function(resolve) {
+                    $.ajax({
+                            url: 'Cperson/batal',
+                            type: 'POST',
+                            data: {
+                                id: id
+                            },
+                            dataType: 'json'
+                        })
+                        .fail(function() {
+                            swal.fire({
+                                title: "PDST NAA",
+                                text: "Berhasil Dibatalkan",
+                                type: "success"
+                            }).then(okay => {
+                                if (okay) {
+                                    menu_santri();
+                                }
+                            });
+                        });
+                });
+            }
+        });
+    }
 </script>
