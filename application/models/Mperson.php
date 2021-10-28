@@ -259,6 +259,16 @@ class Mperson extends CI_Model
         return $query->result();
     }
 
+    public function data_mahromnya($id)
+    {
+        $this->db->join('tb_mahrom', 'tb_mahrom.id_mahrom=tb_detail_mahrom.id_mahrom');
+        $this->db->where('id_person', $id);
+        // $this->db->order_by('id_detail_mahrom', 'desc');
+        $this->db->from('tb_detail_mahrom');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     public function data_mahrom_a($id)
     {
         $this->db->join('tb_mahrom', 'tb_mahrom.id_mahrom=tb_detail_mahrom.id_mahrom');
