@@ -76,9 +76,11 @@ class Ckoordinator extends CI_Controller
 
         
         $ketum = $this->db->where('id_jabatan', '1')
+                            ->where('status','aktif')
                             ->get('tb_pengurus')
                             ->num_rows();
         $waka_ketum = $this->db->where('id_jabatan', '2')
+                            ->where('status','aktif')
                             ->get('tb_pengurus')
                             ->num_rows();
         if ($ketum > 0  && $this->input->post('jabatan') === "1") {
@@ -130,7 +132,7 @@ class Ckoordinator extends CI_Controller
         $id = $this->input->post('idpengurus');
         $data = array(
             'pengurus' => $this->Mkoordinator->pengurus_id($id),
-            'jabatan' => $this->Mkoordinator->jabatan(),
+            // 'jabatan' => $jabatan,
             'akun' => $this->Mkoordinator->login($id)
         );
         $this->load->view('menu_koordinator/koordinator_edit', $data);
@@ -143,21 +145,6 @@ class Ckoordinator extends CI_Controller
         $angkat = $this->input->post('tanggal_diangkat');
         $berhenti = $this->input->post('tanggal_berhenti');
         $masa = $angkat . ' s/d ' . $berhenti;
-
-        // $ketum = $this->db->where('id_jabatan', '1')
-        //                     ->get('tb_pengurus')
-        //                     ->num_rows();
-        // $waka_ketum = $this->db->where('id_jabatan', '2')
-        //                     ->get('tb_pengurus')
-        //                     ->num_rows();
-        // if ($ketum > 0  && $this->input->post('jabatan') === "1") {
-        //     $pesan = "tidak";
-        //     $sukses = " ketum tidak boleh lebih dari satu ";
-        // } elseif ($waka_ketum > 0  && $this->input->post('jabatan') === "2") {
-        //     $pesan = "tidak";
-        //     $sukses = "wakil ketum tidak boleh lebih dari satu";
-        // } else {
-
         $data = array(
             'id_person' => $this->input->post('idperson'),
             'id_jabatan' => $this->input->post('jabatan'),
@@ -174,7 +161,6 @@ class Ckoordinator extends CI_Controller
         $this->Mkoordinator->edit_akun(array('id_login' => $idnya), $data2);
         $pesan = "ya";
         $sukses = "Data Berhasil Diedit";
-    // }
         $output = array(
             'pesan' => $pesan,
             'sukses' => $sukses
