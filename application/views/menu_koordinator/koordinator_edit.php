@@ -48,15 +48,15 @@
 											<option selected hidden value="<?= $pengurus->id_jabatan ?>"><?= $pengurus->nm_jabatan ?></option>
 											<?php 
 
-											if ($pengurus->id_jabatan === "1" || $pengurus->id_jabatan === "2") {
-												$jabatan = $this->db->get_where('tb_jabatan')->result();
-											} else {
-												$jabatan = $this->db->from('tb_jabatan')
-												->where_not_in('id_jabatan', '1')
-												->where_not_in('id_jabatan', '2')
-												->get()
-												->result();
-											}
+											$jabatan = $this->db->get_where('tb_jabatan')->result();
+											// if ($pengurus->id_jabatan === "1" || $pengurus->id_jabatan === "2") {
+											// } else {
+											// 	$jabatan = $this->db->from('tb_jabatan')
+											// 	->where_not_in('id_jabatan', '1')
+											// 	->where_not_in('id_jabatan', '2')
+											// 	->get()
+											// 	->result();
+											// }
 											foreach ($jabatan as $value) { ?>
 												
 												<option value="<?= $value->id_jabatan ?>"><?= $value->nm_jabatan ?></option>
