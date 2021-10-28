@@ -53,7 +53,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <!-- <button class="btn btn-danger"><i class="fas fa-times"></i> Batal</button> -->
+                            <button type="button" class="btn btn-danger" onclick="di_batalkan('<?= $santri->id_person ?>')"><i class="fas fa-times"></i> Batal</button>
                             <div class="float-right">
                                 <button type="button" onclick="kembali_cuk('<?= $santri->id_person ?>')" class="btn btn-info"><i class="fas fa-arrow-left"></i> Kembali</button>
                                 <button class="btn btn-info">Simpan dan Lanjut <i class="fas fa-arrow-right"></i></button>
@@ -193,7 +193,7 @@
                             type: "success"
                         }).then(okay => {
                             if (okay) {
-                                print_santri('<?= $santri->id_person ?>')
+                                form_tambah_mahrom('<?= $santri->id_person ?>')
                             }
                         })
                     }
@@ -201,4 +201,40 @@
             });
         }
     })
+
+    function di_batalkan(id) {
+        swal.fire({
+            title: 'PDST NAA',
+            text: "Anda Yakin Untuk Membatalkan ?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'YA',
+            cancelButtonText: 'TIDAK',
+            preConfirm: function() {
+                return new Promise(function(resolve) {
+                    $.ajax({
+                            url: 'Cperson/batal',
+                            type: 'POST',
+                            data: {
+                                id: id
+                            },
+                            dataType: 'json'
+                        })
+                        .fail(function() {
+                            swal.fire({
+                                title: "PDST NAA",
+                                text: "Berhasil Dibatalkan",
+                                type: "success"
+                            }).then(okay => {
+                                if (okay) {
+                                    menu_santri();
+                                }
+                            });
+                        });
+                });
+            }
+        });
+    }
 </script>
