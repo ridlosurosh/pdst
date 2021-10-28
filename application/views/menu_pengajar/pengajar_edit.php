@@ -21,14 +21,16 @@
                             <input type="hidden" name="idpengajar" value="<?= $id_guru_nubdah ?>">
                             <div class="form-group">
                                 <label class="col-form-label" for="nama_pengajar">Pilih Nama Pengajar</label>
-                                <input type="text" class="form-control" name="nama_pengajar" id="nama_pengajar" value="<?= $nama ?>">
+                                <input type="text" class="form-control" name="nama_pengajar" id="nama_pengajar" value="<?= $nama ?>" readonly>
                                 <input type="hidden" name="id_person" id="id_pengajar" value="<?= $id_person ?>">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="col-form-label" for="alamat">NIUP</label>
-                                <input type="text" class="form-control" name="alamat_lengkap" id="alamat" value="<?= $niup ?>" readonly>
+                                <label class="col-form-label" for="alamat">Alamat </label>
+                                <textarea name=""  class="form-control" id="alamat" cols="30" rows="2" readonly><?= $alamat_lengkap ?></textarea>
+
+                                <!-- <input type="text" class="form-control" name="alamat_lengkap" id="alamat" value=""  -->
                             </div>
                         </div>
                     </div>
