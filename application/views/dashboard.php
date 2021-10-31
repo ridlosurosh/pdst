@@ -377,10 +377,16 @@ if (isset($this->session->userdata['logged_in'])) {
 
 		$(document).ready(function() {
 			$('.menu').click(function() {
+				$('li').removeClass('menu-open');
+				// $(this).addClass('menu-open');
+				// if ($('ul li ').attr('class') === "menu-open") {
+				// } else {
+				// $('ul li ').addClass('');
+				// }
 				$('.menu').removeClass('active');
 				$(this).addClass('active');
-				$('ul').find('ul').removeClass('menu open').css('display', 'none');
-				$('ul').next('ul').removeClass('menu open').css('display', 'block');
+				$('ul').find('ul').css('display', 'none');
+				$('ul').next('ul').css('display', 'block');
 			});
 		});
 	</script>
