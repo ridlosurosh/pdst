@@ -24,8 +24,9 @@
                                 <input type="hidden" name="idperson" id="idperson" value="<?= $id_person ?>">
                             </div>
                             <div class="form-group">
-                                <label class="col-form-label" for="alamat">NIUP</label>
-                                <input type="text" class="form-control" name="alamat_lengkap" id="alamat" value="<?= $niup ?>" readonly>
+                                <label class="col-form-label" for="alamat">Alamat</label>
+                                <!-- <input type="text" class="form-control" name="alamat_lengkap" id="alamat" value="<?= $niup ?>" > -->
+                                <textarea class="form-control" name="alamat_lengkap" id="alamat" cols="30" rows="1" readonly><?= $alamat_lengkap ?></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="tanggal" class="col-form-label">Tanggal Pengangkatan</label>
@@ -34,14 +35,19 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
+                                    <?php 
+										$tgl1 = new DateTime($tgl_diangkat);
+										$tgl2 = new DateTime($tgl_berhenti);
+										$jarak = $tgl2->diff($tgl1);
+										$hasil =  $jarak->days;
+									?>
                                 <label for="tanggal" class="col-form-label">Masa Bakti</label>
                                 <select class="form-control" name="" id="angkat">
-                                    <option selected hidden><?= $tgl_diangkat ?> s/d <?= $tgl_berhenti ?></option>
-                                    <option value="365">1 Tahun</option>
-                                    <option value="730">2 Tahun</option>
-                                    <option value="1095">3 Tahun</option>
-                                    <option value="1460">4 Tahun</option>
-                                    <option value="1825">5 Tahun</option>
+                                    <option <?= $hasil == "365"  ? "selected " : "" ?> value="365">1 Tahun</option>
+									<option <?= $hasil == "730"  ? "selected " : "" ?> value="730">2 Tahun</option>
+									<option <?= $hasil == "1095"  ? "selected " : "" ?> value="1095">3 Tahun</option>
+									<option <?= $hasil == "1460"  ? "selected " : "" ?> value="1460">4 Tahun</option>
+									<option <?= $hasil == "1825"  ? "selected " : "" ?> value="1825">5 Tahun</option>
                                 </select>
                             </div>
                             <div class="form-group">
