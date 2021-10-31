@@ -55,7 +55,7 @@
 			<div class="modal-body">
 				<table id="detail" class="table table-hover text-nowrap">
 					<thead>
-						<tr>
+						<tr style="color: dimgrey;">
 							<th>No</th>
 							<th>Niup</th>
 							<th>Nama</th>
