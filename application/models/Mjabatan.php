@@ -28,4 +28,15 @@ class Mjabatan extends CI_Model
     {
         return $this->db->update('tb_jabatan', $data, $id);
     }
+
+    public function detail($id)
+    {
+        $this->db->select('tb_person.niup,tb_person.nama,tb_person.alamat_lengkap,tb_jabatan.nm_jabatan,tb_pengurus.status as sts');
+        $this->db->join('tb_person', 'tb_person.id_person=tb_pengurus.id_person');
+        $this->db->join('tb_jabatan', 'tb_jabatan.id_jabatan=tb_pengurus.id_jabatan');
+        $this->db->where('tb_pengurus.id_jabatan', $id);
+        $this->db->order_by('sts', 'ASC');
+        $this->db->from('tb_pengurus');
+        return $this->db->get()->result();
+    }
 }
