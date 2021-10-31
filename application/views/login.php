@@ -20,6 +20,24 @@
     <link rel="stylesheet" href="<?= site_url() ?>plugin/asset/css/style.css">
 
     <title>PDST NAA</title>
+    <style>
+        #toggle {
+            position: absolute;
+            top: 30px;
+            right: 10px;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            background: url(plugin/dist/img/show.png);
+            background-size: cover;
+            cursor: pointer;
+        }
+
+        #toggle.hide {
+            background: url(plugin/dist/img/hide.png);
+            background-size: cover;
+        }
+    </style>
 </head>
 
 <body>
@@ -44,7 +62,22 @@
                                 <div class="form-group last mb-4">
                                     <label for="password">Password</label>
                                     <input type="password" class="form-control" name="password" id="password" autocomplete="off">
+                                    <div id="toggle" onclick="showHide();"></div>
                                 </div>
+                                <script>
+                                    var password = document.getElementById('password');
+                                    var toggle = document.getElementById('toggle');
+
+                                    function showHide() {
+                                        if (password.type === 'password') {
+                                            password.setAttribute('type', 'text');
+                                            toggle.classList.add('hide')
+                                        } else {
+                                            password.setAttribute('type', 'password');
+                                            toggle.classList.remove('hide')
+                                        }
+                                    }
+                                </script>
                                 <input type="button" value="Masuk" id="masuk" class="btn text-white btn-block btn-primary mt-5">
                             </form>
                         </div>
