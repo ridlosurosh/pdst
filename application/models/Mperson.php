@@ -207,6 +207,29 @@ class Mperson extends CI_Model
         $this->db->insert('tb_detail_mahrom', $data2);
     }
 
+    function get_mahrom($id)
+    {
+        $hsl = $this->db->query("SELECT * FROM tb_mahrom WHERE id_mahrom='$id'");
+        if ($hsl->num_rows() > 0) {
+            foreach ($hsl->result() as $data) {
+                $hasil = array(
+                    'id_mahrom' => $data->id_mahrom,
+                    'nik_m' => $data->nik_m,
+                    'nama_mahrom' => $data->nama_mahrom,
+                    'hubungan' => $data->hubungan,
+                    'alamat_mahrom' => $data->alamat_mahrom,
+                    'tanggal_lahir' => $data->tanggal_lahir,
+                );
+            }
+        }
+        return $hasil;
+    }
+
+    public function edit_mahrom($id, $data)
+    {
+        $this->db->update('tb_mahrom', $data, $id);
+    }
+
     // Fitur detail santri
     public function santri_idx($id)
     {
@@ -257,6 +280,11 @@ class Mperson extends CI_Model
         $this->db->from('tb_detail_mahrom');
         $query = $this->db->get();
         return $query->result();
+    }
+
+    public function upload_data_mahrom($data)
+    {
+        $this->db->insert('tb_mahrom', $data);
     }
 
     public function data_mahromnya($id)
