@@ -19,7 +19,7 @@
 									<input type="hidden" name="idjabatan" value="<?= $id_jabatan ?>">
 									<div class="form-group row">
 										<label for="nama_jabatan" class="col-form-label">Nama Jabatan</label>
-										<input type="text" class="form-control" id="nama_jabatan" name="nama_jabatan" value="<?= $nm_jabatan ?>" readonly>
+										<input type="text" class="form-control" id="nama_jabatan" name="nama_jabatan" value="<?= $nm_jabatan ?>" >
 									</div>
 								</div>
 								<div class="col-md-6">
