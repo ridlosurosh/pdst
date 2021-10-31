@@ -91,6 +91,17 @@
 								menu_jabatan()
 							}
 						})
+					} else {
+						swal.fire({
+							title: "PDST NAA",
+							text: data.sukses,
+							type: "warning"
+						}).then(okay => {
+							if (okay) {
+								// menu_jabatan()
+								$('#nama_jabatan').focus();
+							}
+						})
 					}
 				}
 			});
