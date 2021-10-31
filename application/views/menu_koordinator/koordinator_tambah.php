@@ -176,19 +176,19 @@
 		var y = date.getFullYear();
 		var someFormattedDate = y + '-' + mm + '-' + dd;
 		if (bb === "") {
-		$('#berhenti').val('0000-00-00');
-		$('#pengangkatan').focus();
-		swal.fire({
-		title: "Tanggal Penganggkatan Harus di Isi dulu",
-		type: "warning"
-		}).then(okay => {
-			if (okay) {
-				$('#berhenti').val("");
-				$('#angkat').val('0');
-					}
-			});
+			$('#berhenti').val('0000-00-00');
+			$('#pengangkatan').focus();
+			swal.fire({
+			title: "Tanggal Penganggkatan Harus di Isi dulu",
+			type: "warning"
+			}).then(okay => {
+				if (okay) {
+					$('#berhenti').val("");
+					$('#angkat').val('0');
+						}
+				});
 		} else {
-		$('#berhenti').val(someFormattedDate);
+			$('#berhenti').val(someFormattedDate);
 		}
 
 	})
