@@ -91,6 +91,16 @@
 								menu_wilayah()
 							}
 						})
+					} else {
+						swal.fire({
+							title: "PDST NAA",
+							text: data.sukses,
+							type: "error"
+						}).then(okay => {
+							if (okay) {
+								$('#nama_wilayah').focus();
+							}
+						})
 					}
 				}
 			});
