@@ -32,9 +32,13 @@ class Ckamar extends CI_Controller
 
     public function simpan_kamar()
     {
-        if ($this->input->post('nama_kamar') === "") {
+        $kamar = $this->input->post('nama_kamar');
+        $cek_kamar =  $this->db->where('nama_kamar', $kamar)
+            ->get('tb_kamar')
+            ->num_rows();
+        if ($cek_kamar > 0) {
             $pesan = "tidak";
-            $sukses = "Nama Kamar Tidak Boleh Kosong";
+            $sukses = "Nama Kamar Sudah Ada !!!!";
         } else {
             $data = array(
                 'nama_kamar' => $this->input->post('nama_kamar'),
