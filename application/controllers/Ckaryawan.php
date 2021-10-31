@@ -40,21 +40,45 @@ class Ckaryawan extends CI_Controller
         echo json_encode($output);
     }
 
-    public function otomatis_santri()
+    public function otomatis_karyawan()
     {
-        $q = $this->Mkaryawan->otomatis_santri();
+        $id_karyawan_lawas = $this->db->select('id_person')
+                                        ->from('tb_karyawan')
+                                        ->where('status','Aktif')
+                                        ->get();
+        if ($id_karyawan_lawas->num_rows() > 0 ) {
+            foreach ($id_karyawan_lawas->result_array() as  $e) {
+            $dat[] = $e['id_person'];
+            }
+        } else {
+            $dat = ['0'];
+        }
+        $cari = $this->input->post('cari');
+        $q = $this->db->from('tb_person')
+                        ->order_by('nama', 'ASC')
+                        ->group_start()
+                        ->like('nama', $cari, 'both')
+                        ->or_like('niup', $cari, 'both')
+                        ->group_end()
+                        ->where_not_in('id_person', $dat)
+                        ->where('status', 'aktif')
+                        ->get();
         if ($q->num_rows() > 0) {
-            foreach ($q->result_array() as $k) {
+        foreach ($q->result_array() as $k) {
                 $data[] = [
+                    'sukses' => true,
                     'nama' => $k['nama'],
                     'id_person' => $k['id_person'],
-                    'niup' => $k['niup']
+                    'niup' => $k['niup'],
+                    'alamat' => $k['alamat_lengkap']
                 ];
             }
         } else {
-            $data[] = [
-                'nama' => "Tidak ada",
-            ];
+                $data[] = [
+                    'sukses' => false,
+                    'nama' =>  '<span style="color:red">' . $cari . '</span> tidak ditemukan',
+                    'niup' =>  '<span style="color:red">' . $cari . '</span> tidak ditemukan',
+                ];
         }
         echo json_encode($data);
     }
