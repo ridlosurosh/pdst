@@ -24,9 +24,13 @@ class Cblok extends CI_Controller
 
     public function simpan_blok()
     {
-        if ($this->input->post('nama_blok') === "") {
+        $blok = $this->input->post('nama_blok');
+        $cek_blok =  $this->db->where('nama_blok', $blok)
+            ->get('tb_blok')
+            ->num_rows();
+        if ($cek_blok > 0) {
             $pesan = "tidak";
-            $sukses = "Nama Block Tidak Boleh Kosong";
+            $sukses = "Nama Block Sudah Ada !!!";
         } else {
             $data = array(
                 'nama_blok' => $this->input->post('nama_blok'),
