@@ -28,10 +28,10 @@ class Ckoordinator extends CI_Controller
     public function ui_nama_santri()
     {
         $id_pengurus_lawas = $this->db->select('id_person')
-                                    ->from('tb_pengurus')
-                                    ->where('status','Aktif')
-                                    ->get();
-        if ($id_pengurus_lawas->num_rows() > 0 ) {
+            ->from('tb_pengurus')
+            ->where('status', 'Aktif')
+            ->get();
+        if ($id_pengurus_lawas->num_rows() > 0) {
             foreach ($id_pengurus_lawas->result_array() as  $e) {
                 $dat[] = $e['id_person'];
             }
@@ -74,15 +74,14 @@ class Ckoordinator extends CI_Controller
         $masa = $angkat . ' s/d ' . $berhenti;
         $pass =  $this->input->post('pass');
 
-        
         $ketum = $this->db->where('id_jabatan', '1')
-                            ->where('status','aktif')
-                            ->get('tb_pengurus')
-                            ->num_rows();
+            ->where('status', 'aktif')
+            ->get('tb_pengurus')
+            ->num_rows();
         $waka_ketum = $this->db->where('id_jabatan', '2')
-                            ->where('status','aktif')
-                            ->get('tb_pengurus')
-                            ->num_rows();
+            ->where('status', 'aktif')
+            ->get('tb_pengurus')
+            ->num_rows();
         if ($ketum > 0  && $this->input->post('jabatan') === "1") {
             $pesan = "tidak";
             $sukses = " ketum tidak boleh lebih dari satu ";
@@ -90,26 +89,26 @@ class Ckoordinator extends CI_Controller
             $pesan = "tidak";
             $sukses = "wakil ketum tidak boleh lebih dari satu";
         } else {
-        $data1 = array(
-            'id_person' => $this->input->post('idperson'),
-            'id_jabatan' => $this->input->post('jabatan'),
-            'tanggal_diangkat' => $this->input->post('tanggal_diangkat'),
-            'tanggal_berhenti' => $this->input->post('tanggal_berhenti'),
-            'masa_bakti' => $masa,
-            'status' => "aktif",
-        );
-        $last_id = $this->Mkoordinator->simpan_pengurus($data1);
-        $data2 = array(
-            'id_pengurus' => $last_id,
-            'nama' => $this->input->post('nama'),
-            'username' => $this->input->post('username'),
-            'password' => $pass
-        );
-        $this->Mkoordinator->simpan_akun($data2);
-        $pesan = "ya";
-        $sukses = "Data Berhasil Ditambahkan";
-    }
-        
+            $data1 = array(
+                'id_person' => $this->input->post('idperson'),
+                'id_jabatan' => $this->input->post('jabatan'),
+                'tanggal_diangkat' => $this->input->post('tanggal_diangkat'),
+                'tanggal_berhenti' => $this->input->post('tanggal_berhenti'),
+                'masa_bakti' => $masa,
+                'status' => "aktif",
+            );
+            $last_id = $this->Mkoordinator->simpan_pengurus($data1);
+            $data2 = array(
+                'id_pengurus' => $last_id,
+                'nama' => $this->input->post('nama'),
+                'username' => $this->input->post('username'),
+                'password' => $pass
+            );
+            $this->Mkoordinator->simpan_akun($data2);
+            $pesan = "ya";
+            $sukses = "Data Berhasil Ditambahkan";
+        }
+
         $output = array(
             'pesan' => $pesan,
             'sukses' => $sukses
