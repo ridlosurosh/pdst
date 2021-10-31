@@ -24,10 +24,10 @@ class Cpengajar extends CI_Controller
     public function ui_pengajar()
     {
         $id_guru_lawas = $this->db->select('id_person')
-                                    ->from('tb_guru_nubdah')
-                                    ->where('status_guru_nubdah','Aktif')
-                                    ->get();
-        if ($id_guru_lawas->num_rows() > 0 ) {
+            ->from('tb_guru_nubdah')
+            ->where('status_guru_nubdah', 'Aktif')
+            ->get();
+        if ($id_guru_lawas->num_rows() > 0) {
             foreach ($id_guru_lawas->result_array() as  $e) {
                 $dat[] = $e['id_person'];
             }
@@ -58,8 +58,11 @@ class Cpengajar extends CI_Controller
 
     public function simpan_pengajar_nubdah()
     {
+        $tgl = "0000-00-00";
         $data = array(
             'id_person' => $this->input->post('id_person'),
+            'tgl_diangkat' => $this->input->post('tgl_diangkat'),
+            'tgl_berhenti' => $tgl,
             'status_guru_nubdah' => "Aktif"
         );
         $this->Mpengajar->simpan_pengajar_nubdah($data);
@@ -96,7 +99,10 @@ class Cpengajar extends CI_Controller
     public function nonaktifkan_pengajar()
     {
         $id = $this->input->post('id');
-        $data = array('status_guru_nubdah' => "Tidak Aktif");
+        $data = array(
+            'status_guru_nubdah' => "Tidak Aktif",
+            'tgl_berhenti' => $this->input->post('tgl_berhenti')
+        );
         $this->Mpengajar->edit_pengajar(array('id_guru_nubdah' => $id), $data);
     }
 
