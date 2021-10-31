@@ -30,7 +30,12 @@
 							<td><?= $value->nm_jabatan ?></td>
 							<td><?= $value->thn_dibuat ?></td>
 							<td>
-								<button class="btn btn-sm btn-warning" title="Edit" onclick="form_edit_jabatan('<?= $value->id_jabatan ?>')"><i class="fas fa-edit"></i></button>
+								<div class="btn-group">
+									<button class="btn btn-sm btn-warning" title="Edit" onclick="form_edit_jabatan('<?= $value->id_jabatan ?>')"><i class="fas fa-edit"></i></button>
+									<button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#staticBackdrop" title="Edit" onclick="detail('<?= $value->id_jabatan ?>')">
+										<i class=" fas fa-eye"></i>
+									</button>
+									<div>
 							</td>
 						</tr>
 					<?php } ?>
@@ -39,6 +44,34 @@
 		</div>
 	</div>
 </section>
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="staticBackdropLabel">Detail Jabatan</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			</div>
+			<div class="modal-body">
+				<table id="detail" class="table table-hover text-nowrap">
+					<thead>
+						<tr>
+							<th>No</th>
+							<th>Niup</th>
+							<th>Nama</th>
+							<th>Alamat</th>
+							<th>Jabatan</th>
+							<th id="kk">Status</th>
+						</tr>
+					</thead>
+					<tbody id="list_detail">
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
 
 <script>
 	$(function() {
@@ -65,5 +98,23 @@
 		}, function(Res) {
 			$('#ini_isinya').html(Res);
 		});
+	}
+
+	function detail(id) {
+		$.ajax({
+			url: "<?= site_url('Cjabatan/detail') ?>",
+			data: {
+				id: id
+			},
+			type: "POST",
+			dataType: "JSON",
+			success: function(data) {
+				if (data.pesan === "ya") {
+					$('#list_detail').html('`' + data.list_detail + '`');
+				} else {
+					$('#list_detail').html('`' + data.list_detail + '`');
+				}
+			}
+		})
 	}
 </script>
