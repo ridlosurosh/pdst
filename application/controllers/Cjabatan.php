@@ -106,7 +106,7 @@
                 $sukses = "ya";
             } else {
                 $sukses = "tidak";
-                $data = '<tr><td colspan="10" class="text-center"><span class="text-danger" style="text-transform: uppercase"> Data kosong boss </span>  </td></tr>';
+                $data = '<tr><td colspan="10" class="text-center text-bold"><span class="text-danger" style="text-transform: uppercase"> Data kosong boss </span>  </td></tr>';
             }
             $out = array(
                 'pesan' => $sukses,
