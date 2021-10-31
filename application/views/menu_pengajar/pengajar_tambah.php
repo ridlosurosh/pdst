@@ -20,16 +20,21 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-form-label" for="nama_pengajar">Pilih Nama Pengajar</label>
-                                <input type="text" class="form-control" name="nama_pengajar" id="nama_pengajar" placeholder="nama" >
+                                <input type="text" class="form-control" name="nama_pengajar" id="nama_pengajar" placeholder="nama" autocomplete="off">
                                 <input type="hidden" name="id_person" id="id_pengajar">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="col-form-label" for="alamat">Alamat</label>
-                                <textarea name=""  class="form-control" id="alamat" cols="30" rows="2" readonly></textarea>
-                                <!-- <input type="text" name="alamat_lengkap" id="" placeholder="alamat" readonly> -->
+                                <label class="col-form-label" for="alamat">Tanggal Pengangkatan</label>
+                                <!-- <textarea name="" class="form-control" id="alamat" cols="30" rows="2" readonly></textarea> -->
+                                <input type="date" class="form-control" name="tgl_diangkat" id="" placeholder="alamat">
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label" for="alamat">Alamat</label>
+                            <textarea name="" class="form-control" id="alamat" cols="150" rows="2" readonly></textarea>
+                            <!-- <input type="text" name="alamat_lengkap" id="" placeholder="alamat" readonly> -->
                         </div>
                     </div>
                 </form>
@@ -91,7 +96,7 @@
     }
 
 
-    
+
 
 
     function simpan_guru_nubdah() {
