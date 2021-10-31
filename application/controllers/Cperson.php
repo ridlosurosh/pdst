@@ -320,13 +320,19 @@ class Cperson extends CI_Controller
     public function nonaktif()
     {
         $id = $this->input->post('id');
-        $data1 = array('status' => "tidak");
+        $data1 = array(
+            'status' => "tidak"
+        );
         $this->Mperson->simpan_santri_v2(array('id_person' => $id), $data1);
         $data2 = array(
             'id_person' => $this->input->post('id'),
             'tgl_berhenti' => date('Y-m-d')
         );
         $this->Mperson->simpan_alumni($data2);
+        $data3 = array(
+            'aktif' => 'tidak'
+        );
+        $this->Mperson->nonaktif_penempatan_kamar(array('id_person' => $id), $data3);
     }
 
     // Ambil Wilayah Indonesia
