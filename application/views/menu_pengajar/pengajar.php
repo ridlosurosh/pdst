@@ -20,6 +20,7 @@
 							<th>NIUP</th>
 							<th>NAMA</th>
 							<th>ALAMAT</th>
+							<th>TGL DIANGKAT</th>
 							<th>STATUS</th>
 							<th>AKSI</th>
 						</tr>
@@ -33,6 +34,7 @@
 								<td><?= $value->niup ?></td>
 								<td><?= $value->nama ?></td>
 								<td><?= $value->alamat_lengkap ?></td>
+								<td><?= $value->tgl_diangkat ?></td>
 								<?php
 								if ($value->status_guru_nubdah == 'Aktif') {
 									$st = "<span class='badge bg-primary'>Aktif</span>";
@@ -49,7 +51,7 @@
 										<button type="button" class="btn btn-sm btn-warning" title="Edit" onclick="form_edit_pengajar('<?= $value->id_guru_nubdah ?>')">
 											<i class=" fas fa-edit"></i>
 										</button>
-										<button type="button" class="btn btn-sm btn-danger" title="Nonaktifkan" onclick="nonaktifkan_pengajar('<?= $value->id_guru_nubdah ?>')">
+										<button type="button" class="btn btn-sm btn-danger" title="Nonaktifkan" onclick="nonaktifkan_pengajar('<?= $value->id_guru_nubdah ?>','<?= date('Y-m-d') ?>')">
 											<i class="fas fa-user-slash"></i>
 										</button>
 									</div>
@@ -99,7 +101,7 @@
 		});
 	}
 
-	function nonaktifkan_pengajar(id) {
+	function nonaktifkan_pengajar(id, tgl) {
 		swal.fire({
 			title: 'PDST NAA',
 			text: "Apakah Anda Yakin menonaktifkan pengajar ini ?",
@@ -114,7 +116,8 @@
 							url: 'Cpengajar/nonaktifkan_pengajar',
 							type: 'POST',
 							data: {
-								id: id
+								id: id,
+								tgl_berhenti: tgl
 							},
 							dataType: 'json'
 						})
