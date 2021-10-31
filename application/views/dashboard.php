@@ -85,7 +85,7 @@ if (isset($this->session->userdata['logged_in'])) {
 				<nav class="mt-4">
 					<ul class="nav nav-pills nav-sidebar flex-column nav-compact" data-widget="treeview" role="menu" data-accordion="false">
 						<li class="nav-item">
-							<a href="#" class="nav-link" onclick="menu_halaman_utama()" style="color: #333;">
+							<a href="#" class="nav-link menu active" onclick="menu_halaman_utama()" style="color: #333;">
 								<i class="nav-icon fas fa-home"></i>
 								<p>
 									Dasboard
@@ -94,7 +94,7 @@ if (isset($this->session->userdata['logged_in'])) {
 						</li>
 						<li class="nav-header">DATA POKOK</li>
 						<li class="nav-item has-treeview">
-							<a href="#" class="nav-link" style="color: #333;">
+							<a href="#" class="nav-link menu " style="color: #333;">
 								<i class="nav-icon fas fa-user-graduate"></i>
 								<p>
 									Data Person
@@ -145,7 +145,7 @@ if (isset($this->session->userdata['logged_in'])) {
 							</ul>
 						</li>
 						<li class="nav-item">
-							<a href="#" class="nav-link" onclick="menu_jabatan()" style="color: #333;">
+							<a href="#" class="nav-link menu" onclick="menu_jabatan()" style="color: #333;">
 								<i class="nav-icon fas fa-user-tag"></i>
 								<p>
 									Struktural
@@ -153,7 +153,7 @@ if (isset($this->session->userdata['logged_in'])) {
 							</a>
 						</li>
 						<li class="nav-item has-treeview">
-							<a href="#" class="nav-link" style="color: #333;">
+							<a href="#" class="nav-link menu" style="color: #333;">
 								<i class="fas fa-sitemap nav-icon"></i>
 								<p>
 									Data Domisili
@@ -197,7 +197,7 @@ if (isset($this->session->userdata['logged_in'])) {
 						</li>
 						<li class="nav-header">MASTER PROSES</li>
 						<li class="nav-item">
-							<a href="#" class="nav-link" onclick="menu_history()" style="color: #333;">
+							<a href="#" class="nav-link menu" onclick="menu_history()" style="color: #333;">
 								<i class="fas fa-history nav-icon"></i>
 								<p>
 									Penempatan Kamar
@@ -206,7 +206,7 @@ if (isset($this->session->userdata['logged_in'])) {
 						</li>
 						<li class="nav-header">LAPORAN DATA</li>
 						<li class="nav-item">
-							<a href="#" class="nav-link" onclick="santri_provinsi()" style="color: #333;">
+							<a href="#" class="nav-link menu" onclick="santri_provinsi()" style="color: #333;">
 								<i class="fas  fa-clipboard nav-icon"></i>
 								<p>
 									Person Provinsi
@@ -214,7 +214,7 @@ if (isset($this->session->userdata['logged_in'])) {
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="#" class="nav-link" onclick="laporan()" style="color: #333;">
+							<a href="#" class="nav-link menu" onclick="laporan()" style="color: #333;">
 								<i class="fas  fa-folder-open nav-icon"></i>
 								<p>
 									Person Perkamar
@@ -374,6 +374,15 @@ if (isset($this->session->userdata['logged_in'])) {
 				$('#ini_isinya').html(Res);
 			});
 		}
+
+		$(document).ready(function() {
+			$('.menu').click(function() {
+				$('.menu').removeClass('active');
+				$(this).addClass('active');
+				$('ul').find('ul').removeClass('menu open').css('display', 'none');
+				$('ul').next('ul').removeClass('menu open').css('display', 'block');
+			});
+		});
 	</script>
 </body>
 
