@@ -22,14 +22,24 @@
 
         public function simpan_jabatan()
         {
-            $data = array(
-                'nm_jabatan' => $this->input->post('nama_jabatan'),
-                'thn_dibuat' => $this->input->post('tahun_jabatan'),
-                'status' => "Aktif"
-            );
-            $this->Mjabatan->simpan_jabatan($data);
-            $pesan = "ya";
-            $sukses = "Data Berhasil Disimpan";
+            $jbtn = $this->input->post('nama_jabatan');
+            $jabatan = $this->db->where('nm_jabatan', $jbtn)
+                            ->where('status','aktif')
+                            ->get('tb_jabatan')
+                            ->num_rows();
+            if ($jabatan > 0 ) {
+                $pesan = "tidak";
+                $sukses = " Jabatan Sudah Ada ";
+            } else {
+                $data = array(
+                    'nm_jabatan' => $jbtn,
+                    'thn_dibuat' => $this->input->post('tahun_jabatan'),
+                    'status' => "Aktif"
+                );
+                $this->Mjabatan->simpan_jabatan($data);
+                $pesan = "ya";
+                $sukses = "Data Berhasil Disimpan";
+            }
             $output = array(
                 'pesan' => $pesan,
                 'sukses' => $sukses
@@ -47,6 +57,15 @@
         public function edit_jabatan()
         {
             $id = $this->input->post('idjabatan');
+            // $jbtn = $this->input->post('nama_jabatan');
+            // $jabatan = $this->db->where('nm_jabatan', $jbtn)
+            //                 ->where('status','aktif')
+            //                 ->get('tb_jabatan')
+            //                 ->num_rows();
+            // if ($jabatan > 0 ) {
+            //     $pesan = "tidak";
+            //     $sukses = " Jabatan Sudah Ada ";
+            // } else {
             $data = array(
                 'nm_jabatan' => $this->input->post('nama_jabatan'),
                 'thn_dibuat' => $this->input->post('tahun_jabatan'),
@@ -54,6 +73,7 @@
             $this->Mjabatan->edit_jabatan(array('id_jabatan' => $id), $data);
             $pesan = "ya";
             $sukses = "Data Berhasil Diedit";
+            // }
             $output = array(
                 'pesan' => $pesan,
                 'sukses' => $sukses
