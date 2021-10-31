@@ -46,7 +46,9 @@
 										<td>
 											<ul class="list-inline">
 												<li class="list-inline-item">
-													<img alt="Avatar" class="table-avatar" title="FOTO DIRI" src="<?= site_url() ?><?= $foto ?>">
+													<a class="item_upload" data="<?= $value->id_mahrom ?>">
+														<img alt="Avatar" class="table-avatar" id="fotonya" title="FOTO DIRI" data="<?= $value->id_mahrom ?>" src="<?= site_url() ?><?= $foto ?>">
+													</a>
 												</li>
 											</ul>
 										</td>
@@ -56,17 +58,18 @@
 											$ktp = "../gambar/ktp/" . $value->foto_kk_atau_ktp;
 										} ?>
 										<td>
-											<img alt="Avatar" width="45" title="KTP" src="<?= site_url() ?><?= $ktp ?>" id="ee">
+											<a class="item_upload" data="<?= $value->id_mahrom ?>">
+												<img alt="Avatar" width="45" title="KTP" id="ktpnya" data="<?= $value->id_mahrom ?>" src="<?= site_url() ?><?= $ktp ?>" id="ee">
+											</a>
 										</td>
 										<?php if ($mahrom == "Ayah") {
 											$tombol = '';
 										} elseif ($mahrom == "Ibu") {
 											$tombol = '';
 										} else {
-											$tombol = "<button type='button' class='btn btn-sm btn-primary item_edit' id='btn-edit' data='" . $value->id_mahrom . "'><i class='fas fa-edit'></i></button>";
+											$tombol = "<button type='button' class='btn btn-sm btn-warning item_edit' title='Edit' id='btn-edit' data='" . $value->id_mahrom . "'><i class='fas fa-edit'></i></button>";
 										} ?>
 										<td>
-											<input type="hidden" value="<?= $value->alamat_mahrom ?>">
 											<?= $tombol ?>
 										</td>
 									</tr>
@@ -224,6 +227,76 @@
 	</div>
 </div>
 
+<div class="modal fade" id="ModalaUpload" tabindex="-1" role="dialog" aria-labelledby="largeModal" data-backdrop="static" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title" id="myModalLabel">upload Mahrom</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			</div>
+			<form class="form-horizontal" id="form_upload">
+				<div class="modal-body">
+					<input type="text" name="id_mahrom" id="">
+					<div class="row">
+						<div class="col-md-6 text-center">
+							<img id="foto_diri" src="" alt="gambar" width="300"><br><br>
+							<input type="file" name="foto_diri" id="foto">
+						</div>
+						<script>
+							$(document).ready(function() {
+
+								function bacaGambar(input) {
+									if (input.files && input.files[0]) {
+										var reader = new FileReader();
+
+										reader.onload = function(e) {
+											$('#foto_diri').attr('src', e.target.result);
+										}
+
+										reader.readAsDataURL(input.files[0]);
+									}
+								}
+								$("#foto").change(function() {
+									$('#foto_diri').show()
+									bacaGambar(this);
+								});
+							})
+						</script>
+						<div class="col-md-6 text-center">
+							<img id="foto_ktp" src="" alt="gambar" width="300"><br><br>
+							<input type="file" name="ktp" id="ktp">
+						</div>
+						<script>
+							$(document).ready(function() {
+
+								function bacaGambar(input) {
+									if (input.files && input.files[0]) {
+										var reader = new FileReader();
+
+										reader.onload = function(e) {
+											$('#foto_ktp').attr('src', e.target.result);
+										}
+
+										reader.readAsDataURL(input.files[0]);
+									}
+								}
+								$("#ktp").change(function() {
+									$('#foto_ktp').show()
+									bacaGambar(this);
+								});
+							})
+						</script>
+					</div>
+				</div>
+				<div class="modal-footer justify-content-between">
+					<button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+					<button class="btn btn-info" id="btn_edit"><i class="fas fa-edit"></i> Edit</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
 <script>
 	$(document).ready(function() {
 		$("#example1").DataTable({
@@ -321,6 +394,43 @@
 		})
 	})
 
+	$('.item_upload').on('click', function() {
+		var f = $('#fotonya').attr('src')
+		var u = $('#ktpnya').attr('src')
+		var id = $(this).attr('data');
+		$('#ModalaUpload').modal('show');
+		$('#foto_diri').attr('src', f);
+		$('#foto_ktp').attr('src', u);
+		$('[name="id_mahrom"]').val(id);
+	})
+
+	$(document).ready(function() {
+		$('#form_upload').submit(function(e) {
+			e.preventDefault();
+			$.ajax({
+				url: '<?php echo site_url('Cperson/simpan_berkas_mahrom') ?>',
+				type: "post",
+				data: new FormData(this),
+				processData: false,
+				contentType: false,
+				cache: false,
+				async: false,
+				success: function(data) {
+					$('#ModalaUpload').modal('hidden');
+					swal.fire({
+						title: "PDST NAA",
+						text: "Berkas Berhasil Diupload",
+						type: "success"
+					}).then(okay => {
+						if (okay) {
+							form_tambah_mahrom('<?= $santri->id_person ?>')
+						}
+					});
+				}
+			});
+		});
+	});
+
 	$('.item_edit').on('click', function() {
 		var id = $(this).attr('data');
 		$.ajax({
@@ -344,6 +454,8 @@
 		});
 		return false;
 	})
+
+
 
 	$('#btn_edit').on('click', function() {
 		$.validator.addMethod("valueNotEquals", function(value, element, arg) {
