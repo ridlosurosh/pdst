@@ -755,13 +755,13 @@ class Cperson extends CI_Controller
 
     public function simpan_detail_mahrom()
     {
-        // $hubungan 
         $data1 = array(
             'nik_m' => $this->input->post('nik'),
             'nama_mahrom' => $this->input->post('nama'),
             'hubungan' => $this->input->post('hubungan'),
             'alamat_mahrom' => $this->input->post('alamat'),
-            'tanggal_lahir' => $this->input->post('tanggal')
+            'tanggal_lahir' => $this->input->post('tanggal'),
+
         );
         $last_id = $this->Mperson->simpan_data_mahrom($data1);
         $data2 = array(
@@ -770,7 +770,34 @@ class Cperson extends CI_Controller
         );
         $this->Mperson->simpan_detail_mahrom($data2);
         $pesan = "ya";
-        $sukses = "berhasil";
+        $sukses = "Berhasil";
+        $output = array(
+            'pesan' => $pesan,
+            'sukses' => $sukses
+        );
+        echo json_encode($output);
+    }
+
+    function get_mahrom()
+    {
+        $id = $this->input->post('id');
+        $data = $this->Mperson->get_mahrom($id);
+        echo json_encode($data);
+    }
+
+    public function edit_detail_mahrom()
+    {
+        $id = $this->input->post('id_edit');
+        $data = array(
+            'nik_m' => $this->input->post('nik_m'),
+            'nama_mahrom' => $this->input->post('nama_m'),
+            'hubungan' => $this->input->post('hubungannya'),
+            'alamat_mahrom' => $this->input->post('alamat'),
+            'tanggal_lahir' => $this->input->post('tanggal')
+        );
+        $this->Mperson->edit_mahrom(array('id_mahrom' => $id), $data);
+        $pesan = "ya";
+        $sukses = "Berhasil";
         $output = array(
             'pesan' => $pesan,
             'sukses' => $sukses
