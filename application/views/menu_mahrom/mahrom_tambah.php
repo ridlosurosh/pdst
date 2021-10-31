@@ -12,31 +12,11 @@
 		<div class="card">
 			<div class="card-body pb-4">
 				<div class="row">
-					<div class="col-md-3">
-						Yang Termasuk Mahrom adalah :
-						<ol>
-							<li>Ayah</li>
-							<li>Ibu</li>
-							<li>Ayah Tiri</li>
-							<li>Ibu Tiri</li>
-							<li>Kakek (Dari Ayah)</li>
-							<li>Nenek (Dari Ayah)</li>
-							<li>Kakek (Dari Ibu)</li>
-							<li>Nenek (Dari Ibu)</li>
-							<li>Kakak Kandung</li>
-							<li>Adik Kandung</li>
-							<li>Keponakan</li>
-							<li>Paman (Saudara Ayah)</li>
-							<li>Bibi (Saudara Ayah)</li>
-							<li>Paman (Saudara Ibu)</li>
-							<li>Bibi (Saudara Ibu)</li>
-						</ol>
-					</div>
-					<div class="col-md-9">
+					<div class="col-12">
 						<button type="button" id="btn-tambah" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ModalaAdd" data-backdrop="static">
 							<i class="fas fa-plus"></i> Tambah Data
 						</button>
-						<table id="example1" class="table table-bordered">
+						<table id="example1" class="table table-bordered projects">
 							<thead>
 								<tr>
 									<th>NO</th>
@@ -44,10 +24,12 @@
 									<th>NAMA MAHROM</th>
 									<th>TANGGAL LAHIR</th>
 									<th>HUBUNGAN</th>
+									<th>FOTO</th>
+									<th>FOTO KTP</th>
 									<th>AKSI</th>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody id="show_data">
 								<?php $no = 1;
 								foreach ($mahrom as $value) { ?>
 									<tr>
@@ -56,14 +38,35 @@
 										<td><?= $value->nama_mahrom ?></td>
 										<td><?= $value->tanggal_lahir ?></td>
 										<td><?= $mahrom = $value->hubungan ?></td>
+										<?php if ($value->foto_diri == "") {
+											$foto = "plugin/dist/img/person.png";
+										} else {
+											$foto = "../gambar/mahrom/" . $value->foto_diri;
+										} ?>
+										<td>
+											<ul class="list-inline">
+												<li class="list-inline-item">
+													<img alt="Avatar" class="table-avatar" title="FOTO DIRI" src="<?= site_url() ?><?= $foto ?>">
+												</li>
+											</ul>
+										</td>
+										<?php if ($value->foto_kk_atau_ktp == "") {
+											$ktp = "plugin/dist/img/ktp.png";
+										} else {
+											$ktp = "../gambar/ktp/" . $value->foto_kk_atau_ktp;
+										} ?>
+										<td>
+											<img alt="Avatar" width="45" title="KTP" src="<?= site_url() ?><?= $ktp ?>" id="ee">
+										</td>
 										<?php if ($mahrom == "Ayah") {
 											$tombol = '';
 										} elseif ($mahrom == "Ibu") {
 											$tombol = '';
 										} else {
-											$tombol = '<button class="btn btn-sm btn-primary" id="btn-edit" data-id="<?= $value->id_mahrom ?>" data-toggle="modal" data-target="#modal-xl"><i class="fas fa-edit"></i></button>';
+											$tombol = "<button type='button' class='btn btn-sm btn-primary item_edit' id='btn-edit' data='" . $value->id_mahrom . "'><i class='fas fa-edit'></i></button>";
 										} ?>
 										<td>
+											<input type="hidden" value="<?= $value->alamat_mahrom ?>">
 											<?= $tombol ?>
 										</td>
 									</tr>
@@ -76,8 +79,7 @@
 			<div class="card-footer">
 				<button type="button" class="btn btn-danger" onclick="batal('<?= $santri->id_person ?>')"><i class="fas fa-times"></i> Batal</button>
 				<div class="float-right">
-					<button type="button" onclick="kembali_lagi('<?= $santri->id_person ?>')" class="btn btn-info"><i class="fas fa-arrow-left"></i> Kembali</button>
-					<button class="btn btn-info" id="simpan">Simpan <i class="fas fa-arrow-right"></i></button>
+					<button class="btn btn-info" id="simpan"><i class="fas fa-check"></i> Selesai</button>
 				</div>
 			</div>
 		</div>
@@ -92,25 +94,25 @@
 			</div>
 			<form class="form-horizontal" id="form_tambah_mahrom">
 				<div class="modal-body">
-					<input type="text" name="id_person" id="idperson" value="<?= $santri->id_person ?>">
+					<input type="hidden" name="id_person" id="idperson" value="<?= $santri->id_person ?>">
 					<div class="row">
-						<div class="col-md-2">
+						<div class="col-md-3">
 							<div class="form-group">
 								<label for="nik">NIK</label>
 								<input type="number" class="form-control" id="nik" name="nik" autocomplete="off" placeholder="Isi Dengan Angka">
 							</div>
 						</div>
-						<div class="col-md-8">
+						<div class="col-md-6">
 							<div class="form-group">
 								<label for="nama">NAMA MAHROM</label>
 								<input type="text" autocomplete="off" class="form-control" id="nama" name="nama" placeholder="Nama Mahrom">
 							</div>
 						</div>
-						<div class="col-md-2">
+						<div class="col-md-3">
 							<div class="form-group">
 								<label for="hubungan">HUBUNGAN</label>
 								<select name="hubungan" id="hubungan_m" class="form-control">
-									<option value="">-Pilih Hubungan-</option>
+									<option value="default">-Pilih Hubungan-</option>
 									<option value="Ayah Tiri">Ayah Tiri</option>
 									<option value="Ibu Tiri">Ibu Tiri</option>
 									<option value="Kakek(Dari Ayah)">Kakek(Dari Ayah)</option>
@@ -129,13 +131,13 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-10">
+						<div class="col-md-9">
 							<div class="form-group">
 								<label for="alamat">ALAMAT LENGKAP SESUAI KTP</label>
 								<textarea name="alamat" id="alamat_m" class="form-control"></textarea>
 							</div>
 						</div>
-						<div class="col-md-2">
+						<div class="col-md-3">
 							<div class="form-group">
 								<label for="tanggal">TANGGAL LAHIR</label>
 								<input type="date" name="tanggal" id="tanggal_m" class="form-control">
@@ -146,7 +148,76 @@
 
 				<div class="modal-footer justify-content-between">
 					<button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
-					<button type="button" class="btn btn-info" id="btn_simpan" onclick="simpan_mahrom()">Simpan</button>
+					<button class="btn btn-info" id="btn_simpan"><i class="fas fa-save"></i> Simpan</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="ModalaEdit" tabindex="-1" role="dialog" aria-labelledby="largeModal" data-backdrop="static" aria-hidden="true">
+	<div class="modal-dialog modal-xl">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title" id="myModalLabel">Edit Mahrom</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			</div>
+			<form class="form-horizontal" id="form_edit_mahrom">
+				<div class="modal-body">
+					<input type="hidden" name="id_edit" id="nik_m">
+					<div class="row">
+						<div class="col-md-3">
+							<div class="form-group">
+								<label for="nik">NIK</label>
+								<input type="number" class="form-control" id="nik" name="nik_m" autocomplete="off" placeholder="Isi Dengan Angka">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="nama">NAMA MAHROM</label>
+								<input type="text" autocomplete="off" class="form-control" id="nama" name="nama_m" placeholder="Nama Mahrom">
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label for="hubungan">HUBUNGAN</label>
+								<select name="hubungannya" id="hubungan_m" class="form-control">
+									<option value="default">-Pilih Hubungan-</option>
+									<option value="Ayah Tiri">Ayah Tiri</option>
+									<option value="Ibu Tiri">Ibu Tiri</option>
+									<option value="Kakek(Dari Ayah)">Kakek(Dari Ayah)</option>
+									<option value="Kakek(Dari Ibu)">Kakek(Dari Ibu)</option>
+									<option value="Nenek(Dari Ayah)">Nenek(Dari Ayah)</option>
+									<option value="Nenek(Dari Ibu)">Nenek(Dari Ibu)</option>
+									<option value="Kakak Kandung">Kakak Kandung</option>
+									<option value="Adik Kandung">Adik Kandung</option>
+									<option value="Keponakan">Keponakan</option>
+									<option value="Paman(Saudara Ayah)">Paman(Saudara Ayah)</option>
+									<option value="Paman(Saudara Ibu)">Paman(Saudara Ibu)</option>
+									<option value="Bibi(Saudari Ayah)">Bibi(Saudari Ayah)</option>
+									<option value="Bibi(Saudari Ibu)">Bibi(Saudari Ibu)</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-9">
+							<div class="form-group">
+								<label for="alamat">ALAMAT LENGKAP SESUAI KTP</label>
+								<textarea name="alamat" id="alamat_m" class="form-control"></textarea>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label for="tanggal">TANGGAL LAHIR</label>
+								<input type="date" name="tanggal" id="tanggal_m" class="form-control">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer justify-content-between">
+					<button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+					<button class="btn btn-info" id="btn_edit"><i class="fas fa-edit"></i> Edit</button>
 				</div>
 			</form>
 		</div>
@@ -161,36 +232,201 @@
 			"ordering": false,
 			"searching": false,
 			"info": false,
-			"autoWidth": true,
+			"autoWidth": false,
 		});
-		$('#Modal-xl').modal({
-			backdrop: 'static',
-			keyboard: false
-		})
 	});
 
-	$(document).ready(function() {
-		$('#btn_simpan').on('click', function() {
-			$.ajax({
-				url: "<?= site_url('Cperson/simpan_detail_mahrom') ?>",
-				data: $('#form_tambah_mahrom').serialize(),
-				type: 'POST',
-				dataType: 'JSON',
-				success: function(data) {
-					if (data.pesan === "ya") {
-						$('#ModalaAdd').modal('hide');
-						swal.fire({
-							title: "PDST NAA",
-							text: data.sukses,
-							type: "success"
-						}).then(okay => {
-							if (okay) {
-								form_tambah_mahrom('<?= $santri->id_person ?>')
-							}
-						})
+	$('#btn_simpan').on('click', function() {
+		$.validator.addMethod("valueNotEquals", function(value, element, arg) {
+			return arg !== value;
+		}, "Value must not equal arg.");
+		$("select").on("select2:close", function(e) {
+			$(this).valid();
+		});
+		$('#form_tambah_mahrom').validate({
+			rules: {
+				nik: {
+					required: true,
+					maxlength: 16,
+					minlength: 16
+				},
+				nama: {
+					required: true
+				},
+				hubungan: {
+					valueNotEquals: "default"
+				},
+				alamat: {
+					required: true
+				},
+				tanggal: {
+					required: true
+				},
+			},
+			messages: {
+				nik: {
+					required: "Tidak Boleh Kosong",
+					maxlength: "NIK lebih dari 16 digit",
+					minlength: "NIK kurang dari 16 digit"
+				},
+				nama: {
+					required: "Tidak Boleh Kosong"
+				},
+				hubungan: {
+					valueNotEquals: "Tidak Boleh Kosong"
+				},
+				alamat: {
+					required: "Tidak Boleh Kosong"
+				},
+				tanggal: {
+					required: "Tidak Boleh Kosong"
+				},
+			},
+			errorElement: 'span',
+			errorPlacement: function(error, element) {
+				error.addClass('invalid-feedback');
+				element.closest('.form-group').append(error);
+			},
+			// highlight: function(element, errorClass, validClass) {
+			//     $(element).addClass('is-invalid');
+			// },
+			unhighlight: function(element, errorClass, validClass) {
+				$(element).removeClass('is-invalid');
+			},
+			submitHandler: function() {
+				$.ajax({
+					url: "<?= site_url('Cperson/simpan_detail_mahrom') ?>",
+					data: $('#form_tambah_mahrom').serialize(),
+					type: 'POST',
+					dataType: 'JSON',
+					success: function(data) {
+						if (data.pesan === "ya") {
+							$('#ModalaAdd').modal('hide');
+							swal.fire({
+								title: "PDST NAA",
+								text: data.sukses,
+								type: "success",
+								showConfirmButton: false,
+								timer: 1000
+							}).then(okay => {
+								if (okay) {
+									form_tambah_mahrom('<?= $santri->id_person ?>')
+								}
+							})
+						}
 					}
-				}
-			});
+				});
+			}
+
+		})
+	})
+
+	$('.item_edit').on('click', function() {
+		var id = $(this).attr('data');
+		$.ajax({
+			type: "POST",
+			url: "<?php echo base_url('Cperson/get_mahrom') ?>",
+			dataType: "JSON",
+			data: {
+				id: id
+			},
+			success: function(data) {
+				$.each(data, function(id_mahrom, nik_m, nama_mahrom, hubungan, alamat_mahrom) {
+					$('#ModalaEdit').modal('show');
+					$('[name="id_edit"]').val(data.id_mahrom);
+					$('[name="nik_m"]').val(data.nik_m);
+					$('[name="nama_m"]').val(data.nama_mahrom);
+					$('[name="hubungannya"]').val(data.hubungan);
+					$('[name="alamat"]').val(data.alamat_mahrom);
+					$('[name="tanggal"]').val(data.tanggal_lahir);
+				});
+			}
+		});
+		return false;
+	})
+
+	$('#btn_edit').on('click', function() {
+		$.validator.addMethod("valueNotEquals", function(value, element, arg) {
+			return arg !== value;
+		}, "Value must not equal arg.");
+		$("select").on("select2:close", function(e) {
+			$(this).valid();
+		});
+		$('#form_edit_mahrom').validate({
+			rules: {
+				nik_m: {
+					required: true,
+					maxlength: 16,
+					minlength: 16
+				},
+				nama_m: {
+					required: true
+				},
+				hubungannya: {
+					valueNotEquals: "default"
+				},
+				alamat: {
+					required: true
+				},
+				tanggal: {
+					required: true
+				},
+			},
+			messages: {
+				nik_m: {
+					required: "Tidak Boleh Kosong",
+					maxlength: "NIK lebih dari 16 digit",
+					minlength: "NIK kurang dari 16 digit"
+				},
+				nama_m: {
+					required: "Tidak Boleh Kosong"
+				},
+				hubungannya: {
+					valueNotEquals: "Tidak Boleh Kosong"
+				},
+				alamat: {
+					required: "Tidak Boleh Kosong"
+				},
+				tanggal: {
+					required: "Tidak Boleh Kosong"
+				},
+			},
+			errorElement: 'span',
+			errorPlacement: function(error, element) {
+				error.addClass('invalid-feedback');
+				element.closest('.form-group').append(error);
+			},
+			// highlight: function(element, errorClass, validClass) {
+			//     $(element).addClass('is-invalid');
+			// },
+			unhighlight: function(element, errorClass, validClass) {
+				$(element).removeClass('is-invalid');
+			},
+			submitHandler: function() {
+				$.ajax({
+					url: "<?= site_url('Cperson/edit_detail_mahrom') ?>",
+					data: $('#form_edit_mahrom').serialize(),
+					type: 'POST',
+					dataType: 'JSON',
+					success: function(data) {
+						if (data.pesan === "ya") {
+							$('#ModalaEdit').modal('hide');
+							swal.fire({
+								title: "PDST NAA",
+								text: data.sukses,
+								type: "success",
+								showConfirmButton: false,
+								timer: 1000
+							}).then(okay => {
+								if (okay) {
+									form_tambah_mahrom('<?= $santri->id_person ?>')
+								}
+							})
+						}
+					}
+				});
+			}
+
 		})
 	})
 </script>
