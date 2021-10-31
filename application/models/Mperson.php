@@ -207,6 +207,22 @@ class Mperson extends CI_Model
         $this->db->insert('tb_detail_mahrom', $data2);
     }
 
+    public function upload_foto_mahrom($id_mahrom, $data, $id)
+    {
+        $this->db->where('id_mahrom', $id);
+        $query = $this->db->get('tb_mahrom')->row();
+        unlink('../gambar/mahrom/' . $query->foto_diri);
+        $this->db->update('tb_mahrom', $data, $id_mahrom);
+    }
+
+    public function upload_foto_ktp($id_mahrom, $data, $id)
+    {
+        $this->db->where('id_mahrom', $id);
+        $query = $this->db->get('tb_mahrom')->row();
+        unlink('../gambar/ktp/' . $query->foto_kk_atau_ktp);
+        $this->db->update('tb_mahrom', $data, $id_mahrom);
+    }
+
     function get_mahrom($id)
     {
         $hsl = $this->db->query("SELECT * FROM tb_mahrom WHERE id_mahrom='$id'");
@@ -224,6 +240,8 @@ class Mperson extends CI_Model
         }
         return $hasil;
     }
+
+
 
     public function edit_mahrom($id, $data)
     {
