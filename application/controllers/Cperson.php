@@ -804,4 +804,41 @@ class Cperson extends CI_Controller
         );
         echo json_encode($output);
     }
+
+    public function simpan_berkas_mahrom()
+    {
+        $config['upload_path'] = '../gambar/mahrom/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['encrypt_name'] = TRUE;
+        $this->load->library('upload', $config);
+        if (!empty($this->upload->do_upload('foto_diri'))) {
+            $data =  array(
+                'upload_foto' => $this->upload->data(),
+            );
+            $id = $this->input->post('id_mahrom');
+            $id_mahrom = $this->input->post('id_mahrom');
+            $fotos = $data['upload_foto']['file_name'];
+            $data =  array(
+                'foto_diri' => $fotos
+            );
+            $this->Mperson->upload_foto_mahrom(array('id_mahrom' => $id_mahrom), $data, $id);
+        }
+
+        $config['upload_path'] = '../gambar/ktp/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['encrypt_name'] = TRUE;
+        $this->load->library('upload', $config);
+        if (!empty($this->upload->do_upload('ktp'))) {
+            $data =  array(
+                'upload_foto' => $this->upload->data(),
+            );
+            $id = $this->input->post('id_mahrom');
+            $id_mahrom = $this->input->post('id_mahrom');
+            $ktp = $data['upload_foto']['file_name'];
+            $data =  array(
+                'foto_kk_atau_ktp' => $ktp
+            );
+            $this->Mperson->upload_foto_ktp(array('id_mahrom' => $id_mahrom), $data, $id);
+        }
+    }
 }
