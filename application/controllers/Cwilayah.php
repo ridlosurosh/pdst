@@ -22,13 +22,22 @@
 
         public function simpan_wilayah()
         {
-            $data = array(
-                'nama_wilayah' => $this->input->post('nama_wilayah'),
-                'kepala_wilayah' => $this->input->post('kepala_wilayah')
-            );
-            $this->Mwilayah->simpan_wilayah($data);
-            $pesan = "ya";
-            $sukses = "Data Berhasil Disimpan";
+            $wilayah = $this->input->post('nama_wilayah');
+            $cek_wilayah = $this->db->where('nama_wilayah', $wilayah)
+                ->get('tb_wilayah')
+                ->num_rows();
+            if ($cek_wilayah > 0) {
+                $pesan = "tidak";
+                $sukses = "Nama Wilayah Sudah ada !!";
+            } else {
+                $data = array(
+                    'nama_wilayah' => $this->input->post('nama_wilayah'),
+                    'kepala_wilayah' => $this->input->post('kepala_wilayah')
+                );
+                $this->Mwilayah->simpan_wilayah($data);
+                $pesan = "ya";
+                $sukses = "Data Berhasil Disimpan";
+            }
             $output = array(
                 'pesan' => $pesan,
                 'sukses' => $sukses
