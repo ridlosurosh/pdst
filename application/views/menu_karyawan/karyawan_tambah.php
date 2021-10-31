@@ -19,12 +19,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-form-label" for="nama_pengajar">Pilih Nama Santri</label>
-                                <input type="text" class="form-control" name="nama_pengajar" id="nama_santri" placeholder="nama">
+                                <input type="text" class="form-control" name="nama_pengajar" id="nama_santri" placeholder="nama" autocomplete="off">
                                 <input type="hidden" name="idperson" id="idperson">
                             </div>
                             <div class="form-group">
-                                <label class="col-form-label" for="alamat">NIUP</label>
-                                <input type="text" class="form-control" name="alamat_lengkap" id="alamat" placeholder="0000000000000000" readonly>
+                                <label class="col-form-label" for="alamat">Alamat</label>
+                                <textarea  class="form-control" name="alamat_lengkap" id="alamat" cols="30" rows="1" readonly></textarea>
+                                <!-- <input type="text" class="form-control" name="alamat_lengkap" id="alamat" placeholder="" > -->
                             </div>
                             <div class="form-group">
                                 <label for="tanggal" class="col-form-label">Tanggal Pengangkatan</label>
@@ -74,34 +75,49 @@
 
 <script>
     $(function() {
-        UI_santri();
-        $('#nama_santri').focus();
+        $('#nama_santri').on('input', function() {
+            UI_Nama_Karyawan();
+            $("#namanya").val("");
+        });
 
     });
 
-    function UI_santri() {
-        var options = {
-            url: "<?= site_url('Ckaryawan/otomatis_santri'); ?>",
-            getValue: "nama",
-            list: {
-                match: {
-                    enabled: true
-                },
-                onKeyEnterEvent: function() {
-                    var id = $("#nama_santri").getSelectedItemData().id_person;
-                    $("#idperson").val(id).trigger("change");
-                    var alamat = $("#nama_santri").getSelectedItemData().niup;
-                    $("#alamat").val(alamat).trigger("change");
-                },
-                onClickEvent: function() {
-                    var id = $("#nama_santri").getSelectedItemData().id_person;
-                    $("#idperson").val(id).trigger("change");
-                    var alamat = $("#nama_santri").getSelectedItemData().niup;
-                    $("#alamat").val(alamat).trigger("change");
+    function UI_Nama_Karyawan() {
+        $('#nama_santri').autocomplete({
+            minLength: 1,
+            autoFocus: true,
+            source: function(req, res) {
+                $.ajax({
+                    url: "<?= site_url('Ckaryawan/otomatis_karyawan') ?>",
+                    data: {
+                        cari: $('#nama_santri').val()
+                    },
+                    dataType: 'json',
+                    type: "POST",
+                    success: function(data) {
+                        res(data);
+                    }
+                });
+            },
+            select: function(event, ui) {
+                if (ui.item.sukses === true) {
+                    $('#idperson').val(ui.item.id_person);
+                    $('#nama_santri').val(ui.item.nama);
+                    $('#alamat').val(ui.item.alamat);
+                    return false;
+                } else {
+                    return false;
                 }
+            },
+            create: function() {
+                $(this).data('ui-autocomplete')._renderItem = function(ul, item) {
+                    return $("<li></li>")
+                        .data("item.autocomplete", item)
+                        .append("<a class='nav-link active'><strong>" + item.nama + "</strong> <br/><small>Niup : " + item.niup + "</small></a>")
+                        .appendTo(ul);
+                };
             }
-        };
-        $("#nama_santri").easyAutocomplete(options);
+        });
     }
 
     $('#angkat').on('change', function() {
@@ -116,7 +132,21 @@
         var y = date.getFullYear();
         var someFormattedDate = y + '-' + mm + '-' + dd;
 
-        $('#berhenti').val(someFormattedDate);
+        if (bb === "") {
+			$('#berhenti').val('0000-00-00');
+			$('#pengangkatan').focus();
+			swal.fire({
+			title: "Tanggal Penganggkatan Harus di Isi dulu",
+			type: "warning"
+			}).then(okay => {
+				if (okay) {
+					$('#berhenti').val("");
+					$('#angkat').val('0');
+						}
+				});
+		} else {
+			$('#berhenti').val(someFormattedDate);
+		}
 
     })
 
