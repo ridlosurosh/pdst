@@ -377,7 +377,7 @@ if (isset($this->session->userdata['logged_in'])) {
 
 		$(document).ready(function() {
 			$('.menu').click(function() {
-				$('li').removeClass('menu-open');
+				// $('li').removeClass('menu-open');
 				// $(this).addClass('menu-open');
 				// if ($('ul li ').attr('class') === "menu-open") {
 				// } else {
