@@ -19,12 +19,29 @@
 						<form class="form-horizontal" id="form_edit_history">
 							<input type="hidden" name="idhistory" value="<?= $data_history->id_history ?>">
 							<div class="row">
-								<div class="col-sm-4">
+								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="nama_santri" class="col-form-label">Nama Santri</label>
 										<input type="hidden" class="form-control" name="nama_santri" id="nama_santri" value="<?= $data_history->id_person ?>">
 										<input type="text" class="form-control" name="santri" id="santri" value="<?= $data_history->nama ?>" readonly>
 									</div>
+									<div class="form-group">
+										<label for="alamat" class="col-form-label">Alamat</label>
+										<input type="text" class="form-control" name="alamat" id="alamat" value="<?= $data_history->alamat_lengkap ?>" readonly>
+									</div>
+									<div class="form-group">
+										<label for="tgl_penetapan" class="col-form-label">Tanggal Penetapan</label>
+										<div class="form-line">
+											<div class="input-group">
+												<div class="input-group-prepend">
+													<span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+												</div>
+												<input type="text" class="form-control" name="tgl_penetapan" id="tgl_penetapan">
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="" class="col-form-label">Wilayah</label>
 										<select name="" id="wilayah" class="form-control select2">
@@ -41,8 +58,6 @@
 											<option value=""></option>
 										</select>
 									</div>
-								</div>
-								<div class="col-sm-4">
 									<div class="form-group">
 										<label for="nama_kamar" class="col-form-label">Kamar</label>
 										<select name="nama_kamar" id="kamar" class="form-control select2">
@@ -50,10 +65,7 @@
 											<option value=""></option>
 										</select>
 									</div>
-									<div class="form-group">
-										<label for="tgl_penetapan" class="col-form-label">Tanggal Penetapan</label>
-										<input type="date" class="form-control" name="tgl_penetapan" id="tgl_penetapan">
-									</div>
+
 									<input type="hidden" name="aktif" value="Tidak">
 								</div>
 							</div>
@@ -118,13 +130,15 @@
 			return false;
 		});
 	});
-</script>
-<script>
+
 	$(function() {
 		//Initialize Select2 Elements
 		$('.select2').select2({
 			theme: 'bootstrap4'
 		})
+		$('#tgl_penetapan').datepicker({
+			dateFormat: 'yy-mm-dd'
+		});
 	});
 
 	function edit_history() {
