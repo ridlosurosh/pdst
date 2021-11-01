@@ -70,7 +70,7 @@ if (isset($this->session->userdata['logged_in'])) {
 					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-3">
 						<h4 class="widget-user-username txet-center"><?= $nama_user ?></h4>
 						<h5 class="widget-user-desc">Ketua Umum</h5>
-						<a href="<?= site_url('Clogin/logout') ?>" class="btn btn-danger btn-sm mt-4" style="margin-left: 182px;">Log-out</a>
+						<a href="<?= site_url('Clogin/logout') ?>" class="btn btn-danger btn-sm mt-4" style="margin-left: 90px;">Log-out</a>
 
 					</div>
 				</li>
