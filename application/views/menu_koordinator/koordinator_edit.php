@@ -66,7 +66,14 @@
 									</div>
 									<div class="form-group">
 										<label for="tanggal" class="col-form-label">Tanggal Pengangkatan</label>
-										<input type="text" name="tanggal_diangkat" class="form-control" id="pengangkatan" value="<?= $pengurus->tanggal_diangkat ?>">
+										<div class="form-line">
+											<div class="input-group">
+												<div class="input-group-prepend">
+													<span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+												</div>
+												<input type="text" name="tanggal_diangkat" class="form-control" id="pengangkatan" value="<?= $pengurus->tanggal_diangkat ?>">
+											</div>
+										</div>
 									</div>
 									<div class="form-group">
 										<?php
@@ -76,7 +83,7 @@
 										$hasil =  $jarak->days;
 										?>
 										<label for="tanggal" class="col-form-label">Masa Bakti</label>
-										<select class="form-control" name="" id="angkat">
+										<select class="form-control select2" name="" id="angkat">
 											<option <?= $hasil == "365"  ? "selected " : "" ?> value="365">1 Tahun</option>
 											<option <?= $hasil == "730"  ? "selected " : "" ?> value="730">2 Tahun</option>
 											<option <?= $hasil == "1095"  ? "selected " : "" ?> value="1095">3 Tahun</option>
@@ -134,7 +141,12 @@
 
 <script>
 	$(function() {
-		$('#pengangkatan').Zebra_DatePicker();
+		$('#pengangkatan').datepicker({
+			dateFormat: 'yy-mm-dd'
+		});
+		$('.select2').select2({
+			theme: 'bootstrap4'
+		})
 	})
 
 	function edit_koordinator() {
@@ -184,9 +196,4 @@
 		$('#berhenti').val(someFormattedDate);
 
 	})
-
-	function CalcDiff() {
-		var a = $('#selisih').val();
-		$('#angkat').append("<option>jhff</option>")
-	}
 </script>
