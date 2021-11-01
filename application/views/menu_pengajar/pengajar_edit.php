@@ -27,17 +27,20 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="col-form-label" for="alamat">Alamat</label>
-                                <textarea name="" class="form-control" id="alamat" cols="150" rows="2" readonly><?= $alamat_lengkap ?></textarea>
-                                <!-- <input type="text" name="alamat_lengkap" id="" placeholder="alamat" readonly> -->
+                                <label for="tanggal" class="col-form-label">Tanggal Pengangkatan</label>
+                                <div class="form-line">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" name="tgl_diangkat" id="tgl" placeholder="" value="<?= $tgl_diangkat ?>">
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-form-label" for="alamat">Tanggal Pengangkatan</label>
-                                <!-- <textarea name="" class="form-control" id="alamat" cols="30" rows="2" readonly></textarea> -->
-                                <input type="text" class="form-control" name="tgl_diangkat" id="tgl" placeholder="" value="<?= $tgl_diangkat ?>">
-                            </div>
+                        <div class="form-group">
+                            <label class="col-form-label" for="alamat">Alamat</label>
+                            <textarea name="" class="form-control" id="alamat" cols="150" rows="2" readonly><?= $alamat_lengkap ?></textarea>
                         </div>
                     </div>
                 </form>
@@ -52,7 +55,9 @@
 
 <script>
     $(function() {
-        $('#tgl').Zebra_DatePicker();
+        $('#tgl').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
 
         UI_pengajar_dari_dalam();
         $('#nama_pengajar').focus();
