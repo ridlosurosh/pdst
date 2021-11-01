@@ -85,10 +85,7 @@ class Cpengajar extends CI_Controller
     public function edit_pengajar()
     {
         $id = $this->input->post('idpengajar');
-        $data = array(
-            'id_person' => $this->input->post('id_person'),
-            'tgl_diangkat' => $this->input->post('tgl_diangkat'),
-        );
+        $data = array('id_person' => $this->input->post('id_person'));
         $this->Mpengajar->edit_pengajar(array('id_guru_nubdah' => $id), $data);
         $pesan = "ya";
         $sukses = "Data Berhasil Diedit";
