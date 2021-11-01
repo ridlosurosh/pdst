@@ -29,13 +29,20 @@
                             </div>
                             <div class="form-group">
                                 <label for="tanggal" class="col-form-label">Tanggal Pengangkatan</label>
-                                <input type="text" name="tanggal_diangkat" class="form-control" id="pengangkatan">
+                                <div class="form-line">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                        </div>
+                                        <input type="text" name="tanggal_diangkat" class="form-control" id="pengangkatan">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="tanggal" class="col-form-label">Masa Bakti</label>
-                                <select class="form-control" name="" id="angkat">
+                                <select class="form-control select2" name="" id="angkat">
                                     <option selected hidden>Pilih Masa Bakti</option>
                                     <option value="365">1 Tahun</option>
                                     <option value="730">2 Tahun</option>
@@ -50,7 +57,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="instansi" class="col-form-label">Instansi</label>
-                                <select class="form-control" name="instansi" id="instansi">
+                                <select class="form-control select2" name="instansi" id="instansi">
                                     <option selected hidden>Pilih Instansi</option>
                                     <option value="NAA Media">NAA MEDIA</option>
                                     <option value="Kopontren Al-Mubarokah">Kopontren Al-Mubarokah</option>
@@ -75,7 +82,12 @@
 
 <script>
     $(function() {
-        $('#pengangkatan').Zebra_DatePicker();
+        $('.select2').select2({
+            theme: 'bootstrap4'
+        })
+        $('#pengangkatan').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
         $('#nama_santri').on('input', function() {
             UI_Nama_Karyawan();
             $("#namanya").val("");
