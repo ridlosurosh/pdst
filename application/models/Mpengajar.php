@@ -17,13 +17,13 @@ class Mpengajar extends CI_Model
     {
 
         $this->db->group_start();
-        $this->db->order_by('nama', 'ASC');
         $this->db->like('nama', $cari, 'both');
         $this->db->or_like('niup', $cari, 'both');
         $this->db->group_end();
         // $this->db->where_not_in
         $this->db->where_not_in('id_person', $dat);
         $this->db->where('status', 'aktif');
+        $this->db->order_by('nama', 'ASC');
         $this->db->from('tb_person');
         $query = $this->db->get();
         return $query;
