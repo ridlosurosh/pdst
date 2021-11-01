@@ -24,12 +24,12 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-form-label" for="alamat">Alamat</label>
-                                <textarea  class="form-control" name="alamat_lengkap" id="alamat" cols="30" rows="1" readonly></textarea>
+                                <textarea class="form-control" name="alamat_lengkap" id="alamat" cols="30" rows="1" readonly></textarea>
                                 <!-- <input type="text" class="form-control" name="alamat_lengkap" id="alamat" placeholder="" > -->
                             </div>
                             <div class="form-group">
                                 <label for="tanggal" class="col-form-label">Tanggal Pengangkatan</label>
-                                <input type="date" name="tanggal_diangkat" class="form-control" id="pengangkatan">
+                                <input type="text" name="tanggal_diangkat" class="form-control" id="pengangkatan">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -75,6 +75,7 @@
 
 <script>
     $(function() {
+        $('#pengangkatan').Zebra_DatePicker();
         $('#nama_santri').on('input', function() {
             UI_Nama_Karyawan();
             $("#namanya").val("");
@@ -133,20 +134,20 @@
         var someFormattedDate = y + '-' + mm + '-' + dd;
 
         if (bb === "") {
-			$('#berhenti').val('0000-00-00');
-			$('#pengangkatan').focus();
-			swal.fire({
-			title: "Tanggal Penganggkatan Harus di Isi dulu",
-			type: "warning"
-			}).then(okay => {
-				if (okay) {
-					$('#berhenti').val("");
-					$('#angkat').val('0');
-						}
-				});
-		} else {
-			$('#berhenti').val(someFormattedDate);
-		}
+            $('#berhenti').val('0000-00-00');
+            $('#pengangkatan').focus();
+            swal.fire({
+                title: "Tanggal Penganggkatan Harus di Isi dulu",
+                type: "warning"
+            }).then(okay => {
+                if (okay) {
+                    $('#berhenti').val("");
+                    $('#angkat').val('0');
+                }
+            });
+        } else {
+            $('#berhenti').val(someFormattedDate);
+        }
 
     })
 
