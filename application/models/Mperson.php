@@ -82,11 +82,6 @@ class Mperson extends CI_Model
         $this->db->update('tb_person', $data1, $id);
     }
 
-    public function nonaktif_penempatan_kamar($id, $data3)
-    {
-        $this->db->update('tb_history', $data3, $id);
-    }
-
     public function simpan_ayah($data_a)
     {
         $this->db->insert('tb_mahrom', $data_a);
@@ -228,7 +223,7 @@ class Mperson extends CI_Model
         $this->db->update('tb_mahrom', $data, $id_mahrom);
     }
 
-    function get_mahrom($id)
+    public function get_mahrom($id)
     {
         $hsl = $this->db->query("SELECT * FROM tb_mahrom WHERE id_mahrom='$id'");
         if ($hsl->num_rows() > 0) {
