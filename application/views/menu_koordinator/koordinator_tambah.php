@@ -63,7 +63,7 @@
 									</div>
 									<div class="form-group">
 										<label for="tanggal" class="col-form-label ">Masa Bakti</label>
-										<select class="form-control select2" name="" id="angkat">
+										<select class="form-control select2" name="masa_bakti" id="angkat">
 											<option selected hidden value="0">Pilih Masa Bakti</option>
 											<option value="365">1 Tahun</option>
 											<option value="730">2 Tahun</option>
@@ -107,12 +107,11 @@
 									</script>
 								</div>
 							</div>
-
+							<div class="card-footer">
+								<button type="submit" class="btn btn-sm btn-default" onclick="menu_koordinator()">Keluar</button>
+								<button type="submit" class="btn btn-sm bg-teal  float-right"><i class="fas fa-save"></i> Simpan</button>
+							</div>
 						</form>
-					</div>
-					<div class="card-footer">
-						<button type="submit" class="btn btn-sm btn-default" onclick="menu_koordinator()">Keluar</button>
-						<button type="submit" class="btn btn-sm bg-teal  float-right" onclick="simpan_koordinator();"><i class="fas fa-save"></i> Simpan</button>
 					</div>
 				</div>
 			</div>
@@ -203,38 +202,73 @@
 
 	})
 
-	// untuk menyimpan data
-	function simpan_koordinator() {
-		$.ajax({
-			url: "<?= site_url('Ckoordinator/simpan_koordinator') ?>",
-			data: $('#form_tambah_pengurus').serialize(),
-			type: 'POST',
-			dataType: 'JSON',
-			success: function(data, textStatus, jqXHR) {
-				if (data.pesan === "ya") {
-					swal.fire({
-						title: "PDST NAA",
-						text: data.sukses,
-						type: "success"
-					}).then(okay => {
-						if (okay) {
-							menu_koordinator();
-						}
-					});
-				} else {
-					swal.fire({
-						title: "PDST NAA",
-						text: data.sukses,
-						type: "warning"
-					}).then(okay => {
-						if (okay) {
-							// menu_koordinator();
-						}
-					});
-				}
+
+	$.validator.addMethod("valueNotEquals", function(value, element, arg) {
+		return arg !== value;
+	}, "Value must not equal arg.");
+	$("select").on("select2:close", function(e) {
+		$(this).valid();
+	});
+	$('#form_tambah_pengurus').validate({
+		rules: {
+			nama_pengajar: {
+				required: true
+			},
+			nama_wilayah: {
+				valueNotEquals: "default"
+			},
+		},
+		messages: {
+			nama_pengajar: {
+				required: "Tidak Boleh Kosong"
+			},
+			nama_wilayah: {
+				valueNotEquals: "Tidak Boleh Kosong"
 			}
-		})
-	}
+		},
+		errorElement: 'span',
+		errorPlacement: function(error, element) {
+			error.addClass('invalid-feedback');
+			element.closest('.form-group').append(error);
+		},
+		// highlight: function(element, errorClass, validClass) {
+		//     $(element).addClass('is-invalid');
+		// },
+		unhighlight: function(element, errorClass, validClass) {
+			$(element).removeClass('is-invalid');
+		},
+		submitHandler: function() {
+			$.ajax({
+				url: "<?= site_url('Ckoordinator/simpan_koordinator') ?>",
+				data: $('#form_tambah_pengurus').serialize(),
+				type: 'POST',
+				dataType: 'JSON',
+				success: function(data, textStatus, jqXHR) {
+					if (data.pesan === "ya") {
+						swal.fire({
+							title: "PDST NAA",
+							text: data.sukses,
+							type: "success"
+						}).then(okay => {
+							if (okay) {
+								menu_koordinator();
+							}
+						});
+					} else {
+						swal.fire({
+							title: "PDST NAA",
+							text: data.sukses,
+							type: "warning"
+						}).then(okay => {
+							if (okay) {
+								// menu_koordinator();
+							}
+						});
+					}
+				}
+			})
+		}
+	})
 
 	$(function() {
 		$('.select2').select2({
