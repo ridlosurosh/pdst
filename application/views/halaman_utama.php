@@ -72,7 +72,6 @@
         </div>
     </div>
 </section>
-
 <?php
 foreach ($kamar as $jc) {
     $nama[] = $jc->nama_wilayah;
