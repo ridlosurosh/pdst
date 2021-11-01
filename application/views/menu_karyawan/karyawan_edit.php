@@ -25,12 +25,18 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-form-label" for="alamat">Alamat</label>
-                                <!-- <input type="text" class="form-control" name="alamat_lengkap" id="alamat" value="<?= $niup ?>" > -->
                                 <textarea class="form-control" name="alamat_lengkap" id="alamat" cols="30" rows="1" readonly><?= $alamat_lengkap ?></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="tanggal" class="col-form-label">Tanggal Pengangkatan</label>
-                                <input type="text" name="tanggal_diangkat" class="form-control" id="pengangkatan" value="<?= $tgl_diangkat ?>">
+                                <div class="form-line">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                        </div>
+                                        <input type="text" name="tanggal_diangkat" class="form-control" id="pengangkatan" value="<?= $tgl_diangkat ?>">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -42,7 +48,7 @@
                                 $hasil =  $jarak->days;
                                 ?>
                                 <label for="tanggal" class="col-form-label">Masa Bakti</label>
-                                <select class="form-control" name="" id="angkat">
+                                <select class="form-control select2" name="" id="angkat">
                                     <option <?= $hasil == "365"  ? "selected " : "" ?> value="365">1 Tahun</option>
                                     <option <?= $hasil == "730"  ? "selected " : "" ?> value="730">2 Tahun</option>
                                     <option <?= $hasil == "1095"  ? "selected " : "" ?> value="1095">3 Tahun</option>
@@ -56,7 +62,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="instansi" class="col-form-label">Instansi</label>
-                                <select class="form-control" name="instansi" id="instansi">
+                                <select class="form-control select2" name="instansi" id="instansi">
                                     <option selected hidden value="<?= $instansi ?>"><?= $instansi ?></option>
                                     <option value="NAA Media">NAA MEDIA</option>
                                     <option value="Kopontren Al-Mubarokah">Kopontren Al-Mubarokah</option>
@@ -80,7 +86,14 @@
 </section>
 
 <script>
-    $('#pengangkatan').Zebra_DatePicker();
+    $(function() {
+        $('.select2').select2({
+            theme: 'bootstrap4'
+        })
+        $('#pengangkatan').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+    })
 
     $('#angkat').on('change', function() {
         var ll = $(this).val();
