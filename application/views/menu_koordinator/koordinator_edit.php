@@ -33,8 +33,8 @@
 					<div class="card-header">
 
 					</div>
-					<div class="card-body">
-						<form role="form" id="form_edit_pengurus">
+					<form role="form" id="form_edit_pengurus">
+						<div class="card-body">
 							<div class="row">
 								<div class="col-md-6">
 									<input type="hidden" name="id_pengurus" value="<?= $pengurus->id_pengurus ?>">
@@ -83,7 +83,7 @@
 										$hasil =  $jarak->days;
 										?>
 										<label for="tanggal" class="col-form-label">Masa Bakti</label>
-										<select class="form-control select2" name="" id="angkat">
+										<select class="form-control select2" name="masa_bakti" id="angkat">
 											<option <?= $hasil == "365"  ? "selected " : "" ?> value="365">1 Tahun</option>
 											<option <?= $hasil == "730"  ? "selected " : "" ?> value="730">2 Tahun</option>
 											<option <?= $hasil == "1095"  ? "selected " : "" ?> value="1095">3 Tahun</option>
@@ -127,12 +127,12 @@
 									</script>
 								</div>
 							</div>
-						</form>
-					</div>
-					<div class="card-footer">
-						<button type="submit" class="btn btn-sm btn-default" onclick="menu_koordinator()">Keluar</button>
-						<button type="submit" class="btn btn-sm bg-teal  float-right" onclick="edit_koordinator();"><i class="fas fa-edit"></i> Edit</button>
-					</div>
+						</div>
+						<div class="card-footer">
+							<button type="button" class="btn btn-sm btn-default bg-danger" onclick="menu_koordinator()"> <i class="fa fa-reply"></i> Keluar</button>
+							<button class="btn btn-sm bg-teal  float-right"><i class="fas fa-save"></i> Simpan</button>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -149,37 +149,6 @@
 		})
 	})
 
-	function edit_koordinator() {
-		$.ajax({
-			url: "<?= site_url('Ckoordinator/edit_koordinator') ?>",
-			data: $('#form_edit_pengurus').serialize(),
-			type: 'POST',
-			dataType: 'JSON',
-			success: function(data) {
-				if (data.pesan === "ya") {
-					swal.fire({
-						title: "PDST NAA",
-						text: data.sukses,
-						type: "success"
-					}).then(okay => {
-						if (okay) {
-							menu_koordinator();
-						}
-					});
-				} else {
-					swal.fire({
-						title: "PDST NAA",
-						text: data.sukses,
-						type: "warning"
-					}).then(okay => {
-						if (okay) {
-							// menu_koordinator();
-						}
-					});
-				}
-			}
-		});
-	}
 
 	$('#angkat').on('change', function() {
 		var ll = $(this).val();
@@ -195,5 +164,108 @@
 
 		$('#berhenti').val(someFormattedDate);
 
+	});
+
+	$.validator.addMethod("valueNotEquals", function(value, element, arg) {
+		return arg !== value;
+	}, "Value must not equal arg.");
+	$("select").on("select2:close", function(e) {
+		$(this).valid();
+	});
+	$('#form_edit_pengurus').validate({
+		rules: {
+			nama_pengajar: {
+				required: true
+			},
+			jabatan: {
+				valueNotEquals: "default"
+			},
+			tanggal_diangkat: {
+				required: true
+			},
+			masa_bakti: {
+				valueNotEquals: "0"
+			},
+			tanggal_berhenti: {
+				required: true
+			},
+			nama: {
+				required: true
+			},
+			username: {
+				required: true
+			},
+			pass: {
+				required: true
+			}
+		},
+		messages: {
+			nama_pengajar: {
+				required: "Tidak Boleh Kosong"
+			},
+			jabatan: {
+				valueNotEquals: "Tidak Boleh Kosong"
+			},
+			tanggal_diangkat: {
+				required: "Tidak Boleh Kosong"
+			},
+			masa_bakti: {
+				valueNotEquals: "Tidak Boleh Kosong"
+			},
+			tanggal_berhenti: {
+				required: "Tidak Boleh Kosong"
+			},
+			nama: {
+				required: "Tidak Boleh Kosong"
+			},
+			username: {
+				required: "Tidak Boleh Kosong"
+			},
+			pass: {
+				required: "Tidak Boleh Kosong"
+			}
+		},
+		errorElement: 'span',
+		errorPlacement: function(error, element) {
+			error.addClass('invalid-feedback');
+			element.closest('.form-group').append(error);
+		},
+		// highlight: function(element, errorClass, validClass) {
+		//     $(element).addClass('is-invalid');
+		// },
+		unhighlight: function(element, errorClass, validClass) {
+			$(element).removeClass('is-invalid');
+		},
+		submitHandler: function() {
+			$.ajax({
+				url: "<?= site_url('Ckoordinator/edit_koordinator') ?>",
+				data: $('#form_edit_pengurus').serialize(),
+				type: 'POST',
+				dataType: 'JSON',
+				success: function(data) {
+					if (data.pesan === "ya") {
+						swal.fire({
+							title: "PDST NAA",
+							text: data.sukses,
+							type: "success"
+						}).then(okay => {
+							if (okay) {
+								menu_koordinator();
+							}
+						});
+					} else {
+						swal.fire({
+							title: "PDST NAA",
+							text: data.sukses,
+							type: "warning"
+						}).then(okay => {
+							if (okay) {
+								// menu_koordinator();
+							}
+						});
+					}
+				}
+			});
+		}
 	})
 </script>
