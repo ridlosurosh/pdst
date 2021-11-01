@@ -52,11 +52,18 @@
 									</div>
 									<div class="form-group">
 										<label for="tanggal" class="col-form-label">Tanggal Pengangkatan</label>
-										<input type="text" name="tanggal_diangkat" class="form-control" id="pengangkatan">
+										<div class="form-line">
+											<div class="input-group">
+												<div class="input-group-prepend">
+													<span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+												</div>
+												<input type="text" name="tanggal_diangkat" class="form-control" id="pengangkatan">
+											</div>
+										</div>
 									</div>
 									<div class="form-group">
-										<label for="tanggal" class="col-form-label">Masa Bakti</label>
-										<select class="form-control" name="" id="angkat">
+										<label for="tanggal" class="col-form-label ">Masa Bakti</label>
+										<select class="form-control select2" name="" id="angkat">
 											<option selected hidden value="0">Pilih Masa Bakti</option>
 											<option value="365">1 Tahun</option>
 											<option value="730">2 Tahun</option>
@@ -114,7 +121,9 @@
 </section>
 <script>
 	$(function() {
-		$('#pengangkatan').Zebra_DatePicker();
+		$('#pengangkatan').datepicker({
+			dateFormat: 'yy-mm-dd'
+		});
 		$('#reservation').daterangepicker();
 
 		$('#nama_santri').on('input', function() {
