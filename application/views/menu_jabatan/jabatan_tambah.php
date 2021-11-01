@@ -24,7 +24,7 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="tahun_jabatan" class="col-form-label">Tahun Diadakan</label>
-										<input type="date" class="form-control" id="tahun_jabatan" name="tahun_jabatan" autocomplete="off">
+										<input type="text" class="form-control" id="tahun_jabatan" name="tahun_jabatan" autocomplete="off">
 									</div>
 								</div>
 							</div>
@@ -40,6 +40,9 @@
 	</div>
 </section>
 <script>
+	$(function() {
+		$('#tahun_jabatan').Zebra_DatePicker();
+	})
 	$.validator.addMethod("valueNotEquals", function(value, element, arg) {
 		return arg !== value;
 	}, "Value must not equal arg.");

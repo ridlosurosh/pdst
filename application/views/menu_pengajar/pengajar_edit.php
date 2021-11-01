@@ -27,15 +27,17 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="col-form-label" for="alamat">Tanggal Pengangkatan</label>
-                                <!-- <textarea name="" class="form-control" id="alamat" cols="30" rows="2" readonly></textarea> -->
-                                <input type="date" class="form-control" name="tgl_diangkat" id="" placeholder="alamat" value="<?= $tgl_diangkat ?>">
+                                <label class="col-form-label" for="alamat">Alamat</label>
+                                <textarea name="" class="form-control" id="alamat" cols="150" rows="2" readonly><?= $alamat_lengkap ?></textarea>
+                                <!-- <input type="text" name="alamat_lengkap" id="" placeholder="alamat" readonly> -->
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-form-label" for="alamat">Alamat</label>
-                            <textarea name="" class="form-control" id="alamat" cols="150" rows="2" readonly><?= $alamat_lengkap ?></textarea>
-                            <!-- <input type="text" name="alamat_lengkap" id="" placeholder="alamat" readonly> -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-form-label" for="alamat">Tanggal Pengangkatan</label>
+                                <!-- <textarea name="" class="form-control" id="alamat" cols="30" rows="2" readonly></textarea> -->
+                                <input type="text" class="form-control" name="tgl_diangkat" id="tgl" placeholder="" value="<?= $tgl_diangkat ?>">
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -50,6 +52,8 @@
 
 <script>
     $(function() {
+        $('#tgl').Zebra_DatePicker();
+
         UI_pengajar_dari_dalam();
         $('#nama_pengajar').focus();
 

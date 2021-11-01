@@ -19,13 +19,13 @@
 									<input type="hidden" name="idjabatan" value="<?= $id_jabatan ?>">
 									<div class="form-group row">
 										<label for="nama_jabatan" class="col-form-label">Nama Jabatan</label>
-										<input type="text" class="form-control" id="nama_jabatan" name="nama_jabatan" value="<?= $nm_jabatan ?>" >
+										<input type="text" class="form-control" id="nama_jabatan" name="nama_jabatan" value="<?= $nm_jabatan ?>">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="tahun_jabatan" class="col-form-label">Tahun Diadakan</label>
-										<input type="date" class="form-control" id="tahun_jabatan" name="tahun_jabatan" value="<?= $thn_dibuat ?>">
+										<input type="text" class="form-control" id="tahun_jabatan" name="tahun_jabatan" value="<?= $thn_dibuat ?>">
 									</div>
 								</div>
 							</div>
@@ -41,6 +41,9 @@
 	</div>
 </section>
 <script>
+	$(function() {
+		$('#tahun_jabatan').Zebra_DatePicker();
+	})
 	$.validator.addMethod("valueNotEquals", function(value, element, arg) {
 		return arg !== value;
 	}, "Value must not equal arg.");

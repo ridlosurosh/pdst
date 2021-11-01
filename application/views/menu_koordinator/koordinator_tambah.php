@@ -1,19 +1,20 @@
 <style>
-#toggle{
-    position: absolute;
-    top: 320px;
-    right: 20px;
-    transform: translateY(-50%);
-    width: 30px;
-    height: 30px;
-    background: url(plugin/dist/img/show.png);
-    background-size: cover;
-    cursor: pointer;
-}
-#toggle.hide{
-    background: url(plugin/dist/img/hide.png);
-    background-size: cover;
-}
+	#toggle {
+		position: absolute;
+		top: 320px;
+		right: 20px;
+		transform: translateY(-50%);
+		width: 30px;
+		height: 30px;
+		background: url(plugin/dist/img/show.png);
+		background-size: cover;
+		cursor: pointer;
+	}
+
+	#toggle.hide {
+		background: url(plugin/dist/img/hide.png);
+		background-size: cover;
+	}
 </style>
 <section class="content-header">
 	<div class="container-fluid">
@@ -51,7 +52,7 @@
 									</div>
 									<div class="form-group">
 										<label for="tanggal" class="col-form-label">Tanggal Pengangkatan</label>
-										<input type="date" name="tanggal_diangkat" class="form-control" id="pengangkatan">
+										<input type="text" name="tanggal_diangkat" class="form-control" id="pengangkatan">
 									</div>
 									<div class="form-group">
 										<label for="tanggal" class="col-form-label">Masa Bakti</label>
@@ -84,14 +85,14 @@
 										<div id="toggle" onclick="showHide();"></div>
 									</div>
 									<script>
-										 var password = document.getElementById('password');
+										var password = document.getElementById('password');
 										var toggle = document.getElementById('toggle');
-										
-										function showHide(){
-											if(password.type === 'password'){
+
+										function showHide() {
+											if (password.type === 'password') {
 												password.setAttribute('type', 'text');
 												toggle.classList.add('hide')
-											} else{
+											} else {
 												password.setAttribute('type', 'password');
 												toggle.classList.remove('hide')
 											}
@@ -113,56 +114,56 @@
 </section>
 <script>
 	$(function() {
-		
+		$('#pengangkatan').Zebra_DatePicker();
 		$('#reservation').daterangepicker();
 
 		$('#nama_santri').on('input', function() {
-            UI_Nama_Santri();
-            $("#namanya").val("");
-        });
+			UI_Nama_Santri();
+			$("#namanya").val("");
+		});
 		var i = $('#reservation').val();
 	});
 
 
 	function UI_Nama_Santri() {
-        $('#nama_santri').autocomplete({
-            minLength: 1,
-            autoFocus: true,
-            source: function(req, res) {
-                $.ajax({
-                    url: "<?= site_url('Ckoordinator/ui_nama_santri') ?>",
-                    data: {
-                        cari: $('#nama_santri').val()
-                    },
-                    dataType: 'json',
-                    type: "POST",
-                    success: function(data) {
-                        res(data);
-                    }
-                });
-            },
-            select: function(event, ui) {
-                if (ui.item.sukses === true) {
-                    $('#idperson').val(ui.item.id_person);
-                    $('#nama_santri').val(ui.item.nama);
-                    $('#namanya').val(ui.item.nama);
-                    return false;
-                } else {
-                    return false;
-                }
-            },
-            create: function() {
-                $(this).data('ui-autocomplete')._renderItem = function(ul, item) {
-                    return $("<li></li>")
-                        .data("item.autocomplete", item)
-                        .append("<a class='nav-link active'><strong>" + item.nama + "</strong> <br/><small>Niup : " + item.niup + "</small></a>")
-                        .appendTo(ul);
-                };
-            }
-        });
-    }
+		$('#nama_santri').autocomplete({
+			minLength: 1,
+			autoFocus: true,
+			source: function(req, res) {
+				$.ajax({
+					url: "<?= site_url('Ckoordinator/ui_nama_santri') ?>",
+					data: {
+						cari: $('#nama_santri').val()
+					},
+					dataType: 'json',
+					type: "POST",
+					success: function(data) {
+						res(data);
+					}
+				});
+			},
+			select: function(event, ui) {
+				if (ui.item.sukses === true) {
+					$('#idperson').val(ui.item.id_person);
+					$('#nama_santri').val(ui.item.nama);
+					$('#namanya').val(ui.item.nama);
+					return false;
+				} else {
+					return false;
+				}
+			},
+			create: function() {
+				$(this).data('ui-autocomplete')._renderItem = function(ul, item) {
+					return $("<li></li>")
+						.data("item.autocomplete", item)
+						.append("<a class='nav-link active'><strong>" + item.nama + "</strong> <br/><small>Niup : " + item.niup + "</small></a>")
+						.appendTo(ul);
+				};
+			}
+		});
+	}
 
-		
+
 
 	$('#angkat').on('change', function() {
 		var ll = $(this).val();
@@ -179,14 +180,14 @@
 			$('#berhenti').val('0000-00-00');
 			$('#pengangkatan').focus();
 			swal.fire({
-			title: "Tanggal Penganggkatan Harus di Isi dulu",
-			type: "warning"
+				title: "Tanggal Penganggkatan Harus di Isi dulu",
+				type: "warning"
 			}).then(okay => {
 				if (okay) {
 					$('#berhenti').val("");
 					$('#angkat').val('0');
-						}
-				});
+				}
+			});
 		} else {
 			$('#berhenti').val(someFormattedDate);
 		}

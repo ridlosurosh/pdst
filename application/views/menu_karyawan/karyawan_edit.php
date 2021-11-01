@@ -30,24 +30,24 @@
                             </div>
                             <div class="form-group">
                                 <label for="tanggal" class="col-form-label">Tanggal Pengangkatan</label>
-                                <input type="date" name="tanggal_diangkat" class="form-control" id="pengangkatan" value="<?= $tgl_diangkat ?>">
+                                <input type="text" name="tanggal_diangkat" class="form-control" id="pengangkatan" value="<?= $tgl_diangkat ?>">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                    <?php 
-										$tgl1 = new DateTime($tgl_diangkat);
-										$tgl2 = new DateTime($tgl_berhenti);
-										$jarak = $tgl2->diff($tgl1);
-										$hasil =  $jarak->days;
-									?>
+                                <?php
+                                $tgl1 = new DateTime($tgl_diangkat);
+                                $tgl2 = new DateTime($tgl_berhenti);
+                                $jarak = $tgl2->diff($tgl1);
+                                $hasil =  $jarak->days;
+                                ?>
                                 <label for="tanggal" class="col-form-label">Masa Bakti</label>
                                 <select class="form-control" name="" id="angkat">
                                     <option <?= $hasil == "365"  ? "selected " : "" ?> value="365">1 Tahun</option>
-									<option <?= $hasil == "730"  ? "selected " : "" ?> value="730">2 Tahun</option>
-									<option <?= $hasil == "1095"  ? "selected " : "" ?> value="1095">3 Tahun</option>
-									<option <?= $hasil == "1460"  ? "selected " : "" ?> value="1460">4 Tahun</option>
-									<option <?= $hasil == "1825"  ? "selected " : "" ?> value="1825">5 Tahun</option>
+                                    <option <?= $hasil == "730"  ? "selected " : "" ?> value="730">2 Tahun</option>
+                                    <option <?= $hasil == "1095"  ? "selected " : "" ?> value="1095">3 Tahun</option>
+                                    <option <?= $hasil == "1460"  ? "selected " : "" ?> value="1460">4 Tahun</option>
+                                    <option <?= $hasil == "1825"  ? "selected " : "" ?> value="1825">5 Tahun</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -80,6 +80,8 @@
 </section>
 
 <script>
+    $('#pengangkatan').Zebra_DatePicker();
+
     $('#angkat').on('change', function() {
         var ll = $(this).val();
         var bb = $('#pengangkatan').val();

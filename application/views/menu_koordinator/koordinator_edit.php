@@ -1,19 +1,20 @@
 <style>
-#toggle{
-    position: absolute;
-    top: 320px;
-    right: 20px;
-    transform: translateY(-50%);
-    width: 30px;
-    height: 30px;
-    background: url(plugin/dist/img/show.png);
-    background-size: cover;
-    cursor: pointer;
-}
-#toggle.hide{
-    background: url(plugin/dist/img/hide.png);
-    background-size: cover;
-}
+	#toggle {
+		position: absolute;
+		top: 320px;
+		right: 20px;
+		transform: translateY(-50%);
+		width: 30px;
+		height: 30px;
+		background: url(plugin/dist/img/show.png);
+		background-size: cover;
+		cursor: pointer;
+	}
+
+	#toggle.hide {
+		background: url(plugin/dist/img/hide.png);
+		background-size: cover;
+	}
 </style>
 <section class="content-header">
 	<div class="container-fluid">
@@ -30,7 +31,7 @@
 			<div class="col-12">
 				<div class="card card-outline card-teal">
 					<div class="card-header">
-						
+
 					</div>
 					<div class="card-body">
 						<form role="form" id="form_edit_pengurus">
@@ -46,7 +47,7 @@
 										<label for="jabatan" class="col-form-label">Jabatan</label>
 										<select name="jabatan" id="jabatan" class="form-control select2">
 											<option selected hidden value="<?= $pengurus->id_jabatan ?>"><?= $pengurus->nm_jabatan ?></option>
-											<?php 
+											<?php
 
 											$jabatan = $this->db->get_where('tb_jabatan')->result();
 											// if ($pengurus->id_jabatan === "1" || $pengurus->id_jabatan === "2") {
@@ -58,17 +59,17 @@
 											// 	->result();
 											// }
 											foreach ($jabatan as $value) { ?>
-												
+
 												<option value="<?= $value->id_jabatan ?>"><?= $value->nm_jabatan ?></option>
 											<?php } ?>
 										</select>
 									</div>
 									<div class="form-group">
 										<label for="tanggal" class="col-form-label">Tanggal Pengangkatan</label>
-										<input type="date" name="tanggal_diangkat" class="form-control" id="pengangkatan" value="<?= $pengurus->tanggal_diangkat ?>">
+										<input type="text" name="tanggal_diangkat" class="form-control" id="pengangkatan" value="<?= $pengurus->tanggal_diangkat ?>">
 									</div>
 									<div class="form-group">
-										<?php 
+										<?php
 										$tgl1 = new DateTime($pengurus->tanggal_diangkat);
 										$tgl2 = new DateTime($pengurus->tanggal_berhenti);
 										$jarak = $tgl2->diff($tgl1);
@@ -100,18 +101,18 @@
 									</div>
 									<div class="form-group">
 										<label for="pass" class="col-form-label">Password</label>
-										<input type="password" class="form-control" name="pass" id="password" value="<?=  $akun->password ?>">
+										<input type="password" class="form-control" name="pass" id="password" value="<?= $akun->password ?>">
 										<div id="toggle" onclick="showHide();"></div>
 									</div>
 									<script>
-										 var password = document.getElementById('password');
+										var password = document.getElementById('password');
 										var toggle = document.getElementById('toggle');
-										
-										function showHide(){
-											if(password.type === 'password'){
+
+										function showHide() {
+											if (password.type === 'password') {
 												password.setAttribute('type', 'text');
 												toggle.classList.add('hide')
-											} else{
+											} else {
 												password.setAttribute('type', 'password');
 												toggle.classList.remove('hide')
 											}
@@ -132,9 +133,10 @@
 </section>
 
 <script>
-	// $(function () {
-	// 	CalcDiff();
-	// })
+	$(function() {
+		$('#pengangkatan').Zebra_DatePicker();
+	})
+
 	function edit_koordinator() {
 		$.ajax({
 			url: "<?= site_url('Ckoordinator/edit_koordinator') ?>",
@@ -183,8 +185,8 @@
 
 	})
 
-	function CalcDiff(){
-	var a = $('#selisih').val();
-	$('#angkat').append("<option>jhff</option>")
+	function CalcDiff() {
+		var a = $('#selisih').val();
+		$('#angkat').append("<option>jhff</option>")
 	}
 </script>
