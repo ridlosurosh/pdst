@@ -25,7 +25,14 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="tahun_jabatan" class="col-form-label">Tahun Diadakan</label>
-										<input type="text" class="form-control" id="tahun_jabatan" name="tahun_jabatan" value="<?= $thn_dibuat ?>">
+										<div class="form-line">
+											<div class="input-group">
+												<div class="input-group-prepend">
+													<span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+												</div>
+												<input type="text" class="form-control" id="tahun_jabatan" name="tahun_jabatan" autocomplete="off" value="<?= $thn_dibuat ?>">
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -42,7 +49,9 @@
 </section>
 <script>
 	$(function() {
-		$('#tahun_jabatan').Zebra_DatePicker();
+		$('#tahun_jabatan').datepicker({
+			dateFormat: 'yy-mm-dd'
+		});
 	})
 	$.validator.addMethod("valueNotEquals", function(value, element, arg) {
 		return arg !== value;
