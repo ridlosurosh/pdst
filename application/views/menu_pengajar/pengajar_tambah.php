@@ -14,8 +14,8 @@
             <div class="card-header">
                 <h3 class="card-title">Tambah Pengajar Nubdzah</h3>
             </div>
-            <div class="card-body">
-                <form id="tambah_pengajar">
+            <form id="tambah_pengajar">
+                <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -39,16 +39,15 @@
                         </div>
                         <div class="form-group">
                             <label class="col-form-label" for="alamat">Alamat</label>
-                            <textarea name="" class="form-control" id="alamat" cols="150" rows="2" readonly></textarea>
+                            <textarea name="alamat" class="form-control" id="alamat" cols="150" rows="2" readonly></textarea>
                         </div>
-
                     </div>
-                </form>
-            </div>
-            <div class="card-footer">
-                <button class="btn btn-sm btn-default" onclick="menu_pengajar()">Keluar</button>
-                <button class="btn btn-sm btn-primary float-right" onclick="simpan_guru_nubdah()"><i class="fas fa-save"></i> Simpan</button>
-            </div>
+                </div>
+                <div class="card-footer">
+                    <button type="button" class="btn btn-sm btn-default bg-danger" onclick="menu_pengajar()"><i class="fas fa-reply"></i> Keluar</button>
+                    <button class="btn btn-sm btn-primary float-right"><i class="fas fa-save"></i> Simpan</button>
+                </div>
+            </form>
         </div>
     </div>
 </section>
@@ -73,7 +72,7 @@
             autoFocus: true,
             source: function(req, res) {
                 $.ajax({
-                    url: "<?= site_url('Cpengajar/UI_Pengajar') ?>",
+                    url: "<?= site_url('Cpengajar/ui_pengajar') ?>",
                     data: {
                         cari: $('#nama_pengajar').val()
                     },
@@ -105,29 +104,64 @@
         });
     }
 
-
-
-
-
-    function simpan_guru_nubdah() {
-        $.ajax({
-            url: "<?= site_url('Cpengajar/simpan_pengajar_nubdah') ?>",
-            data: $('#tambah_pengajar').serialize(),
-            type: 'POST',
-            dataType: 'JSON',
-            success: function(data) {
-                if (data.pesan === "ya") {
-                    swal.fire({
-                        title: "PDST NAA",
-                        text: data.sukses,
-                        type: "success"
-                    }).then(okay => {
-                        if (okay) {
-                            menu_pengajar()
-                        }
-                    })
-                }
+    $.validator.addMethod("valueNotEquals", function(value, element, arg) {
+        return arg !== value;
+    }, "Value must not equal arg.");
+    $("select").on("select2:close", function(e) {
+        $(this).valid();
+    });
+    $('#tambah_pengajar').validate({
+        rules: {
+            nama_pengajar: {
+                required: true
+            },
+            tgl_diangkat: {
+                required: true
+            },
+            alamat: {
+                required: true
             }
-        });
-    }
+
+        },
+        messages: {
+            nama_pengajar: {
+                required: "Tidak Boleh Kosong"
+            },
+            tgl_diangkat: {
+                required: "Tidak Boleh Kosong"
+            },
+            alamat: {
+                required: "Tidak Boleh Kosong"
+            }
+        },
+        errorElement: 'span',
+        errorPlacement: function(error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+        },
+        unhighlight: function(element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        },
+        submitHandler: function() {
+            $.ajax({
+                url: "<?= site_url('Cpengajar/simpan_pengajar_nubdah') ?>",
+                data: $('#tambah_pengajar').serialize(),
+                type: 'POST',
+                dataType: 'JSON',
+                success: function(data) {
+                    if (data.pesan === "ya") {
+                        swal.fire({
+                            title: "PDST NAA",
+                            text: data.sukses,
+                            type: "success"
+                        }).then(okay => {
+                            if (okay) {
+                                menu_pengajar()
+                            }
+                        })
+                    }
+                }
+            });
+        }
+    });
 </script>
