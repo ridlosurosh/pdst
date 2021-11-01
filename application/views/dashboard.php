@@ -89,7 +89,7 @@ if (isset($this->session->userdata['logged_in'])) {
 							<a href="#" class="nav-link menu active" onclick="menu_halaman_utama()" style="color: #333;">
 								<i class="nav-icon fas fa-home"></i>
 								<p>
-									Dasboard
+									Dashboard
 								</p>
 							</a>
 						</li>
