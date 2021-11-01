@@ -34,7 +34,6 @@ if (isset($this->session->userdata['logged_in'])) {
 	<link rel="stylesheet" href="<?= site_url() ?>plugin/EasyAutocomplete/easy-autocomplete.min.css">
 	<link rel="stylesheet" href="<?= site_url() ?>plugin/EasyAutocomplete/easy-autocomplete.themes.min.css">
 	<link rel="stylesheet" type="text/css" href="<?= site_url() ?>plugin/jquery-ui/jquery-ui.min.css">
-	<link rel="stylesheet" type="text/css" href="<?= site_url() ?>plugin/Zebra_Datepicker/dist/css/default/Zebra_Datepicker.min.css">
 	<link rel="stylesheet" href="<?= site_url() ?>plugin/Ionicons/css/ionicons.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 	<!-- <style>
@@ -265,7 +264,6 @@ if (isset($this->session->userdata['logged_in'])) {
 	<!-- sweetalert -->
 	<script src="<?= site_url() ?>plugin/sweetalert2/sweetalert2.all.min.js"></script>
 	<script type="text/javascript" src="<?= site_url() ?>plugin/jquery-ui/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="<?= site_url() ?>plugin/Zebra_Datepicker/dist/Zebra_Datepicker.min.js"></script>
 	<script>
 		$(function() {
 			menu_halaman_utama();
