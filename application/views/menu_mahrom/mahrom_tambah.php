@@ -12,6 +12,18 @@
 		<div class="card">
 			<div class="card-body pb-4">
 				<div class="row">
+					<?php
+					if ($santri->jenis_kelamin == "Laki-Laki") {
+						$jk = "01";
+					} else {
+						$jk = "02";
+					}
+					$th = substr(date("Y"), 2, 4);
+					$tanggal = date('dmY', strtotime($santri->tanggal_lahir));
+					?>
+					<input type="text" name="niup" value="<?= $jk . $th . $tanggal ?>">
+				</div>
+				<div class="row">
 					<div class="col-12">
 						<button type="button" id="btn-tambah" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ModalaAdd" data-backdrop="static">
 							<i class="fas fa-plus"></i> Tambah Data
@@ -43,22 +55,22 @@
 										} else {
 											$foto = "../gambar/mahrom/" . $value->foto_diri;
 										} ?>
-										<td>
-											<ul class="list-inline">
-												<li class="list-inline-item">
-													<a class="item_upload" data="<?= $value->id_mahrom ?>">
-														<img alt="Avatar" class="table-avatar" id="fotonya" title="FOTO DIRI" data="<?= $value->id_mahrom ?>" src="<?= site_url() ?><?= $foto ?>">
-													</a>
-												</li>
-											</ul>
-										</td>
 										<?php if ($value->foto_kk_atau_ktp == "") {
 											$ktp = "plugin/dist/img/ktp.png";
 										} else {
 											$ktp = "../gambar/ktp/" . $value->foto_kk_atau_ktp;
 										} ?>
 										<td>
-											<a class="item_upload" data="<?= $value->id_mahrom ?>">
+											<ul class="list-inline">
+												<li class="list-inline-item">
+													<a class="item_upload" data="<?= $value->id_mahrom ?>" datanya="<?= $foto ?>" datan="<?= $ktp ?>">
+														<img alt="Avatar" class="table-avatar" id="fotonya" title="FOTO DIRI" data="<?= $value->id_mahrom ?>" src="<?= site_url() ?><?= $foto ?>">
+													</a>
+												</li>
+											</ul>
+										</td>
+										<td>
+											<a class="item_upload" data="<?= $value->id_mahrom ?>" datanya="<?= $foto ?>" datan="<?= $ktp ?>">
 												<img alt="Avatar" width="45" title="KTP" id="ktpnya" data="<?= $value->id_mahrom ?>" src="<?= site_url() ?><?= $ktp ?>" id="ee">
 											</a>
 										</td>
@@ -82,7 +94,7 @@
 			<div class="card-footer">
 				<button type="button" class="btn btn-danger" onclick="batal('<?= $santri->id_person ?>')"><i class="fas fa-times"></i> Batal</button>
 				<div class="float-right">
-					<button class="btn btn-info" id="simpan"><i class="fas fa-check"></i> Selesai</button>
+					<button type="button" class="btn btn-info" id="btn_selesai"><i class="fas fa-check"></i> Selesai</button>
 				</div>
 			</div>
 		</div>
@@ -395,8 +407,8 @@
 	})
 
 	$('.item_upload').on('click', function() {
-		var f = $('#fotonya').attr('src')
-		var u = $('#ktpnya').attr('src')
+		var f = $(this).attr('datanya')
+		var u = $(this).attr('datan')
 		var id = $(this).attr('data');
 		$('#ModalaUpload').modal('show');
 		$('#foto_diri').attr('src', f);
@@ -416,11 +428,13 @@
 				cache: false,
 				async: false,
 				success: function(data) {
-					$('#ModalaUpload').modal('hidden');
+					$('#ModalaUpload').modal('hide');
 					swal.fire({
 						title: "PDST NAA",
 						text: "Berkas Berhasil Diupload",
-						type: "success"
+						type: "success",
+						showConfirmButton: false,
+						timer: 1000
 					}).then(okay => {
 						if (okay) {
 							form_tambah_mahrom('<?= $santri->id_person ?>')
@@ -454,8 +468,6 @@
 		});
 		return false;
 	})
-
-
 
 	$('#btn_edit').on('click', function() {
 		$.validator.addMethod("valueNotEquals", function(value, element, arg) {
@@ -539,6 +551,27 @@
 				});
 			}
 
+		})
+	})
+
+	$('#btn_selesai').on('click', function() {
+		Swal.fire({
+			title: 'PDST NAA',
+			text: "Anda Yakin Untuk Membatalkan ?",
+			type: 'question',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'YA',
+			cancelButtonText: 'TIDAK',
+		}).then((result) => {
+			if (result.isConfirmed) {
+				Swal.fire(
+					'Deleted!',
+					'Your file has been deleted.',
+					'success'
+				)
+			}
 		})
 	})
 </script>
