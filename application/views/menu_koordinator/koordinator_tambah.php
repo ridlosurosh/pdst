@@ -33,8 +33,8 @@
 					<div class="card-header">
 						<h3 class="card-title"></h3>
 					</div>
-					<div class="card-body">
-						<form role="form" id="form_tambah_pengurus">
+					<form role="form" id="form_tambah_pengurus">
+						<div class="card-body">
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
@@ -45,6 +45,7 @@
 									<div class="form-group">
 										<label for="jabatan" class="col-form-label">Jabatan</label>
 										<select name="jabatan" id="jabatan" class="form-control select2" style="width: 100%;">
+											<option value="default">Pilih Jabatan</option>
 											<?php foreach ($jabatan as $value) { ?>
 												<option value="<?= $value->id_jabatan ?>"><?= $value->nm_jabatan ?></option>
 											<?php } ?>
@@ -76,7 +77,14 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="tanggal" class="col-form-label">Tanggal Berhenti</label>
-										<input type="text" name="tanggal_berhenti" class="form-control" id="berhenti" readonly>
+										<div class="form-line">
+											<div class="input-group">
+												<div class="input-group-prepend">
+													<span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+												</div>
+												<input type="text" name="tanggal_berhenti" class="form-control" id="berhenti" readonly>
+											</div>
+										</div>
 									</div>
 									<div class="form-group">
 										<label for="nama" class="col-form-label">Nama Pengguna</label>
@@ -101,18 +109,18 @@
 												toggle.classList.add('hide')
 											} else {
 												password.setAttribute('type', 'password');
-												toggle.classList.remove('hide')
+												toggle.classList.remove('hide');
 											}
 										}
 									</script>
 								</div>
 							</div>
-							<div class="card-footer">
-								<button type="submit" class="btn btn-sm btn-default" onclick="menu_koordinator()">Keluar</button>
-								<button type="submit" class="btn btn-sm bg-teal  float-right"><i class="fas fa-save"></i> Simpan</button>
-							</div>
-						</form>
-					</div>
+						</div>
+						<div class="card-footer">
+							<button type="button" class="btn btn-sm btn-default bg-danger" onclick="menu_koordinator()"> <i class="fa fa-reply"></i> Keluar</button>
+							<button class="btn btn-sm bg-teal  float-right"><i class="fas fa-save"></i> Simpan</button>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -214,16 +222,52 @@
 			nama_pengajar: {
 				required: true
 			},
-			nama_wilayah: {
+			jabatan: {
 				valueNotEquals: "default"
 			},
+			tanggal_diangkat: {
+				required: true
+			},
+			masa_bakti: {
+				valueNotEquals: "0"
+			},
+			tanggal_berhenti: {
+				required: true
+			},
+			nama: {
+				required: true
+			},
+			username: {
+				required: true
+			},
+			pass: {
+				required: true
+			}
 		},
 		messages: {
 			nama_pengajar: {
 				required: "Tidak Boleh Kosong"
 			},
-			nama_wilayah: {
+			jabatan: {
 				valueNotEquals: "Tidak Boleh Kosong"
+			},
+			tanggal_diangkat: {
+				required: "Tidak Boleh Kosong"
+			},
+			masa_bakti: {
+				valueNotEquals: "Tidak Boleh Kosong"
+			},
+			tanggal_berhenti: {
+				required: "Tidak Boleh Kosong"
+			},
+			nama: {
+				required: "Tidak Boleh Kosong"
+			},
+			username: {
+				required: "Tidak Boleh Kosong"
+			},
+			pass: {
+				required: "Tidak Boleh Kosong"
 			}
 		},
 		errorElement: 'span',
