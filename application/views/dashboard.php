@@ -206,21 +206,21 @@ if (isset($this->session->userdata['logged_in'])) {
 						</li>
 						<li class="nav-header">LAPORAN DATA</li>
 						<li class="nav-item">
-							<a href="#" class="nav-link menu" onclick="santri_provinsi()" style="color: #333;">
+							<a href="#" class="nav-link menu" onclick="cetak_person()" style="color: #333;">
 								<i class="fas  fa-clipboard nav-icon"></i>
 								<p>
-									Person Provinsi
+									Cetak Person
 								</p>
 							</a>
 						</li>
-						<li class="nav-item">
+						<!-- <li class="nav-item">
 							<a href="#" class="nav-link menu" onclick="laporan()" style="color: #333;">
 								<i class="fas  fa-folder-open nav-icon"></i>
 								<p>
 									Person Perkamar
 								</p>
 							</a>
-						</li>
+						</li> -->
 					</ul>
 				</nav>
 			</div>
@@ -371,7 +371,7 @@ if (isset($this->session->userdata['logged_in'])) {
 			});
 		}
 
-		function santri_provinsi() {
+		function cetak_person() {
 			$.post('<?= site_url('Claporan/santri_provinsi') ?>', function(Res) {
 				$('#ini_isinya').html(Res);
 			});
