@@ -239,13 +239,14 @@ class Cperson extends CI_Controller
     public function domisilinya()
     {
         $id = $this->input->post('history');
+        $n = $this->input->post('o');
         $data = array(
             'id_kamar' => $this->input->post('kamar'),
             'tgl_penetapan' => $this->input->post('tgl_penetapan'),
             'aktif' => "Ya"
         );
         $this->Mperson->edit_penempatan(array('id_history' => $id), $data);
-        $p = array('i' => $id);
+        $p = array('i' => $n);
         echo json_encode($p);
     }
 
