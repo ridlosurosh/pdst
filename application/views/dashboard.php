@@ -225,7 +225,9 @@ if (isset($this->session->userdata['logged_in'])) {
 				</nav>
 			</div>
 		</aside>
-		<div class="content-wrapper" id="ini_isinya"></div>
+		<div class="content-wrapper" id="ini_isinya">
+
+		</div>
 	</div>
 
 	<!-- jQuery -->
