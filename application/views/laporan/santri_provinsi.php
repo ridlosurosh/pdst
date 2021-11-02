@@ -2,55 +2,86 @@
 	<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-sm-6">
-				<h1>Person Provinsi</h1>
+
 			</div>
 		</div>
 	</div>
 </section>
-<section class="content">
+<section class="content mt-4">
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-sm-4">
-				<div class="form-group">
-					<label for="" class="col-form-label">Pilih Provinsi</label>
-					<select class="form-control provinsi select2" style="width: 100%;" name="prov" id="prov">
-						<option value="">Pilih Provinsi</option>
-						<?php
-						foreach ($provinsi as $value) { ?>
-							<option value="<?= $value->name ?>"><?= $value->name ?></option>
-						<?php } ?>
-					</select>
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header">
+						<h3 class="card-title">Cetak Person Setiap Provinsi</h3>
+
+						<div class="card-tools">
+							<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+								<i class="fas fa-minus"></i>
+							</button>
+							<button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+								<i class="fas fa-times"></i>
+							</button>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="form-group col-12">
+							<label for="">PILIH SANTRI</label>
+							<select name="" id="jenkel" class="form-control">
+								<option hidden value="0">-Pilih Santri-</option>
+								<option value="Laki-Laki">Santri Putra</option>
+								<option value="Perempuan">Santri Putri</option>
+							</select>
+						</div>
+						<div class="form-group col-12">
+							<label for="">PILIH PROVINSI</label>
+							<select name="" id="prov" class="form-control select2">
+								<option>-Pilih Provinsi-</option>
+								<?php foreach ($provinsi as $key => $value) { ?>
+									<option value="<?= $value->id ?>"><?= $value->name ?></option>
+								<?php } ?>
+							</select>
+						</div>
+					</div>
+					<div class="card-footer">
+						<button class="btn btn-sm btn-primary float-right" id="bt_cetak"><i class="fas fa-print"></i> Cetak</button>
+					</div>
 				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="card col-12">
-				<div class="card-body">
-					<table id="example1" class="table">
-						<thead>
-							<tr>
-								<th>NO</th>
-								<th>NAMA</th>
-								<th>ALAMAT</th>
-								<th>PROVINSI</th>
-								<th>SEKOLAH</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php 
-							$no=1;
-							foreach ($santri as $value) { ?>
-								<tr>
-									<td><?= $no++ ?></td>
-									<td><?= $value->nama ?></td>
-									<td><?= $value->alamat_lengkap ?></td>
-									<td><?= $value->nama_provinsi ?></td>
-									<td><?= $value->pndkn ?></td>
-								</tr>
-							<?php }	?>
-						</tbody>
-					</table>
-				</div>
+				<script>
+					$(document).ready(function() {
+						$('#bt_cetak').on('click', function() {
+							// var jenkel = $('#jenkel').val()
+							// if (jenkel == 0) {
+							// 	swal.fire({
+							// 		title: "PDST NAA",
+							// 		text: "Anda Belum Memilih Santri",
+							// 		type: "warning"
+							// 	})
+							// } else {
+							var provinsi = $('#prov').val()
+							$.ajax({
+								type: "POST",
+								url: "<?= site_url('Cexport/cek') ?>",
+								data: {
+									prov: provinsi
+								},
+								dataType: "JSON",
+								success: function(data) {
+									if (data.i == 1) {
+										swal.fire({
+											title: "PDSTNAA",
+											text: "Tidak Ada Santri",
+											type: "warning"
+										})
+									} else {
+										window.location.href = "Cexport/pdf?id=" + provinsi;
+									}
+								}
+							})
+							// }
+						})
+					})
+				</script>
 			</div>
 		</div>
 	</div>
@@ -58,9 +89,9 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-	    $('#example1').DataTable({
-			"responsive": true, 
-			"lengthChange": true, 
+		$('#example1').DataTable({
+			"responsive": true,
+			"lengthChange": true,
 			"autoWidth": false,
 			"buttons": ["excel", "pdf", "print"],
 			"paging": true,
@@ -69,22 +100,21 @@
 			"info": true,
 			"responsive": true,
 		}).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-	    function filterData () {
-		    $('#example1').DataTable().search(
-		        $('.provinsi').val()
-		    	).draw();
+
+		function filterData() {
+			$('#example1').DataTable().search(
+				$('.provinsi').val()
+			).draw();
 		}
-		$('.provinsi').on('change', function () {
-	        filterData();
-	    });
+		$('.provinsi').on('change', function() {
+			filterData();
+		});
 	});
 
 	$(function() {
-        //Initialize Select2 Elements
-        $('.select2').select2({
-        	theme: 'bootstrap4'
-        })
-    })
-
+		//Initialize Select2 Elements
+		$('.select2').select2({
+			theme: 'bootstrap4'
+		})
+	})
 </script>
-
