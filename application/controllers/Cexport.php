@@ -12,19 +12,21 @@ class Cexport extends CI_Controller
 
     public function cek()
     {
-        $tahun = $this->input->post('tahun');
-        $data = $this->Mexport->cek_santri($tahun);
-        if ($data > 0) {
-            return "2";
+        $prov = $this->input->post('id');
+        $datanya = $this->Mexport->cek_santri($prov);
+        if ($datanya > 0) {
+            $i = "2";
         } else {
-            return "1";
+            $i = "1";
         }
+        $p = array('i' => $i);
+        echo json_encode($p);
     }
 
     // export PDF putra
-    function pdf_putra()
+    function pdf()
     {
-        $jenis = $this->input->get('jenis');
+        $id = $this->input->get('id');
 
         $pdf = new FPDF('L', 'mm', 'A3');
 
@@ -50,7 +52,7 @@ class Cexport extends CI_Controller
 
 
         $pdf->SetFont('Arial', '', 8);
-        $santri = $this->Mexport->export_putra_pdf($jenis);
+        $santri = $this->Mexport->export_putra_pdf($id);
         $no = 1;
         foreach ($santri as $data) {
             $pdf->Cell(8, 6, $no, 1, 0, 'C');
