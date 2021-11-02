@@ -71,7 +71,7 @@
 												<div class="input-group-prepend">
 													<span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
 												</div>
-												<input type="text" name="tanggal_diangkat" class="form-control" id="pengangkatan" value="<?= $pengurus->tanggal_diangkat ?>">
+												<input type="text" name="tanggal_diangkat" class="form-control" id="pengangkatan" value="<?= $pengurus->tanggal_diangkat ?>" autocomplete="off">
 											</div>
 										</div>
 									</div>
@@ -108,7 +108,7 @@
 									</div>
 									<div class="form-group">
 										<label for="pass" class="col-form-label">Password</label>
-										<input type="password" class="form-control" name="pass" id="password" value="<?= $akun->password ?>">
+										<input type="password" class="form-control" name="pass" id="password" value="<?= $akun->password ?>" autocomplete="off">
 										<div id="toggle" onclick="showHide();"></div>
 									</div>
 									<script>
