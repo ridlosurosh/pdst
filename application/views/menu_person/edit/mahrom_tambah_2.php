@@ -82,7 +82,7 @@
 			<div class="card-footer">
 				<button type="button" class="btn btn-danger" onclick="menu_santri()"><i class="fas fa-reply"></i> Kembali Ke Data Santri</button>
 				<div class="float-right">
-					<form id="form_selesai">
+					<form id="form_selesai_2">
 						<input type="hidden" name="o" value="<?= $santri->id_person ?>">
 					</form>
 					<button type="button" onclick="kembali_S('<?= $santri->id_person ?>')" class="btn btn-info"><i class="fas fa-arrow-left"></i> Kembali</button>
@@ -112,7 +112,7 @@
 									$.ajax({
 											url: "<?= site_url('Cperson/selesai_untuk_edit') ?>",
 											type: 'POST',
-											data: $('#form_selesai').serialize(),
+											data: $('#form_selesai_2').serialize(),
 											dataType: 'json'
 										})
 										.fail(function() {
