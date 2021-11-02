@@ -175,17 +175,17 @@
 									<option value="default">-Pilih Hubungan-</option>
 									<option value="Ayah Tiri">Ayah Tiri</option>
 									<option value="Ibu Tiri">Ibu Tiri</option>
-									<option value="Kakek(Dari Ayah)">Kakek(Dari Ayah)</option>
-									<option value="Kakek(Dari Ibu)">Kakek(Dari Ibu)</option>
-									<option value="Nenek(Dari Ayah)">Nenek(Dari Ayah)</option>
-									<option value="Nenek(Dari Ibu)">Nenek(Dari Ibu)</option>
+									<option value="Kakek (Dari Ayah)">Kakek (Dari Ayah)</option>
+									<option value="Kakek (Dari Ibu)">Kakek (Dari Ibu)</option>
+									<option value="Nenek (Dari Ayah)">Nenek (Dari Ayah)</option>
+									<option value="Nenek (Dari Ibu)">Nenek (Dari Ibu)</option>
 									<option value="Kakak Kandung">Kakak Kandung</option>
 									<option value="Adik Kandung">Adik Kandung</option>
 									<option value="Keponakan">Keponakan</option>
-									<option value="Paman(Saudara Ayah)">Paman(Saudara Ayah)</option>
-									<option value="Paman(Saudara Ibu)">Paman(Saudara Ibu)</option>
-									<option value="Bibi(Saudari Ayah)">Bibi(Saudari Ayah)</option>
-									<option value="Bibi(Saudari Ibu)">Bibi(Saudari Ibu)</option>
+									<option value="Paman (Saudara Ayah)">Paman (Saudara Ayah)</option>
+									<option value="Paman (Saudara Ibu)">Paman (Saudara Ibu)</option>
+									<option value="Bibi (Saudari Ayah)">Bibi (Saudari Ayah)</option>
+									<option value="Bibi (Saudari Ibu)">Bibi (Saudari Ibu)</option>
 								</select>
 							</div>
 						</div>
@@ -252,17 +252,17 @@
 									<option value="default">-Pilih Hubungan-</option>
 									<option value="Ayah Tiri">Ayah Tiri</option>
 									<option value="Ibu Tiri">Ibu Tiri</option>
-									<option value="Kakek(Dari Ayah)">Kakek(Dari Ayah)</option>
-									<option value="Kakek(Dari Ibu)">Kakek(Dari Ibu)</option>
-									<option value="Nenek(Dari Ayah)">Nenek(Dari Ayah)</option>
-									<option value="Nenek(Dari Ibu)">Nenek(Dari Ibu)</option>
+									<option value="Kakek (Dari Ayah)">Kakek (Dari Ayah)</option>
+									<option value="Kakek (Dari Ibu)">Kakek (Dari Ibu)</option>
+									<option value="Nenek (Dari Ayah)">Nenek (Dari Ayah)</option>
+									<option value="Nenek (Dari Ibu)">Nenek (Dari Ibu)</option>
 									<option value="Kakak Kandung">Kakak Kandung</option>
 									<option value="Adik Kandung">Adik Kandung</option>
 									<option value="Keponakan">Keponakan</option>
-									<option value="Paman(Saudara Ayah)">Paman(Saudara Ayah)</option>
-									<option value="Paman(Saudara Ibu)">Paman(Saudara Ibu)</option>
-									<option value="Bibi(Saudari Ayah)">Bibi(Saudari Ayah)</option>
-									<option value="Bibi(Saudari Ibu)">Bibi(Saudari Ibu)</option>
+									<option value="Paman (Saudara Ayah)">Paman (Saudara Ayah)</option>
+									<option value="Paman (Saudara Ibu)">Paman (Saudara Ibu)</option>
+									<option value="Bibi (Saudari Ayah)">Bibi (Saudari Ayah)</option>
+									<option value="Bibi (Saudari Ibu)">Bibi (Saudari Ibu)</option>
 								</select>
 							</div>
 						</div>
