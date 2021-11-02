@@ -36,10 +36,11 @@ class Mlaporan extends CI_Model
         return $query;
     }
 
-    public function santri_all() {
+    public function santri_all()
+    {
         $this->db->join('provinsi', 'provinsi.id=tb_person.prov');
         $this->db->select('nama, alamat_lengkap, pndkn, provinsi.name as nama_provinsi');
-        $this->db->where('status','aktif');
+        $this->db->where('status', 'aktif');
         // $this->db->where_not_in('status_dipesantren', 'Dewan Pengasuh');
         // $this->db->where_not_in('status_dipesantren', 'Aktif');
         $this->db->from('tb_person');
