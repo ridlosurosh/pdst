@@ -12,18 +12,6 @@
 		<div class="card">
 			<div class="card-body pb-4">
 				<div class="row">
-					<?php
-					if ($santri->jenis_kelamin == "Laki-Laki") {
-						$jk = "01";
-					} else {
-						$jk = "02";
-					}
-					$th = substr(date("Y"), 2, 4);
-					$tanggal = date('dmY', strtotime($santri->tanggal_lahir));
-					?>
-					<input type="text" name="niup" value="<?= $jk . $th . $tanggal ?>">
-				</div>
-				<div class="row">
 					<div class="col-12">
 						<button type="button" id="btn-tambah" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ModalaAdd" data-backdrop="static">
 							<i class="fas fa-plus"></i> Tambah Data
@@ -94,14 +82,71 @@
 			<div class="card-footer">
 				<button type="button" class="btn btn-danger" onclick="batal('<?= $santri->id_person ?>')"><i class="fas fa-times"></i> Batal</button>
 				<div class="float-right">
-					<button type="button" class="btn btn-info" id="btn_selesai"><i class="fas fa-check"></i> Selesai</button>
+					<form id="form_selesai">
+						<?php
+						if ($santri->jenis_kelamin == "Laki-Laki") {
+							$jk = "01";
+						} else {
+							$jk = "02";
+						}
+						$th = substr(date("Y"), 2, 4);
+						$tanggal = date('dmY', strtotime($santri->tanggal_lahir));
+						?>
+						<input type="hidden" name="kodenya" value="<?= $jk . $th . $tanggal ?>">
+						<input type="hidden" name="o" value="<?= $santri->id_person ?>">
+					</form>
+					<button type="button" onclick="kembali_lah('<?= $santri->id_person ?>')" class="btn btn-info"><i class="fas fa-arrow-left"></i> Kembali</button>
+					<button type="button" class="btn btn-info" id="btn_selesai" onclick="selesai()"><i class="fas fa-check"></i> Selesai</button>
 				</div>
+				<script>
+					function kembali_lah(id) {
+						$.post('<?= site_url('Cperson/tambah_santri_4') ?>', {
+							o: id
+						}, function(Res) {
+							$('#ini_isinya').html(Res);
+						})
+					}
+
+					function selesai() {
+						swal.fire({
+							title: 'SELESAI ?',
+							text: "Pastikan semua data benar !!",
+							type: 'question',
+							showCancelButton: true,
+							confirmButtonColor: '#3085d6',
+							cancelButtonColor: '#d33',
+							confirmButtonText: 'YA',
+							cancelButtonText: 'TIDAK',
+							preConfirm: function() {
+								return new Promise(function(resolve) {
+									$.ajax({
+											url: "<?= site_url('Cperson/selesai') ?>",
+											type: 'POST',
+											data: $('#form_selesai').serialize(),
+											dataType: 'json'
+										})
+										.fail(function() {
+											swal.fire({
+												title: "PDST NAA",
+												text: "Berhasil Disimpan",
+												type: "success"
+											}).then(okay => {
+												if (okay) {
+													print_santri('<?= $santri->id_person ?>')
+												}
+											});
+										});
+								});
+							}
+						});
+					}
+				</script>
 			</div>
 		</div>
 	</div>
 </section>
 <div class="modal fade" id="ModalaAdd" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
-	<div class="modal-dialog modal-xl">
+	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h3 class="modal-title" id="myModalLabel">Tambah Mahrom</h3>
@@ -171,7 +216,7 @@
 </div>
 
 <div class="modal fade" id="ModalaEdit" tabindex="-1" role="dialog" aria-labelledby="largeModal" data-backdrop="static" aria-hidden="true">
-	<div class="modal-dialog modal-xl">
+	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h3 class="modal-title" id="myModalLabel">Edit Mahrom</h3>
@@ -243,12 +288,12 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h3 class="modal-title" id="myModalLabel">upload Mahrom</h3>
+				<h3 class="modal-title" id="myModalLabel">Upload Mahrom</h3>
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 			</div>
 			<form class="form-horizontal" id="form_upload">
 				<div class="modal-body">
-					<input type="text" name="id_mahrom" id="">
+					<input type="hidden" name="id_mahrom" id="">
 					<div class="row">
 						<div class="col-md-6 text-center">
 							<img id="foto_diri" src="" alt="gambar" width="300"><br><br>
@@ -302,7 +347,7 @@
 				</div>
 				<div class="modal-footer justify-content-between">
 					<button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
-					<button class="btn btn-info" id="btn_edit"><i class="fas fa-edit"></i> Edit</button>
+					<button class="btn btn-info"><i class="fas fa-arrow-up"></i> Upload</button>
 				</div>
 			</form>
 		</div>
@@ -551,27 +596,6 @@
 				});
 			}
 
-		})
-	})
-
-	$('#btn_selesai').on('click', function() {
-		Swal.fire({
-			title: 'PDST NAA',
-			text: "Anda Yakin Untuk Membatalkan ?",
-			type: 'question',
-			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			confirmButtonText: 'YA',
-			cancelButtonText: 'TIDAK',
-		}).then((result) => {
-			if (result.isConfirmed) {
-				Swal.fire(
-					'Deleted!',
-					'Your file has been deleted.',
-					'success'
-				)
-			}
 		})
 	})
 </script>
