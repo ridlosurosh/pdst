@@ -3,15 +3,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Mexport extends CI_Model
 {
-	function cek_santri($tahun)
+
+	function cek_santri($prov)
 	{
 		$this->db->from('tb_person');
-		$this->db->where('substr(tgl_daftar,0,4)', $tahun);
+		$this->db->where('prov', $prov);
 		$query = $this->db->get();
 		return $query->result();
 	}
 	// Pdf Putra
-	public function export_putra_pdf()
+	public function export_putra_pdf($id)
 	{
 		$this->db->join('desa', 'desa.id=tb_person.desa');
 		$this->db->join('kecamatan', 'kecamatan.id=tb_person.kec');
@@ -19,6 +20,7 @@ class Mexport extends CI_Model
 		$this->db->join('provinsi', 'provinsi.id=tb_person.prov');
 		$this->db->select('niup, nama, jenis_kelamin, alamat_lengkap, nm_a, nm_i, pos, desa.name as nama_desa, kecamatan.name as nama_kecamatan, kabupaten.name as nama_kabupaten, provinsi.name as nama_provinsi, pos');
 		$this->db->from('tb_person');
+		$this->db->where('prov', $id);
 		$query = $this->db->get();
 		return $query->result();
 	}
