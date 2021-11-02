@@ -462,8 +462,6 @@
 								title: "PDST NAA",
 								text: data.sukses,
 								type: "error",
-								showConfirmButton: false,
-								timer: 1000
 							}).then(okay => {
 								if (okay) {
 									$('#hubungan_m').focus();
