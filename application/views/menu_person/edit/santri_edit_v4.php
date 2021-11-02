@@ -163,7 +163,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">TANGGAL PENEMPATAN</label>
-                                        <input type="date" name="tgl_penetapan" value="<?= $kamar->tgl_penetapan ?>" class="form-control">
+                                        <input type="text" name="tgl_penetapan" value="<?= $kamar->tgl_penetapan ?>" class="form-control" id="tgl_penetapan" autocomplete="off">
                                     </div>
                                 </div>
                                 <input type="hidden" name="o" value="<?= $santri->id_person ?>">
@@ -187,6 +187,9 @@
     $(function() {
         $('.select2').select2({
             theme: 'bootstrap4'
+        });
+        $('#tgl_penetapan').datepicker({
+            dateFormat: 'yy-mm-dd'
         })
     });
 
