@@ -726,22 +726,34 @@ class Cperson extends CI_Controller
 
     public function simpan_detail_mahrom()
     {
-        $data1 = array(
-            'nik_m' => $this->input->post('nik'),
-            'nama_mahrom' => $this->input->post('nama'),
-            'hubungan' => $this->input->post('hubungan'),
-            'alamat_mahrom' => $this->input->post('alamat'),
-            'tanggal_lahir' => $this->input->post('tanggal'),
+        $id =  $this->input->post('id_person');
+        $mahrom = $this->input->post('nama');
+        $ayahtiri = $this->db->join('tb_mahrom', 'tb_mahrom.id_mahrom=tb_detail_mahrom.id_mahrom')
+            ->where('id_person', $id)
+            ->where('nama_mahrom', $mahrom)
+            ->get('tb_detail_mahrom')
+            ->num_rows();
+        if ($ayahtiri > 0) {
+            $pesan = "tidak";
+            $sukses = "ayah tidak noleh Disimpan";
+        } else {
+            $data1 = array(
+                'nik_m' => $this->input->post('nik'),
+                'nama_mahrom' => $this->input->post('nama'),
+                'hubungan' => $this->input->post('hubungan'),
+                'alamat_mahrom' => $this->input->post('alamat'),
+                'tanggal_lahir' => $this->input->post('tanggal'),
 
-        );
-        $last_id = $this->Mperson->simpan_data_mahrom($data1);
-        $data2 = array(
-            'id_person' => $this->input->post('id_person'),
-            'id_mahrom' => $last_id
-        );
-        $this->Mperson->simpan_detail_mahrom($data2);
-        $pesan = "ya";
-        $sukses = "Berhasil Disimpan";
+            );
+            $last_id = $this->Mperson->simpan_data_mahrom($data1);
+            $data2 = array(
+                'id_person' => $this->input->post('id_person'),
+                'id_mahrom' => $last_id
+            );
+            $this->Mperson->simpan_detail_mahrom($data2);
+            $pesan = "ya";
+            $sukses = "Berhasil Disimpan";
+        }
         $output = array(
             'pesan' => $pesan,
             'sukses' => $sukses

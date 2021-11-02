@@ -77,6 +77,7 @@ $tanggal = empty($kamar->tgl_penetapan) ? "0" : $kamar->tgl_penetapan;
                                                 var wilayah = $('#wly').val();
                                                 var k = $('#blk').val()
                                                 if (wilayah == 0) {
+                                                    var html = '';
                                                     html += '<option value=' + ' default' + '>' + '-Pilih Block-' + '</option>';
                                                     $('#blok').html(html);
                                                 } else {
@@ -143,6 +144,7 @@ $tanggal = empty($kamar->tgl_penetapan) ? "0" : $kamar->tgl_penetapan;
                                                 var blok = $('#blk').val();
                                                 var k = $('#kmr').val()
                                                 if (blok == 0) {
+                                                    var html = '';
                                                     html += '<option value=' + ' default' + '>' + '-Pilih Kamar-' + '</option>';
                                                     $('#kamar').html(html);
                                                 } else {
@@ -177,7 +179,7 @@ $tanggal = empty($kamar->tgl_penetapan) ? "0" : $kamar->tgl_penetapan;
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">TANGGAL PENEMPATAN</label>
-                                        <input type="date" name="tgl_penetapan" value="<?= $tanggal ?>" class="form-control">
+                                        <input type="text" name="tgl_penetapan" value="<?= $tanggal ?>" class="form-control" autocomplete="off">
                                     </div>
                                 </div>
                                 <input type="hidden" name="o" value="<?= $santri->id_person ?>">
@@ -211,6 +213,10 @@ $tanggal = empty($kamar->tgl_penetapan) ? "0" : $kamar->tgl_penetapan;
     $(function() {
         $('.select2').select2({
             theme: 'bootstrap4'
+        })
+
+        $('#tgl_penetapan').datepicker({
+            dateFormat: "yy-mm-dd"
         })
     });
 

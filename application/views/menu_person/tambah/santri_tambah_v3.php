@@ -438,6 +438,7 @@ if ($santri->desa_w == "") {
                                                 var provinsi = $('#prov').val();
                                                 var k = $('#kab').val()
                                                 if (provinsi == 0) {
+                                                    var html = '';
                                                     html += '<option value=' + ' default' + '>' + '-Pilih Kabupaten-' + '</option>';
                                                     $('#kabupaten').html(html);
                                                 } else {
@@ -504,6 +505,7 @@ if ($santri->desa_w == "") {
                                                 var kabupaten = $('#kab').val();
                                                 var k = $('#kec').val()
                                                 if (kabupaten == 0) {
+                                                    var html = '';
                                                     html += '<option value=' + ' default' + '>' + '-Pilih Kecamatan-' + '</option>';
                                                     $('#kecamatan').html(html);
                                                 } else {
@@ -570,6 +572,7 @@ if ($santri->desa_w == "") {
                                                 var kecamatan = $('#kec').val();
                                                 var k = $('#des').val()
                                                 if (kecamatan == 0) {
+                                                    var html = '';
                                                     html += '<option value=' + ' default' + '>' + '-Pilih Desa-' + '</option>';
                                                     $('#desa').html(html);
                                                 } else {

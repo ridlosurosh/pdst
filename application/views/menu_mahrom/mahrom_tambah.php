@@ -200,8 +200,15 @@
 						<div class="col-md-3">
 							<div class="form-group">
 								<label for="tanggal">TANGGAL LAHIR</label>
-								<input type="date" name="tanggal" id="tanggal_m" class="form-control">
+								<input type="text" name="tanggal" id="tanggal_m" class="form-control" autocomplete="off">
 							</div>
+							<script>
+								$(function() {
+									$('#tanggal_m').datepicker({
+										dateFormat: 'yy-mm-dd'
+									})
+								})
+							</script>
 						</div>
 					</div>
 				</div>
@@ -270,8 +277,15 @@
 						<div class="col-md-3">
 							<div class="form-group">
 								<label for="tanggal">TANGGAL LAHIR</label>
-								<input type="date" name="tanggal" id="tanggal_m" class="form-control">
+								<input type="text" name="tanggal" id="tanggal" class="form-control" autocomplete="off">
 							</div>
+							<script>
+								$(function() {
+									$('#tanggal').datepicker({
+										dateFormat: 'yy-mm-dd'
+									})
+								})
+							</script>
 						</div>
 					</div>
 				</div>
@@ -441,6 +455,18 @@
 							}).then(okay => {
 								if (okay) {
 									form_tambah_mahrom('<?= $santri->id_person ?>')
+								}
+							})
+						} else {
+							swal.fire({
+								title: "PDST NAA",
+								text: data.sukses,
+								type: "error",
+								showConfirmButton: false,
+								timer: 1000
+							}).then(okay => {
+								if (okay) {
+									$('#hubungan_m').focus();
 								}
 							})
 						}

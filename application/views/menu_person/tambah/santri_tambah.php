@@ -283,6 +283,7 @@ $waktu = explode("-", $santri->tanggal_lahir);
                                                 var provinsi = $('#prov').val();
                                                 var k = $('#kab').val()
                                                 if (provinsi == 0) {
+                                                    var html = '';
                                                     html += '<option value=' + ' default' + '>' + '-Pilih Kabupaten-' + '</option>';
                                                     $('#kabupaten').html(html);
                                                 } else {
@@ -350,6 +351,7 @@ $waktu = explode("-", $santri->tanggal_lahir);
                                                 var kabupaten = $('#kab').val();
                                                 var k = $('#kec').val()
                                                 if (kabupaten == 0) {
+                                                    var html = '';
                                                     html += '<option value=' + ' default' + '>' + '-Pilih Kecamatan-' + '</option>';
                                                     $('#kecamatan').html(html);
                                                 } else {
@@ -416,6 +418,7 @@ $waktu = explode("-", $santri->tanggal_lahir);
                                                 var kecamatan = $('#kec').val();
                                                 var k = $('#des').val();
                                                 if (kecamatan == 0) {
+                                                    var html = '';
                                                     html += '<option value=' + ' default' + '>' + '-Pilih Desa-' + '</option>';
                                                     $('#desa').html(html);
                                                 } else {
