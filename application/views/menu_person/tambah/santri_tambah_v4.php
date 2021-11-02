@@ -179,7 +179,7 @@ $tanggal = empty($kamar->tgl_penetapan) ? "0" : $kamar->tgl_penetapan;
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">TANGGAL PENEMPATAN</label>
-                                        <input type="text" name="tgl_penetapan" value="<?= $tanggal ?>" class="form-control" autocomplete="off">
+                                        <input type="text" name="tgl_penetapan" value="<?= $tanggal ?>" class="form-control" autocomplete="off" id="tgl_penetapan">
                                     </div>
                                 </div>
                                 <input type="hidden" name="o" value="<?= $santri->id_person ?>">
@@ -216,7 +216,7 @@ $tanggal = empty($kamar->tgl_penetapan) ? "0" : $kamar->tgl_penetapan;
         })
 
         $('#tgl_penetapan').datepicker({
-            dateFormat: "yy-mm-dd"
+            dateFormat: 'yy-mm-dd'
         })
     });
 
