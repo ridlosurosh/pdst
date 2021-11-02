@@ -464,14 +464,14 @@ $waktu = explode("-", $santri->tanggal_lahir);
     </div>
 </section>
 <script>
-    $(document).ready(function() {
-        $("#nik, #ank_ke, #sdr, #pos").keypress(function(e) {
-            var charCode = (e.which) ? e.which : e.keyCode;
-            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-                return false;
-            }
-        });
-    });
+    // $(document).ready(function() {
+    //     $("#nik, #ank_ke, #sdr, #pos").keypress(function(e) {
+    //         var charCode = (e.which) ? e.which : e.keyCode;
+    //         if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+    //             return false;
+    //         }
+    //     });
+    // });
 
     $(function() {
         $('.select2').select2({
