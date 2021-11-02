@@ -727,15 +727,54 @@ class Cperson extends CI_Controller
     public function simpan_detail_mahrom()
     {
         $id =  $this->input->post('id_person');
-        $mahrom = $this->input->post('nama');
         $ayahtiri = $this->db->join('tb_mahrom', 'tb_mahrom.id_mahrom=tb_detail_mahrom.id_mahrom')
             ->where('id_person', $id)
-            ->where('nama_mahrom', $mahrom)
+            ->where('hubungan', 'Ayah Tiri')
             ->get('tb_detail_mahrom')
             ->num_rows();
-        if ($ayahtiri > 0) {
+        $ibutiri = $this->db->join('tb_mahrom', 'tb_mahrom.id_mahrom=tb_detail_mahrom.id_mahrom')
+            ->where('id_person', $id)
+            ->where('hubungan', 'Ibu Tiri')
+            ->get('tb_detail_mahrom')
+            ->num_rows();
+        $kakek_Ayah = $this->db->join('tb_mahrom', 'tb_mahrom.id_mahrom=tb_detail_mahrom.id_mahrom')
+            ->where('id_person', $id)
+            ->where('hubungan', 'Kakek (Dari Ayah)')
+            ->get('tb_detail_mahrom')
+            ->num_rows();
+        $kakek_Ibu = $this->db->join('tb_mahrom', 'tb_mahrom.id_mahrom=tb_detail_mahrom.id_mahrom')
+            ->where('id_person', $id)
+            ->where('hubungan', 'Kakek (Dari Ibu)')
+            ->get('tb_detail_mahrom')
+            ->num_rows();
+        $nenek_Ayah = $this->db->join('tb_mahrom', 'tb_mahrom.id_mahrom=tb_detail_mahrom.id_mahrom')
+            ->where('id_person', $id)
+            ->where('hubungan', 'Nenek (Dari Ayah)')
+            ->get('tb_detail_mahrom')
+            ->num_rows();
+        $nenek_Ibu = $this->db->join('tb_mahrom', 'tb_mahrom.id_mahrom=tb_detail_mahrom.id_mahrom')
+            ->where('id_person', $id)
+            ->where('hubungan', 'Nenek (Dari Ibu)')
+            ->get('tb_detail_mahrom')
+            ->num_rows();
+        if ($this->input->post('hubungan') == "Ayah Tiri" && $ayahtiri > 0) {
             $pesan = "tidak";
-            $sukses = "ayah tidak noleh Disimpan";
+            $sukses = "Ayah tidak Boleh Lebih Dari Satu";
+        } elseif ($this->input->post('hubungan') == "Ibu Tiri" && $ibutiri > 0) {
+            $pesan = "tidak";
+            $sukses = "Ibu tidak Boleh Lebih Dari Satu";
+        } elseif ($this->input->post('hubungan') == "Kakek (Dari Ayah)" && $kakek_Ayah > 0) {
+            $pesan = "tidak";
+            $sukses = "Kakek (Dari Ayah)  tidak Boleh Lebih Dari Satu";
+        } elseif ($this->input->post('hubungan') == "Kakek (Dari Ibu)" && $kakek_Ibu > 0) {
+            $pesan = "tidak";
+            $sukses = "Kakek (Dari Ibu)  tidak Boleh Lebih Dari Satu";
+        } elseif ($this->input->post('hubungan') == "Nenek (Dari Ayah)" && $nenek_Ayah > 0) {
+            $pesan = "tidak";
+            $sukses = "Nenek (Dari Ayah)  tidak Boleh Lebih Dari Satu";
+        } elseif ($this->input->post('hubungan') == "Nenek (Dari Ibu)" && $nenek_Ibu > 0) {
+            $pesan = "tidak";
+            $sukses = "Nenek (Dari Ibu)  tidak Boleh Lebih Dari Satu";
         } else {
             $data1 = array(
                 'nik_m' => $this->input->post('nik'),
