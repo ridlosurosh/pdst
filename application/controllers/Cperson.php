@@ -29,8 +29,6 @@ class Cperson extends CI_Controller
         $this->load->view('menu_person/tambah/santri_tambah', $output);
     }
 
-
-
     public function tambah_santri_2()
     {
         $id = $this->input->post('o');
@@ -57,7 +55,8 @@ class Cperson extends CI_Controller
         $id = $this->input->post('o');
         $data = array(
             'santri' => $this->Mperson->santri_terakhir($id),
-            'wilayah' => $this->Mperson->get_wilayah()->result()
+            'kamar' => $this->Mperson->domisili($id),
+            'wilayah' => $this->Mperson->get_wilayah()->result(),
         );
         $this->load->view('menu_person/tambah/santri_tambah_v4', $data);
     }
@@ -80,7 +79,7 @@ class Cperson extends CI_Controller
             'kec' => "",
             'kab' => "",
             'prov' => "",
-            'pos' => "",
+            'pos' => $this->input->post('id'),
             'pndkn' => "",
             'nik_a' => "",
             'nm_a' => "",
@@ -121,69 +120,27 @@ class Cperson extends CI_Controller
     public function simpan_santri_v1()
     {
         $id = $this->input->post('o');
-        $santri_terakhir = $this->Mperson->santri_terakhir_diinput();
-        $countsantri_terakhir = $santri_terakhir[0]->jumlah;
-
-        if ($countsantri_terakhir == NULL) {
-            $nomor_induk_baru = '0001';
-        } else {
-            $kode = '0000';
-            $panjang = 4 - strlen($countsantri_terakhir);
-            $countsantri_terakhir++;
-            $nomor_induk_baru = substr($kode, 0, $panjang) . $countsantri_terakhir;
-        }
-        $niupnya = $nomor_induk_baru;
         $t_l = $this->input->post('tanggal_lahir');
         $bulan = $this->input->post('bulan_lahir');
         $thn = $this->input->post('tahun_lahir');
-        $tgl = $t_l . $bulan . $thn;
-        $thn_daftar = substr(date("Y"), 2, 4);
-        if ($this->input->post('jenis_kelamin') == "Perempuan") {
-            $kode_awal = "02";
-        } else {
-            $kode_awal = "01";
-        }
-        $uu = $this->input->post('uu');
-        if ($uu == "") {
-            $tgl_lahir = $thn . '-' . $bulan . '-' . $t_l;
-            $data1 = array(
-                'nik' => $this->input->post('nik'),
-                'niup' => $kode_awal . $thn_daftar . $tgl . $niupnya,
-                'nama' => $this->input->post('nama'),
-                'tempat_lahir' => $this->input->post('tempat_lahir'),
-                'tanggal_lahir' => $tgl_lahir,
-                'jenis_kelamin' => $this->input->post('jenis_kelamin'),
-                'alamat_lengkap' => $this->input->post('alamat_lengkap'),
-                'desa' => $this->input->post('desa'),
-                'kec' => $this->input->post('kec'),
-                'kab' => $this->input->post('kab'),
-                'prov' => $this->input->post('prov'),
-                'pos' => $this->input->post('pos'),
-                'dlm_klrg' => $this->input->post('dlm_klrg'),
-                'ank_ke' => $this->input->post('ank_ke'),
-                'sdr' => $this->input->post('sdr'),
-            );
-            $this->Mperson->simpan_santri_v2(array('id_person' => $id), $data1);
-        } else {
-            $tgl_lahir = $thn . '-' . $bulan . '-' . $t_l;
-            $data1 = array(
-                'nik' => $this->input->post('nik'),
-                'nama' => $this->input->post('nama'),
-                'tempat_lahir' => $this->input->post('tempat_lahir'),
-                'tanggal_lahir' => $tgl_lahir,
-                'jenis_kelamin' => $this->input->post('jenis_kelamin'),
-                'alamat_lengkap' => $this->input->post('alamat_lengkap'),
-                'desa' => $this->input->post('desa'),
-                'kec' => $this->input->post('kec'),
-                'kab' => $this->input->post('kab'),
-                'prov' => $this->input->post('prov'),
-                'pos' => $this->input->post('pos'),
-                'dlm_klrg' => $this->input->post('dlm_klrg'),
-                'ank_ke' => $this->input->post('ank_ke'),
-                'sdr' => $this->input->post('sdr'),
-            );
-            $this->Mperson->simpan_santri_v2(array('id_person' => $id), $data1);
-        }
+        $tgl_lahir = $thn . '-' . $bulan . '-' . $t_l;
+        $data1 = array(
+            'nik' => $this->input->post('nik'),
+            'nama' => $this->input->post('nama'),
+            'tempat_lahir' => $this->input->post('tempat_lahir'),
+            'tanggal_lahir' => $tgl_lahir,
+            'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+            'alamat_lengkap' => $this->input->post('alamat_lengkap'),
+            'desa' => $this->input->post('desa'),
+            'kec' => $this->input->post('kec'),
+            'kab' => $this->input->post('kab'),
+            'prov' => $this->input->post('prov'),
+            'pos' => $this->input->post('pos'),
+            'dlm_klrg' => $this->input->post('dlm_klrg'),
+            'ank_ke' => $this->input->post('ank_ke'),
+            'sdr' => $this->input->post('sdr'),
+        );
+        $this->Mperson->simpan_santri_v2(array('id_person' => $id), $data1);
         $p = array('i' => $id);
         echo json_encode($p);
     }
@@ -212,57 +169,32 @@ class Cperson extends CI_Controller
             'pkrjn_i' => $this->input->post('pkrjn_i'),
         );
         $this->Mperson->simpan_santri_v2(array('id_person' => $id), $data1);
-        $id_a = $this->input->post('a');
-        if ($id_a == 0) {
-            $data_a = array(
-                'nik_m' => $this->input->post('nik_a'),
-                'nama_mahrom' => $this->input->post('nm_a'),
-                'tanggal_lahir' => $tgl_lahir_a,
-                'alamat_mahrom' => $this->input->post('alamat_a'),
-                'hubungan' => "Ayah",
-            );
-            $a = $this->Mperson->simpan_ayah($data_a);
-            $detail_a = array(
-                'id_person' => $id,
-                'id_mahrom' => $a
-            );
-            $this->Mperson->detail_ayah($detail_a);
-        } else {
-            $data_a = array(
-                'nik_m' => $this->input->post('nik_a'),
-                'nama_mahrom' => $this->input->post('nm_a'),
-                'tanggal_lahir' => $tgl_lahir_a,
-                'alamat_mahrom' => $this->input->post('alamat_a'),
-                'hubungan' => "Ayah",
-            );
-            $this->Mperson->edit_ayah(array('id_mahrom' => $id_a), $data_a);
-        }
-        $id_i = $this->input->post('i');
-        if ($id_i == 0) {
-            $data_i = array(
-                'nik_m' => $this->input->post('nik_i'),
-                'nama_mahrom' => $this->input->post('nm_i'),
-                'tanggal_lahir' => $tgl_lahir_i,
-                'alamat_mahrom' => $this->input->post('alamat_i'),
-                'hubungan' => "Ibu",
-            );
-            $i = $this->Mperson->simpan_ibu($data_i);
-            $detail_i = array(
-                'id_person' => $id,
-                'id_mahrom' => $i
-            );
-            $this->Mperson->detail_ibu($detail_i);
-        } else {
-            $data_i = array(
-                'nik_m' => $this->input->post('nik_i'),
-                'nama_mahrom' => $this->input->post('nm_i'),
-                'tanggal_lahir' => $tgl_lahir_i,
-                'alamat_mahrom' => $this->input->post('alamat_i'),
-                'hubungan' => "Ibu",
-            );
-            $this->Mperson->edit_ibu(array('id_mahrom' => $id_i), $data_i);
-        }
-
+        $data_a = array(
+            'nik_m' => $this->input->post('nik_a'),
+            'nama_mahrom' => $this->input->post('nm_a'),
+            'tanggal_lahir' => $tgl_lahir_a,
+            'alamat_mahrom' => $this->input->post('alamat_a'),
+            'hubungan' => "Ayah",
+        );
+        $a = $this->Mperson->simpan_ayah($data_a);
+        $detail_a = array(
+            'id_person' => $id,
+            'id_mahrom' => $a
+        );
+        $this->Mperson->detail_ayah($detail_a);
+        $data_i = array(
+            'nik_m' => $this->input->post('nik_i'),
+            'nama_mahrom' => $this->input->post('nm_i'),
+            'tanggal_lahir' => $tgl_lahir_i,
+            'alamat_mahrom' => $this->input->post('alamat_i'),
+            'hubungan' => "Ibu",
+        );
+        $i = $this->Mperson->simpan_ibu($data_i);
+        $detail_i = array(
+            'id_person' => $id,
+            'id_mahrom' => $i
+        );
+        $this->Mperson->detail_ibu($detail_i);
         $p = array('i' => $id);
         echo json_encode($p);
     }
@@ -285,8 +217,6 @@ class Cperson extends CI_Controller
             'kab_w' => $this->input->post('kab_w'),
             'prov_w' => $this->input->post('prov_w'),
             'pndkn' => $this->input->post('pndkn'),
-            'status' => "aktif",
-            'tgl_daftar' => date('Y-m-d H:i:s')
         );
         $this->Mperson->simpan_santri_v2(array('id_person' => $id), $data1);
         $p = array('i' => $id);
@@ -295,19 +225,52 @@ class Cperson extends CI_Controller
 
     public function simpan_santri_v4()
     {
+        $id = $this->input->post('o');
         $data = array(
-            'id_person' => $this->input->post('o'),
+            'id_person' => $id,
             'id_kamar' => $this->input->post('kamar'),
             'tgl_penetapan' => $this->input->post('tgl_penetapan')
         );
         $this->Mperson->simpan_penempatan($data);
-        $pesan = "ya";
-        $sukses = "Data Berhasil Disimpan";
-        $output = array(
-            'pesan' => $pesan,
-            'sukses' => $sukses
+        $p = array('i' => $id);
+        echo json_encode($p);
+    }
+
+    public function domisilinya()
+    {
+        $id = $this->input->post('history');
+        $data = array(
+            'id_kamar' => $this->input->post('kamar'),
+            'tgl_penetapan' => $this->input->post('tgl_penetapan'),
+            'aktif' => "Ya"
         );
-        echo json_encode($output);
+        $this->Mperson->edit_penempatan(array('id_history' => $id), $data);
+        $p = array('i' => $id);
+        echo json_encode($p);
+    }
+
+    public function selesai()
+    {
+        $id = $this->input->post('o');
+        $kodenya = $this->input->post('kodenya');
+        $santri_terakhir = $this->Mperson->santri_terakhir_diinput();
+        $countsantri_terakhir = $santri_terakhir[0]->jumlah;
+
+        if ($countsantri_terakhir == NULL) {
+            $nomor_induk_baru = '0001';
+        } else {
+            $kode = '0000';
+            $panjang = 4 - strlen($countsantri_terakhir);
+            $countsantri_terakhir++;
+            $nomor_induk_baru = substr($kode, 0, $panjang) . $countsantri_terakhir;
+        }
+        $niupnya = $nomor_induk_baru;
+        $data1 = array(
+            'niup' => $kodenya . $niupnya,
+            'status' => "aktif",
+            'tgl_daftar' => date('Y-m-d H:i:s')
+        );
+        $this->Mperson->simpan_santri_v2(array('id_person' => $id), $data1);
     }
 
     public function batal()
@@ -415,6 +378,16 @@ class Cperson extends CI_Controller
         $this->load->view('menu_person/edit/santri_edit_v4', $data);
     }
 
+    public function form_tambah_mahrom_2()
+    {
+        $id = $this->input->post('o');
+        $data = array(
+            'santri' => $this->Mperson->santri_id($id),
+            'mahrom' => $this->Mperson->data_mahrom($id),
+        );
+        $this->load->view('menu_person/edit/mahrom_tambah_2', $data);
+    }
+
     public function edit_santri_v1()
     {
         $id = $this->input->post('o');
@@ -456,7 +429,7 @@ class Cperson extends CI_Controller
         $bln_i = $this->input->post('bulan_lahir_i');
         $thn_i = $this->input->post('tahun_lahir_i');
         $tgl_lahir_i = $thn_i . '-' . $bln_i . '-' . $tgl_i;
-        $data1 = array(
+        $data = array(
             'nik_a' => $this->input->post('nik_a'),
             'nm_a' => $this->input->post('nm_a'),
             'tgl_lahir_a' => $tgl_lahir_a,
@@ -468,7 +441,7 @@ class Cperson extends CI_Controller
             'pndkn_i' => $this->input->post('pndkn_i'),
             'pkrjn_i' => $this->input->post('pkrjn_i'),
         );
-        $this->Mperson->simpan_ortu(array('id_person' => $id), $data1);
+        $this->Mperson->edit_santri(array('id_person' => $id), $data);
         $data_a = array(
             'nik_m' => $this->input->post('nik_a'),
             'nama_mahrom' => $this->input->post('nm_a'),
@@ -508,27 +481,18 @@ class Cperson extends CI_Controller
             'prov_w' => $this->input->post('prov_w'),
             'pndkn' => $this->input->post('pndkn'),
         );
-        $this->Mperson->simpan_ortu(array('id_person' => $id), $data1);
+        $this->Mperson->edit_santri(array('id_person' => $id), $data1);
         $p = array('i' => $id);
         echo json_encode($p);
     }
 
-    public function edit_santri_v4()
+    public function selesai_untuk_edit()
     {
-        $id = $this->input->post('history');
-        $data = array(
-            'id_kamar' => $this->input->post('kamar'),
-            'tgl_penetapan' => $this->input->post('tgl_penetapan'),
-            'aktif' => "Ya"
+        $id = $this->input->post('o');
+        $data1 = array(
+            'status' => "aktif"
         );
-        $this->Mperson->edit_penempatan(array('id_history' => $id), $data);
-        $pesan = "ya";
-        $sukses = "Data Berhasil Diedit";
-        $output = array(
-            'pesan' => $pesan,
-            'sukses' => $sukses
-        );
-        echo json_encode($output);
+        $this->Mperson->simpan_santri_v2(array('id_person' => $id), $data1);
     }
 
     //  Fitur form upload berkas
@@ -751,7 +715,7 @@ class Cperson extends CI_Controller
     // Fitur tambah Mahrom
     public function form_tambah_mahrom()
     {
-        $id = $this->input->post('idperson');
+        $id = $this->input->post('o');
         $data = array(
             'santri' => $this->Mperson->santri_id($id),
             'mahrom' => $this->Mperson->data_mahrom($id),
@@ -776,7 +740,7 @@ class Cperson extends CI_Controller
         );
         $this->Mperson->simpan_detail_mahrom($data2);
         $pesan = "ya";
-        $sukses = "Berhasil";
+        $sukses = "Berhasil Disimpan";
         $output = array(
             'pesan' => $pesan,
             'sukses' => $sukses
@@ -803,7 +767,7 @@ class Cperson extends CI_Controller
         );
         $this->Mperson->edit_mahrom(array('id_mahrom' => $id), $data);
         $pesan = "ya";
-        $sukses = "Berhasil";
+        $sukses = "Berhasil Diedit";
         $output = array(
             'pesan' => $pesan,
             'sukses' => $sukses
