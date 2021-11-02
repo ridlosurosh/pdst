@@ -44,7 +44,8 @@
 						</div>
 					</div>
 					<div class="card-footer">
-						<button class="btn btn-sm btn-primary float-right" id="bt_cetak"><i class="fas fa-print"></i> Cetak</button>
+						<a href="<?= site_url('Cexport/coba') ?>" class="btn btn-danger">coba</a>
+						<!-- <button class="btn btn-sm btn-primary float-right" id="bt_cetak"><i class="fas fa-print"></i> Cetak</button> -->
 					</div>
 				</div>
 				<script>
