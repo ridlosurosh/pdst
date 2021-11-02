@@ -7,6 +7,7 @@ class Mjabatan extends CI_Model
     public function jabatan_all()
     {
         $this->db->from('tb_jabatan');
+        $this->db->where('status', 'Aktif');
         $query = $this->db->get();
         return $query->result();
     }
