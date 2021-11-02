@@ -22,7 +22,7 @@ class Mkoordinator extends CI_Model
         return $query->result();
     }
 
-   
+
 
     public function simpan_pengurus($data1)
     {

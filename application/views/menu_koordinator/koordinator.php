@@ -32,7 +32,7 @@
 							<td><?= $value->niup ?></td>
 							<td><?= $value->nama ?></td>
 							<td><?= $value->nm_jabatan ?></td>
-							<td><?= $value->masa_bakti?></td>
+							<td><?= $value->masa_bakti ?></td>
 							<?php
 							if ($value->status == 'aktif') {
 								$st = "<span class='badge bg-primary'>Aktif</span>";
