@@ -42,7 +42,6 @@ $waktu = explode("-", $santri->tanggal_lahir);
                 <form id="form_tambah_santri">
                     <div class="card">
                         <input type="hidden" name="o" class="col-sm-2" value="<?= $santri->id_person ?>">
-                        <input type="hidden" name="uu" class="col-sm-2" value="<?= $santri->niup ?>">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-3">

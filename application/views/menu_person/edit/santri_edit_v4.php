@@ -247,22 +247,17 @@
         },
         submitHandler: function() {
             $.ajax({
-                url: "<?= site_url('Cperson/edit_santri_v4') ?>",
+                url: "<?= site_url('Cperson/domisilinya') ?>",
                 data: $('#form_edit_santri_v4').serialize(),
                 type: 'POST',
                 dataType: 'JSON',
                 success: function(data) {
-                    if (data.pesan === "ya") {
-                        swal.fire({
-                            title: "PDST NAA",
-                            text: data.sukses,
-                            type: "success"
-                        }).then(okay => {
-                            if (okay) {
-                                print_santri('<?= $santri->id_person ?>')
-                            }
-                        })
-                    }
+                    var o = data.i;
+                    $.post('<?= site_url('Cperson/form_tambah_mahrom_2') ?>', {
+                        o: o
+                    }, function(Res) {
+                        $('#ini_isinya').html(Res);
+                    });
                 }
             });
         }

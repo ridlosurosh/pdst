@@ -778,6 +778,7 @@ if (empty($ibu->tanggal_lahir)) {
                             <div class="float-right">
                                 <button type="button" onclick="kembali_lagi('<?= $santri->id_person ?>')" class="btn btn-info"><i class="fas fa-arrow-left"></i> Kembali</button>
                                 <button class="btn btn-info" id="simpan">Simpan dan Lanjut <i class="fas fa-arrow-right"></i></button>
+                                <button class="btn btn-info" id="simpan2">Simpan dan Lanjut <i class="fas fa-arrow-right"></i></button>
                             </div>
                         </div>
                     </div>
@@ -788,6 +789,16 @@ if (empty($ibu->tanggal_lahir)) {
 </section>
 <script>
     $(document).ready(function() {
+        var id = $('#ayah').val()
+        if (id == 0) {
+            $('#simpan').show()
+            $('#simpan2').hide()
+        } else {
+            $('#simpan').hide()
+            $('#simpan2').show()
+        }
+
+
         $("#nik_a, #nik_i").keypress(function(e) {
             var charCode = (e.which) ? e.which : e.keyCode;
             if (charCode > 31 && (charCode < 48 || charCode > 57)) {
@@ -811,147 +822,292 @@ if (empty($ibu->tanggal_lahir)) {
         })
 
     })
-
-    $.validator.addMethod("valueNotEquals", function(value, element, arg) {
-        return arg !== value;
-    }, "Value must not equal arg.");
-    $("select").on("select2:close", function(e) {
-        $(this).valid();
-    });
-    $('#form_tambah_santri_v2').validate({
-        rules: {
-            nik_a: {
-                required: true,
-                maxlength: 16,
-                minlength: 16
-            },
-            nm_a: {
-                required: true
-            },
-            tanggal_lahir_a: {
-                valueNotEquals: "default"
-            },
-            bulan_lahir_a: {
-                valueNotEquals: "default"
-            },
-            tahun_lahir_a: {
-                valueNotEquals: "default"
-            },
-            pndkn_a: {
-                valueNotEquals: "default"
-            },
-            pkrjn_a: {
-                valueNotEquals: "default"
-            },
-            alamat_a: {
-                required: true
-            },
-            nik_i: {
-                required: true,
-                maxlength: 16,
-                minlength: 16
-            },
-            nm_i: {
-                required: true
-            },
-            tanggal_lahir_i: {
-                valueNotEquals: "default"
-            },
-            bulan_lahir_i: {
-                valueNotEquals: "default"
-            },
-            tahun_lahir_i: {
-                valueNotEquals: "default"
-            },
-            pndkn_i: {
-                valueNotEquals: "default"
-            },
-            pkrjn_i: {
-                valueNotEquals: "default"
-            },
-            alamat_i: {
-                required: true
-            }
-        },
-        messages: {
-            nik_a: {
-                required: "Tidak Boleh Kosong",
-                maxlength: "NIK Tidak Boleh lebih dari 16 digit",
-                minlength: "NIK Tidak Boleh kurang dari 16 digit"
-            },
-            nm_a: {
-                required: "Tidak Boleh Kosong"
-            },
-            tanggal_lahir_a: {
-                valueNotEquals: "Tidak Boleh Kosong"
-            },
-            bulan_lahir_a: {
-                valueNotEquals: "Tidak Boleh Kosong"
-            },
-            tahun_lahir_a: {
-                valueNotEquals: "Tidak Boleh Kosong"
-            },
-            pndkn_a: {
-                valueNotEquals: "Tidak Boleh Kosong"
-            },
-            pkrjn_a: {
-                valueNotEquals: "Tidak Boleh Kosong"
-            },
-            alamat_a: {
-                required: "Tidak Boleh Kosong"
-            },
-            nik_i: {
-                required: "Tidak Boleh Kosong",
-                maxlength: "NIK Tidak Boleh lebih dari 16 digit",
-                minlength: "NIK Tidak Boleh kurang dari 16 digit"
-            },
-            nm_i: {
-                required: "Tidak Boleh Kosong"
-            },
-            tanggal_lahir_i: {
-                valueNotEquals: "Tidak Boleh Kosong"
-            },
-            bulan_lahir_i: {
-                valueNotEquals: "Tidak Boleh Kosong"
-            },
-            tahun_lahir_i: {
-                valueNotEquals: "Tidak Boleh Kosong"
-            },
-            pndkn_i: {
-                valueNotEquals: "Tidak Boleh Kosong"
-            },
-            pkrjn_i: {
-                valueNotEquals: "Tidak Boleh Kosong"
-            },
-            alamat_i: {
-                required: "Tidak Boleh Kosong"
-            }
-        },
-        errorElement: 'span',
-        errorPlacement: function(error, element) {
-            error.addClass('invalid-feedback');
-            element.closest('.form-group').append(error);
-        },
-        unhighlight: function(element, errorClass, validClass) {
-            $(element).removeClass('is-invalid');
-        },
-        submitHandler: function() {
-            $.ajax({
-                url: "<?= site_url('Cperson/simpan_santri_v2') ?>",
-                data: $('#form_tambah_santri_v2').serialize(),
-                type: 'POST',
-                dataType: 'JSON',
-                success: function(data) {
-                    var o = data.i;
-                    $.post('<?= site_url('Cperson/tambah_santri_3') ?>', {
-                        o: o
-                    }, function(Res) {
-
-                        $('#ini_isinya').html(Res);
-                    });
+    $('#simpan').on('click', function() {
+        $.validator.addMethod("valueNotEquals", function(value, element, arg) {
+            return arg !== value;
+        }, "Value must not equal arg.");
+        $("select").on("select2:close", function(e) {
+            $(this).valid();
+        });
+        $('#form_tambah_santri_v2').validate({
+            rules: {
+                nik_a: {
+                    required: true,
+                    maxlength: 16,
+                    minlength: 16
+                },
+                nm_a: {
+                    required: true
+                },
+                tanggal_lahir_a: {
+                    valueNotEquals: "default"
+                },
+                bulan_lahir_a: {
+                    valueNotEquals: "default"
+                },
+                tahun_lahir_a: {
+                    valueNotEquals: "default"
+                },
+                pndkn_a: {
+                    valueNotEquals: "default"
+                },
+                pkrjn_a: {
+                    valueNotEquals: "default"
+                },
+                alamat_a: {
+                    required: true
+                },
+                nik_i: {
+                    required: true,
+                    maxlength: 16,
+                    minlength: 16
+                },
+                nm_i: {
+                    required: true
+                },
+                tanggal_lahir_i: {
+                    valueNotEquals: "default"
+                },
+                bulan_lahir_i: {
+                    valueNotEquals: "default"
+                },
+                tahun_lahir_i: {
+                    valueNotEquals: "default"
+                },
+                pndkn_i: {
+                    valueNotEquals: "default"
+                },
+                pkrjn_i: {
+                    valueNotEquals: "default"
+                },
+                alamat_i: {
+                    required: true
                 }
-            });
-        }
+            },
+            messages: {
+                nik_a: {
+                    required: "Tidak Boleh Kosong",
+                    maxlength: "NIK Tidak Boleh lebih dari 16 digit",
+                    minlength: "NIK Tidak Boleh kurang dari 16 digit"
+                },
+                nm_a: {
+                    required: "Tidak Boleh Kosong"
+                },
+                tanggal_lahir_a: {
+                    valueNotEquals: "Tidak Boleh Kosong"
+                },
+                bulan_lahir_a: {
+                    valueNotEquals: "Tidak Boleh Kosong"
+                },
+                tahun_lahir_a: {
+                    valueNotEquals: "Tidak Boleh Kosong"
+                },
+                pndkn_a: {
+                    valueNotEquals: "Tidak Boleh Kosong"
+                },
+                pkrjn_a: {
+                    valueNotEquals: "Tidak Boleh Kosong"
+                },
+                alamat_a: {
+                    required: "Tidak Boleh Kosong"
+                },
+                nik_i: {
+                    required: "Tidak Boleh Kosong",
+                    maxlength: "NIK Tidak Boleh lebih dari 16 digit",
+                    minlength: "NIK Tidak Boleh kurang dari 16 digit"
+                },
+                nm_i: {
+                    required: "Tidak Boleh Kosong"
+                },
+                tanggal_lahir_i: {
+                    valueNotEquals: "Tidak Boleh Kosong"
+                },
+                bulan_lahir_i: {
+                    valueNotEquals: "Tidak Boleh Kosong"
+                },
+                tahun_lahir_i: {
+                    valueNotEquals: "Tidak Boleh Kosong"
+                },
+                pndkn_i: {
+                    valueNotEquals: "Tidak Boleh Kosong"
+                },
+                pkrjn_i: {
+                    valueNotEquals: "Tidak Boleh Kosong"
+                },
+                alamat_i: {
+                    required: "Tidak Boleh Kosong"
+                }
+            },
+            errorElement: 'span',
+            errorPlacement: function(error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            },
+            submitHandler: function() {
+                $.ajax({
+                    url: "<?= site_url('Cperson/simpan_santri_v2') ?>",
+                    data: $('#form_tambah_santri_v2').serialize(),
+                    type: 'POST',
+                    dataType: 'JSON',
+                    success: function(data) {
+                        var o = data.i;
+                        $.post('<?= site_url('Cperson/tambah_santri_3') ?>', {
+                            o: o
+                        }, function(Res) {
+
+                            $('#ini_isinya').html(Res);
+                        });
+                    }
+                });
+            }
+        })
+    })
+
+    $('#simpan2').on('click', function() {
+        $.validator.addMethod("valueNotEquals", function(value, element, arg) {
+            return arg !== value;
+        }, "Value must not equal arg.");
+        $("select").on("select2:close", function(e) {
+            $(this).valid();
+        });
+        $('#form_tambah_santri_v2').validate({
+            rules: {
+                nik_a: {
+                    required: true,
+                    maxlength: 16,
+                    minlength: 16
+                },
+                nm_a: {
+                    required: true
+                },
+                tanggal_lahir_a: {
+                    valueNotEquals: "default"
+                },
+                bulan_lahir_a: {
+                    valueNotEquals: "default"
+                },
+                tahun_lahir_a: {
+                    valueNotEquals: "default"
+                },
+                pndkn_a: {
+                    valueNotEquals: "default"
+                },
+                pkrjn_a: {
+                    valueNotEquals: "default"
+                },
+                alamat_a: {
+                    required: true
+                },
+                nik_i: {
+                    required: true,
+                    maxlength: 16,
+                    minlength: 16
+                },
+                nm_i: {
+                    required: true
+                },
+                tanggal_lahir_i: {
+                    valueNotEquals: "default"
+                },
+                bulan_lahir_i: {
+                    valueNotEquals: "default"
+                },
+                tahun_lahir_i: {
+                    valueNotEquals: "default"
+                },
+                pndkn_i: {
+                    valueNotEquals: "default"
+                },
+                pkrjn_i: {
+                    valueNotEquals: "default"
+                },
+                alamat_i: {
+                    required: true
+                }
+            },
+            messages: {
+                nik_a: {
+                    required: "Tidak Boleh Kosong",
+                    maxlength: "NIK Tidak Boleh lebih dari 16 digit",
+                    minlength: "NIK Tidak Boleh kurang dari 16 digit"
+                },
+                nm_a: {
+                    required: "Tidak Boleh Kosong"
+                },
+                tanggal_lahir_a: {
+                    valueNotEquals: "Tidak Boleh Kosong"
+                },
+                bulan_lahir_a: {
+                    valueNotEquals: "Tidak Boleh Kosong"
+                },
+                tahun_lahir_a: {
+                    valueNotEquals: "Tidak Boleh Kosong"
+                },
+                pndkn_a: {
+                    valueNotEquals: "Tidak Boleh Kosong"
+                },
+                pkrjn_a: {
+                    valueNotEquals: "Tidak Boleh Kosong"
+                },
+                alamat_a: {
+                    required: "Tidak Boleh Kosong"
+                },
+                nik_i: {
+                    required: "Tidak Boleh Kosong",
+                    maxlength: "NIK Tidak Boleh lebih dari 16 digit",
+                    minlength: "NIK Tidak Boleh kurang dari 16 digit"
+                },
+                nm_i: {
+                    required: "Tidak Boleh Kosong"
+                },
+                tanggal_lahir_i: {
+                    valueNotEquals: "Tidak Boleh Kosong"
+                },
+                bulan_lahir_i: {
+                    valueNotEquals: "Tidak Boleh Kosong"
+                },
+                tahun_lahir_i: {
+                    valueNotEquals: "Tidak Boleh Kosong"
+                },
+                pndkn_i: {
+                    valueNotEquals: "Tidak Boleh Kosong"
+                },
+                pkrjn_i: {
+                    valueNotEquals: "Tidak Boleh Kosong"
+                },
+                alamat_i: {
+                    required: "Tidak Boleh Kosong"
+                }
+            },
+            errorElement: 'span',
+            errorPlacement: function(error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            },
+            submitHandler: function() {
+                $.ajax({
+                    url: "<?= site_url('Cperson/edit_santri_v2') ?>",
+                    data: $('#form_tambah_santri_v2').serialize(),
+                    type: 'POST',
+                    dataType: 'JSON',
+                    success: function(data) {
+                        var o = data.i;
+                        $.post('<?= site_url('Cperson/tambah_santri_3') ?>', {
+                            o: o
+                        }, function(Res) {
+
+                            $('#ini_isinya').html(Res);
+                        });
+                    }
+                });
+            }
+        })
     })
 
     function batal(id) {

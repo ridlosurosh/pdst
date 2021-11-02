@@ -80,27 +80,17 @@
 				</div>
 			</div>
 			<div class="card-footer">
-				<button type="button" class="btn btn-danger" onclick="batal('<?= $santri->id_person ?>')"><i class="fas fa-times"></i> Batal</button>
+				<button type="button" class="btn btn-danger" onclick="menu_santri()"><i class="fas fa-reply"></i> Kembali Ke Data Santri</button>
 				<div class="float-right">
-					<form id="form_selesai">
-						<?php
-						if ($santri->jenis_kelamin == "Laki-Laki") {
-							$jk = "01";
-						} else {
-							$jk = "02";
-						}
-						$th = substr(date("Y"), 2, 4);
-						$tanggal = date('dmY', strtotime($santri->tanggal_lahir));
-						?>
-						<input type="hidden" name="kodenya" value="<?= $jk . $th . $tanggal ?>">
+					<form id="form_selesai_2">
 						<input type="hidden" name="o" value="<?= $santri->id_person ?>">
 					</form>
-					<button type="button" onclick="kembali_lah('<?= $santri->id_person ?>')" class="btn btn-info"><i class="fas fa-arrow-left"></i> Kembali</button>
+					<button type="button" onclick="kembali_S('<?= $santri->id_person ?>')" class="btn btn-info"><i class="fas fa-arrow-left"></i> Kembali</button>
 					<button type="button" class="btn btn-info" id="btn_selesai" onclick="selesai()"><i class="fas fa-check"></i> Selesai</button>
 				</div>
 				<script>
-					function kembali_lah(id) {
-						$.post('<?= site_url('Cperson/tambah_santri_4') ?>', {
+					function kembali_S(id) {
+						$.post('<?= site_url('Cperson/form_edit_santri_4') ?>', {
 							o: id
 						}, function(Res) {
 							$('#ini_isinya').html(Res);
@@ -120,15 +110,15 @@
 							preConfirm: function() {
 								return new Promise(function(resolve) {
 									$.ajax({
-											url: "<?= site_url('Cperson/selesai') ?>",
+											url: "<?= site_url('Cperson/selesai_untuk_edit') ?>",
 											type: 'POST',
-											data: $('#form_selesai').serialize(),
+											data: $('#form_selesai_2').serialize(),
 											dataType: 'json'
 										})
 										.fail(function() {
 											swal.fire({
 												title: "PDST NAA",
-												text: "Berhasil Disimpan",
+												text: "Berhasil Diedit",
 												type: "success"
 											}).then(okay => {
 												if (okay) {
@@ -207,7 +197,7 @@
 				</div>
 
 				<div class="modal-footer justify-content-between">
-					<button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Tutup</button>
 					<button class="btn btn-info" id="btn_simpan"><i class="fas fa-save"></i> Simpan</button>
 				</div>
 			</form>
@@ -276,7 +266,7 @@
 					</div>
 				</div>
 				<div class="modal-footer justify-content-between">
-					<button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Tutup</button>
 					<button class="btn btn-info" id="btn_edit"><i class="fas fa-edit"></i> Edit</button>
 				</div>
 			</form>
@@ -288,7 +278,7 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h3 class="modal-title" id="myModalLabel">Upload Mahrom</h3>
+				<h3 class="modal-title" id="myModalLabel">Upload Berkas Mahrom</h3>
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 			</div>
 			<form class="form-horizontal" id="form_upload">
@@ -346,7 +336,7 @@
 					</div>
 				</div>
 				<div class="modal-footer justify-content-between">
-					<button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Tutup</button>
 					<button class="btn btn-info"><i class="fas fa-arrow-up"></i> Upload</button>
 				</div>
 			</form>

@@ -37,7 +37,7 @@
 				</div>
 			</div> -->
 			<div class="card-body p-1">
-				<h3 class="card-title"><a class="btn btn-block btn-sm bg-teal btn-circle" id="tambah_santri" href="#" onclick="tambah_santri()"><i class="fas fa-plus "></i> Tambah Data</a></h3>
+				<h3 class="card-title"><a class="btn btn-block btn-sm bg-teal btn-circle" id="tambah_santri" data="0" href="#" onclick="tambah_santri()"><i class="fas fa-plus "></i> Tambah Data</a></h3>
 				<table id="example1" class="table">
 					<thead>
 						<tr>
@@ -77,9 +77,6 @@
 										</button>
 										<button type="button" class="btn btn-sm btn-primary" title="Upload" onclick="berkas('<?= $value->id_person ?>')">
 											<i class="fas fa-image"></i>
-										</button>
-										<button type="button" class="btn btn-sm btn-success" title="Mahrom" onclick="form_tambah_mahrom('<?= $value->id_person ?>')">
-											<i class="fas fa-users"></i>
 										</button>
 										<button type="button" class="btn btn-sm btn-secondary" title="Cetak" onclick="print_santri('<?= $value->id_person ?>')">
 											<i class="fas fa-print"></i>
@@ -142,9 +139,12 @@
 	});
 
 	function tambah_santri() {
+		var id = $('#tambah_santri').attr('data')
 		$.ajax({
 			url: "<?= site_url('Cperson/simpan_santri') ?>",
-			data: $('#tambah_santri').serialize(),
+			data: {
+				id: id
+			},
 			type: 'POST',
 			dataType: 'JSON',
 			success: function(data) {
@@ -161,7 +161,7 @@
 
 	function form_tambah_mahrom(id) {
 		$.post('<?= site_url('Cperson/form_tambah_mahrom') ?>', {
-			idperson: id
+			o: id
 		}, function(Res) {
 			$('#ini_isinya').html(Res);
 		});
