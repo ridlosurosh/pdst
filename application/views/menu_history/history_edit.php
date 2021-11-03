@@ -36,7 +36,7 @@
 												<div class="input-group-prepend">
 													<span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
 												</div>
-												<input type="text" class="form-control" name="tgl_penetapan" id="tgl_penetapan" autocomplete="off">
+												<input type="text" class="form-control" name="tgl_penetapan" id="tgl_penetapan" autocomplete="off" value="<?= $data_history->tgl_penetapan ?>">
 											</div>
 										</div>
 									</div>
