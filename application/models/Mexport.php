@@ -33,7 +33,7 @@ class Mexport extends CI_Model
 		$this->db->join('kabupaten', 'kabupaten.id=tb_person.kab');
 		$this->db->join('provinsi', 'provinsi.id=tb_person.prov');
 		$this->db->select('niup, nama, jenis_kelamin, alamat_lengkap, nm_a, nm_i, pos, desa.name as nama_desa, kecamatan.name as nama_kecamatan, kabupaten.name as nama_kabupaten, provinsi.name as nama_provinsi, pos');
-		$this->db->where('status_dipesantren', 'Santri');
+		$this->db->where('status', 'aktif');
 		$this->db->where_not_in('jenis_kelamin', 'Laki-Laki');
 		$this->db->from('tb_person');
 		$query = $this->db->get();
