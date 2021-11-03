@@ -293,10 +293,10 @@ class Cperson extends CI_Controller
             'tgl_berhenti' => date('Y-m-d')
         );
         $this->Mperson->simpan_alumni($data2);
-        $data3 = array(
+        $data = array(
             'aktif' => 'tidak'
         );
-        $this->Mperson->nonaktif_penempatan_kamar(array('id_person' => $id), $data3);
+        $this->Mperson->edit_penempatan(array('id_person' => $id), $data);
     }
 
     // Ambil Wilayah Indonesia
