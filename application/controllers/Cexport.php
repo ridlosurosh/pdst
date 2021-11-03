@@ -11,7 +11,7 @@ class Cexport extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        // $this->load->library('Pdf');
+        $this->load->library('Pdf');
         $this->load->model('Mexport');
     }
 
