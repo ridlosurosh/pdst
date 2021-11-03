@@ -147,8 +147,24 @@
 		$('.select2').select2({
 			theme: 'bootstrap4'
 		})
+
+
 	})
 
+	$('#pengangkatan').on('change', function() {
+		var ll = $(this).val();
+		var bb = $('#angkat').val();
+		var date = new Date(ll);
+
+		date.setDate(date.getDate() + (+bb));
+
+		var dd = date.getDate();
+		var mm = date.getMonth() + 1;
+		var y = date.getFullYear();
+		var someFormattedDate = y + '-' + mm + '-' + dd;
+
+		$('#berhenti').val(someFormattedDate);
+	})
 
 	$('#angkat').on('change', function() {
 		var ll = $(this).val();
