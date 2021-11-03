@@ -297,6 +297,31 @@ class Cperson extends CI_Controller
             'aktif' => 'tidak'
         );
         $this->Mperson->edit_penempatan(array('id_person' => $id), $data);
+
+        $id_pengurus = $this->db->get_where('tb_pengurus', ['id_person' => $id], ['status' => 'aktif'])->row_array();
+        $id_pengajar = $this->db->get_where('tb_guru_nubdah', ['id_person' => $id], ['status_guru_nubdah' => 'aktif'])->row_array();
+        $id_karyawan = $this->db->get_where('tb_karyawan', ['id_person' => $id], ['statsu' => 'aktif'])->row_array();
+        // $id_pengurus = $this->db->from('tb_pengurus')->where('id_person', $id)->where('status', 'aktif')->get()->row();
+        if ($id_pengurus['id_person'] === $id) {
+            $data4 = array(
+                'status' => 'tidak aktif'
+            );
+            $this->Mperson->nonaktif_pengurus(array('id_person' => $id), $data4);
+        }
+
+        if ($id_pengajar['id_person'] === $id) {
+            $data5 = array(
+                'status_guru_nubdah' => 'Tidak Aktif'
+            );
+            $this->Mperson->nonaktif_pengajar(array('id_person' => $id), $data5);
+        }
+
+        if ($id_karyawan['id_person'] === $id) {
+            $data6 = array(
+                'status' => 'Tidak Aktif'
+            );
+            $this->Mperson->nonaktif_karyawan(array('id_person' => $id), $data6);
+        }
     }
 
     // Ambil Wilayah Indonesia
