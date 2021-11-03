@@ -43,7 +43,7 @@ class Mhistory extends CI_Model
     //     return $query;
     // }
 
-    
+
     public function history_id($id)
     {
         $this->db->join('tb_person', 'tb_person.id_person=tb_history.id_person');
@@ -65,5 +65,4 @@ class Mhistory extends CI_Model
     {
         return $this->db->insert('tb_history', $data2);
     }
-
 }
