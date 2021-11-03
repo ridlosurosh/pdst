@@ -362,6 +362,7 @@ class Mperson extends CI_Model
         $this->db->update('tb_history', $data, $id);
     }
 
+
     public function data_domisili($id)
     {
         $this->db->join('tb_kamar', 'tb_kamar.id_kamar=tb_history.id_kamar');
