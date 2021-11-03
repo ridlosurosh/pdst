@@ -121,6 +121,21 @@ class Mperson extends CI_Model
         return $this->db->insert('tb_alumni', $data2);
     }
 
+    public function nonaktif_pengurus($id, $data4)
+    {
+        $this->db->update('tb_pengurus', $data4, $id);
+    }
+
+    public function nonaktif_pengajar($id, $data5)
+    {
+        $this->db->update('tb_guru_nubdah', $data5, $id);
+    }
+
+    public function nonaktif_karyawan($id, $data6)
+    {
+        $this->db->update('tb_karyawan', $data6, $id);
+    }
+
     // Fitur edit santri
     public function edit_santri($id, $data)
     {

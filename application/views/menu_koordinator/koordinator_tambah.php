@@ -58,7 +58,7 @@
 												<div class="input-group-prepend">
 													<span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
 												</div>
-												<input type="text" name="tanggal_diangkat" class="form-control" id="pengangkatan">
+												<input type="text" name="tanggal_diangkat" class="form-control" id="pengangkatan" autocomplete="off">
 											</div>
 										</div>
 									</div>
