@@ -44,7 +44,7 @@
 						</div>
 					</div>
 					<div class="card-footer">
-						<a href="<?= site_url('Cexport/pdf_putri') ?>" class="btn btn-danger">coba</a>
+						<a href="<?= site_url('Cexport/pdf_putri') ?>" target="_blank" class="btn btn-danger">coba</a>
 						<!-- <button class="btn btn-sm btn-primary float-right" id="bt_cetak"><i class="fas fa-print"></i> Cetak</button> -->
 					</div>
 				</div>
