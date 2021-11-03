@@ -23,13 +23,27 @@ class Cpengajar extends CI_Controller
 
     public function ui_pengajar()
     {
+        $id_pengurus_lawas = $this->db->select('id_person')
+            ->from('tb_pengurus')
+            ->where('status', 'Aktif')
+            ->get();
         $id_guru_lawas = $this->db->select('id_person')
             ->from('tb_guru_nubdah')
             ->where('status_guru_nubdah', 'Aktif')
             ->get();
-        if ($id_guru_lawas->num_rows() > 0) {
-            foreach ($id_guru_lawas->result_array() as  $e) {
+        $id_karyawan_lawas = $this->db->select('id_person')
+            ->from('tb_karyawan')
+            ->where('status', 'Aktif')
+            ->get();
+        if ($id_pengurus_lawas->num_rows() > 0 || $id_guru_lawas->num_rows() > 0 || $id_karyawan_lawas->num_rows() > 0) {
+            foreach ($id_pengurus_lawas->result_array() as  $e) {
                 $dat[] = $e['id_person'];
+            }
+            foreach ($id_guru_lawas->result_array() as  $ll) {
+                $dat[] = $ll['id_person'];
+            }
+            foreach ($id_karyawan_lawas->result_array() as  $jj) {
+                $dat[] = $jj['id_person'];
             }
         } else {
             $dat = ['0'];
