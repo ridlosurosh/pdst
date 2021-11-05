@@ -1,4 +1,4 @@
-<style>
+<!-- <style>
 	#toggle {
 		position: absolute;
 		top: 320px;
@@ -15,17 +15,72 @@
 		background: url(plugin/dist/img/hide.png);
 		background-size: cover;
 	}
-</style>
+</style> -->
+<input type="hidden" value="<?= $id_periode ?>">
 <section class="content-header">
 	<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-sm-6">
-				<h1>Pengurus</h1>
+				<h1> Tambah Pengurus Pada Periode <i class="text-blue"><?= $periode ?></i> </h1>
 			</div>
 		</div>
 	</div>
 </section>
-<section class="content mt-2">
+<section class="content">
+	<div class="card">
+		<div class="card-body table-responsive p-1">
+			<table id="example1" class="table table-hover text-nowrap ">
+				<h3 class="card-title"><a class="btn btn-sm btn-block bg-teal" href="#" data-toggle="modal" data-target="#staticBackdrop"><i class="fas fa-plus"></i> Tambah</a></h3>
+				<thead>
+					<tr>
+						<th>NO</th>
+						<th>JABATAN</th>
+						<th>NAMA</th>
+						<th>AKSI</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+					$no = 1;
+					foreach ($jabatan as $value) {
+						$pengurus = $this->db->join('tb_person', 'tb_person.id_person=tb_pengurus.id_person')
+							->where('id_periode', $id_periode)
+							->where('id_jabatan', $value->id_jabatan)
+							->from('tb_pengurus')
+							->get()->result();
+					?>
+						<tr>
+							<td><?= $no++ ?></td>
+							<td><?= $value->nm_jabatan ?></td>
+							<?php
+							foreach ($pengurus as $key) { ?>
+								<td><?= $key->nama ?></td>
+
+							<?php } ?>
+							<td>
+								<div class="btn-group">
+									<button type="button" class="btn btn-sm btn-info" title="Info" onclick="detail_koordinator('')">
+										<i class="fas fa-info-circle"></i>
+									</button>
+									<button type="button" class="btn btn-sm btn-warning" title="Edit" onclick="form_edit_koordinator('')">
+										<i class="fas fa-edit"></i>
+									</button>
+									<button type="button" class="btn btn-sm btn-danger" title="Nonaktifkan" onclick="nonaktifkan('')">
+										<i class="fas fa-user-slash"></i>
+									</button>
+								</div>
+							</td>
+						</tr>
+					<?php } ?>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</section>
+
+
+
+<!-- <section class="content mt-2">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-12">
@@ -125,7 +180,9 @@
 			</div>
 		</div>
 	</div>
-</section>
+</section> -->
+
+
 <script>
 	$(function() {
 		$('#pengangkatan').datepicker({
