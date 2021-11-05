@@ -35,57 +35,53 @@ class Cexport extends CI_Controller
     public function cek()
     {
         $prov = $this->input->post('id');
+        // $jenis = $this->input->post('jenkel');
         $datanya = $this->Mexport->cek_santri($prov);
-        if ($datanya > 0) {
-            $i = "2";
-        } else {
-            $i = "1";
-        }
-        $p = array('i' => $i);
-        echo json_encode($p);
+        // if (count($datanya) > 0) {
+        //     $i['i'] = "2";
+        // } else {
+        //     $i['i'] = "1";
+        // }
+
+        // echo json_encode($i);
     }
 
     // export PDF putra
     function pdf()
     {
         $id = $this->input->get('id');
+        $jenis = $this->input->get('jenis');
 
-        $pdf = new FPDF('L', 'mm', 'A3');
-
+        $pdf = new FPDF('P', 'mm', 'A4');
+        $pdf->SetMargins(2, 2, 1);
         $pdf->AddPage();
-
+        $pdf->SetX(10);
+        $santri = $this->Mexport->export_pdfnya($id, $jenis);
+        $prov = $this->Mexport->provinsi($id);
 
         $pdf->SetFont('Arial', 'B', 12);
-        $pdf->SetX(50);
-        $pdf->Cell(0, 7, 'DATA SANTRI PUTRA', 0, 1, 'C');
+        $pdf->SetX(20);
+        $pdf->Cell(0, 6, 'DATA SANTRI ' . strtoupper($jenis) . ' ' . 'DARI ' . $prov->name, 0, 1, 'C');
         $pdf->Cell(10, 7, '', 0, 1);
 
-        $pdf->SetFont('Arial', '', 8);
-
-        $pdf->Cell(8, 6, 'No', 1, 0, 'C');
-        $pdf->Cell(28, 6, 'NIUP', 1, 0, 'C');
-        $pdf->Cell(55, 6, 'Nama', 1, 0, 'C');
-        $pdf->Cell(123, 6, 'Alamat', 1, 0, 'C');
-        $pdf->Cell(40, 6, 'Desa', 1, 0, 'C');
-        $pdf->Cell(37, 6, 'Kecamatan', 1, 0, 'C');
-        $pdf->Cell(40, 6, 'Kabupaten', 1, 0, 'C');
-        $pdf->Cell(27, 6, 'Provinsi', 1, 0, 'C');
-        $pdf->Cell(10, 6, 'Pos', 1, 1);
+        $pdf->SetFont('Arial', '', 7);
+        $pdf->Cell(8, 5, 'No', 1, 0, 'C');
+        $pdf->Cell(25, 5, 'NIUP', 1, 0, 'C');
+        $pdf->Cell(55, 5, 'Nama', 1, 0, 'C');
+        $pdf->Cell(70, 5, 'Alamat', 1, 0, 'C');
+        $pdf->Cell(20, 5, 'WALI', 1, 0);
+        $pdf->Cell(20, 5, 'NO HP', 1, 1);
 
 
-        $pdf->SetFont('Arial', '', 8);
-        $santri = $this->Mexport->export_putra_pdf($id);
+        $pdf->SetFont('Arial', '', 7);
         $no = 1;
         foreach ($santri as $data) {
-            $pdf->Cell(8, 6, $no, 1, 0, 'C');
-            $pdf->Cell(28, 6, $data->niup, 1, 0);
-            $pdf->Cell(55, 6, $data->nama, 1, 0);
-            $pdf->Cell(123, 6, $data->alamat_lengkap, 1, 0);
-            $pdf->Cell(40, 6, $data->nama_desa, 1, 0);
-            $pdf->Cell(37, 6, $data->nama_kecamatan, 1, 0);
-            $pdf->Cell(40, 6, $data->nama_kabupaten, 1, 0);
-            $pdf->Cell(27, 6, $data->nama_provinsi, 1, 0);
-            $pdf->Cell(10, 6, $data->pos, 1, 1);
+            $pdf->Cell(8, 5, $no, 1, 0, 'C');
+            $pdf->Cell(25, 5, $data->niup, 1, 0);
+            $pdf->Cell(55, 5, $data->nama, 1, 0);
+            $pdf->Cell(70, 5, $data->alamat_lengkap, 1, 0);
+            $pdf->Cell(20, 5, $data->nm_w, 1, 0);
+            $pdf->Cell(20, 5, $data->hp_w, 1, 1);
             $no++;
         }
         $pdf->Output();
