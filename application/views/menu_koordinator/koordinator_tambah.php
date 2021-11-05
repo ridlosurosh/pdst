@@ -43,20 +43,25 @@
 					<?php
 					$no = 1;
 					foreach ($jabatan as $value) {
-						$pengurus = $this->db->join('tb_person', 'tb_person.id_person=tb_pengurus.id_person')
-							->where('id_periode', $id_periode)
-							->where('id_jabatan', $value->id_jabatan)
-							->from('tb_pengurus')
-							->get()->result();
 					?>
 						<tr>
 							<td><?= $no++ ?></td>
 							<td><?= $value->nm_jabatan ?></td>
 							<?php
-							foreach ($pengurus as $key) { ?>
-								<td><?= $key->nama ?></td>
+							$pengurus = $this->db->join('tb_person', 'tb_person.id_person=tb_pengurus.id_person')
+								->where('id_periode', $id_periode)
+								->where('id_jabatan', $value->id_jabatan)
+								->from('tb_pengurus')
+								->get()->result();
+							foreach ($pengurus as $key) {
+								if ($value->id_jabatan != $key->id_jabatan) {
+									$t = '--';
+								} else {
+									$t = $key->nama;
+								}
+							} ?>
+							<td><?= $t ?></td>
 
-							<?php } ?>
 							<td>
 								<div class="btn-group">
 									<button type="button" class="btn btn-sm btn-info" title="Info" onclick="detail_koordinator('')">
