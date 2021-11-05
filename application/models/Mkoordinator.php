@@ -3,12 +3,23 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Mkoordinator extends CI_Model
 {
+    public function priode()
+    {
+        $this->db->from('tb_periode');
+        return $this->db->get()->result();
+    }
+
+    public function simpan_priode($data)
+    {
+        return $this->db->insert('tb_periode', $data);
+    }
+
     public function pengurus_all()
     {
-        $this->db->select('id_pengurus, niup, nama, nm_jabatan, tanggal_diangkat, masa_bakti, tb_pengurus.status');
-        $this->db->join('tb_person', 'tb_person.id_person=tb_pengurus.id_person');
-        $this->db->join('tb_jabatan', 'tb_jabatan.id_jabatan = tb_pengurus.id_jabatan');
-        $this->db->where('tb_pengurus.status', 'aktif');
+        // $this->db->select('id_pengurus, niup, nama, nm_jabatan, tanggal_diangkat, masa_bakti, tb_pengurus.status');
+        // $this->db->join('tb_person', 'tb_person.id_person=tb_pengurus.id_person');
+        // $this->db->join('tb_jabatan', 'tb_jabatan.id_jabatan = tb_pengurus.id_jabatan');
+        // $this->db->where('status', 'aktif');
         $this->db->from('tb_pengurus');
         $query = $this->db->get();
         return $query->result();
@@ -21,8 +32,6 @@ class Mkoordinator extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-
-
 
     public function simpan_pengurus($data1)
     {
