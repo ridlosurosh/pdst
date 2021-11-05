@@ -12,17 +12,27 @@ class Mexport extends CI_Model
 		return $query->result();
 	}
 	// Pdf Putra
-	public function export_putra_pdf($id)
+	public function export_pdfnya($provinsi, $jenis)
 	{
 		$this->db->join('desa', 'desa.id=tb_person.desa');
 		$this->db->join('kecamatan', 'kecamatan.id=tb_person.kec');
 		$this->db->join('kabupaten', 'kabupaten.id=tb_person.kab');
 		$this->db->join('provinsi', 'provinsi.id=tb_person.prov');
-		$this->db->select('niup, nama, jenis_kelamin, alamat_lengkap, nm_a, nm_i, pos, desa.name as nama_desa, kecamatan.name as nama_kecamatan, kabupaten.name as nama_kabupaten, provinsi.name as nama_provinsi, pos');
+		$this->db->select('niup, nama, jenis_kelamin, alamat_lengkap, nm_w, hp_w');
+		$this->db->where('status', 'aktif');
 		$this->db->from('tb_person');
-		$this->db->where('prov', $id);
+		$this->db->where('prov', $provinsi);
+		$this->db->where('jenis_kelamin', $jenis);
 		$query = $this->db->get();
 		return $query->result();
+	}
+
+	public function provinsi($id)
+	{
+		$this->db->from('provinsi');
+		$this->db->where('id', $id);
+		$query = $this->db->get();
+		return $query->row();
 	}
 
 	// Pdf Putri
