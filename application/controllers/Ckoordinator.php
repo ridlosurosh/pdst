@@ -13,8 +13,37 @@ class Ckoordinator extends CI_Controller
 
     public function menu_koordinator()
     {
-        $output['pengurus'] = $this->Mkoordinator->pengurus_all();
+        $output['priode'] = $this->Mkoordinator->priode();
         $this->load->view('menu_koordinator/koordinator', $output);
+    }
+
+    public function simpan_priode()
+    {
+        $periode = $this->input->post('tahun_pertama') . " - " . $this->input->post('tahun_kedua');
+        $cek_priode = $this->db->select('periode')
+            ->from('tb_periode')
+            ->where('periode', $periode)
+            ->get()
+            ->num_rows();
+        if ($cek_priode > 0) {
+            $pesan = "tidak";
+            $sukses = "Data Sudah Ada ";
+        } elseif ($this->input->post('tahun_pertama') === $this->input->post('tahun_kedua')) {
+            $pesan = "tidak";
+            $sukses = "Tahun Awal Dan Tahun Akhir Tidak Boleh sama";
+        } else {
+            $data = array(
+                'periode' => $periode
+            );
+            $this->Mkoordinator->simpan_priode($data);
+            $pesan = "ya";
+            $sukses = "Data Berhasil Ditambahkan";
+        }
+        $output = array(
+            'pesan' => $pesan,
+            'sukses' => $sukses
+        );
+        echo json_encode($output);
     }
 
     public function tambah_koordinator()
