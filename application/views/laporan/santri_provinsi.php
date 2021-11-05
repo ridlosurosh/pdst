@@ -45,41 +45,43 @@
 					</div>
 					<div class="card-footer">
 						<a href="<?= site_url('Cexport/pdf_putri') ?>" target="_blank" class="btn btn-danger">coba</a>
-						<!-- <button class="btn btn-sm btn-primary float-right" id="bt_cetak"><i class="fas fa-print"></i> Cetak</button> -->
+						<button class="btn btn-sm btn-primary float-right" id="bt_cetak"><i class="fas fa-print"></i> Cetak</button>
 					</div>
 				</div>
 				<script>
 					$(document).ready(function() {
 						$('#bt_cetak').on('click', function() {
-							// var jenkel = $('#jenkel').val()
-							// if (jenkel == 0) {
-							// 	swal.fire({
-							// 		title: "PDST NAA",
-							// 		text: "Anda Belum Memilih Santri",
-							// 		type: "warning"
-							// 	})
-							// } else {
-							var provinsi = $('#prov').val()
-							$.ajax({
-								type: "POST",
-								url: "<?= site_url('Cexport/cek') ?>",
-								data: {
-									prov: provinsi
-								},
-								dataType: "JSON",
-								success: function(data) {
-									if (data.i == 1) {
-										swal.fire({
-											title: "PDSTNAA",
-											text: "Tidak Ada Santri",
-											type: "warning"
-										})
-									} else {
-										window.location.href = "Cexport/pdf?id=" + provinsi;
+							var jenkel = $('#jenkel').val()
+							if (jenkel == 0) {
+								swal.fire({
+									title: "PDST NAA",
+									text: "Anda Belum Memilih Santri",
+									type: "warning"
+								})
+							} else {
+								var provinsi = $('#prov').val()
+								$.ajax({
+									type: "POST",
+									url: "<?= site_url('Cexport/cek') ?>",
+									data: {
+										prov: provinsi
+									},
+									// dataType: "JSON",
+									success: function(hasil) {
+										// if (hasil.i == '2') {
+										// 	swal.fire({
+										// 		title: "PDSTNAA",
+										// 		text: "Tidak Ada Santri",
+										// 		type: "warning"
+										// 	})
+										// } else {
+										window.open("Cexport/pdf?id=" + provinsi + "&jenis=" + jenkel, '_blank');
+										// window.location.href = ;
+
+										// }
 									}
-								}
-							})
-							// }
+								})
+							}
 						})
 					})
 				</script>
