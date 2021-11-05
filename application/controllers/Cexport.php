@@ -47,30 +47,30 @@ class Cexport extends CI_Controller
     }
 
     // export PDF putra
-    function pdf()
+    function pdf_provinsi()
     {
         $id = $this->input->get('id');
         $jenis = $this->input->get('jenis');
 
         $pdf = new FPDF('P', 'mm', 'A4');
-        $pdf->SetMargins(2, 2, 1);
+        $pdf->SetMargins(2, 6, 2);
         $pdf->AddPage();
         $pdf->SetX(10);
         $santri = $this->Mexport->export_pdfnya($id, $jenis);
         $prov = $this->Mexport->provinsi($id);
 
         $pdf->SetFont('Arial', 'B', 12);
-        $pdf->SetX(20);
+        $pdf->SetX(15);
         $pdf->Cell(0, 6, 'DATA SANTRI ' . strtoupper($jenis) . ' ' . 'DARI ' . $prov->name, 0, 1, 'C');
         $pdf->Cell(10, 7, '', 0, 1);
 
         $pdf->SetFont('Arial', '', 7);
         $pdf->Cell(8, 5, 'No', 1, 0, 'C');
         $pdf->Cell(25, 5, 'NIUP', 1, 0, 'C');
-        $pdf->Cell(55, 5, 'Nama', 1, 0, 'C');
-        $pdf->Cell(70, 5, 'Alamat', 1, 0, 'C');
-        $pdf->Cell(20, 5, 'WALI', 1, 0);
-        $pdf->Cell(20, 5, 'NO HP', 1, 1);
+        $pdf->Cell(52, 5, 'NAMA', 1, 0, 'C');
+        $pdf->Cell(70, 5, 'ALAMAT', 1, 0, 'C');
+        $pdf->Cell(25, 5, 'WALI', 1, 0, 'C');
+        $pdf->Cell(25, 5, 'NO HP', 1, 1, 'C');
 
 
         $pdf->SetFont('Arial', '', 7);
@@ -78,10 +78,10 @@ class Cexport extends CI_Controller
         foreach ($santri as $data) {
             $pdf->Cell(8, 5, $no, 1, 0, 'C');
             $pdf->Cell(25, 5, $data->niup, 1, 0);
-            $pdf->Cell(55, 5, $data->nama, 1, 0);
+            $pdf->Cell(52, 5, $data->nama, 1, 0);
             $pdf->Cell(70, 5, $data->alamat_lengkap, 1, 0);
-            $pdf->Cell(20, 5, $data->nm_w, 1, 0);
-            $pdf->Cell(20, 5, $data->hp_w, 1, 1);
+            $pdf->Cell(25, 5, $data->nm_w, 1, 0);
+            $pdf->Cell(25, 5, $data->hp_w, 1, 1);
             $no++;
         }
         $pdf->Output();
