@@ -144,14 +144,6 @@ if (isset($this->session->userdata['logged_in'])) {
 								</li>
 							</ul>
 						</li>
-						<li class="nav-item">
-							<a href="#" class="nav-link menu" onclick="menu_jabatan()" style="color: #333;">
-								<i class="nav-icon fas fa-user-tag"></i>
-								<p>
-									Struktural
-								</p>
-							</a>
-						</li>
 						<li class="nav-item has-treeview">
 							<a href="#" class="nav-link menu" style="color: #333;">
 								<i class="fas fa-sitemap nav-icon"></i>
@@ -185,15 +177,23 @@ if (isset($this->session->userdata['logged_in'])) {
 										</p>
 									</a>
 								</li>
-								<li class="nav-item">
+								<!-- <li class="nav-item">
 									<a href="#" class="nav-link" onclick="menu_lembaga()" style="color: #333;">
 										<i class="fas fa-university nav-icon"></i>
 										<p>
 											Lembaga
 										</p>
 									</a>
-								</li>
+								</li> -->
 							</ul>
+						</li>
+						<li class="nav-item">
+							<a href="#" class="nav-link menu" onclick="menu_jabatan()" style="color: #333;">
+								<i class="nav-icon fas fa-user-tag"></i>
+								<p>
+									Struktural
+								</p>
+							</a>
 						</li>
 						<li class="nav-header">MASTER PROSES</li>
 						<li class="nav-item">
