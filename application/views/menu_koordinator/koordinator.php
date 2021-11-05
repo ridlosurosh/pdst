@@ -44,7 +44,7 @@
 							<td><?= $st ?></td> -->
 							<td>
 								<div class="btn-group">
-									<button type="button" class="btn btn-sm btn-info" title="Info" onclick="tambah_pengurus('<?= $value->id_periode ?>')">
+									<button type="button" class="btn btn-sm btn-info" title="Info" onclick="tambah_pengurus('<?= $value->id_periode ?>','<?= $value->periode ?>')">
 										<i class="fas fa-cog"></i> Setting Pengurus
 									</button>
 									<!-- <button type="button" class="btn btn-sm btn-info" title="Info" onclick="detail_koordinator('<?= $value->id_pengurus ?>')">
@@ -120,8 +120,11 @@
 		$('#example2').DataTable();
 	});
 
-	function tambah_pengurus() {
-		$.post('<?= site_url('Ckoordinator/tambah_koordinator') ?>', function(Res) {
+	function tambah_pengurus(id, periode) {
+		$.post('<?= site_url('Ckoordinator/tambah_koordinator') ?>', {
+			id: id,
+			periode: periode
+		}, function(Res) {
 			$('#ini_isinya').html(Res);
 		});
 	}
