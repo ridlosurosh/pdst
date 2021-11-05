@@ -239,13 +239,13 @@
                                     <td>Desa Wali</td>
                                     <td>:</td>
                                     <td>
-                                    <?php
+                                        <?php
                                         if (empty($data_alamat->nama_desa_w)) {
-                                            echo "-----" ;
+                                            echo "-----";
                                         } else {
                                             echo $data_alamat->nama_desa_w;
                                         }
-                                    ?>     
+                                        ?>
                                     </td>
                                 </tr>
                             </table>
@@ -256,39 +256,39 @@
                                     <td>Kecamatan Wali</td>
                                     <td>:</td>
                                     <td>
-                                    <?php
+                                        <?php
                                         if (empty($data_alamat->nama_kec_w)) {
-                                            echo "-----" ;
+                                            echo "-----";
                                         } else {
                                             echo $data_alamat->nama_kec_w;
                                         }
-                                    ?>    
+                                        ?>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Kabupaten Wali</td>
                                     <td>:</td>
                                     <td>
-                                    <?php
+                                        <?php
                                         if (empty($data_alamat->nama_kab_w)) {
-                                            echo "-----" ;
+                                            echo "-----";
                                         } else {
                                             echo $data_alamat->nama_kab_w;
                                         }
-                                    ?>
+                                        ?>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Provinsi Wali</td>
                                     <td>:</td>
                                     <td>
-                                    <?php
+                                        <?php
                                         if (empty($data_alamat->nama_prov_w)) {
-                                            echo "-----" ;
+                                            echo "-----";
                                         } else {
-                                            echo $data_alamat->nama_prov_w ;
+                                            echo $data_alamat->nama_prov_w;
                                         }
-                                    ?>
+                                        ?>
                                     </td>
                                 </tr>
                                 <tr>
@@ -338,48 +338,48 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" id="ok">
             <div class="card">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-4">
                             <strong>SCAN FOTO SANTRI</strong><br><br>
-                            <a class="btn btn-primary btn-sm" href="Cperson/download_foto?nama=<?= $data->foto_warna_santri ?>" style="width: 100%;"><i class="fas fa-arrow-circle-down"></i> Download</a><br><br>
+                            <a class="btn btn-primary btn-sm" <?= $data->foto_warna_santri != "" ?  "href = Cperson/download_foto?nama=$data->foto_warna_santri" : "href='#' onclick ='ok()'" ?> style="width: 100%;"><i class="fas fa-arrow-circle-down"></i> Download</a><br><br>
                             <img src="<?= site_url() ?>../gambar/foto/<?= $data->foto_warna_santri ?>?text=1" class="img-fluid mb-2" alt="SCAN FOTO SANTRI" />
                             <!-- <a href="<?= site_url() ?>../gambar/foto/<?= $data->foto_warna_santri ?>?text=1"  data-title="SCAN FOTO SANTRI" >
                             </a> -->
                         </div>
                         <div class="col-sm-4">
                             <strong>SCAN FOTO WALI SANTRI</strong><br><br>
-                            <a class="btn btn-primary btn-sm" href="Cperson/download_wali?nama=<?= $data->foto_wali_santri_warna ?>" style="width: 100%;"><i class="fas fa-arrow-circle-down"></i> Download</a><br><br>
+                            <a class="btn btn-primary btn-sm" <?= $data->foto_wali_santri_warna != "" ?  "href = Cperson/download_foto?nama=$data->foto_wali_santri_warna" : "href='#' onclick ='ok()'" ?> style="width: 100%;"><i class="fas fa-arrow-circle-down"></i> Download</a><br><br>
                             <img src="<?= site_url() ?>../gambar/wali/<?= $data->foto_wali_santri_warna ?>?text=2" class="img-fluid mb-2" alt="SCAN FOTO WALI SANTRI" />
                             <!-- <a href="<?= site_url() ?>../gambar/wali/<?= $data->foto_wali_santri_warna ?>?text=2"  data-title="SCAN FOTO WALI SANTRI" >
                             </a> -->
                         </div>
                         <div class="col-sm-4">
                             <strong>SCAN KARTU KELUARGA</strong><br><br>
-                            <a class="btn btn-primary btn-sm" href="Cperson/download_kk?nama=<?= $data->foto_scan_kk ?>" style="width: 100%;"><i class="fas fa-arrow-circle-down"></i> Download</a><br><br>
+                            <a class="btn btn-primary btn-sm" <?= $data->foto_scan_kk != "" ?  "href = Cperson/download_foto?nama=$data->foto_scan_kk" : "href='#' onclick ='ok()'" ?> style="width: 100%;"><i class="fas fa-arrow-circle-down"></i> Download</a><br><br>
                             <img src="<?= site_url() ?>../gambar/kk/<?= $data->foto_scan_kk ?>" class="img-fluid mb-2" alt="SCAN KARTU KELUARGA" />
                             <!-- <a href="<?= site_url() ?>../gambar/kk/<?= $data->foto_scan_kk ?>"  data-title="SCAN KARTU KELUARGA" >
                             </a> -->
                         </div>
                         <div class="col-sm-4">
                             <strong>SCAN AKTA KELAHIRAN</strong><br><br>
-                            <a class="btn btn-primary btn-sm" href="Cperson/download_akta?nama=<?= $data->foto_scan_akta ?>" style="width: 100%;"><i class="fas fa-arrow-circle-down"></i> Download</a><br><br>
+                            <a class="btn btn-primary btn-sm" <?= $data->foto_scan_akta != "" ?  "href = Cperson/download_foto?nama=$data->foto_scan_akta" : "href='#' onclick ='ok()'" ?> style="width: 100%;"><i class="fas fa-arrow-circle-down"></i> Download</a><br><br>
                             <img src="<?= site_url() ?>../gambar/akta/<?= $data->foto_scan_akta ?>" class="img-fluid mb-2" alt="SCAN AKTA KELAHIRAN" />
                             <!-- <a href="<?= site_url() ?>../gambar/akta/<?= $data->foto_scan_akta ?>"  data-title="SCAN AKTA KELAHIRAN" >
                             </a> -->
                         </div>
                         <div class="col-sm-4">
                             <strong>SCAN SKCK</strong><br><br>
-                            <a class="btn btn-primary btn-sm" href="Cperson/download_skck?nama=<?= $data->foto_scan_skck ?>" style="width: 100%;"><i class="fas fa-arrow-circle-down"></i> Download</a><br><br>
+                            <a class="btn btn-primary btn-sm" <?= $data->foto_scan_skck != "" ?  "href = Cperson/download_foto?nama= $data->foto_scan_skck" : "href='#' onclick ='ok()'" ?> style="width: 100%;"><i class="fas fa-arrow-circle-down"></i> Download</a><br><br>
                             <img src="<?= site_url() ?>../gambar/skck/<?= $data->foto_scan_skck ?>" class="img-fluid mb-2" alt="SCAN SKCK" />
                             <!-- <a href="<?= site_url() ?>../gambar/skck/<?= $data->foto_scan_skck ?>"  data-title="SCAN SKCK" >
                             </a> -->
                         </div>
                         <div class="col-sm-4">
                             <strong>SCAN KETERANGAN SEHAT</strong><br><br>
-                            <a class="btn btn-primary btn-sm" href="Cperson/download_sukes?nama=<?= $data->foto_scan_ket_sehat ?>" style="width: 100%;"><i class="fas fa-arrow-circle-down"></i> Download</a><br><br>
+                            <a class="btn btn-primary btn-sm" <?= $data->foto_scan_ket_sehat != "" ?  "href = Cperson/download_foto?nama= $data->foto_scan_ket_sehat" : "href='#' onclick ='ok()'" ?> style="width: 100%;"><i class="fas fa-arrow-circle-down"></i> Download</a><br><br>
                             <img src="<?= site_url() ?>../gambar/sukes/<?= $data->foto_scan_ket_sehat ?>" class="img-fluid mb-2" alt="SCAN KETERANGAN SEHAT" />
                             <!-- <a href="<?= site_url() ?>../gambar/sukes/<?= $data->foto_scan_ket_sehat ?>"  data-title="SCAN KETERANGAN SEHAT" >
                             </a> -->
@@ -440,4 +440,15 @@
     //         });
     //     });
     // })
+    function ok() {
+        swal.fire({
+            title: "Foto Tidak Ada",
+            text: "Dibatalkan",
+            type: "error"
+        }).then(okay => {
+            if (okay) {
+                $('#id').focus();
+            }
+        });
+    }
 </script>
