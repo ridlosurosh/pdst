@@ -35,15 +35,8 @@ class Cexport extends CI_Controller
     public function cek()
     {
         $prov = $this->input->post('id');
-        // $jenis = $this->input->post('jenkel');
         $datanya = $this->Mexport->cek_santri($prov);
-        // if (count($datanya) > 0) {
-        //     $i['i'] = "2";
-        // } else {
-        //     $i['i'] = "1";
-        // }
-
-        // echo json_encode($i);
+        echo json_encode($datanya);
     }
 
     // export PDF putra
