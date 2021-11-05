@@ -27,60 +27,85 @@
 	</div>
 </section>
 <section class="content">
-	<div class="card">
-		<div class="card-body table-responsive p-1">
-			<table id="example1" class="table table-hover text-nowrap ">
-				<h3 class="card-title"><a class="btn btn-sm btn-block bg-teal" href="#" data-toggle="modal" data-target="#staticBackdrop"><i class="fas fa-plus"></i> Tambah</a></h3>
-				<thead>
-					<tr>
-						<th>NO</th>
-						<th>JABATAN</th>
-						<th>NAMA</th>
-						<th>AKSI</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php
-					$no = 1;
-					foreach ($jabatan as $value) {
-					?>
-						<tr>
-							<td><?= $no++ ?></td>
-							<td><?= $value->nm_jabatan ?></td>
-							<?php
-							$pengurus = $this->db->join('tb_person', 'tb_person.id_person=tb_pengurus.id_person')
-								->where('id_periode', $id_periode)
-								->where('id_jabatan', $value->id_jabatan)
-								->from('tb_pengurus')
-								->get()->result();
-							foreach ($pengurus as $key) {
-								if ($value->id_jabatan != $key->id_jabatan) {
-									$t = '--';
-								} else {
-									$t = $key->nama;
-								}
-							} ?>
-							<td><?= $t ?></td>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3">
+				<div class="card">
+					<div class="card-body">
+						<ul class="list-group list-group-unbordered mb-3">
+							<?php foreach ($jabatan as $value) { ?>
+								<li class="list-group-item">
+									<a class="text-dark" href="#"><?= $value->nm_jabatan ?></a><button class="btn btn-xs btn-primary float-right"><i class="fas fa-cog"></i></button>
+								</li>
+							<?php } ?>
+						</ul>
 
-							<td>
-								<div class="btn-group">
-									<button type="button" class="btn btn-sm btn-info" title="Info" onclick="detail_koordinator('')">
-										<i class="fas fa-info-circle"></i>
-									</button>
-									<button type="button" class="btn btn-sm btn-warning" title="Edit" onclick="form_edit_koordinator('')">
-										<i class="fas fa-edit"></i>
-									</button>
-									<button type="button" class="btn btn-sm btn-danger" title="Nonaktifkan" onclick="nonaktifkan('')">
-										<i class="fas fa-user-slash"></i>
-									</button>
-								</div>
-							</td>
-						</tr>
-					<?php } ?>
-				</tbody>
-			</table>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-9">
+				<div class="card">
+					<div class="card-body table-responsive p-1">
+						<table id="example1" class="table table-hover text-nowrap ">
+							<h3 class="card-title"><a class="btn btn-sm btn-block bg-teal" href="#" data-toggle="modal" data-target="#staticBackdrop"><i class="fas fa-plus"></i> Tambah</a></h3>
+							<thead>
+								<tr>
+									<th>NO</th>
+									<th>JABATAN</th>
+									<th>NAMA</th>
+									<th>AKSI</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php
+								$no = 1;
+								foreach ($jabatan as $value) {
+								?>
+									<tr>
+										<td><?= $no++ ?></td>
+										<td><?= $value->nm_jabatan ?></td>
+										<?php
+										$pengurus = $this->db->join('tb_person', 'tb_person.id_person=tb_pengurus.id_person')
+											->where('id_periode', $id_periode)
+											->where('id_jabatan', $value->id_jabatan)
+											->from('tb_pengurus')
+											->get()->result();
+										foreach ($pengurus as $key) {
+											if ($value->id_jabatan != $key->id_jabatan) {
+												$t = '';
+											} else {
+												$t = $key->nama;
+												// $t = '';
+											}
+										} ?>
+										<td><?= $t ?></td>
+
+										<td>
+											<div class="btn-group">
+												<button type="button" class="btn btn-sm btn-info" title="Info" onclick="detail_koordinator('')">
+													<i class="fas fa-info-circle"></i>
+												</button>
+												<button type="button" class="btn btn-sm btn-warning" title="Edit" onclick="form_edit_koordinator('')">
+													<i class="fas fa-edit"></i>
+												</button>
+												<button type="button" class="btn btn-sm btn-danger" title="Nonaktifkan" onclick="nonaktifkan('')">
+													<i class="fas fa-user-slash"></i>
+												</button>
+											</div>
+										</td>
+									</tr>
+								<?php } ?>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
+</section>
+<section class="content">
+
+
 </section>
 
 
