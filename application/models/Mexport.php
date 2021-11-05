@@ -8,8 +8,6 @@ class Mexport extends CI_Model
 	{
 		$this->db->from('tb_person');
 		$this->db->where('prov', $prov);
-		// $this->db->where('jenis_kelamin');
-
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -21,6 +19,7 @@ class Mexport extends CI_Model
 		$this->db->join('kabupaten', 'kabupaten.id=tb_person.kab');
 		$this->db->join('provinsi', 'provinsi.id=tb_person.prov');
 		$this->db->select('niup, nama, jenis_kelamin, alamat_lengkap, nm_w, hp_w');
+		$this->db->where('status', 'aktif');
 		$this->db->from('tb_person');
 		$this->db->where('prov', $provinsi);
 		$this->db->where('jenis_kelamin', $jenis);
