@@ -49,6 +49,8 @@ class Ckoordinator extends CI_Controller
     public function tambah_koordinator()
     {
         $output = array(
+            'id_periode' => $this->input->post('id'),
+            'periode' => $this->input->post('periode'),
             'jabatan' => $this->Mkoordinator->jabatan()
         );
         $this->load->view('menu_koordinator/koordinator_tambah', $output);
