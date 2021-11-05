@@ -32,7 +32,8 @@
 			<div class="col-md-3">
 				<div class="card">
 					<div class="card-body">
-						<ul class="list-group list-group-unbordered mb-3">
+						<h3 class="profile-username text-center mt-3">Struktur Pengurus</h3>
+						<ul class="list-group list-group-unbordered mb-3 mt-4">
 							<?php foreach ($jabatan as $value) { ?>
 								<li class="list-group-item">
 									<a class="text-dark" href="#"><?= $value->nm_jabatan ?></a><button class="btn btn-xs btn-primary float-right"><i class="fas fa-cog"></i></button>
