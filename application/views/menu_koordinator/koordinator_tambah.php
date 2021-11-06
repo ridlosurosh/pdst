@@ -103,8 +103,8 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="staticBackdropLabel">Tambah Priode</h5>
-				<button type="button" class="close" onclick="close()" data-dismiss="modal" aria-hidden="true">×</button>
+				<h5 class="modal-title" id="staticBackdropLabel">Tambah Pengurus</h5>
+				<button type="button" id="close" class="btn btn-xs bg-gradient-gray">X</button>
 			</div>
 			<form id="tambah_pengurus">
 				<div class="modal-body">
@@ -139,7 +139,7 @@
 										?>
 										<input type="hidden" value="<?= $jarak ?>" id="tahun_berhenti">
 										<input type="hidden" name="tanggal_berhenti" id="berhenti">
-										<input type="text" name="tanggal_diangkat" class="form-control" id="tanggal" autocomplete="off">
+										<input type="text" name="tanggal_diangkat" class="form-control " id="tanggal" autocomplete="off">
 									</div>
 								</div>
 							</div>
@@ -151,7 +151,7 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-sm btn-default bg-danger" onclick="menu_koordinator()"> <i class="fa fa-reply"></i> Keluar</button>
+						<!-- <button type="button" class="btn btn-sm btn-default bg-danger" onclick="menu_koordinator()"> <i class="fa fa-reply"></i> Keluar</button> -->
 						<button class="btn btn-sm bg-teal  offset-4"><i class="fas fa-save"></i> Simpan</button>
 					</div>
 				</div>
@@ -172,14 +172,20 @@
 				<div class="modal-body">
 					<input type="hidden" id="id_pengurus" name="id_pengurus">
 					<div class="row">
-						<div class="col-md-6">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="col-form-label" for="nama_pengajar">Username</label>
+								<input type="text" class="form-control " name="name" id="name" placeholder="Username" style="width: 100%;" autocomplete="off">
+							</div>
+						</div>
+						<div class="col-md-4">
 							<div class="form-group">
 								<label class="col-form-label" for="nama_pengajar">Username</label>
 								<input type="text" class="form-control " name="username" id="username" placeholder="Username" style="width: 100%;" autocomplete="off">
 							</div>
 						</div>
 
-						<div class="col-md-6">
+						<div class="col-md-4">
 							<div class="form-group">
 								<label for="tanggal" class="col-form-label">Password</label>
 								<input type="password" class="form-control" id="password" name="password" placeholder="Password">
@@ -202,8 +208,8 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-sm btn-default bg-danger"> <i class="fa fa-reply"></i> Keluar</button>
-						<button class="btn btn-sm bg-teal  offset-4"><i class="fas fa-save"></i> Simpan</button>
+						<!-- <button type="button" class="btn btn-sm btn-default bg-danger"> <i class="fa fa-reply"></i> Keluar</button> -->
+						<button class="btn btn-sm bg-teal"><i class="fas fa-save"></i> Simpan</button>
 					</div>
 				</div>
 			</form>
@@ -230,6 +236,7 @@
 			var o = $('#tahun_berhenti').val();
 			var u = moment(i).add(o, 'year').calendar();
 			$('#berhenti').val(u);
+
 
 		})
 	});
@@ -289,10 +296,19 @@
 				$('#id_pengurus').val(data.id);
 				$('#username').val(data.username);
 				$('#password').val(data.password);
+				$('#nama').val(data.name)
 			}
 		})
 
 	}
+
+	$('#close').on('click', function() {
+		$('#staticBackdrop').modal('hide');
+		$('#tanggal').val('');
+		$('#alamat').val('');
+		$('#nama_santri').val('');
+
+	})
 
 	function UI_Nama_Santri() {
 		$('.nama_santri').autocomplete({
@@ -332,38 +348,6 @@
 			}
 		});
 	}
-
-
-
-	// $('#angkat').on('change', function() {
-	// 	var ll = $(this).val();
-	// 	var bb = $('#pengangkatan').val();
-	// 	var date = new Date(bb);
-
-	// 	date.setDate(date.getDate() + (+ll));
-
-	// 	var dd = date.getDate();
-	// 	var mm = date.getMonth() + 1;
-	// 	var y = date.getFullYear();
-	// 	var someFormattedDate = y + '-' + mm + '-' + dd;
-	// 	if (bb === "") {
-	// 		$('#berhenti').val('0000-00-00');
-	// 		$('#pengangkatan').focus();
-	// 		swal.fire({
-	// 			title: "Tanggal Penganggkatan Harus di Isi dulu",
-	// 			type: "warning"
-	// 		}).then(okay => {
-	// 			if (okay) {
-	// 				$('#berhenti').val("");
-	// 				$('#angkat').val('0');
-	// 			}
-	// 		});
-	// 	} else {
-	// 		$('#berhenti').val(someFormattedDate);
-	// 	}
-
-	// })
-
 
 	$.validator.addMethod("valueNotEquals", function(value, element, arg) {
 		return arg !== value;
