@@ -206,8 +206,8 @@ if (isset($this->session->userdata['logged_in'])) {
 						</li>
 						<li class="nav-header">LAPORAN DATA</li>
 						<li class="nav-item">
-							<a href="#" class="nav-link menu" onclick="grafik()" style="color: #333;">
-								<i class="fas  fa-folder-open nav-icon"></i>
+							<a href="#" class="nav-link menu" onclick="menu_grafik()" style="color: #333;">
+								<i class="fas fa-chart-pie nav-icon"></i>
 								<p>
 									Grafik
 								</p>
@@ -365,7 +365,7 @@ if (isset($this->session->userdata['logged_in'])) {
 			});
 		}
 
-		function grafik() {
+		function menu_grafik() {
 			$.post('<?= site_url('Cgrafik/menu_grafik') ?>', function(Res) {
 				$('#ini_isinya').html(Res);
 			});
