@@ -300,16 +300,18 @@ class Cexport_pdf extends CI_Controller
     {
         $id = $this->input->get('id');
         $jenis = $this->input->get('jenis');
+        // $jns = substr(0, 4, $jenis);
+
 
         $pdf = new FPDF('P', 'mm', 'A4');
         $pdf->SetMargins(2, 6, 2);
         $pdf->AddPage();
         $pdf->SetX(10);
-        $santri = $this->Mexport_pdf->pdf_pengajar($jenis);
+        $santri = $this->Mexport_pdf->pdf_pengajar($id, $jenis);
 
         $pdf->SetFont('Arial', 'B', 12);
         $pdf->SetX(15);
-        $pdf->Cell(0, 6, 'DATA PENGAJAR ' . strtoupper($jenis) . ' ' . 'AKTIF', 0, 1, 'C');
+        $pdf->Cell(0, 6, 'DATA PENGAJAR ' . strtoupper($jenis) . ' ANGKATAN TAHUN ' . $id, 0, 1, 'C');
         $pdf->Cell(10, 1, '', 0, 1);
 
         $pdf->SetFont('Arial', 'B', 8);
@@ -321,8 +323,7 @@ class Cexport_pdf extends CI_Controller
         $pdf->Cell(8, 5, 'No', 1, 0, 'C');
         $pdf->Cell(25, 5, 'NIUP', 1, 0, 'C');
         $pdf->Cell(60, 5, 'NAMA', 1, 0, 'C');
-        $pdf->Cell(31, 5, 'TANGGAL DIANGKAT', 1, 0, 'C');
-        $pdf->Cell(31, 5, 'TANGGAL BERHENTI', 1, 1, 'C');
+        $pdf->Cell(31, 5, 'TANGGAL DIANGKAT', 1, 1, 'C');
 
 
         $pdf->SetFont('Arial', '', 7);
@@ -331,29 +332,111 @@ class Cexport_pdf extends CI_Controller
             $pdf->Cell(8, 5, $no, 1, 0, 'C');
             $pdf->Cell(25, 5, $data->niup, 1, 0);
             $pdf->Cell(60, 5, strtoupper($data->nama), 1, 0);
-            $pdf->Cell(31, 5, date('d-M-Y', strtotime($data->tgl_diangkat)), 1, 0);
-            $pdf->Cell(31, 5, date('d-M-Y', strtotime($data->tgl_berhenti)), 1, 1);
+            $pdf->Cell(31, 5, date('d-M-Y', strtotime($data->tgl_diangkat)), 1, 1);
             $no++;
         }
         $pdf->Output();
     }
 
+    // export PDF karyawan
+    public function cek_instansi()
+    {
+        $instansi = $this->input->post('instansi');
+        $datanya = $this->Mexport_pdf->cek_instansi($instansi);
+        echo json_encode($datanya);
+    }
+
+    function pdf_karyawan()
+    {
+        $id = $this->input->get('id');
+        $jenis = $this->input->get('jenis');
+        // $jns = substr(0, 4, $jenis);
 
 
-    // public function coba()
-    // {
-    //     $spreadsheet = new Spreadsheet();
-    //     $sheet = $spreadsheet->getActiveSheet();
-    //     $sheet->setCellValue('A1', 'Hello World !');
+        $pdf = new FPDF('P', 'mm', 'A4');
+        $pdf->SetMargins(2, 6, 2);
+        $pdf->AddPage();
+        $pdf->SetX(10);
+        $santri = $this->Mexport_pdf->pdf_karyawan($id, $jenis);
 
-    //     $writer = new Xlsx($spreadsheet);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->SetX(15);
+        $pdf->Cell(0, 6, 'DATA KARYAWAN ' . strtoupper($jenis) . ' INSTANSI ' . $id, 0, 1, 'C');
+        $pdf->Cell(10, 1, '', 0, 1);
 
-    //     $filename = 'simple';
+        $pdf->SetFont('Arial', 'B', 8);
+        $pdf->SetX(15);
+        $pdf->Cell(0, 6, '#Update' . date('M_Y'), 0, 1, 'C');
+        $pdf->Cell(10, 5, '', 0, 1);
 
-    //     header('Content-Type: application/vnd.ms-excel');
-    //     header('Content-Disposition: attachment;filename="' . $filename . '.xlsx"');
-    //     header('Cache-Control: max-age=0');
+        $pdf->SetFont('Arial', '', 7);
+        $pdf->Cell(8, 5, 'No', 1, 0, 'C');
+        $pdf->Cell(25, 5, 'NIUP', 1, 0, 'C');
+        $pdf->Cell(60, 5, 'NAMA', 1, 0, 'C');
+        $pdf->Cell(31, 5, 'TANGGAL DIANGKAT', 1, 1, 'C');
 
-    //     $writer->save('php://output');
-    // }
+
+        $pdf->SetFont('Arial', '', 7);
+        $no = 1;
+        foreach ($santri as $data) {
+            $pdf->Cell(8, 5, $no, 1, 0, 'C');
+            $pdf->Cell(25, 5, $data->niup, 1, 0);
+            $pdf->Cell(60, 5, strtoupper($data->nama), 1, 0);
+            $pdf->Cell(31, 5, date('d-M-Y', strtotime($data->tgl_diangkat)), 1, 1);
+            $no++;
+        }
+        $pdf->Output();
+    }
+
+    // pdf alumni
+    public function cek_tahun_keluar()
+    {
+        $tahun = $this->input->post('tahn');
+        $datanya = $this->Mexport_pdf->cek_tahun_keluar($tahun);
+        echo json_encode($datanya);
+    }
+
+    function pdf_alumni()
+    {
+        $id = $this->input->get('id');
+        $jenis = $this->input->get('jenis');
+
+        $pdf = new FPDF('P', 'mm', 'A4');
+        $pdf->SetMargins(2, 6, 2);
+        $pdf->AddPage();
+        $pdf->SetX(10);
+        $santri = $this->Mexport_pdf->pdf_alumni($id, $jenis);
+
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->SetX(15);
+        $pdf->Cell(0, 6, 'DATA ALUMNI ' . strtoupper($jenis) . ' ' . ' KELUAR TAHUN ' . $id, 0, 1, 'C');
+        $pdf->Cell(10, 0, '', 0, 1);
+
+        $pdf->SetFont('Arial', 'B', 8);
+        $pdf->SetX(15);
+        $pdf->Cell(0, 6, '#Update' . date('M_Y'), 0, 1, 'C');
+        $pdf->Cell(10, 5, '', 0, 1);
+
+        $pdf->SetFont('Arial', '', 7);
+        $pdf->Cell(8, 5, 'No', 1, 0, 'C');
+        $pdf->Cell(25, 5, 'NIUP', 1, 0, 'C');
+        $pdf->Cell(52, 5, 'NAMA', 1, 0, 'C');
+        $pdf->Cell(70, 5, 'ALAMAT', 1, 0, 'C');
+        $pdf->Cell(31, 5, 'WALI', 1, 0, 'C');
+        $pdf->Cell(19, 5, 'NO HP', 1, 1, 'C');
+
+
+        $pdf->SetFont('Arial', '', 7);
+        $no = 1;
+        foreach ($santri as $data) {
+            $pdf->Cell(8, 5, $no, 1, 0, 'C');
+            $pdf->Cell(25, 5, $data->niup, 1, 0);
+            $pdf->Cell(52, 5, $data->nama, 1, 0);
+            $pdf->Cell(70, 5, $data->alamat_lengkap, 1, 0);
+            $pdf->Cell(31, 5, $data->nm_w, 1, 0);
+            $pdf->Cell(19, 5, $data->hp_w, 1, 1);
+            $no++;
+        }
+        $pdf->Output();
+    }
 }
