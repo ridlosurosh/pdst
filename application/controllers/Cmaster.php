@@ -15,6 +15,9 @@ class Cmaster extends CI_Controller
 		$id = $this->Mmaster->profil($this->session->userdata['logged_in']['id_pengurus']);
 		$output = array(
 			'nama_user' => $id->nama,
+			'alamat' => $id->alamat_lengkap,
+			'jabatan' => $id->nm_jabatan,
+			'foto' => $id->foto_warna_santri
 		);
 		$this->load->view('dashboard', $output);
 	}
