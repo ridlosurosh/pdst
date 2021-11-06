@@ -9,6 +9,7 @@ class Ckoordinator extends CI_Controller
         parent::__construct();
         $this->load->model('Mkoordinator');
         $this->load->model('Mperson');
+        $this->load->library('encryption');
     }
 
     public function menu_koordinator()
@@ -31,6 +32,9 @@ class Ckoordinator extends CI_Controller
         } elseif ($this->input->post('tahun_pertama') === $this->input->post('tahun_kedua')) {
             $pesan = "tidak";
             $sukses = "Tahun Awal Dan Tahun Akhir Tidak Boleh sama";
+        } elseif ($this->input->post('tahun_pertama') > $this->input->post('tahun_kedua')) {
+            $pesan = "tidak";
+            $sukses = "Harap Yang Benar memasukkan periode";
         } else {
             $data = array(
                 'periode' => $periode
@@ -48,9 +52,12 @@ class Ckoordinator extends CI_Controller
 
     public function tambah_koordinator()
     {
+        $id = $this->input->post('id');
+        $periode =  $this->input->post('periode');
         $output = array(
-            'id_periode' => $this->input->post('id'),
-            'periode' => $this->input->post('periode'),
+            'id_periode' => $id,
+            'periode' => $periode,
+            'pengurus' => $this->Mkoordinator->pengurus_all($id),
             'jabatan' => $this->Mkoordinator->jabatan()
         );
         $this->load->view('menu_koordinator/koordinator_tambah', $output);
@@ -60,6 +67,7 @@ class Ckoordinator extends CI_Controller
     {
         $id_pengurus_lawas = $this->db->select('id_person')
             ->from('tb_pengurus')
+            ->where('id_periode', $this->input->post('periode'))
             ->where('status', 'Aktif')
             ->get();
         $id_guru_lawas = $this->db->select('id_person')
@@ -100,6 +108,7 @@ class Ckoordinator extends CI_Controller
                     'nama' => $k['nama'],
                     'id_person' => $k['id_person'],
                     'niup' => $k['niup'],
+                    'alamat' => $k['alamat_lengkap']
                 ];
             }
         } else {
@@ -114,46 +123,74 @@ class Ckoordinator extends CI_Controller
 
     public function simpan_koordinator()
     {
-        $angkat = $this->input->post('tanggal_diangkat');
-        $berhenti = $this->input->post('tanggal_berhenti');
-        $masa = $angkat . ' s/d ' . $berhenti;
-        $pass =  $this->input->post('pass');
 
-        $ketum = $this->db->where('id_jabatan', '1')
+        $tgl = $this->input->post('tanggal_berhenti');
+        $jabatan = $this->input->post('id_jabatan');
+        $periode = $this->input->post('periode');
+        $ketum = $this->db->where('id_jabatan', $jabatan)
+            ->where('id_periode', $periode)
             ->where('status', 'aktif')
             ->get('tb_pengurus')
             ->num_rows();
-        $waka_ketum = $this->db->where('id_jabatan', '2')
-            ->where('status', 'aktif')
-            ->get('tb_pengurus')
-            ->num_rows();
-        if ($ketum > 0  && $this->input->post('jabatan') === "1") {
+        if ($ketum > 0  && $this->input->post('id_jabatan') === $jabatan) {
             $pesan = "tidak";
-            $sukses = " ketum tidak boleh lebih dari satu ";
-        } elseif ($waka_ketum > 0  && $this->input->post('jabatan') === "2") {
-            $pesan = "tidak";
-            $sukses = "wakil ketum tidak boleh lebih dari satu";
+            $sukses = " jabatan yang sudah ada tidak boleh lebih dari satu ";
         } else {
             $data1 = array(
                 'id_person' => $this->input->post('idperson'),
-                'id_jabatan' => $this->input->post('jabatan'),
-                'tanggal_diangkat' => $this->input->post('tanggal_diangkat'),
-                'tanggal_berhenti' => $this->input->post('tanggal_berhenti'),
-                'masa_bakti' => $masa,
+                'id_jabatan' => $this->input->post('id_jabatan'),
+                'tanggal_diangkat' => date('Y-d-m', strtotime($this->input->post('tanggal_diangkat'))),
+                'tanggal_berhenti' => date('Y-m-d', strtotime($tgl)),
+                'id_periode' => $this->input->post('periode'),
                 'status' => "aktif",
             );
-            $last_id = $this->Mkoordinator->simpan_pengurus($data1);
-            $data2 = array(
-                'id_pengurus' => $last_id,
-                'nama' => $this->input->post('nama'),
-                'username' => $this->input->post('username'),
-                'password' => $pass
+            $last = $this->Mkoordinator->simpan_pengurus($data1);
+            $data = array(
+                'username' => "",
+                'password' => "",
+                'id_pengurus' => $last
             );
-            $this->Mkoordinator->simpan_akun($data2);
+            $this->Mkoordinator->simpan_akun($data);
             $pesan = "ya";
-            $sukses = "Data Berhasil Ditambahkan";
+            $sukses = "Data Berhasil Disimpan";
         }
 
+        $output = array(
+            'pesan' => $pesan,
+            'sukses' => $sukses,
+            'id' => $periode
+        );
+        echo json_encode($output);
+    }
+
+    public function akun_id()
+    {
+        $id = $this->input->post('id');
+        $data = $this->Mkoordinator->akun_id($id);
+        $pass = $data->password;
+        // $en = $this->encryption->decrypt($pass);
+        $output = array(
+            'id' => $data->id_pengurus,
+            'username' => $data->username,
+            'password' =>  $pass,
+            'name' => $data->nama
+        );
+        echo json_encode($output);
+    }
+
+    public function simpan_akun()
+    {
+        $id =  $this->input->post('id_pengurus');
+        $user = $this->input->post('username');
+        $pass = $this->input->post('password');
+        // $pass_e = $this->encryption->encrypt($pass);
+        $data = array(
+            'username' => $user,
+            'password' => $pass
+        );
+        $this->Mkoordinator->simpan_akun_id(array('id_pengurus' => $id), $data);
+        $pesan = 'ya';
+        $sukses = 'Data Berhasil Ditambahkan';
         $output = array(
             'pesan' => $pesan,
             'sukses' => $sukses
@@ -215,7 +252,7 @@ class Ckoordinator extends CI_Controller
     public function nonaktifkan_koordinator()
     {
         $id = $this->input->post('id');
-        $tanggal = date('Y/m/d');
+        $tanggal = date('Y-m-d');
         $data = array(
             'status' => "tidak aktif",
             'tanggal_berhenti' => $tanggal

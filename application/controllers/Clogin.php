@@ -42,17 +42,26 @@ class Clogin extends CI_Controller
                 $username = $this->input->post('username');
                 $result = $this->Mpetugas->read_user_information($username);
                 if ($result != false) {
-                    $session_data = array(
-                        'id_user' => $result[0]->id_login,
-                        'jabatan' => $result[0]->nm_jabatan,
-                        'id_pengurus' => $result[0]->id_pengurus
-                    );
-                    $this->session->set_userdata('logged_in', $session_data);
-                    $data = array(
-                        'pesan' => "sukses",
-                        'jabatan' => $result[0]->nm_jabatan,
-                    );
-                    echo json_encode($data);
+                    if (date('Y-d-m') >= $result[0]->tanggal_berhenti) {
+                        $data = array(
+                            'pesan' => "Akun Sudah Lewat Dari Masanya",
+                        );
+                        echo json_encode($data);
+                    } else {
+                        $session_data = array(
+                            'id_user' => $result[0]->id_login,
+                            'jabatan' => $result[0]->nm_jabatan,
+                            'id_pengurus' => $result[0]->id_pengurus,
+                            'tanggal_berhenti' => $result[0]->tanggal_berhenti,
+                        );
+                        $this->session->set_userdata('logged_in', $session_data);
+                        $data = array(
+                            'pesan' => "sukses",
+                            'jabatan' => $result[0]->nm_jabatan,
+                            'tanggal_berhenti' => $result[0]->tanggal_berhenti,
+                        );
+                        echo json_encode($data);
+                    }
                 }
             } else {
                 $data = array(
