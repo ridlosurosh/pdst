@@ -30,11 +30,7 @@ class Mlaporan extends CI_Model
         return $query->result();
     }
 
-    public function get_provinsi()
-    {
-        $query = $this->db->get('provinsi');
-        return $query;
-    }
+
 
     public function santri_all()
     {
