@@ -124,6 +124,7 @@ class Ckoordinator extends CI_Controller
     public function simpan_koordinator()
     {
 
+        $tgl = $this->input->post('tanggal_berhenti');
         $jabatan = $this->input->post('id_jabatan');
         $periode = $this->input->post('periode');
         $ketum = $this->db->where('id_jabatan', $jabatan)
@@ -131,15 +132,15 @@ class Ckoordinator extends CI_Controller
             ->where('status', 'aktif')
             ->get('tb_pengurus')
             ->num_rows();
-        if ($ketum > 0  && $this->input->post('id_jabatan') === $jabatan  && $this->input->post('id_periode') === $periode) {
+        if ($ketum > 0  && $this->input->post('id_jabatan') === $jabatan) {
             $pesan = "tidak";
-            $sukses = " ketum tidak boleh lebih dari satu ";
+            $sukses = " jabatan yang sudah ada tidak boleh lebih dari satu ";
         } else {
             $data1 = array(
                 'id_person' => $this->input->post('idperson'),
                 'id_jabatan' => $this->input->post('id_jabatan'),
-                'tanggal_diangkat' => date('Y-m-d', strtotime($this->input->post('tanggal_diangkat'))),
-                'tanggal_berhenti' => date('Y-m-d', strtotime($this->input->post('tanggal_berhenti'))),
+                'tanggal_diangkat' => date('Y-d-m', strtotime($this->input->post('tanggal_diangkat'))),
+                'tanggal_berhenti' => date('Y-m-d', strtotime($tgl)),
                 'id_periode' => $this->input->post('periode'),
                 'status' => "aktif",
             );
@@ -151,7 +152,7 @@ class Ckoordinator extends CI_Controller
             );
             $this->Mkoordinator->simpan_akun($data);
             $pesan = "ya";
-            $sukses = "Data Berhasil Ditambahkan";
+            $sukses = "Data Berhasil Disimpan";
         }
 
         $output = array(
@@ -167,11 +168,12 @@ class Ckoordinator extends CI_Controller
         $id = $this->input->post('id');
         $data = $this->Mkoordinator->akun_id($id);
         $pass = $data->password;
-        $en = $this->encryption->decrypt($pass);
+        // $en = $this->encryption->decrypt($pass);
         $output = array(
             'id' => $data->id_pengurus,
             'username' => $data->username,
-            'password' =>  $en
+            'password' =>  $pass,
+            'name' => $data->nama
         );
         echo json_encode($output);
     }
@@ -181,7 +183,7 @@ class Ckoordinator extends CI_Controller
         $id =  $this->input->post('id_pengurus');
         $user = $this->input->post('username');
         $pass = $this->input->post('password');
-        $pass_e = $this->encryption->encrypt($pass);
+        // $pass_e = $this->encryption->encrypt($pass);
         $data = array(
             'username' => $user,
             'password' => $pass
