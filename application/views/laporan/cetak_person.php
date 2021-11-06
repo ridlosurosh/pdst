@@ -646,7 +646,7 @@
 												},
 												dataType: 'JSON',
 												success: function(hasil) {
-													window.open("Cexport_excel/excel_pengurus?id=" + periode + "&jenis=" + pengurus, '_blank');
+													window.open("Cexport_excel/excel_pengurus?id=" + periode + "&jenis=" + pengurus, '_self');
 												}
 											})
 										}
@@ -675,7 +675,7 @@
 										<option value="Perempuan">Pengajar Perempuan</option>
 									</select>
 								</div>
-								<!-- <div class="form-group col-md-6">
+								<div class="form-group col-md-6">
 									<label for="">PILIH TAHUN ANGKATAN</label>
 									<select name="" id="thun" class="form-control select2">
 										<option value="0">-Pilih Tahun-</option>
@@ -683,13 +683,13 @@
 											<option value="<?= $g ?>"><?= $g ?></option>
 										<?php } ?>
 									</select>
-								</div> -->
+								</div>
 							</div>
 						</div>
 						<div class="card-footer">
 							<div class="offset-5">
 								<button class="btn btn-sm btn-primary" id="bt_pengajar_pdf"><i class="fas fa-file-pdf"></i> Cetak PDF</button>
-								<button class="btn btn-sm btn-success"><i class="fas fa-file-excel"></i> Cetak Excel</button>
+								<button class="btn btn-sm btn-success" id="bt_pengajar_excel"><i class="fas fa-file-excel"></i> Cetak Excel</button>
 							</div>
 							<script>
 								$(document).ready(function() {
@@ -712,6 +712,30 @@
 												dataType: 'JSON',
 												success: function(hasil) {
 													window.open("Cexport_pdf/pdf_pengajar?id=" + angkatan + "&jenis=" + pengajar, '_blank');
+												}
+											})
+										}
+									})
+
+									$('#bt_pengajar_excel').on('click', function() {
+										var pengajar = $('#pengajar').val()
+										var angkatan = $('#thun').val()
+										if (pengajar == 0) {
+											swal.fire({
+												title: "PDST NAA",
+												text: "Anda Belum Memilih Pengajar",
+												type: "warning"
+											})
+										} else {
+											$.ajax({
+												type: "POST",
+												url: "<?= site_url('Cexport_excel/cek_tahun_angkat') ?>",
+												data: {
+													tahn: angkatan
+												},
+												dataType: 'JSON',
+												success: function(hasil) {
+													window.open("Cexport_excel/excel_pengajar?id=" + angkatan + "&jenis=" + pengajar, '_self');
 												}
 											})
 										}
@@ -741,21 +765,76 @@
 									</select>
 								</div>
 								<div class="form-group col-md-6">
-									<label for="">PILIH TAHUN ANGKATAN</label>
-									<select name="" id="tahunnya" class="form-control select2">
-										<option value="0">-Pilih Tahun-</option>
-										<?php for ($g = 2010; $g < date('Y') + 3; $g++) { ?>
-											<option value="<?= $g ?>"><?= $g ?></option>
-										<?php } ?>
+									<label for="">PILIH INSTANSI</label>
+									<select class="form-control select2" name="instansi" id="instansi">
+										<option selected hidden value="0">Pilih Instansi</option>
+										<option value="NAA Media">NAA MEDIA</option>
+										<option value="Kopontren Al-Mubarokah">Kopontren Al-Mubarokah</option>
+										<option value="Kantin Al-Mubarokah">Kantin Al-Mubarokah</option>
+										<option value="Koperasi Sekolah">Koperasi Sekolah</option>
+										<option value="Meubel">Meubel</option>
+										<option value="LK SMKNAA">LK SMKNAA</option>
+										<option value="AMDK Oemboel">AMDK Oemboel</option>
 									</select>
 								</div>
 							</div>
 						</div>
 						<div class="card-footer">
 							<div class="offset-5">
-								<button class="btn btn-sm btn-primary"><i class="fas fa-file-pdf"></i> Cetak PDF</button>
-								<button class="btn btn-sm btn-success"><i class="fas fa-file-excel"></i> Cetak Excel</button>
+								<button class="btn btn-sm btn-primary" id="bt_karyawan_pdf"><i class="fas fa-file-pdf"></i> Cetak PDF</button>
+								<button class="btn btn-sm btn-success" id="bt_karyawan_excel"><i class="fas fa-file-excel"></i> Cetak Excel</button>
 							</div>
+							<script>
+								$(document).ready(function() {
+									$('#bt_karyawan_pdf').on('click', function() {
+										var karyawan = $('#karyawan').val()
+										var instansi = $('#instansi').val()
+										if (karyawan == 0) {
+											swal.fire({
+												title: "PDST NAA",
+												text: "Anda Belum Memilih Karyawan",
+												type: "warning"
+											})
+										} else {
+											$.ajax({
+												type: "POST",
+												url: "<?= site_url('Cexport_pdf/cek_instansi') ?>",
+												data: {
+													instansi: instansi
+												},
+												dataType: 'JSON',
+												success: function(hasil) {
+													window.open("Cexport_pdf/pdf_karyawan?id=" + instansi + "&jenis=" + karyawan, '_blank');
+												}
+											})
+										}
+									})
+
+									$('#bt_karyawan_excel').on('click', function() {
+										var karyawan = $('#karyawan').val()
+										var instansi = $('#instansi').val()
+										if (karyawan == 0) {
+											swal.fire({
+												title: "PDST NAA",
+												text: "Anda Belum Memilih Karyawan",
+												type: "warning"
+											})
+										} else {
+											$.ajax({
+												type: "POST",
+												url: "<?= site_url('Cexport_excel/cek_instansi') ?>",
+												data: {
+													instansi: instansi
+												},
+												dataType: 'JSON',
+												success: function(hasil) {
+													window.open("Cexport_excel/excel_karyawan?id=" + instansi + "&jenis=" + karyawan, '_self');
+												}
+											})
+										}
+									})
+								})
+							</script>
 						</div>
 					</div>
 				</div>
@@ -793,9 +872,60 @@
 						</div>
 						<div class="card-footer">
 							<div class="offset-5">
-								<button class="btn btn-sm btn-primary"><i class="fas fa-file-pdf"></i> Cetak PDF</button>
-								<button class="btn btn-sm btn-success"><i class="fas fa-file-excel"></i> Cetak Excel</button>
+								<button class="btn btn-sm btn-primary" id="bt_alumni_pdf"><i class="fas fa-file-pdf"></i> Cetak PDF</button>
+								<button class="btn btn-sm btn-success" id="bt_alumni_excel"><i class="fas fa-file-excel"></i> Cetak Excel</button>
 							</div>
+							<script>
+								$(document).ready(function() {
+									$('#bt_alumni_pdf').on('click', function() {
+										var alumni = $('#alumni').val()
+										var angkatan = $('#thune').val()
+										if (alumni == 0) {
+											swal.fire({
+												title: "PDST NAA",
+												text: "Anda Belum Memilih Alumni",
+												type: "warning"
+											})
+										} else {
+											$.ajax({
+												type: "POST",
+												url: "<?= site_url('Cexport_pdf/cek_tahun_keluar') ?>",
+												data: {
+													tahn: angkatan
+												},
+												dataType: 'JSON',
+												success: function(hasil) {
+													window.open("Cexport_pdf/pdf_alumni?id=" + angkatan + "&jenis=" + alumni, '_blank');
+												}
+											})
+										}
+									})
+
+									$('#bt_alumni_excel').on('click', function() {
+										var alumni = $('#alumni').val()
+										var angkatan = $('#thune').val()
+										if (alumni == 0) {
+											swal.fire({
+												title: "PDST NAA",
+												text: "Anda Belum Memilih Alumni",
+												type: "warning"
+											})
+										} else {
+											$.ajax({
+												type: "POST",
+												url: "<?= site_url('Cexport_excel/cek_tahun_keluar') ?>",
+												data: {
+													tahn: angkatan
+												},
+												dataType: 'JSON',
+												success: function(hasil) {
+													window.open("Cexport_excel/excel_alumni?id=" + angkatan + "&jenis=" + alumni, '_self');
+												}
+											})
+										}
+									})
+								})
+							</script>
 						</div>
 					</div>
 				</div>
