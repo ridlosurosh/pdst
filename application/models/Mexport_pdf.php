@@ -157,23 +157,55 @@ class Mexport_pdf extends CI_Model
 		return $query->result();
 	}
 
-	public function pdf_pengajar($jenis)
+	public function pdf_pengajar($id, $jenis)
 	{
 		$this->db->join('tb_person', 'tb_person.id_person=tb_guru_nubdah.id_person');
 		$this->db->where('status_guru_nubdah', 'Aktif');
-		// $this->db->where("(SUBSTRING(tgl_diangkat, 0, 4) = '$id')");
+		$this->db->where("(SUBSTRING(tgl_diangkat, 1, 4) = '$id')");
 		$this->db->where('jenis_kelamin', $jenis);
 		$this->db->from('tb_guru_nubdah');
 		$query = $this->db->get();
 		return $query->result();
 	}
 
-	// public function pengajar($jenis)
-	// {
-	// 	$this->db->join('tb_person', 'tb_person.id_person=tb_guru_nubdah.id_person');
-	// 	$this->db->from('tb_guru_nubdah');
+	// Pdf Karyawan
+	public function cek_instansi($instansi)
+	{
+		$this->db->from('tb_karyawan');
+		$this->db->where('instansi', $instansi);
+		$this->db->where('status', 'Aktif');
+		$query = $this->db->get();
+		return $query->result();
+	}
 
-	// 	$query = $this->db->get();
-	// 	return $query->result();
-	// }
+	public function pdf_karyawan($id, $jenis)
+	{
+		$this->db->join('tb_person', 'tb_person.id_person=tb_karyawan.id_person');
+		$this->db->from('tb_karyawan');
+		$this->db->where('instansi', $id);
+		$this->db->where('jenis_kelamin', $jenis);
+		$this->db->where('tb_karyawan.status', 'Aktif');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	function cek_tahun_keluar($tahun)
+	{
+		$this->db->join('tb_person', 'tb_person.id_person=tb_alumni.id_person');
+		$this->db->from('tb_alumni');
+		// $this->db->where('tgl_daftar', $tahun);
+		$this->db->where("(SUBSTRING(tgl_berhenti, 0, 4) = '$tahun')");
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	function pdf_alumni($tahun, $jenis)
+	{
+		$this->db->join('tb_person', 'tb_person.id_person=tb_alumni.id_person');
+		$this->db->from('tb_alumni');
+		$this->db->where("(SUBSTRING(tgl_berhenti, 1, 4) = '$tahun')");
+		$this->db->where('jenis_kelamin', $jenis);
+		$query = $this->db->get();
+		return $query->result();
+	}
 }
