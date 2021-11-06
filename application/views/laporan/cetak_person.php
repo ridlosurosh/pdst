@@ -77,6 +77,36 @@
 											})
 										}
 									})
+
+									$('#bt_cetak_tahun2').on('click', function() {
+										var jenkel = $('#jen_kel').val()
+										var tahun = $('#tahun').val()
+										if (jenkel == 0) {
+											swal.fire({
+												title: "PDST NAA",
+												text: "Anda Belum Memilih Santri",
+												type: "warning"
+											})
+										} else if (tahun == 0) {
+											swal.fire({
+												title: "PDST NAA",
+												text: "Anda Belum Memilih Tahun Angkatan",
+												type: "warning"
+											})
+										} else {
+											$.ajax({
+												type: "POST",
+												url: "<?= site_url('Cexport_excel/cek_tahun') ?>",
+												data: {
+													tahun: tahun
+												},
+												dataType: 'JSON',
+												success: function(hasil) {
+													window.open("Cexport_excel/excel_tahun?id=" + tahun + "&jenis=" + jenkel, '_self');
+												}
+											})
+										}
+									})
 								})
 							</script>
 						</div>
@@ -115,7 +145,7 @@
 						<div class="card-footer">
 							<div class="offset-5">
 								<button class="btn btn-sm btn-primary" title="Cetak PDF" id="bt_cetak_prov"><i class="fas fa-file-pdf"></i> Cetak PDF</button>
-								<button class="btn btn-sm btn-success" title="Export Excel"><i class="fas fa-file-excel"></i> Export Excel</button>
+								<button class="btn btn-sm btn-success" title="Export Excel" id="bt_cetak_prov2"><i class="fas fa-file-excel"></i> Export Excel</button>
 							</div>
 							<script>
 								$(document).ready(function() {
@@ -144,6 +174,36 @@
 												dataType: 'JSON',
 												success: function(hasil) {
 													window.open("Cexport_pdf/pdf_provinsi?id=" + provinsi + "&jenis=" + jenkel, '_blank');
+												}
+											})
+										}
+									})
+
+									$('#bt_cetak_prov2').on('click', function() {
+										var jenkel = $('#jenkel').val()
+										var provinsi = $('#prov').val()
+										if (jenkel == 0) {
+											swal.fire({
+												title: "PDST NAA",
+												text: "Anda Belum Memilih Santri",
+												type: "warning"
+											})
+										} else if (provinsi == 0) {
+											swal.fire({
+												title: "PDST NAA",
+												text: "Anda Belum Memilih Provinsi",
+												type: "warning"
+											})
+										} else {
+											$.ajax({
+												type: "POST",
+												url: "<?= site_url('Cexport_excel/cek_prov') ?>",
+												data: {
+													prov: provinsi
+												},
+												dataType: 'JSON',
+												success: function(hasil) {
+													window.open("Cexport_excel/excel_provinsi?id=" + provinsi + "&jenis=" + jenkel, '_blank');
 												}
 											})
 										}
@@ -502,7 +562,7 @@
 										<option value="Perempuan">Pengajar Perempuan</option>
 									</select>
 								</div>
-								<div class="form-group col-md-6">
+								<!-- <div class="form-group col-md-6">
 									<label for="">PILIH TAHUN ANGKATAN</label>
 									<select name="" id="thun" class="form-control select2">
 										<option value="0">-Pilih Tahun-</option>
@@ -510,7 +570,7 @@
 											<option value="<?= $g ?>"><?= $g ?></option>
 										<?php } ?>
 									</select>
-								</div>
+								</div> -->
 							</div>
 						</div>
 						<div class="card-footer">
@@ -527,12 +587,6 @@
 											swal.fire({
 												title: "PDST NAA",
 												text: "Anda Belum Memilih Pengajar",
-												type: "warning"
-											})
-										} else if (angkatan == 0) {
-											swal.fire({
-												title: "PDST NAA",
-												text: "Anda Belum Memilih Tahun Angkatan",
 												type: "warning"
 											})
 										} else {
