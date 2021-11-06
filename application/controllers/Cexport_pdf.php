@@ -305,11 +305,11 @@ class Cexport_pdf extends CI_Controller
         $pdf->SetMargins(2, 6, 2);
         $pdf->AddPage();
         $pdf->SetX(10);
-        $santri = $this->Mexport_pdf->pdf_pengajar($id, $jenis);
+        $santri = $this->Mexport_pdf->pdf_pengajar($jenis);
 
         $pdf->SetFont('Arial', 'B', 12);
         $pdf->SetX(15);
-        $pdf->Cell(0, 6, 'DATA PENGAJAR ' . strtoupper($jenis) . ' ' . 'ANGKATAN TAHUN ' . $id, 0, 1, 'C');
+        $pdf->Cell(0, 6, 'DATA PENGAJAR ' . strtoupper($jenis) . ' ' . 'AKTIF', 0, 1, 'C');
         $pdf->Cell(10, 1, '', 0, 1);
 
         $pdf->SetFont('Arial', 'B', 8);
