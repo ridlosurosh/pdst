@@ -44,7 +44,7 @@
 							<td><?= $st ?></td> -->
 							<td>
 								<div class="btn-group">
-									<button type="button" class="btn btn-sm btn-info" title="Info" onclick="tambah_pengurus('<?= $value->id_periode ?>','<?= $value->periode ?>')">
+									<button type="button" class="btn btn-sm btn-info" title="Info" onclick="tambah_koordinator('<?= $value->id_periode ?>','<?= $value->periode ?>')">
 										<i class="fas fa-cog"></i> Setting Pengurus
 									</button>
 									<!-- <button type="button" class="btn btn-sm btn-info" title="Info" onclick="detail_koordinator('<?= $value->id_pengurus ?>')">
@@ -120,7 +120,7 @@
 		$('#example2').DataTable();
 	});
 
-	function tambah_pengurus(id, periode) {
+	function tambah_koordinator(id, periode) {
 		$.post('<?= site_url('Ckoordinator/tambah_koordinator') ?>', {
 			id: id,
 			periode: periode
@@ -145,40 +145,7 @@
 		});
 	}
 
-	function nonaktifkan(id) {
-		swal.fire({
-			title: 'PDST NAA',
-			text: "Anda Yakin menonaktifkan pengurus ini ?",
-			type: 'warning',
-			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			confirmButtonText: 'Nonaktifkan',
-			preConfirm: function() {
-				return new Promise(function(resolve) {
-					$.ajax({
-							url: 'Ckoordinator/nonaktifkan_koordinator',
-							type: 'POST',
-							data: {
-								id: id
-							},
-							dataType: 'json'
-						})
-						.fail(function() {
-							swal.fire({
-								title: "PDST NAA",
-								text: "Pengurus Sukses Dinonaktifkan",
-								type: "success"
-							}).then(okay => {
-								if (okay) {
-									menu_koordinator();
-								}
-							});
-						});
-				});
-			}
-		});
-	}
+
 
 	$.validator.addMethod("valueNotEquals", function(value, element, arg) {
 		return arg !== value;
