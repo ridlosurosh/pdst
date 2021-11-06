@@ -72,16 +72,18 @@ if (isset($this->session->userdata['logged_in'])) {
 					</a>
 					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right dropdown-menu-left">
 						<span class="dropdown-item dropdown-header  ">
-							<h5>Profile</h5>
+							<h5>Provile</h5>
 						</span>
 						<div class="card-body pt-3 ">
 							<div class="row">
 								<div class="col-7">
 									<h3 class="lead"><b><?= $nama_user ?></b></h3>
-									<ul class="ml-4 mb-0 fa-ul text-muted ">
+									<h6 class="widget-user-desc text-sm"><i class="small fas fa-lg fa-building"></i> <?= $alamat ?></h6>
+									<h6 class="widget-user-desc text-sm"><i class="small fas fa-lg fa-user"></i> <?= $jabatan ?></h6>
+									<!-- <ul class="ml-4 mb-0 fa-ul text-muted ">
 										<li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> alamat</li><br>
 										<li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span>ijnn</li>
-									</ul>
+									</ul> -->
 								</div>
 								<div class="col-5 text-center">
 									<img src="<?= site_url() ?>../gambar/foto/<?= $foto ?>" alt="" class="img-circle img-fluid elevation-1 " style="opacity: 2;">
