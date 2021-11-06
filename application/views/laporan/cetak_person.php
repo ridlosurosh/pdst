@@ -203,7 +203,7 @@
 												},
 												dataType: 'JSON',
 												success: function(hasil) {
-													window.open("Cexport_excel/excel_provinsi?id=" + provinsi + "&jenis=" + jenkel, '_blank');
+													window.open("Cexport_excel/excel_provinsi?id=" + provinsi + "&jenis=" + jenkel, '_self');
 												}
 											})
 										}
@@ -252,7 +252,7 @@
 						<div class="card-footer">
 							<div class="offset-5">
 								<button class="btn btn-sm btn-primary" title="Cetak PDF" id="bt_cetak_kab"><i class="fas fa-file-pdf"></i> Cetak PDF</button>
-								<button class="btn btn-sm btn-success" title="Export Excel"><i class="fas fa-file-excel"></i> Cetak Excel</button>
+								<button class="btn btn-sm btn-success" title="Export Excel" id="bt_cetak_kab2"><i class="fas fa-file-excel"></i> Cetak Excel</button>
 							</div>
 							<script>
 								$(document).ready(function() {
@@ -318,6 +318,44 @@
 											})
 										}
 									})
+
+									$('#bt_cetak_kab2').on('click', function() {
+										var kel = $('#kel').val()
+										var prov = $('#provinsi').val()
+										var kab = $('#kabupaten').val()
+										if (kel == 0) {
+											swal.fire({
+												title: "PDST NAA",
+												text: "Anda Belum Memilih Santri",
+												type: "warning"
+											})
+										} else if (prov == 0) {
+											swal.fire({
+												title: "PDST NAA",
+												text: "Anda Belum Memilih Provinsi",
+												type: "warning"
+											})
+										} else if (kab == 0) {
+											swal.fire({
+												title: "PDST NAA",
+												text: "Anda Belum Memilih Kabupaten",
+												type: "warning"
+											})
+										} else {
+											var kabupaten = $('#kabupaten').val()
+											$.ajax({
+												type: "POST",
+												url: "<?= site_url('Cexport_excel/cek_kab') ?>",
+												data: {
+													kab: kabupaten
+												},
+												dataType: "JSON",
+												success: function(hasil) {
+													window.open("Cexport_excel/excel_kabupaten?id=" + kabupaten + "&jenis=" + kel, '_self');
+												}
+											})
+										}
+									})
 								})
 							</script>
 						</div>
@@ -370,7 +408,7 @@
 						<div class="card-footer">
 							<div class="offset-5">
 								<button class="btn btn-sm btn-primary" id="bt_cetak_kec"><i class="fas fa-file-pdf"></i> Cetak PDF</button>
-								<button class="btn btn-sm btn-success"><i class="fas fa-file-excel"></i> Cetak Excel</button>
+								<button class="btn btn-sm btn-success" id="bt_cetak_kec2"><i class="fas fa-file-excel"></i> Cetak Excel</button>
 							</div>
 							<script>
 								$(document).ready(function() {
@@ -467,6 +505,51 @@
 											})
 										}
 									})
+
+									$('#bt_cetak_kec2').on('click', function() {
+										var kel = $('#kelamin').val()
+										var prov = $('#provinsinya').val()
+										var kab = $('#kabupatennya').val()
+										var kec = $('#kecamatannya').val()
+										if (kel == 0) {
+											swal.fire({
+												title: "PDST NAA",
+												text: "Anda Belum Memilih Santri",
+												type: "warning"
+											})
+										} else if (prov == 0) {
+											swal.fire({
+												title: "PDST NAA",
+												text: "Anda Belum Memilih Provinsi",
+												type: "warning"
+											})
+										} else if (kab == 0) {
+											swal.fire({
+												title: "PDST NAA",
+												text: "Anda Belum Memilih Kabupaten",
+												type: "warning"
+											})
+										} else if (kec == 0) {
+											swal.fire({
+												title: "PDST NAA",
+												text: "Anda Belum Memilih Kecamatan",
+												type: "warning"
+											})
+										} else {
+											var kecamatan = $('#kecamatannya').val()
+											$.ajax({
+												type: "POST",
+												url: "<?= site_url('Cexport_excel/cek_kec') ?>",
+												data: {
+													kec: kecamatan
+												},
+												dataType: "JSON",
+												success: function(hasil) {
+													window.open("Cexport_excel/excel_kecamatan?id=" + kecamatan + "&jenis=" + kel, '_self');
+												}
+											})
+										}
+									})
 								})
 							</script>
 						</div>
@@ -505,7 +588,7 @@
 						<div class="card-footer">
 							<div class="offset-5">
 								<button class="btn btn-sm btn-primary" id="bt_pengurus_pdf"><i class="fas fa-file-pdf"></i> Cetak PDF</button>
-								<button class="btn btn-sm btn-success"><i class="fas fa-file-excel"></i> Cetak Excel</button>
+								<button class="btn btn-sm btn-success" id="bt_pengurus_excel"><i class="fas fa-file-excel"></i> Cetak Excel</button>
 							</div>
 							<script>
 								$(document).ready(function() {
@@ -534,6 +617,36 @@
 												dataType: 'JSON',
 												success: function(hasil) {
 													window.open("Cexport_pdf/pdf_pengurus?id=" + periode + "&jenis=" + pengurus, '_blank');
+												}
+											})
+										}
+									})
+
+									$('#bt_pengurus_excel').on('click', function() {
+										var pengurus = $('#pengurus').val()
+										var periode = $('#periode').val()
+										if (pengurus == 0) {
+											swal.fire({
+												title: "PDST NAA",
+												text: "Anda Belum Memilih Pengurus",
+												type: "warning"
+											})
+										} else if (periode == 0) {
+											swal.fire({
+												title: "PDST NAA",
+												text: "Anda Belum Memilih Periode",
+												type: "warning"
+											})
+										} else {
+											$.ajax({
+												type: "POST",
+												url: "<?= site_url('Cexport_excel/cek_periode') ?>",
+												data: {
+													per: periode
+												},
+												dataType: 'JSON',
+												success: function(hasil) {
+													window.open("Cexport_excel/excel_pengurus?id=" + periode + "&jenis=" + pengurus, '_blank');
 												}
 											})
 										}
