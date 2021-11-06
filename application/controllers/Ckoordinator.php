@@ -9,6 +9,7 @@ class Ckoordinator extends CI_Controller
         parent::__construct();
         $this->load->model('Mkoordinator');
         $this->load->model('Mperson');
+        $this->load->library('encryption');
     }
 
     public function menu_koordinator()
@@ -142,7 +143,13 @@ class Ckoordinator extends CI_Controller
                 'id_periode' => $this->input->post('periode'),
                 'status' => "aktif",
             );
-            $this->Mkoordinator->simpan_pengurus($data1);
+            $last = $this->Mkoordinator->simpan_pengurus($data1);
+            $data = array(
+                'username' => "",
+                'password' => "",
+                'id_pengurus' => $last
+            );
+            $this->Mkoordinator->simpan_akun($data);
             $pesan = "ya";
             $sukses = "Data Berhasil Ditambahkan";
         }
@@ -155,10 +162,38 @@ class Ckoordinator extends CI_Controller
         echo json_encode($output);
     }
 
+    public function akun_id()
+    {
+        $id = $this->input->post('id');
+        $data = $this->Mkoordinator->akun_id($id);
+        $pass = $data->password;
+        $en = $this->encryption->decrypt($pass);
+        $output = array(
+            'id' => $data->id_pengurus,
+            'username' => $data->username,
+            'password' =>  $en
+        );
+        echo json_encode($output);
+    }
+
     public function simpan_akun()
     {
+        $id =  $this->input->post('id_pengurus');
         $user = $this->input->post('username');
         $pass = $this->input->post('password');
+        $pass_e = $this->encryption->encrypt($pass);
+        $data = array(
+            'username' => $user,
+            'password' => $pass
+        );
+        $this->Mkoordinator->simpan_akun_id(array('id_pengurus' => $id), $data);
+        $pesan = 'ya';
+        $sukses = 'Data Berhasil Ditambahkan';
+        $output = array(
+            'pesan' => $pesan,
+            'sukses' => $sukses
+        );
+        echo json_encode($output);
     }
 
     public function detail_koordinator()
