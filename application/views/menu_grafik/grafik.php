@@ -3,8 +3,9 @@
         <div class="row mb-2">
             <div class="col-sm-6">
                 <h1 class="m-0 text-dark">Grafik</h1>
-                <button class="float-right">ugi</button>
+
             </div>
+            <div class="col-sm-6"><button class="float-right">ugi</button></div>
         </div>
     </div>
 </section>
