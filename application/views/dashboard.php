@@ -61,17 +61,49 @@ if (isset($this->session->userdata['logged_in'])) {
 					<a class="nav-link" data-widget="pushmenu" href="#" style="color: #fff;"><i class="fas fa-bars"></i></a>
 				</li>
 			</ul>
+
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item dropdown">
 					<a class="nav-link" data-toggle="dropdown" href="#" style="color: #fff;">
-						<i class="far fa-user"></i> <b><?= $nama_user ?></b>
+						<h4>
+							<i class="fa fa-user-circle" style="margin-right: 5px;"></i>
+							<span class="fa-pull-right" style="font-weight: bold; font-size: medium;">user</span>
+						</h4>
 					</a>
-					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-3">
+					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right dropdown-menu-left">
+						<span class="dropdown-item dropdown-header  ">
+							<h5>Provile</h5>
+						</span>
+						<div class="card-body pt-3 ">
+							<div class="row">
+								<div class="col-7">
+									<h3 class="lead"><b><?= $nama_user ?></b></h3>
+									<h6 class="widget-user-desc text-sm"><i class="small fas fa-lg fa-building"></i> <?= $alamat ?></h6>
+									<h6 class="widget-user-desc text-sm"><i class="small fas fa-lg fa-user"></i> <?= $jabatan ?></h6>
+									<!-- <ul class="ml-4 mb-0 fa-ul text-muted ">
+										<li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> alamat</li><br>
+										<li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span>ijnn</li>
+									</ul> -->
+								</div>
+								<div class="col-5 text-center">
+									<img src="<?= site_url() ?>../gambar/foto/<?= $foto ?>" alt="" class="img-circle img-fluid elevation-1 " style="opacity: 2;">
+								</div>
+							</div>
+						</div>
+						<div class="card-footer">
+							<div class="text offset-4 ">
+								<a href="<?= site_url('clogin/logout') ?>" class="btn btn-sm bg-gradient-danger">
+									<i class="fa fa-sign-out-alt"></i> Keluar
+								</a>
+							</div>
+						</div>
+					</div>
+					<!-- <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-3">
 						<h4 class="widget-user-username txet-center"><?= $nama_user ?></h4>
 						<h5 class="widget-user-desc">Ketua Umum</h5>
 						<a href="<?= site_url('Clogin/logout') ?>" class="btn btn-danger btn-sm mt-4" style="margin-left: 90px;">Log-out</a>
 
-					</div>
+					</div> -->
 				</li>
 			</ul>
 		</nav>

@@ -7,6 +7,7 @@ class Mmaster extends CI_Model
     public function profil($id)
     {
         $this->db->join('tb_pengurus', 'tb_pengurus.id_pengurus=tb_login.id_pengurus');
+        $this->db->join('tb_jabatan', 'tb_jabatan.id_jabatan=tb_pengurus.id_jabatan');
         $this->db->join('tb_person', 'tb_person.id_person=tb_pengurus.id_person');
         $this->db->from('tb_login');
         $this->db->where('id_login', $id);
