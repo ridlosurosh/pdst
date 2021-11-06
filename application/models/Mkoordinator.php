@@ -14,12 +14,13 @@ class Mkoordinator extends CI_Model
         return $this->db->insert('tb_periode', $data);
     }
 
-    public function pengurus_all()
+    public function pengurus_all($id)
     {
-        // $this->db->select('id_pengurus, niup, nama, nm_jabatan, tanggal_diangkat, masa_bakti, tb_pengurus.status');
-        // $this->db->join('tb_person', 'tb_person.id_person=tb_pengurus.id_person');
-        // $this->db->join('tb_jabatan', 'tb_jabatan.id_jabatan = tb_pengurus.id_jabatan');
-        // $this->db->where('status', 'aktif');
+        $this->db->join('tb_periode', 'tb_periode.id_periode=tb_pengurus.id_periode');
+        $this->db->join('tb_person', 'tb_person.id_person=tb_pengurus.id_person');
+        $this->db->join('tb_jabatan', 'tb_jabatan.id_jabatan = tb_pengurus.id_jabatan');
+        $this->db->where('tb_periode.id_periode', $id);
+        $this->db->where('tb_pengurus.status', 'aktif');
         $this->db->from('tb_pengurus');
         $query = $this->db->get();
         return $query->result();
@@ -35,8 +36,7 @@ class Mkoordinator extends CI_Model
 
     public function simpan_pengurus($data1)
     {
-        $this->db->insert('tb_pengurus', $data1);
-        return $this->db->insert_id();
+        return $this->db->insert('tb_pengurus', $data1);
     }
 
     public function simpan_akun($data2)
