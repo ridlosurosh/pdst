@@ -206,6 +206,14 @@ if (isset($this->session->userdata['logged_in'])) {
 						</li>
 						<li class="nav-header">LAPORAN DATA</li>
 						<li class="nav-item">
+							<a href="#" class="nav-link menu" onclick="grafik()" style="color: #333;">
+								<i class="fas  fa-folder-open nav-icon"></i>
+								<p>
+									Grafik
+								</p>
+							</a>
+						</li>
+						<li class="nav-item">
 							<a href="#" class="nav-link menu" onclick="cetak_person()" style="color: #333;">
 								<i class="fas  fa-clipboard nav-icon"></i>
 								<p>
@@ -213,14 +221,6 @@ if (isset($this->session->userdata['logged_in'])) {
 								</p>
 							</a>
 						</li>
-						<!-- <li class="nav-item">
-							<a href="#" class="nav-link menu" onclick="laporan()" style="color: #333;">
-								<i class="fas  fa-folder-open nav-icon"></i>
-								<p>
-									Person Perkamar
-								</p>
-							</a>
-						</li> -->
 					</ul>
 				</nav>
 			</div>
@@ -361,6 +361,12 @@ if (isset($this->session->userdata['logged_in'])) {
 		// koordinator
 		function menu_terima() {
 			$.post('<?= site_url('terima') ?>', function(Res) {
+				$('#ini_isinya').html(Res);
+			});
+		}
+
+		function grafik() {
+			$.post('<?= site_url('Cgrafik/menu_grafik') ?>', function(Res) {
 				$('#ini_isinya').html(Res);
 			});
 		}
