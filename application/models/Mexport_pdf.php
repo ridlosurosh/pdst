@@ -149,19 +149,31 @@ class Mexport_pdf extends CI_Model
 	// Pdf Pengajar
 	function cek_tahun_angkat($tahun)
 	{
+		$this->db->join('tb_person', 'tb_person.id_person=tb_guru_nubdah.id_person');
 		$this->db->from('tb_guru_nubdah');
+		// $this->db->where('tgl_daftar', $tahun);
 		$this->db->where("(SUBSTRING(tgl_diangkat, 0, 4) = '$tahun')");
 		$query = $this->db->get();
 		return $query->result();
 	}
 
-	public function pdf_pengajar($id, $jenis)
+	public function pdf_pengajar($jenis)
 	{
 		$this->db->join('tb_person', 'tb_person.id_person=tb_guru_nubdah.id_person');
-		$this->db->from('tb_guru_nubdah');
-		$this->db->where("(SUBSTRING(tgl_diangkat, 0, 4) = '$id')");
+		$this->db->where('status_guru_nubdah', 'Aktif');
+		// $this->db->where("(SUBSTRING(tgl_diangkat, 0, 4) = '$id')");
 		$this->db->where('jenis_kelamin', $jenis);
+		$this->db->from('tb_guru_nubdah');
 		$query = $this->db->get();
 		return $query->result();
 	}
+
+	// public function pengajar($jenis)
+	// {
+	// 	$this->db->join('tb_person', 'tb_person.id_person=tb_guru_nubdah.id_person');
+	// 	$this->db->from('tb_guru_nubdah');
+
+	// 	$query = $this->db->get();
+	// 	return $query->result();
+	// }
 }
