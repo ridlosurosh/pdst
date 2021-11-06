@@ -72,14 +72,6 @@ class Mexport_excel extends CI_Model
 		return $query->result();
 	}
 
-	public function kabupaten($id)
-	{
-		$this->db->from('kabupaten');
-		$this->db->where('id', $id);
-		$query = $this->db->get();
-		return $query->row();
-	}
-
 	public function excel_kabupaten($kabupaten, $jenis)
 	{
 		$this->db->where('status', 'aktif');
@@ -97,14 +89,6 @@ class Mexport_excel extends CI_Model
 		$this->db->where('kec', $kec);
 		$query = $this->db->get();
 		return $query->result();
-	}
-
-	public function kecamatan($id)
-	{
-		$this->db->from('kecamatan');
-		$this->db->where('id', $id);
-		$query = $this->db->get();
-		return $query->row();
 	}
 
 	public function excel_kecamatan($kecamatan, $jenis)
