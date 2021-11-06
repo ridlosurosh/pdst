@@ -5,7 +5,7 @@
                 <h1 class="m-0 text-dark">Grafik</h1>
 
             </div>
-            <div class="col-sm-6"><button class="float-right">ugi</button></div>
+            <div class="col-sm-6"><button class="float-right btn bg-gradient-info" onclick="grafik_wilayah()"><i class="fas fa-columns"></i> Grafik Wilayah</button></div>
         </div>
     </div>
 </section>
@@ -64,11 +64,11 @@
 
     })
 
-    // function grafik() {
-    //     $.post('<?= site_url('Cgrafik/menu_grafik') ?>', function(Res) {
-    //         $('#ini_isinya').html(Res);
-    //     });
-    // }
+    function grafik_wilayah() {
+        $.post('<?= site_url('Cgrafik/grafik_wilayah') ?>', function(Res) {
+            $('#ini_isinya').html(Res);
+        });
+    }
 
 
 
