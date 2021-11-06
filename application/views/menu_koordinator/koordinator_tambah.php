@@ -1,7 +1,7 @@
-<!-- <style>
+<style>
 	#toggle {
 		position: absolute;
-		top: 320px;
+		top: 55px;
 		right: 20px;
 		transform: translateY(-50%);
 		width: 30px;
@@ -15,8 +15,7 @@
 		background: url(plugin/dist/img/hide.png);
 		background-size: cover;
 	}
-</style> -->
-<style>
+
 	.ui-datepicker {
 		z-index: 9999 !important;
 	}
@@ -84,7 +83,7 @@
 												<button type="button" class="btn btn-sm btn-danger" title="Nonaktifkan" onclick="nonaktifkan('<?= $value->id_pengurus ?>')">
 													<i class="fas fa-user-slash"></i>
 												</button>
-												<button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#setting_pass" title="Setting Password">
+												<button type="button" class="btn btn-sm btn-warning" title="Setting Password" onclick="modal_akun('<?= $value->id_pengurus ?>')">
 													<i class="fas fa-cog"></i>
 												</button>
 											</div>
@@ -171,19 +170,35 @@
 			</div>
 			<form id="tambah_password">
 				<div class="modal-body">
+					<input type="hidden" id="id_pengurus" name="id_pengurus">
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
 								<label class="col-form-label" for="nama_pengajar">Username</label>
-								<input type="text" class="form-control nama_santri" name="username" id="nama_santri" placeholder="Username" style="width: 100%;" autocomplete="off">
+								<input type="text" class="form-control " name="username" id="username" placeholder="Username" style="width: 100%;" autocomplete="off">
 							</div>
 						</div>
 
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="tanggal" class="col-form-label">Password</label>
-								<input type="text" class="form-control" id="jabatan" name="password" placeholder="Password">
+								<input type="password" class="form-control" id="password" name="password" placeholder="Password">
+								<div id="toggle" onclick="showHide();"></div>
 							</div>
+							<script>
+								var password = document.getElementById('password');
+								var toggle = document.getElementById('toggle');
+
+								function showHide() {
+									if (password.type === 'password') {
+										password.setAttribute('type', 'text');
+										toggle.classList.add('hide')
+									} else {
+										password.setAttribute('type', 'password');
+										toggle.classList.remove('hide')
+									}
+								}
+							</script>
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -258,6 +273,24 @@
 		$('#staticBackdrop').modal('show');
 		$('#jabatan').val(jabatan);
 		$('#id_jabatan').val(id);
+
+	}
+
+	function modal_akun(id) {
+		$.ajax({
+			url: '<?= site_url('Ckoordinator/akun_id') ?>',
+			data: {
+				id: id
+			},
+			type: 'post',
+			dataType: 'Json',
+			success: function(data) {
+				$('#setting_pass').modal('show');
+				$('#id_pengurus').val(data.id);
+				$('#username').val(data.username);
+				$('#password').val(data.password);
+			}
+		})
 
 	}
 
@@ -462,7 +495,7 @@
 							type: "success"
 						}).then(okay => {
 							if (okay) {
-								tambah_koordinator(data.id, $('#oo').val());
+								tambah_koordinator($('#periode').val(), $('#oo').val());
 							}
 						});
 					} else {
