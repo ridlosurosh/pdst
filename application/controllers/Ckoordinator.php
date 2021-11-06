@@ -252,7 +252,7 @@ class Ckoordinator extends CI_Controller
     public function nonaktifkan_koordinator()
     {
         $id = $this->input->post('id');
-        $tanggal = date('Y-m-d');
+        $tanggal = date('Y-d-m');
         $data = array(
             'status' => "tidak aktif",
             'tanggal_berhenti' => $tanggal
