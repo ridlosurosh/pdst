@@ -365,14 +365,8 @@ if (isset($this->session->userdata['logged_in'])) {
 			});
 		}
 
-		function laporan() {
-			$.post('<?= site_url('Claporan/santri_kamar') ?>', function(Res) {
-				$('#ini_isinya').html(Res);
-			});
-		}
-
 		function cetak_person() {
-			$.post('<?= site_url('Claporan/santri_provinsi') ?>', function(Res) {
+			$.post('<?= site_url('Cexport_pdf/cetak_person') ?>', function(Res) {
 				$('#ini_isinya').html(Res);
 			});
 		}
