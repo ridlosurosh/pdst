@@ -15,14 +15,14 @@
 					<div class="card">
 						<div class="card-body">
 							<div class="row">
-								<div class="col-md-6">
+								<div class="col-md-12">
 									<input type="hidden" name="idjabatan" value="<?= $id_jabatan ?>">
 									<div class="form-group row">
 										<label for="nama_jabatan" class="col-form-label">Nama Jabatan</label>
 										<input type="text" class="form-control" id="nama_jabatan" name="nama_jabatan" value="<?= $nm_jabatan ?>">
 									</div>
 								</div>
-								<div class="col-md-6">
+								<!-- <div class="col-md-6">
 									<div class="form-group">
 										<label for="tahun_jabatan" class="col-form-label">Tahun Diadakan</label>
 										<div class="form-line">
@@ -34,7 +34,7 @@
 											</div>
 										</div>
 									</div>
-								</div>
+								</div> -->
 							</div>
 						</div>
 						<div class="card-footer">
