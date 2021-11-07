@@ -33,7 +33,7 @@
             } else {
                 $data = array(
                     'nm_jabatan' => $jbtn,
-                    'thn_dibuat' => $this->input->post('tahun_jabatan'),
+                    // 'thn_dibuat' => $this->input->post('tahun_jabatan'),
                     'status' => "Aktif"
                 );
                 $this->Mjabatan->simpan_jabatan($data);
@@ -68,7 +68,7 @@
             // } else {
             $data = array(
                 'nm_jabatan' => $this->input->post('nama_jabatan'),
-                'thn_dibuat' => $this->input->post('tahun_jabatan'),
+                // 'thn_dibuat' => $this->input->post('tahun_jabatan'),
             );
             $this->Mjabatan->edit_jabatan(array('id_jabatan' => $id), $data);
             $pesan = "ya";
