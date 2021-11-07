@@ -17,7 +17,6 @@
 					<tr>
 						<th>NO</th>
 						<th>NAMA JABATAN</th>
-						<th>TAHUN DIADAKAN</th>
 						<th>AKSI</th>
 					</tr>
 				</thead>
@@ -28,7 +27,6 @@
 						<tr>
 							<td><?= $no++ ?></td>
 							<td><?= $value->nm_jabatan ?></td>
-							<td><?= $value->thn_dibuat ?></td>
 							<td>
 								<div class="btn-group">
 									<button class="btn btn-sm btn-warning" title="Edit" onclick="form_edit_jabatan('<?= $value->id_jabatan ?>')"><i class="fas fa-edit"></i></button>
