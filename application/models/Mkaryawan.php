@@ -19,6 +19,12 @@ class Mkaryawan extends CI_Model
         $this->db->insert('tb_karyawan', $data);
     }
 
+    public function periode_baru()
+    {
+        $query = $this->db->query('SELECT id_periode FROM `tb_periode` ORDER BY id_periode DESC LIMIT 1');
+        return $query->row();
+    }
+
     public function otomatis_santri()
     {
         $this->db->from('tb_person');
