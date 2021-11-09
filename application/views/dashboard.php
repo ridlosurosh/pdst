@@ -72,7 +72,7 @@ if (isset($this->session->userdata['logged_in'])) {
 					</a>
 					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right dropdown-menu-left">
 						<span class="dropdown-item dropdown-header  ">
-							<h5>Provile</h5>
+							<h5>Profile</h5>
 						</span>
 						<div class="card-body pt-3 ">
 							<div class="row">

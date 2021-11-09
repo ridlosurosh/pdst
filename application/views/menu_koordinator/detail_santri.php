@@ -19,7 +19,7 @@
         <div class="row">
             <div class="card col-12">
                 <div class="card-header">
-                    <button onclick="menu_koordinator()" class="btn btn-danger btn-sm" style="color: #fff;"><i class="fas fa-reply"></i> Kembali</button>
+                    <button onclick="tambah_koordinator('<?= $id_periode ?>','<?= $periode ?>')" class="btn btn-danger btn-sm" style="color: #fff;"><i class="fas fa-reply"></i> Kembali</button>
                 </div>
                 <div class="card-body" style="font-size: 16px;">
                     <div class="row ">

@@ -8,10 +8,15 @@ class Mpengajar extends CI_Model
     {
         $this->db->join('tb_person', 'tb_person.id_person=tb_guru_nubdah.id_person');
         $this->db->where('status_guru_nubdah', 'Aktif');
-        // $this->db->where('jenis_kelamin', 'Laki-Laki');
         $this->db->from('tb_guru_nubdah');
         $query = $this->db->get();
         return $query->result();
+    }
+
+    public function periode_baru()
+    {
+        $query = $this->db->query('SELECT id_periode FROM `tb_periode` ORDER BY id_periode DESC LIMIT 1');
+        return $query->row();
     }
 
     public function ui_pengajar($cari, $dat)

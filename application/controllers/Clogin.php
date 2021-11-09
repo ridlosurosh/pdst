@@ -35,7 +35,7 @@ class Clogin extends CI_Controller
         } else {
             $data_login = array(
                 'username' => $this->input->post('username'),
-                'password' => $this->input->post('password')
+                'password' => base64_encode($this->input->post('password'))
             );
             $result = $this->Mpetugas->login($data_login);
             if ($result == TRUE) {

@@ -104,11 +104,5 @@ function tgl_indo($tanggal)
     </div>
 </section>
 <script>
-    function bio_koordinator(id) {
-        $.post('<?= site_url('Ckoordinator/detail_santri') ?>', {
-            idperson: id
-        }, function(Res) {
-            $('#ini_isinya').html(Res);
-        });
-    }
+
 </script>

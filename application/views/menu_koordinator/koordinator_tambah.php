@@ -77,7 +77,7 @@
 
 										<td>
 											<div class="btn-group">
-												<button type="button" class="btn btn-sm btn-info" title="Info" onclick="detail_koordinator('<?= $value->id_pengurus ?>')">
+												<button type="button" class="btn btn-sm btn-info" title="Info" onclick="bio_koordinator('<?= $value->id_person ?>','<?= $id_periode ?>','<?= $periode ?>')">
 													<i class="fas fa-info-circle"></i>
 												</button>
 												<button type="button" class="btn btn-sm btn-danger" title="Nonaktifkan" onclick="nonaktifkan('<?= $value->id_pengurus ?>')">
@@ -174,7 +174,7 @@
 					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group">
-								<label class="col-form-label" for="nama_pengajar">Username</label>
+								<label class="col-form-label" for="nama_pengajar">Name</label>
 								<input type="text" class="form-control " name="name" id="name" placeholder="Username" style="width: 100%;" autocomplete="off">
 							</div>
 						</div>
@@ -219,6 +219,16 @@
 </div>
 
 <script>
+	function bio_koordinator(id, u, o) {
+		$.post('<?= site_url('Ckoordinator/detail_santri') ?>', {
+			idperson: id,
+			i: u,
+			l: o
+		}, function(Res) {
+			$('#ini_isinya').html(Res);
+		});
+	}
+
 	$(function() {
 		$('#tanggal').datepicker({
 			dateFormat: 'dd-mm-yy'
