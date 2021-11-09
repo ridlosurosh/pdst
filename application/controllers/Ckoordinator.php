@@ -167,7 +167,7 @@ class Ckoordinator extends CI_Controller
     {
         $id = $this->input->post('id');
         $data = $this->Mkoordinator->akun_id($id);
-        $pass = $data->password;
+        $pass = base64_decode($data->password);
         // $en = $this->encryption->decrypt($pass);
         $output = array(
             'id' => $data->id_pengurus,
@@ -183,10 +183,10 @@ class Ckoordinator extends CI_Controller
         $id =  $this->input->post('id_pengurus');
         $user = $this->input->post('username');
         $pass = $this->input->post('password');
-        // $pass_e = $this->encryption->encrypt($pass);
+        $pass_e = base64_encode($pass);
         $data = array(
             'username' => $user,
-            'password' => $pass
+            'password' => $pass_e
         );
         $this->Mkoordinator->simpan_akun_id(array('id_pengurus' => $id), $data);
         $pesan = 'ya';
