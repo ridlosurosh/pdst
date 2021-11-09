@@ -93,7 +93,7 @@ foreach ($kamar as $jc) {
             ],
             datasets: [{
                 data: [<?= $pengurus ?>, <?= $karyawan ?>, <?= $pengajar ?>],
-                backgroundColor: ['#091353', '#9D84B7', '#D5D5D5'],
+                backgroundColor: ['#4dc3ff', '#0099e6', '#1affff'],
             }]
         }
         var donutOptions = {
@@ -115,13 +115,13 @@ foreach ($kamar as $jc) {
             labels: <?php echo json_encode($nama); ?>,
             datasets: [{
                 label: 'Santri',
-                backgroundColor: 'rgb(51, 51, 204)',
+                backgroundColor: 'rgb(0, 153, 255)',
                 borderColor: 'rgb(255, 255, 255)',
                 pointRadius: true,
-                pointColor: '#3b8bba',
-                pointStrokeColor: 'rgba(60,141,188,1)',
+                pointColor: '#0099ff',
+                pointStrokeColor: 'rgb(0, 153, 255)',
                 pointHighlightFill: '#fff',
-                pointHighlightStroke: 'rgba(60,141,188,1)',
+                pointHighlightStroke: 'rgb(0, 153, 255)',
                 data: <?php echo json_encode($jmlsantri); ?>
             }]
         }
