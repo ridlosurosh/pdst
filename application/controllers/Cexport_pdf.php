@@ -48,7 +48,7 @@ class Cexport_pdf extends CI_Controller
         $pdf->Cell(0, 6, 'DATA SANTRI ' . strtoupper($jenis) . ' ' . 'TAHUN ANGKATAN ' . $id, 0, 1, 'C');
         $pdf->Cell(10, 0, '', 0, 1);
 
-        $pdf->SetFont('Arial', 'B', 8);
+        $pdf->SetFont('Arial', 'B', 12);
         $pdf->SetX(15);
         $pdf->Cell(0, 6, '#Update' . date('M_Y'), 0, 1, 'C');
         $pdf->Cell(10, 5, '', 0, 1);
@@ -101,7 +101,7 @@ class Cexport_pdf extends CI_Controller
         $pdf->Cell(0, 6, 'DATA SANTRI ' . strtoupper($jenis) . ' ' . 'DARI ' . $prov->name, 0, 1, 'C');
         $pdf->Cell(10, 0, '', 0, 1);
 
-        $pdf->SetFont('Arial', 'B', 8);
+        $pdf->SetFont('Arial', 'B', 12);
         $pdf->SetX(15);
         $pdf->Cell(0, 6, '#Update' . date('M_Y'), 0, 1, 'C');
         $pdf->Cell(10, 5, '', 0, 1);
@@ -154,7 +154,7 @@ class Cexport_pdf extends CI_Controller
         $pdf->Cell(0, 6, 'DATA SANTRI ' . strtoupper($jenis) . ' ' . 'DARI ' . $kab->name, 0, 1, 'C');
         $pdf->Cell(10, 1, '', 0, 1);
 
-        $pdf->SetFont('Arial', 'B', 8);
+        $pdf->SetFont('Arial', 'B', 12);
         $pdf->SetX(15);
         $pdf->Cell(0, 6, '#Update' . date('M_Y'), 0, 1, 'C');
         $pdf->Cell(10, 5, '', 0, 1);
@@ -207,7 +207,7 @@ class Cexport_pdf extends CI_Controller
         $pdf->Cell(0, 6, 'DATA SANTRI ' . strtoupper($jenis) . ' ' . 'DARI KECAMATAN ' . $kec->name, 0, 1, 'C');
         $pdf->Cell(10, 1, '', 0, 1);
 
-        $pdf->SetFont('Arial', 'B', 8);
+        $pdf->SetFont('Arial', 'B', 12);
         $pdf->SetX(15);
         $pdf->Cell(0, 6, '#Update' . date('M_Y'), 0, 1, 'C');
         $pdf->Cell(10, 5, '', 0, 1);
@@ -260,7 +260,7 @@ class Cexport_pdf extends CI_Controller
         $pdf->Cell(0, 6, 'DATA PENGURUS ' . strtoupper($jenis) . ' ' . 'PERIODE ' . $per->periode, 0, 1, 'C');
         $pdf->Cell(10, 1, '', 0, 1);
 
-        $pdf->SetFont('Arial', 'B', 8);
+        $pdf->SetFont('Arial', 'B', 12);
         $pdf->SetX(15);
         $pdf->Cell(0, 6, '#Update' . date('M_Y'), 0, 1, 'C');
         $pdf->Cell(10, 5, '', 0, 1);
@@ -314,7 +314,7 @@ class Cexport_pdf extends CI_Controller
         $pdf->Cell(0, 6, 'DATA PENGAJAR ' . strtoupper($jenis) . ' ANGKATAN TAHUN ' . $id, 0, 1, 'C');
         $pdf->Cell(10, 1, '', 0, 1);
 
-        $pdf->SetFont('Arial', 'B', 8);
+        $pdf->SetFont('Arial', 'B', 12);
         $pdf->SetX(15);
         $pdf->Cell(0, 6, '#Update' . date('M_Y'), 0, 1, 'C');
         $pdf->Cell(10, 5, '', 0, 1);
@@ -364,7 +364,7 @@ class Cexport_pdf extends CI_Controller
         $pdf->Cell(0, 6, 'DATA KARYAWAN ' . strtoupper($jenis) . ' INSTANSI ' . $id, 0, 1, 'C');
         $pdf->Cell(10, 1, '', 0, 1);
 
-        $pdf->SetFont('Arial', 'B', 8);
+        $pdf->SetFont('Arial', 'B', 12);
         $pdf->SetX(15);
         $pdf->Cell(0, 6, '#Update' . date('M_Y'), 0, 1, 'C');
         $pdf->Cell(10, 5, '', 0, 1);
@@ -412,7 +412,7 @@ class Cexport_pdf extends CI_Controller
         $pdf->Cell(0, 6, 'DATA ALUMNI ' . strtoupper($jenis) . ' ' . ' KELUAR TAHUN ' . $id, 0, 1, 'C');
         $pdf->Cell(10, 0, '', 0, 1);
 
-        $pdf->SetFont('Arial', 'B', 8);
+        $pdf->SetFont('Arial', 'B', 12);
         $pdf->SetX(15);
         $pdf->Cell(0, 6, '#Update' . date('M_Y'), 0, 1, 'C');
         $pdf->Cell(10, 5, '', 0, 1);
