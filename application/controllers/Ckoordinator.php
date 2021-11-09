@@ -124,7 +124,7 @@ class Ckoordinator extends CI_Controller
     public function simpan_koordinator()
     {
 
-        $tgl = $this->input->post('tanggal_berhenti');
+        // $tgl = ;
         $jabatan = $this->input->post('id_jabatan');
         $periode = $this->input->post('periode');
         $ketum = $this->db->where('id_jabatan', $jabatan)
@@ -139,8 +139,8 @@ class Ckoordinator extends CI_Controller
             $data1 = array(
                 'id_person' => $this->input->post('idperson'),
                 'id_jabatan' => $this->input->post('id_jabatan'),
-                'tanggal_diangkat' => date('Y-d-m', strtotime($this->input->post('tanggal_diangkat'))),
-                'tanggal_berhenti' => date('Y-m-d', strtotime($tgl)),
+                'tanggal_diangkat' => date('Y-m-d', strtotime($this->input->post('tanggal_diangkat'))),
+                'tanggal_berhenti' => date('Y-m-d', strtotime($this->input->post('tanggal_berhenti'))),
                 'id_periode' => $this->input->post('periode'),
                 'status' => "aktif",
             );
@@ -263,7 +263,11 @@ class Ckoordinator extends CI_Controller
     public function detail_santri()
     {
         $id = $this->input->post('idperson');
+        $u = $this->input->post('i');
+        $i = $this->input->post('l');
         $data = array(
+            'id_periode' => $u,
+            'periode' => $i,
             'data' => $this->Mkoordinator->santri_idx($id),
             'data_alamat' => $this->Mkoordinator->alamat_wali($id),
             'mahrom' => $this->Mkoordinator->data_mahrom($id),
