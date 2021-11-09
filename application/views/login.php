@@ -37,6 +37,21 @@
             background: url(plugin/dist/img/hide.png);
             background-size: cover;
         }
+
+        .logo {
+            box-shadow: 5px 5px 5px 5px black;
+            /* width: 150px;
+            height: 150px; */
+            padding: 0 !important;
+            /* !important; */
+        }
+
+        #image {
+            position: relative;
+            margin-left: 25%;
+            width: 50%;
+
+        }
     </style>
 </head>
 
@@ -44,16 +59,15 @@
     <div class="content">
         <div class="container">
             <div class="row">
-                <div class="col-md-6 order-md-2">
-                    <img src="<?= site_url() ?>plugin/asset/images/PDST.png" alt="Image" class="img-fluid">
-                </div>
-                <div class="col-md-6 contents">
+
+                <div class="col-md-6 offset-3  contents">
                     <div class="row justify-content-center">
-                        <div class="col-md-8">
-                            <div class="mb-4">
-                                <h3><strong>Selamat Datang</strong></h3>
-                                <p class="mb-4">Di Pusat Data Santri Terpadu Pondok Pesantren Nurul Abror Al-Robbaniyin.</p>
+                        <div class="col-md-2">
+                            <div class="logo mb-4">
+                                <img src="plugin/dist/img/pdst.png" alt="" id="image">
                             </div>
+                        </div>
+                        <div class="col-md-8">
                             <form id="form_login">
                                 <div class="form-group first">
                                     <label for="username">Username</label>
