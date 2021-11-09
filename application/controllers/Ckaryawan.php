@@ -42,9 +42,12 @@ class Ckaryawan extends CI_Controller
 
     public function otomatis_karyawan()
     {
+        $per = $this->Mkaryawan->periode_baru();
+        $jjj = $per->id_periode;
         $id_pengurus_lawas = $this->db->select('id_person')
             ->from('tb_pengurus')
             ->where('status', 'Aktif')
+            ->where('id_periode', $jjj)
             ->get();
         $id_guru_lawas = $this->db->select('id_person')
             ->from('tb_guru_nubdah')
