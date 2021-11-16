@@ -62,12 +62,15 @@
 
                 <div class="col-md-6 offset-3  contents">
                     <div class="row justify-content-center">
-                        <div class="col-md-2">
-                            <div class="logo mb-4">
-                                <img src="plugin/dist/img/pdst.png" alt="" id="image">
-                            </div>
-                        </div>
+
                         <div class="col-md-8">
+                            <div class="mb-5 offset-4">
+                                <a href="#">
+                                    <img src="plugin/dist/img/pdst_logo.png" alt="" style="width: 50%;">
+                                </a>
+
+                            </div>
+                            <!-- <span>Pusat Data Santri Terpadu</span> -->
                             <form id="form_login">
                                 <div class="form-group first">
                                     <label for="username">Username</label>
@@ -92,7 +95,7 @@
                                         }
                                     }
                                 </script>
-                                <input type="button" value="Masuk" id="masuk" class="btn text-white btn-block btn-primary mt-5">
+                                <input type="button" value="Login" id="masuk" class="btn text-white btn-block btn-secondary mt-5">
                             </form>
                         </div>
                     </div>
@@ -101,7 +104,17 @@
 
             </div>
         </div>
+
     </div>
+    <div class="footer">
+        <!-- <footer class="main-footer"> -->
+        <div class="container-fluid  text-center">
+            <strong>&copy; 2020 <a href="https://adminlte.io">Pdst_naa</a>. All Right Reserved</strong>
+        </div>
+        <!-- </footer> -->
+
+    </div>
+
     <script src="<?= site_url() ?>plugin/asset/js/jquery-3.3.1.min.js"></script>
     <script src="<?= site_url() ?>plugin/asset/js/popper.min.js"></script>
     <script src="<?= site_url() ?>plugin/asset/js/bootstrap.min.js"></script>
@@ -116,8 +129,8 @@
                 type: 'error',
                 title: 'PDST NAA',
                 text: teks,
-                showConfirmButton: false,
-                timer: 1500
+                showConfirmButton: true,
+                // timer: 1500
             })
         }
         $(document).ready(function() {
