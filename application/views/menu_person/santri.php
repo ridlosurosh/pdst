@@ -7,6 +7,7 @@
 		</div>
 	</div>
 </section>
+
 <section class="content">
 	<div class="col-sm-3"></div>
 	<div class="contianer-fluid">
@@ -54,6 +55,9 @@
 								ALAMAT
 							</th>
 							<th>
+								QR CODE
+							</th>
+							<th>
 								AKSI
 							</th>
 						</tr>
@@ -67,6 +71,16 @@
 								<td><?= $value->niup ?></td>
 								<td><?= $value->nama ?></td>
 								<td><?= $value->alamat_lengkap ?></td>
+								<td>
+									<?php
+									if ($value->qr_code_niup != null) {
+										$qr_code = "gambar/qr_code/".$value->qr_code_niup;
+									} else {
+										$qr_code = "plugin/dist/img/naa_logo.jpg";
+									}
+									?>
+                                    <img src="<?= site_url() ?><?= $qr_code?>" id="gambar_foto" width="50" alt="Preview Gambar">
+								</td>
 								<td>
 									<div class="btn-group">
 										<button type="button" class="btn btn-sm btn-info" title="Detail" onclick="detail_santri('<?= $value->id_person ?>')">

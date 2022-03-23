@@ -266,10 +266,50 @@ class Cperson extends CI_Controller
             $nomor_induk_baru = substr($kode, 0, $panjang) . $countsantri_terakhir;
         }
         $niupnya = $nomor_induk_baru;
+
+
+
+        // qr code
+            //  random nama Qr code di database
+            function randomAngka($length)
+            {
+                $str        = "";
+                $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789';
+                $max        = strlen($characters) - 1;
+                        for ($i = 0; $i < $length; $i++) {
+                            $rand = mt_rand(0, $max);
+                            $str .= $characters[$rand];
+                        }
+                return $str;
+            }
+
+
+        $this->load->library('ciqrcode'); 
+        $config['cacheable']    = true; 
+        $config['cachedir']     = './gambar/'; 
+        $config['errorlog']     = './gambar/'; 
+        $config['imagedir']     = './gambar/qr_code/'; 
+        $config['quality']      = true; 
+        $config['size']         = '1024'; 
+        $config['black']        = array(224,255,255); 
+        $config['white']        = array(70,130,180); 
+        $this->ciqrcode->initialize($config);
+
+        
+        $qr_name_db= randomAngka(10). $kodenya . randomAngka(10) . $niupnya.'.png'; 
+
+        $params['data'] =  $kodenya . $niupnya; 
+        $params['level'] = 'H'; 
+        $params['size'] = 10;
+        $params['savename'] = FCPATH.$config['imagedir'].$qr_name_db; 
+        $this->ciqrcode->generate($params);
+
+
         $data1 = array(
             'niup' => $kodenya . $niupnya,
             'status' => "aktif",
-            'tgl_daftar' => date('Y-m-d H:i:s')
+            'tgl_daftar' => date('Y-m-d H:i:s'),
+            'qr_code_niup' => $qr_name_db
         );
         $this->Mperson->simpan_santri_v2(array('id_person' => $id), $data1);
     }
@@ -515,8 +555,49 @@ class Cperson extends CI_Controller
     public function selesai_untuk_edit()
     {
         $id = $this->input->post('o');
+        $kodenya = $this->input->post('kodenya');
+        $d = $this->db->get_where('tb_person', ['id_person' => $id])->row_object();
+        $r = substr($d->niup, 2,16);
+        $t = $kodenya.$r;
+
+        // qr code
+            //  random nama Qr code di database
+            function randomAnk($length)
+            {
+                $str        = "";
+                $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789';
+                $max        = strlen($characters) - 1;
+                        for ($i = 0; $i < $length; $i++) {
+                            $rand = mt_rand(0, $max);
+                            $str .= $characters[$rand];
+                        }
+                return $str;
+            }
+
+
+        $this->load->library('ciqrcode'); 
+        $config['cacheable']    = true; 
+        $config['cachedir']     = './gambar/'; 
+        $config['errorlog']     = './gambar/'; 
+        $config['imagedir']     = './gambar/qr_code/'; 
+        $config['quality']      = true; 
+        $config['size']         = '1024'; 
+        $config['black']        = array(224,255,255); 
+        $config['white']        = array(70,130,180); 
+        $this->ciqrcode->initialize($config);
+
+        
+        $qr_name_db= randomAnk(10). $kodenya . randomAnk(10) . $r.'.png'; 
+
+        $params['data'] =  $t; 
+        $params['level'] = 'H'; 
+        $params['size'] = 10;
+        $params['savename'] = FCPATH.$config['imagedir'].$qr_name_db; 
+        $this->ciqrcode->generate($params);
+
         $data1 = array(
-            'status' => "aktif"
+            'status' => "aktif",
+            'qr_code_niup' => $qr_name_db
         );
         $this->Mperson->simpan_santri_v2(array('id_person' => $id), $data1);
     }
