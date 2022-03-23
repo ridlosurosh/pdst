@@ -83,7 +83,16 @@
 				<button type="button" class="btn btn-danger" onclick="menu_santri()"><i class="fas fa-reply"></i> Kembali Ke Data Santri</button>
 				<div class="float-right">
 					<form id="form_selesai_2">
+						<?php 
+						if ($santri->jenis_kelamin === "Laki-Laki") {
+							$jenis = "01";
+						}else{
+							$jenis = "02";
+						}
+						?>
 						<input type="hidden" name="o" value="<?= $santri->id_person ?>">
+						<input type="hidden" name="kodenya" value="<?= $jenis ?>">
+						
 					</form>
 					<button type="button" onclick="kembali_S('<?= $santri->id_person ?>')" class="btn btn-info"><i class="fas fa-arrow-left"></i> Kembali</button>
 					<button type="button" class="btn btn-info" id="btn_selesai" onclick="selesai()"><i class="fas fa-check"></i> Selesai</button>

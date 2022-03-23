@@ -555,10 +555,21 @@ class Cperson extends CI_Controller
     public function selesai_untuk_edit()
     {
         $id = $this->input->post('o');
-        $kodenya = $this->input->post('kodenya');
+        // $kodenya = $this->input->post('kodenya');
         $d = $this->db->get_where('tb_person', ['id_person' => $id])->row_object();
-        $r = substr($d->niup, 2,16);
-        $t = $kodenya.$r;
+        if ($d->jenis_kelamin === "Laki-Laki") {
+            $kel = "01";
+        }else{
+            $kel = "02";
+        }
+        $kode_kel = substr($d->niup, 0, 2);
+        $koden = substr($d->niup, 2, 16);
+
+        if ($kode_kel === $kel) {
+            $t = $d->niup;
+        }else{
+            $t = $kel. $koden;
+        }
 
         // qr code
             //  random nama Qr code di database
@@ -587,7 +598,7 @@ class Cperson extends CI_Controller
         $this->ciqrcode->initialize($config);
 
         
-        $qr_name_db= randomAnk(10). $kodenya . randomAnk(10) . $r.'.png'; 
+        $qr_name_db= randomAnk(10). $kel . randomAnk(10) . $koden.'.png'; 
 
         $params['data'] =  $t; 
         $params['level'] = 'H'; 
@@ -595,11 +606,24 @@ class Cperson extends CI_Controller
         $params['savename'] = FCPATH.$config['imagedir'].$qr_name_db; 
         $this->ciqrcode->generate($params);
 
-        $data1 = array(
-            'status' => "aktif",
-            'qr_code_niup' => $qr_name_db
-        );
-        $this->Mperson->simpan_santri_v2(array('id_person' => $id), $data1);
+        if ($d->qr_code_niup != null) {
+            unlink('gambar/qr_code/'.$d->qr_code_niup);
+            $data1 = array(
+                'status' => "aktif",
+                'niup' => $t,
+                'qr_code_niup' => $qr_name_db
+            );
+            $this->Mperson->simpan_santri_v2(array('id_person' => $id), $data1);
+            
+        } else {
+            $data1 = array(
+                'status' => "aktif",
+                'niup' => $t,
+                'qr_code_niup' => $qr_name_db
+            );
+            $this->Mperson->simpan_santri_v2(array('id_person' => $id), $data1);
+        }
+
     }
 
     //  Fitur form upload berkas
