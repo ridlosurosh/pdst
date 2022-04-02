@@ -574,18 +574,23 @@ class Cperson extends CI_Controller
     public function selesai_untuk_edit()
     {
         $id = $this->input->post('o');
-        // $kodenya = $this->input->post('kodenya');
-        // $d = $this->db->get_where('tb_person', ['id_person' => $id])->row_object();
-        // $r = substr($d->niup, 2,16);
-        // $t = $kodenya.$r;
+        $d = $this->db->get_where('tb_person', ['id_person' => $id])->row_object();
+        if ($d->jenis_kelamin === "Laki-Laki") {
+            $kel = "01"; 
+        }else{
+            $kel = "02";
+        }
+        $kode_kel = substr($d->niup, 0, 2);
+        $koden = substr($d->niup, 2, 16);
 
-        // qr code
-            //  random nama Qr code di database
-
+        if ($kode_kel === $kel) {
+            $t = $d->niup;
+        }else{
+            $t = $kel. $koden;
+        }
 
         $data1 = array(
-            'status' => "aktif",
-            // 'qr_code_niup' => ""
+            'niup' => $t
         );
         $this->Mperson->simpan_santri_v2(array('id_person' => $id), $data1);
     }
