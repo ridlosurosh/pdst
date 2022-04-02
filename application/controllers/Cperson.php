@@ -284,7 +284,7 @@ class Cperson extends CI_Controller
 
             $imgname = randomAnk(20).'.png';
             $data = $niupnya;
-            $logo = "plugin/dist/img/logoNaa.png";
+            $logo = "plugin/dist/img/logonaa.png";
             QRcode::png($data,$imgname,QR_ECLEVEL_H,50,2);
             
             // === Adding image to qrcode
