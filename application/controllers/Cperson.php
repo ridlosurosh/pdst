@@ -589,13 +589,8 @@ class Cperson extends CI_Controller
             $t = $kel. $koden;
         }
 
-        // qr code
-            //  random nama Qr code di database
-
-
         $data1 = array(
-            'status' => "aktif",
-            // 'qr_code_niup' => ""
+            'niup' => $t
         );
         $this->Mperson->simpan_santri_v2(array('id_person' => $id), $data1);
     }
