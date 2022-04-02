@@ -267,49 +267,68 @@ class Cperson extends CI_Controller
         }
         $niupnya = $nomor_induk_baru;
 
+        function randomAnk($length)
+        {
+            $str        = "";
+            $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789';
+            $max        = strlen($characters) - 1;
+                    for ($i = 0; $i < $length; $i++) {
+                        $rand = mt_rand(0, $max);
+                        $str .= $characters[$rand];
+                    }
+            return $str;
+        }
+    
+        $this->load->library('Qrcodemake');
+            $temp = "gambar/qr_code/";
 
-
-        // qr code
-            //  random nama Qr code di database
-            function randomAngka($length)
-            {
-                $str        = "";
-                $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789';
-                $max        = strlen($characters) - 1;
-                        for ($i = 0; $i < $length; $i++) {
-                            $rand = mt_rand(0, $max);
-                            $str .= $characters[$rand];
-                        }
-                return $str;
+            $imgname = randomAnk(20).'.png';
+            $data = $niupnya;
+            $logo = "plugin/dist/img/logoNaa.png";
+            QRcode::png($data,$imgname,QR_ECLEVEL_H,50,2);
+            
+            // === Adding image to qrcode
+            $QR = imagecreatefrompng($imgname);
+            if($logo !== FALSE){
+                $logopng = imagecreatefrompng($logo);
+                $QR_width = imagesx($QR);
+                $QR_height = imagesy($QR);
+                $logo_width = imagesx($logopng);
+                $logo_height = imagesy($logopng);
+                
+                list($newwidth, $newheight) = getimagesize($logo);
+                $out = imagecreatetruecolor($QR_width, $QR_width);
+                imagecopyresampled($out, $QR, 0, 0, 0, 0, $QR_width, $QR_height, $QR_width, $QR_height);
+                imagecopyresampled($out, $logopng, $QR_width/2.65, $QR_height/2.65, 0, 0, $QR_width/4, $QR_height/4, $newwidth, $newheight);
+                
             }
+            imagepng($out ,$temp.$imgname);
+            imagedestroy($out);
+            unlink($imgname);
 
-
-        $this->load->library('ciqrcode'); 
-        $config['cacheable']    = true; 
-        $config['cachedir']     = './gambar/'; 
-        $config['errorlog']     = './gambar/'; 
-        $config['imagedir']     = './gambar/qr_code/'; 
-        $config['quality']      = true; 
-        $config['size']         = '1024'; 
-        $config['black']        = array(224,255,255); 
-        $config['white']        = array(70,130,180); 
-        $this->ciqrcode->initialize($config);
-
-        
-        $qr_name_db= randomAngka(10). $kodenya . randomAngka(10) . $niupnya.'.png'; 
-
-        $params['data'] =  $kodenya . $niupnya; 
-        $params['level'] = 'H'; 
-        $params['size'] = 10;
-        $params['savename'] = FCPATH.$config['imagedir'].$qr_name_db; 
-        $this->ciqrcode->generate($params);
-
+            
+            // // === Change image color
+            // $im = imagecreatefrompng($imgname);
+            // $r = 44;$g = 62;$b = 80;
+            // for($x=0;$x<imagesx($im);++$x){
+            //     for($y=0;$y<imagesy($im);++$y){
+            //         $index     = imagecolorat($im, $x, $y);
+            //         $c       = imagecolorsforindex($im, $index);
+            //         if(($c['red'] < 100) && ($c['green'] < 100) && ($c['blue'] < 100)) { // dark colors
+            //             // here we use the new color, but the original alpha channel
+            //             $colorB = imagecolorallocatealpha($im, 0x12, 0x2E, 0x31, $c['alpha']);
+            //             imagesetpixel($im, $x, $y, $colorB);
+            //         }
+            //     }
+            // }
+            // imagepng($im,$imgname);
+            // imagedestroy($im);
 
         $data1 = array(
             'niup' => $kodenya . $niupnya,
             'status' => "aktif",
             'tgl_daftar' => date('Y-m-d H:i:s'),
-            'qr_code_niup' => $qr_name_db
+            'qr_code_niup' => $imgname
         );
         $this->Mperson->simpan_santri_v2(array('id_person' => $id), $data1);
     }
@@ -556,74 +575,19 @@ class Cperson extends CI_Controller
     {
         $id = $this->input->post('o');
         // $kodenya = $this->input->post('kodenya');
-        $d = $this->db->get_where('tb_person', ['id_person' => $id])->row_object();
-        if ($d->jenis_kelamin === "Laki-Laki") {
-            $kel = "01";
-        }else{
-            $kel = "02";
-        }
-        $kode_kel = substr($d->niup, 0, 2);
-        $koden = substr($d->niup, 2, 16);
-
-        if ($kode_kel === $kel) {
-            $t = $d->niup;
-        }else{
-            $t = $kel. $koden;
-        }
+        // $d = $this->db->get_where('tb_person', ['id_person' => $id])->row_object();
+        // $r = substr($d->niup, 2,16);
+        // $t = $kodenya.$r;
 
         // qr code
             //  random nama Qr code di database
-            function randomAnk($length)
-            {
-                $str        = "";
-                $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789';
-                $max        = strlen($characters) - 1;
-                        for ($i = 0; $i < $length; $i++) {
-                            $rand = mt_rand(0, $max);
-                            $str .= $characters[$rand];
-                        }
-                return $str;
-            }
 
 
-        $this->load->library('ciqrcode'); 
-        $config['cacheable']    = true; 
-        $config['cachedir']     = './gambar/'; 
-        $config['errorlog']     = './gambar/'; 
-        $config['imagedir']     = './gambar/qr_code/'; 
-        $config['quality']      = true; 
-        $config['size']         = '1024'; 
-        $config['black']        = array(224,255,255); 
-        $config['white']        = array(70,130,180); 
-        $this->ciqrcode->initialize($config);
-
-        
-        $qr_name_db= randomAnk(10). $kel . randomAnk(10) . $koden.'.png'; 
-
-        $params['data'] =  $t; 
-        $params['level'] = 'H'; 
-        $params['size'] = 10;
-        $params['savename'] = FCPATH.$config['imagedir'].$qr_name_db; 
-        $this->ciqrcode->generate($params);
-
-        if ($d->qr_code_niup != null) {
-            unlink('gambar/qr_code/'.$d->qr_code_niup);
-            $data1 = array(
-                'status' => "aktif",
-                'niup' => $t,
-                'qr_code_niup' => $qr_name_db
-            );
-            $this->Mperson->simpan_santri_v2(array('id_person' => $id), $data1);
-            
-        } else {
-            $data1 = array(
-                'status' => "aktif",
-                'niup' => $t,
-                'qr_code_niup' => $qr_name_db
-            );
-            $this->Mperson->simpan_santri_v2(array('id_person' => $id), $data1);
-        }
-
+        $data1 = array(
+            'status' => "aktif",
+            // 'qr_code_niup' => ""
+        );
+        $this->Mperson->simpan_santri_v2(array('id_person' => $id), $data1);
     }
 
     //  Fitur form upload berkas
