@@ -12,7 +12,7 @@ class Cmaster extends CI_Controller
 
 	public function index()
 	{
-		$id = $this->Mmaster->profil($this->session->userdata['logged_in']['id_pengurus']);
+		$id = $this->Mmaster->profil($this->session->userdata['logged_in']['id_user']);
 		$output = array(
 			'nama_user' => $id->nama,
 			'alamat' => $id->alamat_lengkap,
