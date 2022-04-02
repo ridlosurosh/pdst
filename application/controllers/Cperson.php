@@ -283,7 +283,7 @@ class Cperson extends CI_Controller
             $temp = "gambar/qr_code/";
 
             $imgname = randomAnk(20).'.png';
-            $data = $niupnya;
+            $data =  $kodenya.$niupnya;
             $logo = "plugin/dist/img/logonaa.png";
             QRcode::png($data,$imgname,QR_ECLEVEL_H,50,2);
             
@@ -573,6 +573,18 @@ class Cperson extends CI_Controller
 
     public function selesai_untuk_edit()
     {
+        function randomAnk($length)
+        {
+            $str        = "";
+            $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789';
+            $max        = strlen($characters) - 1;
+                    for ($i = 0; $i < $length; $i++) {
+                        $rand = mt_rand(0, $max);
+                        $str .= $characters[$rand];
+                    }
+            return $str;
+        }
+
         $id = $this->input->post('o');
         $d = $this->db->get_where('tb_person', ['id_person' => $id])->row_object();
         if ($d->jenis_kelamin === "Laki-Laki") {
@@ -589,8 +601,61 @@ class Cperson extends CI_Controller
             $t = $kel. $koden;
         }
 
+        $this->load->library('Qrcodemake');
+        if ($d->qr_code_niup != null) {
+            unlink('gambar/qr_code/'.$d->qr_code_niup);
+            $temp = "gambar/qr_code/";
+            $imgname = randomAnk(20).'.png';
+            $data =  $t;
+            $logo = "plugin/dist/img/logonaa.png";
+            QRcode::png($data,$imgname,QR_ECLEVEL_H,50,2);
+             $QR = imagecreatefrompng($imgname);
+            if($logo !== FALSE){
+                $logopng = imagecreatefrompng($logo);
+                $QR_width = imagesx($QR);
+                $QR_height = imagesy($QR);
+                $logo_width = imagesx($logopng);
+                $logo_height = imagesy($logopng);
+                
+                list($newwidth, $newheight) = getimagesize($logo);
+                $out = imagecreatetruecolor($QR_width, $QR_width);
+                imagecopyresampled($out, $QR, 0, 0, 0, 0, $QR_width, $QR_height, $QR_width, $QR_height);
+                imagecopyresampled($out, $logopng, $QR_width/2.65, $QR_height/2.65, 0, 0, $QR_width/4, $QR_height/4, $newwidth, $newheight);
+                
+            }
+            imagepng($out ,$temp.$imgname);
+            imagedestroy($out);
+            unlink($imgname);
+        } else {
+            $temp = "gambar/qr_code/";
+            $imgname = randomAnk(20).'.png';
+            $data =  $t;
+            $logo = "plugin/dist/img/logonaa.png";
+            QRcode::png($data,$imgname,QR_ECLEVEL_H,50,2);
+             $QR = imagecreatefrompng($imgname);
+            if($logo !== FALSE){
+                $logopng = imagecreatefrompng($logo);
+                $QR_width = imagesx($QR);
+                $QR_height = imagesy($QR);
+                $logo_width = imagesx($logopng);
+                $logo_height = imagesy($logopng);
+                
+                list($newwidth, $newheight) = getimagesize($logo);
+                $out = imagecreatetruecolor($QR_width, $QR_width);
+                imagecopyresampled($out, $QR, 0, 0, 0, 0, $QR_width, $QR_height, $QR_width, $QR_height);
+                imagecopyresampled($out, $logopng, $QR_width/2.65, $QR_height/2.65, 0, 0, $QR_width/4, $QR_height/4, $newwidth, $newheight);
+                
+            }
+            imagepng($out ,$temp.$imgname);
+            imagedestroy($out);
+            unlink($imgname);
+
+        }
+    
+
         $data1 = array(
-            'niup' => $t
+            'niup' => $t,
+            'qr_code_niup' => $imgname
         );
         $this->Mperson->simpan_santri_v2(array('id_person' => $id), $data1);
     }
