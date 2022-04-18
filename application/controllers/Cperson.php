@@ -609,7 +609,7 @@ class Cperson extends CI_Controller
             $data =  $t;
             $logo = "plugin/dist/img/logonaa.png";
             QRcode::png($data,$imgname,QR_ECLEVEL_H,50,2);
-             $QR = imagecreatefrompng($imgname);
+            $QR = imagecreatefrompng($imgname);
             if($logo !== FALSE){
                 $logopng = imagecreatefrompng($logo);
                 $QR_width = imagesx($QR);
