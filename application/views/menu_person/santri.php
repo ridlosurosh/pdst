@@ -12,32 +12,7 @@
 	<div class="col-sm-3"></div>
 	<div class="contianer-fluid">
 		<div class="card">
-			<!-- <div class="card-header p-1">
-				<div class="row">
-					<div class="col-sm-3">
-						<select name="" id="tahun" class="form-control">
-							<option hidden>-Pilih Tahun Angkatan-</option>
-							<?php for ($i = 2010; $i < date("Y") + 5; $i++) { ?>
-								<option value="<?= $i ?>"><?= $i ?></option>
-							<?php } ?>
-						</select>
-					</div>
-					<div class="col-sm-2">
-						<select name="jenis" id="kelamin" class="form-control">
-							<option value="">-Pilih Kelamin-</option>
-							<option value="Laki-Laki">Laki-Laki</option>
-							<option value="Perempuan">Perempuan</option>
-						</select>
-					</div>
-					<div class="col-sm-3 mt-1">
-						<div class="btn-group">
-							<button type="button" class="btn btn-sm btn-primary" title="Export PDF" id="bt-pdf"><i class="fas fa-file-pdf"></i></button>
-							<button class="btn btn-sm btn-primary" title="Export Excel"><i class="fas fa-file-excel"></i></button>
-						</div>
-					</div>
-				</div>
-			</div> -->
-			<div class="card-body p-1">
+			<div class="card-body p-2">
 				<h3 class="card-title"><a class="btn btn-block btn-sm bg-teal btn-circle" id="tambah_santri" data="0" href="#" onclick="tambah_santri()"><i class="fas fa-plus "></i> Tambah Data</a></h3>
 				<table id="example1" class="table">
 					<thead>
@@ -55,53 +30,12 @@
 								ALAMAT
 							</th>
 							<th>
-								QR CODE
-							</th>
-							<th>
 								AKSI
 							</th>
 						</tr>
 					</thead>
 					<tbody>
-						<?php
-						$no = 1;
-						foreach ($santri as $value) { ?>
-							<tr>
-								<td><?= $no++ ?></td>
-								<td><?= $value->niup ?></td>
-								<td><?= $value->nama ?></td>
-								<td><?= $value->alamat_lengkap ?></td>
-								<td>
-									<?php
-									if ($value->qr_code_niup != null) {
-										$qr_code = "gambar/qr_code/".$value->qr_code_niup;
-									} else {
-										$qr_code = "plugin/dist/img/naa_logo.jpg";
-									}
-									?>
-                                    <img src="<?= site_url() ?><?= $qr_code?>" id="gambar_foto" width="50" alt="Preview Gambar">
-								</td>
-								<td>
-									<div class="btn-group">
-										<button type="button" class="btn btn-sm btn-info" title="Detail" onclick="detail_santri('<?= $value->id_person ?>')">
-											<i class="fas fa-info-circle"></i>
-										</button>
-										<button type="button" class="btn btn-sm btn-warning" title="Edit" onclick="form_edit_santri('<?= $value->id_person ?>')">
-											<i class="fas fa-edit"></i>
-										</button>
-										<button type="button" class="btn btn-sm btn-primary" title="Upload" onclick="berkas('<?= $value->id_person ?>')">
-											<i class="fas fa-image"></i>
-										</button>
-										<button type="button" class="btn btn-sm btn-secondary" title="Cetak" onclick="print_santri('<?= $value->id_person ?>')">
-											<i class="fas fa-print"></i>
-										</button>
-										<button type="button" class="btn btn-sm btn-danger" title="Hapus" onclick="nonaktifkan_santri('<?= $value->id_person ?>')">
-											<i class="fas fa-user-slash"></i>
-										</button>
-									</div>
-								</td>
-							</tr>
-						<?php } ?>
+
 					</tbody>
 				</table>
 			</div>
@@ -109,113 +43,71 @@
 	</div>
 </section>
 <script>
+	var table;
 	$(document).ready(function() {
-		$('#bt-pdf').click(function() {
-			var jenkel = $('#kelamin').val()
-			if (jenkel == "") {
-				swal.fire({
-					text: "Jenis Kelamin Belum Dipilih"
-				})
-			} else {
-				var tahun = $('#tahun').val()
-				$.ajax({
-					url: "<?= site_url('Cexport/cek') ?>",
-					data: {
-						"tahun": tahun
-					},
-					type: 'POST',
-					success: function(data) {
-						if (data == 1) {
-							swal.fire({
-								text: "Gak Ada Bang"
-							})
-						} else {
-							swal.fire({
-								text: "Ada Bang"
-							})
-						}
-					}
-				})
-			}
-		})
-	})
+		table = $('#example1').DataTable({ 
 
-	$(function() {
-		$("#example1").DataTable({
-			"paging": true,
+            "processing": true, 
+            "serverSide": true, 
+            "order": [], 
+			"ordering":false,
+			"info":false,
 			"lengthChange": false,
-			"ordering": false,
-			"searching": true,
-			"info": false,
-			"autoWidth": true,
-		});
-		$('#example2').DataTable();
-	});
+            
+            "ajax": {
+                "url": "<?php echo site_url('Cperson/get_data_person')?>",
+                "type": "POST"
+            },
 
-	function tambah_santri() {
-		var id = $('#tambah_santri').attr('data')
-		$.ajax({
-			url: "<?= site_url('Cperson/simpan_santri') ?>",
-			data: {
-				id: id
-			},
-			type: 'POST',
-			dataType: 'JSON',
-			success: function(data) {
-				var o = data.i;
-				$.post('<?= site_url('Cperson/tambah_santri_1') ?>', {
-					o: o
-				}, function(Res) {
+            
+            "columnDefs": [
+            { 
+                "targets": [ 0 ], 
+                "orderable": false, 
+            },
+            ],
 
-					$('#ini_isinya').html(Res);
-				});
-			}
-		});
-	}
+        });
 
-	function form_tambah_mahrom(id) {
-		$.post('<?= site_url('Cperson/form_tambah_mahrom') ?>', {
-			o: id
-		}, function(Res) {
-			$('#ini_isinya').html(Res);
-		});
-	}
-
-	function berkas(id) {
-		$.post('<?= site_url('Cperson/berkas') ?>', {
+		table = $('#example1').on("click", "#bt-detail", function () {
+            var id = $(this).attr("data");
+			$.post('<?= site_url('Cperson/detail_santri') ?>', {
 			idperson: id
-		}, function(Res) {
-			$('#ini_isinya').html(Res);
-		});
-	}
-
-	function form_edit_santri(id) {
-		$.post('<?= site_url('Cperson/form_edit_santri') ?>', {
-			o: id
-		}, function(Res) {
-			$('#ini_isinya').html(Res);
-		});
-	}
-
-	function detail_santri(id) {
-		$.post('<?= site_url('Cperson/detail_santri') ?>', {
-			idperson: id
-		}, function(Res) {
-			$('#ini_isinya').html(Res);
-		});
-	}
-
-	function print_santri(id) {
-		$.post('<?= site_url('Cperson/print_santri') ?>', {
-			idperson: id
-		}, function(Res) {
-			$('#ini_isinya').html(Res);
+			}, function(Res) {
+				$('#ini_isinya').html(Res);
+			});
 		})
 
-	}
+		table = $('#example1').on("click", "#bt-edit", function () {
+            var id = $(this).attr("data");
+			$.post('<?= site_url('Cperson/form_edit_santri') ?>', {
+			o: id
+			}, function(Res) {
+				$('#ini_isinya').html(Res);
+			});
+		})
 
-	function nonaktifkan_santri(id) {
-		swal.fire({
+		table = $('#example1').on("click", "#bt-berkas", function () {
+            var id = $(this).attr("data");
+			$.post('<?= site_url('Cperson/berkas') ?>', {
+			idperson: id
+			}, function(Res) {
+				$('#ini_isinya').html(Res);
+			});
+		})
+
+		table = $('#example1').on("click", "#bt-print", function () {
+            var id = $(this).attr("data");
+			$.post('<?= site_url('Cperson/print_santri') ?>', {
+			idperson: id
+			}, function(Res) {
+				$('#ini_isinya').html(Res);
+			});
+		})
+
+		table = $('#example1').on("click", "#bt-hapus", function () {
+            var id = $(this).attr("data");
+			swal.fire({
 			title: 'PDST NAA',
 			text: "Anda Yakin Untuk Menghapus Santri Ini ?",
 			type: 'warning',
@@ -245,6 +137,29 @@
 								}
 							});
 						});
+				});
+			}
+		});
+		})
+
+	})
+
+	function tambah_santri() {
+		var id = $('#tambah_santri').attr('data')
+		$.ajax({
+			url: "<?= site_url('Cperson/simpan_santri') ?>",
+			data: {
+				id: id
+			},
+			type: 'POST',
+			dataType: 'JSON',
+			success: function(data) {
+				var o = data.i;
+				$.post('<?= site_url('Cperson/tambah_santri_1') ?>', {
+					o: o
+				}, function(Res) {
+
+					$('#ini_isinya').html(Res);
 				});
 			}
 		});
