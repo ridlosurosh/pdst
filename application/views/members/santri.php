@@ -12,31 +12,6 @@
 	<div class="col-sm-3"></div>
 	<div class="contianer-fluid">
 		<div class="card">
-			<!-- <div class="card-header p-1">
-				<div class="row">
-					<div class="col-sm-3">
-						<select name="" id="tahun" class="form-control">
-							<option hidden>-Pilih Tahun Angkatan-</option>
-							<?php for ($i = 2010; $i < date("Y") + 5; $i++) { ?>
-								<option value="<?= $i ?>"><?= $i ?></option>
-							<?php } ?>
-						</select>
-					</div>
-					<div class="col-sm-2">
-						<select name="jenis" id="kelamin" class="form-control">
-							<option value="">-Pilih Kelamin-</option>
-							<option value="Laki-Laki">Laki-Laki</option>
-							<option value="Perempuan">Perempuan</option>
-						</select>
-					</div>
-					<div class="col-sm-3 mt-1">
-						<div class="btn-group">
-							<button type="button" class="btn btn-sm btn-primary" title="Export PDF" id="bt-pdf"><i class="fas fa-file-pdf"></i></button>
-							<button class="btn btn-sm btn-primary" title="Export Excel"><i class="fas fa-file-excel"></i></button>
-						</div>
-					</div>
-				</div>
-			</div> -->
 			<div class="card-body p-1">
 				<h3 class="card-title"><a class="btn btn-block btn-sm bg-teal btn-circle" id="tambah_santri" data="0" href="#" onclick="tambah_santri()"><i class="fas fa-plus "></i> Tambah Data</a></h3>
 				<table id="example1" class="table">
@@ -98,9 +73,6 @@
 										<button type="button" class="btn btn-sm btn-danger" title="Hapus" onclick="nonaktifkan_santri('<?= $value->id_person ?>')">
 											<i class="fas fa-user-slash"></i>
 										</button>
-										<!-- <button type="button" class="btn btn-sm btn-danger" title="Hapus" onclick="hapus_santri('<?= $value->id_person ?>')">
-											<i class="fas fa-trash"></i>
-										</button> -->
 									</div>
 								</td>
 							</tr>

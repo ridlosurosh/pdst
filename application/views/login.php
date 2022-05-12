@@ -122,7 +122,7 @@
     <script src="<?= site_url() ?>plugin/asset/js/main.js"></script>
     <script>
         var username, password, dataAkun, baseUrl_admin = "<?= site_url('admin') ?>",
-            baseUrl_user = "<?= site_url('user') ?>";
+            baseUrl_user = "<?= site_url('user') ?>", baseUrl_members = "<?= site_url('members') ?>";
 
         function tampil_pesan(teks) {
             Swal.fire({
@@ -188,7 +188,18 @@
                                             window.location.href = baseUrl_user;
                                         }
                                     })
+                                } else if (data.jabatan === "Members") {
+                                    swal.fire({
+                                        title: "PDST NAA",
+                                        text: "SUKSES",
+                                        type: "success"
+                                    }).then(okay => {
+                                        if (okay) {
+                                            window.location.href = baseUrl_members;
+                                        }
+                                    })
                                 }
+                                
                             } else {
                                 tampil_pesan(data.pesan);
                                 $("#username").val("").focus();
