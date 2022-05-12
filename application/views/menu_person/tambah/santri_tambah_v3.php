@@ -41,6 +41,12 @@ if ($santri->desa_w == "") {
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
+                                <div class="col-md-12">
+                                    <button type="button" onclick="ayahnya()" class="btn btn-sm btn-primary"><i class="fas fa-male"></i> Salin Data Ayah</button>
+                                    <button type="button" onclick="ibunya()" class="btn btn-sm btn-success ml-1"><i class="fas fa-female"></i> Salin Data Ibu</button>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">NIK WALI</label>
@@ -50,13 +56,13 @@ if ($santri->desa_w == "") {
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">NAMA WALI</label>
-                                        <input type="text" class="form-control" name="nm_w" value="<?= $santri->nm_w ?>" autocomplete="off">
+                                        <input type="text" class="form-control" name="nm_w" id="nm_w" value="<?= $santri->nm_w ?>" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">PENDIDIKAN WALI</label>
-                                        <select class="form-control" name="pndkn_w" id="">
+                                        <select class="form-control" name="pndkn_w" id="pndkn_w">
                                             <?php
                                             $pndknw1 = "";
                                             $pndknw2 = "";
@@ -122,7 +128,7 @@ if ($santri->desa_w == "") {
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>PEKERJAAN WALI</label>
-                                        <select class="form-control" name="pkrjn_w" id="">
+                                        <select class="form-control" name="pkrjn_w" id="pkrjn_w">
                                             <?php
                                             if ($santri->pkrjn_w == "") {
                                                 $pkrjni1 = "selected";
@@ -361,7 +367,7 @@ if ($santri->desa_w == "") {
                                             $pndptn4 = "selected";
                                         }
                                         ?>
-                                        <select class="form-control" name="pndptn_w" id="">
+                                        <select class="form-control" name="pndptn_w" id="pndptn_w">
                                             <option <?= $pndptn1 ?> hidden value="default">-Pilih Pendapatan-</option>
                                             <option <?= $pndptn2 ?> value="tinggi">Tinggi</option>
                                             <option <?= $pndptn3 ?> value="sedang">Sedang</option>
@@ -374,7 +380,7 @@ if ($santri->desa_w == "") {
                                 <div class="col-md-9">
                                     <div class="form-group">
                                         <label for="">ALAMAT LENGKAP WALI SESUAI KTP</label>
-                                        <textarea name="almt_w" id="" class="form-control"><?= $santri->almt_w ?></textarea>
+                                        <textarea name="almt_w" id="almt_w" class="form-control"><?= $santri->almt_w ?></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -396,7 +402,7 @@ if ($santri->desa_w == "") {
                                                 } else {
                                                     $prov_w = "";
                                                 }
-                                            ?>
+                                                ?>
                                                 <option <?= $prov_w ?> value="<?= $value->id ?>"><?= $value->name ?></option>
                                             <?php } ?>
                                         </select>
@@ -705,6 +711,131 @@ if ($santri->desa_w == "") {
         });
     });
 
+    function provinsi() {
+        let a = `<?php foreach ($provinsi as $value) {
+            if ($santri->prov == $value->id) {
+                $prov_w = "selected";
+            } else {
+                $prov_w = "";
+            }
+            ?>
+            <option <?= $prov_w ?> value="<?= $value->id ?>"><?= $value->name ?></option>
+            <?php } ?>`;
+            $('#provinsi').html(a);
+        }
+
+        function kabupaten() {
+            var id = "<?= $santri->prov ?>";
+            var k = "<?= $santri->kab ?>"
+            $.ajax({
+                url: "<?php echo site_url('Cperson/get_kabupaten'); ?>",
+                method: "POST",
+                data: {
+                    id: id
+                },
+                async: true,
+                dataType: 'json',
+                success: function(data) {
+
+                    var html = '';
+                    var i;
+                    for (i = 0; i < data.length; i++) {
+                        if (data[i].id == k) {
+                            html += '<option selected value=' + data[i].id + '>' + data[i].name + '</option>';
+                        } else {
+                            html += '<option value=' + data[i].id + '>' + data[i].name + '</option>';
+                        }
+                    }
+                    $('#kabupaten').html(html);
+                }
+            });
+            return false;
+        }
+
+        function kecamatan() {
+            var id = "<?= $santri->kab ?>";
+            var k = "<?= $santri->kec ?>";
+            $.ajax({
+                url: "<?php echo site_url('Cperson/get_kecamatan'); ?>",
+                method: "POST",
+                data: {
+                    id: id
+                },
+                async: true,
+                dataType: 'json',
+                success: function(data) {
+
+                    var html = '';
+                    var i;
+                    for (i = 0; i < data.length; i++) {
+                        if (data[i].id == k) {
+                            html += '<option selected value=' + data[i].id + '>' + data[i].name + '</option>';
+                        } else {
+                            html += '<option value=' + data[i].id + '>' + data[i].name + '</option>';
+                        }
+                    }
+                    $('#kecamatan').html(html);
+                }
+            });
+            return false;
+        }
+
+        function desa() {
+            var id = "<?= $santri->kec ?>";
+            var k = "<?= $santri->desa ?>";
+            $.ajax({
+                url: "<?php echo site_url('Cperson/get_desa'); ?>",
+                method: "POST",
+                data: {
+                    id: id
+                },
+                async: true,
+                dataType: 'json',
+                success: function(data) {
+
+                    var html = '';
+                    var i;
+                    for (i = 0; i < data.length; i++) {
+                        if (data[i].id == k) {
+                            html += '<option selected value=' + data[i].id + '>' + data[i].name + '</option>';
+                        } else {
+                            html += '<option value=' + data[i].id + '>' + data[i].name + '</option>';
+                        }
+                    }
+                    $('#desa').html(html);
+                }
+            });
+            return false;
+        }
+
+        function ayahnya() {
+        // alert('hehe')
+        $('#nik_w').val('<?= $santri->nik_a ?>');
+        $('#nm_w').val('<?= $santri->nm_a ?>');
+        $('#pndkn_w').val('<?= $santri->pndkn_a ?>');
+        $('#pkrjn_w').val('<?= $santri->pkrjn_a ?>');
+        $('#almt_w').val('<?= $santri->alamat_lengkap ?>');
+        $('#pos_w').val('<?= $santri->pos ?>');
+        provinsi();
+        kabupaten();
+        kecamatan();
+        desa();
+    }
+
+    function ibunya() {
+        // alert('hehe')
+        $('#nik_w').val('<?= $santri->nik_i ?>');
+        $('#nm_w').val('<?= $santri->nm_i ?>');
+        $('#pndkn_w').val('<?= $santri->pndkn_i ?>');
+        $('#pkrjn_w').val('<?= $santri->pkrjn_i ?>');
+        $('#almt_w').val('<?= $santri->alamat_lengkap ?>');
+        $('#pos_w').val('<?= $santri->pos ?>');
+        provinsi();
+        kabupaten();
+        kecamatan();
+        desa();
+    }
+
     function kembali_pole(id) {
         $.post('<?= site_url('Cperson/tambah_santri_2') ?>', {
             o: id
@@ -862,24 +993,24 @@ if ($santri->desa_w == "") {
             preConfirm: function() {
                 return new Promise(function(resolve) {
                     $.ajax({
-                            url: 'Cperson/batal',
-                            type: 'POST',
-                            data: {
-                                id: id
-                            },
-                            dataType: 'json'
-                        })
-                        .fail(function() {
-                            swal.fire({
-                                title: "PDST NAA",
-                                text: "Berhasil Dibatalkan",
-                                type: "success"
-                            }).then(okay => {
-                                if (okay) {
-                                    menu_santri();
-                                }
-                            });
+                        url: 'Cperson/batal',
+                        type: 'POST',
+                        data: {
+                            id: id
+                        },
+                        dataType: 'json'
+                    })
+                    .fail(function() {
+                        swal.fire({
+                            title: "PDST NAA",
+                            text: "Berhasil Dibatalkan",
+                            type: "success"
+                        }).then(okay => {
+                            if (okay) {
+                                menu_santri();
+                            }
                         });
+                    });
                 });
             }
         });

@@ -14,9 +14,51 @@ class Cperson extends CI_Controller
     // Fitur data santri aktif
     public function menu_santri()
     {
-        $output['santri'] = $this->Mperson->santri_aktif_all();
-        $this->load->view('menu_person/santri', $output);
+        // $output['santri'] = $this->Mperson->santri_aktif_all();
+        $this->load->view('menu_person/santri');
     }
+
+    function get_data_person()
+	{
+		$list = $this->Mperson->get_datatables();
+		$data = array();
+		$no = $_POST['start'];
+		foreach ($list as $field) {
+			$no++;
+			$row = array();
+			$row[] = $no;
+			$row[] = $field->niup;
+			$row[] = $field->nama;
+			$row[] = $field->alamat_lengkap;
+            $row[] = '
+                        <button type="button" id="bt-detail" class="btn btn-sm rounded-circle btn-info" title="Detail" data="'.$field->id_person.'">
+                            <i class="fas fa-info-circle"></i>
+                        </button>
+                        <button type="button" id="bt-edit" class="btn btn-sm rounded-circle btn-warning text-light" title="Edit" data="'.$field->id_person.'">
+                            <i class="fas fa-pencil-alt"></i>
+                        </button>
+                        <button type="button" id="bt-berkas" class="btn btn-sm rounded-circle btn-primary" title="Upload" data="'.$field->id_person.'">
+                            <i class="fas fa-image"></i>
+                        </button>
+                        <button type="button" id="bt-print" class="btn btn-sm rounded-circle btn-secondary" title="Cetak" data="'.$field->id_person.'">
+                            <i class="fas fa-print"></i>
+                        </button>
+                        <button type="button" id="bt-hapus" class="btn btn-sm rounded-circle btn-danger" title="Hapus" data="'.$field->id_person.'">
+                            <i class="fas fa-user-slash"></i>
+                        </button>';
+
+			$data[] = $row;
+		}
+
+		$output = array(
+			"draw" => $_POST['draw'],
+			"recordsTotal" => $this->Mperson->count_all(),
+			"recordsFiltered" => $this->Mperson->count_filtered(),
+			"data" => $data,
+		);
+		//output dalam format JSON
+		echo json_encode($output);
+	}
 
     // Fitur tambah santri
     public function tambah_santri_1()
