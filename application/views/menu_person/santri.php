@@ -35,52 +35,6 @@
 						</tr>
 					</thead>
 					<tbody>
-<<<<<<< HEAD
-						<?php
-						$no = 1;
-						foreach ($santri as $value) { ?>
-							<tr>
-								<td><?= $no++ ?></td>
-								<td><?= $value->niup ?></td>
-								<td><?= $value->nama ?></td>
-								<td><?= $value->alamat_lengkap ?></td>
-								<td>
-									<?php
-									if ($value->qr_code_niup != null) {
-										$qr_code = "gambar/qr_code/".$value->qr_code_niup;
-									} else {
-										$qr_code = "plugin/dist/img/naa_logo.jpg";
-									}
-									?>
-                                    <img src="<?= site_url() ?><?= $qr_code?>" id="gambar_foto" width="50" alt="Preview Gambar">
-								</td>
-								<td>
-									<div class="btn-group">
-										<button type="button" class="btn btn-sm btn-info" title="Detail" onclick="detail_santri('<?= $value->id_person ?>')">
-											<i class="fas fa-info-circle"></i>
-										</button>
-										<button type="button" class="btn btn-sm btn-warning" title="Edit" onclick="form_edit_santri('<?= $value->id_person ?>')">
-											<i class="fas fa-edit"></i>
-										</button>
-										<button type="button" class="btn btn-sm btn-primary" title="Upload" onclick="berkas('<?= $value->id_person ?>')">
-											<i class="fas fa-image"></i>
-										</button>
-										<button type="button" class="btn btn-sm btn-secondary" title="Cetak" onclick="print_santri('<?= $value->id_person ?>')">
-											<i class="fas fa-print"></i>
-										</button>
-										<button type="button" class="btn btn-sm btn-danger" title="Hapus" onclick="nonaktifkan_santri('<?= $value->id_person ?>')">
-											<i class="fas fa-user-slash"></i>
-										</button>
-										<!-- <button type="button" class="btn btn-sm btn-danger" title="Hapus" onclick="hapus_santri('<?= $value->id_person ?>')">
-											<i class="fas fa-trash"></i>
-										</button> -->
-									</div>
-								</td>
-							</tr>
-						<?php } ?>
-=======
-
->>>>>>> fb463b83391e6f2da22a8af6fb078d4bfaee3ba1
 					</tbody>
 				</table>
 			</div>
