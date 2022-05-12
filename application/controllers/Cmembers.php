@@ -41,7 +41,7 @@ class Cmembers extends CI_Controller
 
     public function data_person()
     {
-        $list = $this->Mperson->get_datatables();
+        $list = $this->Mperson->get_datatables("2");
 		$data = array();
 		$no = $_POST['start'];
 		foreach ($list as $field) {

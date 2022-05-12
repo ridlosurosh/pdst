@@ -90,12 +90,17 @@ class Mperson extends CI_Model
 		}
 	}
 
-	function get_datatables()
+	function get_datatables($where)
 	{
+        $date = date("Y");
 		$this->_get_datatables_query();
 		if($_POST['length'] != -1)
 		$this->db->limit($_POST['length'], $_POST['start'])->where('status', 'aktif');
-		$query = $this->db->get();
+        if ($where === "1") {
+            $query = $this->db->get();
+        } else {
+            $query = $this->db->where('YEAR(tgl_daftar)',$date)->get();
+        }
 		return $query->result();
 	}
 

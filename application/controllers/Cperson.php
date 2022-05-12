@@ -20,7 +20,7 @@ class Cperson extends CI_Controller
 
     function get_data_person()
 	{
-		$list = $this->Mperson->get_datatables();
+		$list = $this->Mperson->get_datatables("1");
 		$data = array();
 		$no = $_POST['start'];
 		foreach ($list as $field) {
