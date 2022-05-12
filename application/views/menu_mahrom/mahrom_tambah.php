@@ -93,7 +93,7 @@
 						$tanggal = date('dmY', strtotime($santri->tanggal_lahir));
 						?>
 						<input type="hidden" name="kodenya" value="<?= $jk . $th . $tanggal ?>">
-						<input type="hidden" name="o" value="<?= $santri->id_person ?>">
+						<input type="hidden" name="o" id="o" value="<?= $santri->id_person ?>">
 					</form>
 					<button type="button" onclick="kembali_lah('<?= $santri->id_person ?>')" class="btn btn-info"><i class="fas fa-arrow-left"></i> Kembali</button>
 					<button type="button" class="btn btn-info" id="btn_selesai" onclick="selesai()"><i class="fas fa-check"></i> Selesai</button>
@@ -132,7 +132,12 @@
 												type: "success"
 											}).then(okay => {
 												if (okay) {
-													print_santri('<?= $santri->id_person ?>')
+													let idperson = $('#o').val();
+													$.post('<?= site_url('Cperson/print_santri') ?>', {
+															idperson: idperson
+															}, function(Res) {
+																$('#ini_isinya').html(Res);
+													});
 												}
 											});
 										});
