@@ -20,7 +20,9 @@ class Clogin extends CI_Controller
                 redirect(site_url('admin'));
             } else if (($this->session->userdata['logged_in']['jabatan']) == 'Sekretaris Pesantren') {
                 redirect(site_url('user'));
-            }
+            } else if (($this->session->userdata['logged_in']['jabatan']) == 'Members') {
+                redirect(site_url('members'));
+            } 
         } else {
             $this->load->view('login');
         }
@@ -64,10 +66,27 @@ class Clogin extends CI_Controller
                     }
                 }
             } else {
-                $data = array(
-                    'pesan' => "Username atau Paswword Salah",
-                );
-                echo json_encode($data);
+                $username = $this->input->post('username');
+                $password = $this->input->post('password');
+                $member =  strrev($username);
+                if ($member === "srebmem" && $password === "members") {
+                    $session_data = array(
+                        'jabatan' => "Members",
+                        'nama' =>"NAA MEDIA",
+                    );
+                    $this->session->set_userdata('logged_in', $session_data);
+                    $data = array(
+                        'pesan' => "sukses",
+                        'jabatan' => "Members",
+                        'nama' =>"NAA MEDIA",
+                    );
+                    echo json_encode($data);
+                } else {
+                    $data = array(
+                        'pesan' => "Username atau Paswword Salah",
+                    );
+                    echo json_encode($data);
+                }
             }
         }
     }

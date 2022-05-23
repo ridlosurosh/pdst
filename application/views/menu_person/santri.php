@@ -35,7 +35,6 @@
 						</tr>
 					</thead>
 					<tbody>
-
 					</tbody>
 				</table>
 			</div>
@@ -164,4 +163,40 @@
 			}
 		});
 	}
+
+	// function hapus_santri(id) {
+	// 	swal.fire({
+	// 		title: 'PDST NAA',
+	// 		text: "Anda Yakin Untuk Menghapus Santri Ini ?",
+	// 		type: 'warning',
+	// 		showCancelButton: true,
+	// 		confirmButtonColor: '#3085d6',
+	// 		cancelButtonColor: '#d33',
+	// 		confirmButtonText: 'YA',
+	// 		cancelButtonText: 'TIDAK',
+	// 		preConfirm: function() {
+	// 			return new Promise(function(resolve) {
+	// 				$.ajax({
+	// 						url: 'Cperson/hapus_santri',
+	// 						type: 'POST',
+	// 						data: {
+	// 							id: id
+	// 						},
+	// 						dataType: 'json'
+	// 					})
+	// 					.fail(function() {
+	// 						swal.fire({
+	// 							title: "PDST NAA",
+	// 							text: "Berhasil dihapus",
+	// 							type: "success"
+	// 						}).then(okay => {
+	// 							if (okay) {
+	// 								menu_santri();
+	// 							}
+	// 						});
+	// 					});
+	// 			});
+	// 		}
+	// 	});
+	// }
 </script>

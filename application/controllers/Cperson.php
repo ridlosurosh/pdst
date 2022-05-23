@@ -20,7 +20,7 @@ class Cperson extends CI_Controller
 
     function get_data_person()
 	{
-		$list = $this->Mperson->get_datatables();
+		$list = $this->Mperson->get_datatables("1");
 		$data = array();
 		$no = $_POST['start'];
 		foreach ($list as $field) {
@@ -1069,4 +1069,16 @@ class Cperson extends CI_Controller
             $this->Mperson->upload_foto_ktp(array('id_mahrom' => $id_mahrom), $data, $id);
         }
     }
+    
+    // public function hapus_santri($id)
+    // {
+    //     $hapus = $this->db->query("DELETE FROM tb_person WHERE id_person = '.$id.'");
+    //     if ($hapus) {
+    //         return '1';
+    //     }else{
+    //         return '2';
+    //     }
+        
+    // }
 }
+

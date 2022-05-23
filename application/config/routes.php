@@ -8,6 +8,7 @@ $route['log-out'] = 'Clogin/logout';
 $route['log-in'] = 'Clogin';
 $route['admin'] = 'Cmaster';
 $route['user'] = 'Cuser';
+$route['members'] = 'Cmembers';
 
 // Halaman Utama
 $route['halaman_utama'] = 'Cmaster/menu_halaman_utama';
