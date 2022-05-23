@@ -38,8 +38,14 @@ $route['alumni'] = 'Calumni/alumni';
 // Wilayah
 $route['wilayah'] = 'Cwilayah/menu_wilayah';
 
+$route['divisi'] = 'Cdivisi/menu_divisi';
+
+// Periode
+$route['periode'] = 'Cjabatan/menu_periode';
+
 // Jabatan
 $route['jabatan'] = 'Cjabatan/menu_jabatan';
+
 // Block
 $route['block'] = 'Cblok/menu_blok';
 

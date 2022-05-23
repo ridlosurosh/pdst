@@ -2,17 +2,16 @@
 	<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-sm-6">
-				<h1>Struktural</h1>
+				<h1>Struktural Pada Periode <u><span class="text-danger"><?= $periodenya->periode ?></span></u></h1>
 			</div>
 		</div>
 	</div>
 </section>
 <section class="content">
 	<div class="card">
-		<!-- /.card-header -->
 		<div class="card-body table-responsive p-1">
 			<table id="example1" class="table table-hover text-nowrap">
-				<h3 class="card-title"><a class="btn btn-sm btn-block bg-teal" href="#" onclick="tambah_jabatan()"><i class="fas fa-plus"></i> Tambah Data</a></h3>
+				<h3 class="card-title"><a class="btn btn-sm btn-block bg-teal" href="#" data="<?= $periodenya->id_periode ?>" id="bt_tambah"><i class="fas fa-plus"></i> Tambah Data</a></h3>
 				<thead>
 					<tr>
 						<th>NO</th>
@@ -28,12 +27,10 @@
 							<td><?= $no++ ?></td>
 							<td><?= $value->nm_jabatan ?></td>
 							<td>
-								<div class="btn-group">
-									<button class="btn btn-sm btn-warning" title="Edit" onclick="form_edit_jabatan('<?= $value->id_jabatan ?>')"><i class="fas fa-edit"></i></button>
-									<button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#staticBackdrop" title="Edit" onclick="detail('<?= $value->id_jabatan ?>')">
-										<i class=" fas fa-eye"></i>
-									</button>
-									<div>
+								<button class="btn btn-sm btn-warning item_edit rounded-circle" title="Edit" data="<?= $value->id_jabatan ?>"><i class="fas fa-pencil-alt"></i></button>
+								<button type="button" class="btn btn-sm btn-info rounded-circle" data-toggle="modal" data-target="#staticBackdrop" title="Edit" onclick="detail('<?= $value->id_jabatan ?>')">
+									<i class=" fas fa-info-circle"></i>
+								</button>
 							</td>
 						</tr>
 					<?php } ?>
@@ -71,7 +68,64 @@
 	</div>
 </div>
 
+<div class="modal fade" id="modal-default" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="tambah_jabatan">
+                <div class="modal-header">
+                    <h4 class="modal-title">Tambah Struktur Pada Periode <?= $periodenya->periode ?></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+					<input type="hidden" name="id_periode" id="id_periode" value="">
+                    <div class="row">
+                        <div class="col-12 form-group">
+                            <label for="">Nama Jabatan</label>
+                            <input type="text" class="form-control" name="nama_jabatan" id="nama_jabatan" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Batal</button>
+                    <button class="btn btn-sm btn-primary"><i class="fas fa-save"></i> Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-edit" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="edit_jabatan">
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit Struktur Pada Periode <?= $periodenya->periode ?></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+					<input type="hidden" name="id_jabatan" value="">
+                    <div class="row">
+                        <div class="col-12 form-group">
+                            <label for="">Nama Jabatan</label>
+                            <input type="text" class="form-control" name="nm_jabatan" id="nama_jabatan" value="" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Batal</button>
+                    <button class="btn btn-sm btn-primary"><i class="fas fa-save"></i> Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script>
+	
 	$(function() {
 		$("#example1").DataTable({
 			"paging": true,
@@ -84,19 +138,159 @@
 		$('#example2').DataTable();
 	});
 
-	function tambah_jabatan() {
-		$.post('<?= site_url('Cjabatan/tambah_jabatan') ?>', function(Res) {
-			$('#ini_isinya').html(Res);
-		});
-	}
+	$('#bt_tambah').on('click', function() {
+		var id = $(this).attr('data');
+		$('#modal-default').modal('show');
+		$('#id_periode').val(id);
+	});
 
-	function form_edit_jabatan(id) {
-		$.post('<?= site_url('Cjabatan/form_edit_jabatan') ?>', {
-			idjabatan: id
+	$('.item_edit').on('click', function() {
+		var id = $(this).attr('data');
+		$.ajax({
+			type: "POST",
+			url: "<?php echo base_url('Cjabatan/form_edit_jabatan') ?>",
+			dataType: "JSON",
+			data: {
+				id: id
+			},
+			success: function(data) {
+				$('#modal-edit').modal('show');
+				$.each(data, function(id_jabatan, nm_jabatan) {
+					$('[name="id_jabatan"]').val(data.id_jabatan);
+					$('[name="nm_jabatan"]').val(data.nm_jabatan);
+				});
+			}
+		});
+		return false;
+	})
+
+	$.validator.addMethod("valueNotEquals", function(value, element, arg) {
+		return arg !== value;
+	}, "Value must not equal arg.");
+	$("select").on("select2:close", function(e) {
+		$(this).valid();
+	});
+	$('#tambah_jabatan').validate({
+		rules: {
+			nama_jabatan: {
+				required: true
+			}
+
+		},
+		messages: {
+			nama_jabatan: {
+				required: "Tidak Boleh Kosong"
+			}
+		},
+		errorElement: 'span',
+		errorPlacement: function(error, element) {
+			error.addClass('invalid-feedback');
+			element.closest('.form-group').append(error);
+		},
+		unhighlight: function(element, errorClass, validClass) {
+			$(element).removeClass('is-invalid');
+		},
+		submitHandler: function() {
+            $.ajax({
+                url: "<?= site_url('Cjabatan/simpan_jabatan') ?>",
+                data: $('#tambah_jabatan').serialize(),
+                type: 'POST',
+                dataType: 'JSON',
+                success: function(data) {
+                    if (data.pesan === "ya") {
+                        $('#modal-default').modal('hide');
+                        swal.fire({
+                            title: "PDST NAA",
+                            text: data.sukses,
+                            type: "success"
+                        }).then(okay => {
+                            if (okay) {
+                                lihat_jabatan(<?= $periodenya->id_periode ?>)
+                            }
+                        })
+                    } else {
+                        swal.fire({
+                            title: "PDST NAA",
+                            text: data.sukses,
+                            type: "error"
+                        }).then(okay => {
+                            if (okay) {
+                                $('#nama_jabatan').focus();
+                            }
+                        })
+                    }
+                }
+            }); 
+        }
+    });
+
+	$.validator.addMethod("valueNotEquals", function(value, element, arg) {
+		return arg !== value;
+	}, "Value must not equal arg.");
+	$("select").on("select2:close", function(e) {
+		$(this).valid();
+	});
+	$('#edit_jabatan').validate({
+		rules: {
+			nm_jabatan: {
+				required: true
+			}
+
+		},
+		messages: {
+			nm_jabatan: {
+				required: "Tidak Boleh Kosong"
+			}
+		},
+		errorElement: 'span',
+		errorPlacement: function(error, element) {
+			error.addClass('invalid-feedback');
+			element.closest('.form-group').append(error);
+		},
+		unhighlight: function(element, errorClass, validClass) {
+			$(element).removeClass('is-invalid');
+		},
+		submitHandler: function() {
+            $.ajax({
+                url: "<?= site_url('Cjabatan/edit_jabatan') ?>",
+                data: $('#edit_jabatan').serialize(),
+                type: 'POST',
+                dataType: 'JSON',
+                success: function(data) {
+                    if (data.pesan === "ya") {
+                        $('#modal-edit').modal('hide');
+                        swal.fire({
+                            title: "PDST NAA",
+                            text: data.sukses,
+                            type: "success"
+                        }).then(okay => {
+                            if (okay) {
+                                lihat_jabatan(<?= $periodenya->id_periode ?>)
+                            }
+                        })
+                    } else {
+                        swal.fire({
+                            title: "PDST NAA",
+                            text: data.sukses,
+                            type: "error"
+                        }).then(okay => {
+                            if (okay) {
+                                $('#nama_jabatan').focus();
+                            }
+                        })
+                    }
+                }
+            }); 
+        }
+    });
+
+	function lihat_jabatan(id) {
+        $.post('<?= site_url('Cjabatan/lihat_jabatan') ?>', {
+			idperiode: id
 		}, function(Res) {
 			$('#ini_isinya').html(Res);
 		});
-	}
+    }
 
 	function detail(id) {
 		$.ajax({

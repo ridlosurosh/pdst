@@ -4,9 +4,41 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Mjabatan extends CI_Model
 {
 
-    public function jabatan_all()
+    public function periode_all()
+    {
+        $this->db->from('tb_periode');
+        $this->db->order_by('id_periode', 'DESC');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function tambah_periode($data)
+    {
+        return $this->db->insert('tb_periode', $data);
+    }
+
+    public function periode_id($id)
+    {
+        $this->db->where('id_periode', $id);
+        $this->db->from('tb_periode');
+        $query = $this->db->get();
+        return $query->row();
+    }
+
+    public function hapus_periode($id)
+    {
+	    $this->db->delete('tb_periode', $id);
+    }
+
+    public function hapus_jabatan($id)
+    {
+	    $this->db->delete('tb_jabatan', $id);
+    }
+
+    public function jabatan_all($id)
     {
         $this->db->from('tb_jabatan');
+        $this->db->where('id_periode', $id);
         $this->db->where('status', 'Aktif');
         $query = $this->db->get();
         return $query->result();

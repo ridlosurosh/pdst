@@ -1,125 +1,133 @@
+
 <!doctype html>
-<html lang="en">
+<html class="fixed">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
+
+    <!-- Basic -->
+    <meta charset="UTF-8">
+
+    <title>Login</title>
     <link rel="shortcut icon" href="<?= site_url() ?>plugin/dist/img/pdst.png" type="image/x-icon">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <meta name="keywords" content="HTML5 Admin Template" />
+    <meta name="description" content="Porto Admin - Responsive HTML5 Template">
+    <meta name="author" content="okler.net">
 
-    <link rel="stylesheet" href="<?= site_url() ?>plugin/asset/fonts/icomoon/style.css">
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-    <link rel="stylesheet" href="<?= site_url() ?>plugin/asset/css/owl.carousel.min.css">
+    <!-- Web Fonts  -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,600,800,900|Shadows+Into+Light"
+        rel="stylesheet" type="text/css">
 
+    <!-- Vendor CSS -->
+    <link rel="stylesheet" href="<?= site_url() ?>plugin/asset_login/vendor/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="<?= site_url() ?>plugin/asset_login/vendor/animate/animate.css">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="<?= site_url() ?>plugin/asset/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?= site_url() ?>plugin/asset_login/vendor/font-awesome/css/all.min.css" />
+    <link rel="stylesheet" href="<?= site_url() ?>plugin/asset_login/vendor/magnific-popup/magnific-popup.css" />
+    <link rel="stylesheet" href="<?= site_url() ?>plugin/asset_login/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" />
+    <link rel="stylesheet" href="<?= site_url() ?>plugin/sweetalert2/sweetalert2.min.css">
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="<?= site_url() ?>plugin/asset_login/css/theme.css" />
 
-    <!-- Style -->
-    <link rel="stylesheet" href="<?= site_url() ?>plugin/asset/css/style.css">
+    <!-- Skin CSS -->
+    <link rel="stylesheet" href="<?= site_url() ?>plugin/asset_login/css/skins/default.css" />
 
-    <title>PDST NAA</title>
+    <!-- Theme Custom CSS -->
+    <link rel="stylesheet" href="<?= site_url() ?>plugin/asset_login/css/custom.css">
+
+    <!-- Head Libs -->
+    <script src="<?= site_url() ?>plugin/asset_login/vendor/modernizr/modernizr.js"></script>
     <style>
-        #toggle {
-            position: absolute;
-            top: 30px;
-            right: 10px;
-            transform: translateY(-50%);
-            width: 30px;
-            height: 30px;
-            background: url(plugin/dist/img/show.png);
-            background-size: cover;
-            cursor: pointer;
+        body {
+            background: #FFFFFF !important;
         }
 
-        #toggle.hide {
-            background: url(plugin/dist/img/hide.png);
-            background-size: cover;
+        .card-custom {
+            background: #ffffff !important;
+            border: 0px !important;
+            box-shadow: none !important;
         }
 
-        .logo {
-            box-shadow: 5px 5px 5px 5px black;
-            /* width: 150px;
-            height: 150px; */
-            padding: 0 !important;
-            /* !important; */
+        .custom-form {
+            background: #FFFFFF;
+            border: 1px solid #D0D0D0;
+            box-sizing: border-box;
+            border-radius: 4px;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 140%;
         }
 
-        #image {
-            position: relative;
-            margin-left: 25%;
-            width: 50%;
+        .custom-button {
+            background: #279588;
+            border-radius: 8px;
+            color: #ffffff;
+        }
 
+        .custom-button:hover {
+            background: #FBA040;
         }
     </style>
 </head>
 
 <body>
-    <div class="content">
-        <div class="container">
-            <div class="row">
-
-                <div class="col-md-6 offset-3  contents">
-                    <div class="row justify-content-center">
-
-                        <div class="col-md-8">
-                            <div class="mb-5 offset-4">
-                                <a href="#">
-                                    <img src="plugin/dist/img/pdst_logo.png" alt="" style="width: 50%;">
-                                </a>
-
+    <section class="body-sign">
+        <div class="center-sign">
+            <a href="/" class="logo">
+                <center> <img src="<?= site_url() ?>plugin/dist/img/pdst.png" height="54" alt="Porto Admin" /></center>
+            </a>
+            <div class="panel card-sign">
+                <div class="card-body  card-custom">
+                    <form id="form_login">
+                        <div class="form-group mb-3 ">
+                            <div class="input-group">
+                                <input name="username" id="username" autocomplete="off" type="text" class="custom-form form-control form-control-lg" placeholder="Username" />
                             </div>
-                            <!-- <span>Pusat Data Santri Terpadu</span> -->
-                            <form id="form_login">
-                                <div class="form-group first">
-                                    <label for="username">Username</label>
-                                    <input type="text" class="form-control" name="username" id="username" autocomplete="off">
-                                </div>
-                                <div class="form-group last mb-4">
-                                    <label for="password">Password</label>
-                                    <input type="password" class="form-control" name="password" id="password" autocomplete="off">
-                                    <div id="toggle" onclick="showHide();"></div>
-                                </div>
-                                <script>
-                                    var password = document.getElementById('password');
-                                    var toggle = document.getElementById('toggle');
-
-                                    function showHide() {
-                                        if (password.type === 'password') {
-                                            password.setAttribute('type', 'text');
-                                            toggle.classList.add('hide')
-                                        } else {
-                                            password.setAttribute('type', 'password');
-                                            toggle.classList.remove('hide')
-                                        }
-                                    }
-                                </script>
-                                <input type="button" value="Login" id="masuk" class="btn text-white btn-block btn-secondary mt-5">
-                            </form>
                         </div>
-                    </div>
+                        <div class="form-group mb-3 ">
+                            <div class="input-group">
+                                <input name="password" id="password" autocomplete="off" type="password" class="custom-form form-control form-control-lg" placeholder="Password" />
+                            </div>
+                        </div>
 
+                        <div class="row">
+                            <div class="col-sm-12 text-right">
+                                <input type="button" class="w-100 btn custom-button mt-2" id="btn_login" value="Masuk" />
+                            </div>
+                        </div>
+                    </form>
                 </div>
-
             </div>
+
+            <p class="text-center text-muted mt-3 mb-3">&copy; Copyright 2022. All Rights Reserved.</p>
         </div>
+    </section>
+    <!-- end: page -->
 
-    </div>
-    <div class="footer">
-        <!-- <footer class="main-footer"> -->
-        <div class="container-fluid  text-center">
-            <strong>&copy; 2020 <a href="https://adminlte.io">Pdst_naa</a>. All Right Reserved</strong>
-        </div>
-        <!-- </footer> -->
 
-    </div>
 
-    <script src="<?= site_url() ?>plugin/asset/js/jquery-3.3.1.min.js"></script>
-    <script src="<?= site_url() ?>plugin/asset/js/popper.min.js"></script>
-    <script src="<?= site_url() ?>plugin/asset/js/bootstrap.min.js"></script>
+    <!-- Vendor -->
+    <script src="<?= site_url() ?>plugin/asset_login/vendor/jquery/jquery.js"></script>
+    <script src="<?= site_url() ?>plugin/asset_login/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+    <script src="<?= site_url() ?>plugin/asset_login/vendor/popper/umd/popper.min.js"></script>
+    <script src="<?= site_url() ?>plugin/asset_login/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="<?= site_url() ?>plugin/asset_login/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="<?= site_url() ?>plugin/asset_login/vendor/common/common.js"></script>
+    <script src="<?= site_url() ?>plugin/asset_login/vendor/nanoscroller/nanoscroller.js"></script>
+    <script src="<?= site_url() ?>plugin/asset_login/vendor/magnific-popup/jquery.magnific-popup.js"></script>
+    <script src="<?= site_url() ?>plugin/asset_login/vendor/jquery-placeholder/jquery.placeholder.js"></script>
     <script src="<?= site_url() ?>plugin/sweetalert2/sweetalert2.all.min.js"></script>
-    <script src="<?= site_url() ?>plugin/asset/js/main.js"></script>
+
+    <!-- Theme Base, Components and Settings -->
+    <script src="<?= site_url() ?>plugin/asset_login/js/theme.js"></script>
+
+    <!-- Theme Custom -->
+    <script src="<?= site_url() ?>plugin/asset_login/js/custom.js"></script>
+
+    <!-- Theme Initialization Files -->
+    <script src="<?= site_url() ?>plugin/asset_login/js/theme.init.js"></script>
     <script>
         var username, password, dataAkun, baseUrl_admin = "<?= site_url('admin') ?>",
             baseUrl_user = "<?= site_url('user') ?>";
@@ -144,10 +152,10 @@
             $("#password").keypress(function(e) {
                 keyCode = e.keyCode ? e.keyCode : e.which;
                 if (keyCode === 13) {
-                    $("#masuk").click();
+                    $("#btn_login").click();
                 }
             });
-            $("#masuk").click(function(e) {
+            $("#btn_login").click(function(e) {
                 username = $("#username").val();
                 password = $("#password").val();
                 if (username === "") {
@@ -200,8 +208,7 @@
             });
         });
     </script>
-
-
 </body>
 
 </html>
+

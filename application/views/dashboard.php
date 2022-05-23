@@ -220,22 +220,30 @@ if (isset($this->session->userdata['logged_in'])) {
 							</ul>
 						</li>
 						<li class="nav-item">
-							<a href="#" class="nav-link menu" onclick="menu_jabatan()" style="color: #333;">
-								<i class="nav-icon fas fa-user-tag"></i>
+							<a href="#" class="nav-link" onclick="menu_divisi()" style="color: #333;">
+								<i class="fas fa-arrows-alt nav-icon"></i>
 								<p>
-									Struktural
+									Divisi
 								</p>
 							</a>
 						</li>
 						<li class="nav-header">MASTER PROSES</li>
 						<li class="nav-item">
+							<a href="#" onclick="menu_periode()" class="nav-link menu" style="color: #333;">
+								<i class="nav-icon fas fa-clock"></i>
+								<p>
+									Atur Periode
+								</p>
+							</a>
+						</li>
+						<!-- <li class="nav-item">
 							<a href="#" class="nav-link menu" onclick="menu_history()" style="color: #333;">
 								<i class="fas fa-history nav-icon"></i>
 								<p>
 									Penempatan Kamar
 								</p>
 							</a>
-						</li>
+						</li> -->
 						<li class="nav-header">LAPORAN DATA</li>
 						<li class="nav-item">
 							<a href="#" class="nav-link menu" onclick="menu_grafik()" style="color: #333;">
@@ -373,17 +381,26 @@ if (isset($this->session->userdata['logged_in'])) {
 		}
 		// End History
 		// Lembaga
-		function menu_lembaga() {
-			$.post('<?= site_url('lembaga') ?>', function(Res) {
-				$('#ini_isinya').html(Res);
-			});
-		}
+		// function menu_lembaga() {
+		// 	$.post('<?= site_url('lembaga') ?>', function(Res) {
+		// 		$('#ini_isinya').html(Res);
+		// 	});
+		// }
 		// End Lembaga
-		function menu_jabatan() {
-			$.post('<?= site_url('jabatan') ?>', function(Res) {
+		// Divisi
+		function menu_divisi() {
+			$.post('<?= site_url('divisi') ?>', function(Res) {
 				$('#ini_isinya').html(Res);
 			});
 		}
+		// Divisi
+		// Periode
+		function menu_periode() {
+			$.post('<?= site_url('periode') ?>', function(Res) {
+				$('#ini_isinya').html(Res);
+			});
+		}
+		// Periode
 		// Koordinator
 		function menu_koordinator() {
 			$.post('<?= site_url('koordinator') ?>', function(Res) {
