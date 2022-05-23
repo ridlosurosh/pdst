@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'project_revisi',
+	'hostname' => '156.67.211.101',
+	'username' => 'u2785662_coba_psb',
+	'password' => '@adminpsb21',
+	'database' => 'u2785662_coba_psb',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
