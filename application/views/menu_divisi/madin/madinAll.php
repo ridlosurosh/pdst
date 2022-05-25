@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Divisi Nubdzah </h1>
+                <h1>Divisi Madin </h1>
             </div>
         </div>
     </div>
@@ -12,7 +12,7 @@
 		<div class="card-body table-responsive p-1">
 			<table id="example" class="table table-hover text-nowrap ">
                 <h3 class="card-title">
-                    <a class="btn btn-sm btn-block bg-teal" href="#" onclick="formSimpanNubdzah()">
+                    <a class="btn btn-sm btn-block bg-teal" href="#" onclick="formSimpanMadin()">
                         <i class="fas fa-plus"></i> Tambah Data
                     </a>
                     </h3>
@@ -53,10 +53,10 @@
                                     <i class="fa fa-check"></i>
                                     PINDAK KE DIVISI TAHFIDZ</button>
                                 </a>
-                                <a href="#" id="bt-save-madin">
+                                <a href="#" id="bt-save-nubdzah">
                                     <button type="button" class="mb-2 btn btn-success btn-block">
                                     <i class="fa fa-check"></i>
-                                    PINDAK KE DIVISI MADIN</button>
+                                    PINDAK KE DIVISI NUBDZAH</button>
                                 </a>
                             </div>
                         </div>
@@ -76,7 +76,7 @@
 			"lengthChange": false,
             
             "ajax": {
-                "url": "<?php echo site_url('Cdivisi/nubdzahAll')?>",
+                "url": "<?php echo site_url('Cdivisi/madinAll')?>",
                 "type": "POST"
             },
 
@@ -113,7 +113,7 @@
                                 type: 'POST',
                                 data: {
                                     id: id,
-                                    tb : "tb_divisinubdah"
+                                    tb : "tb_divisimadin"
                                 },
                                 dataType: 'json'
                             })
@@ -125,7 +125,7 @@
                                         type: "success"
                                     }).then(okay => {
                                         if (okay) {
-                                            nubdzah();
+                                            madin();
                                         }
                                     });
                                 // }
@@ -144,7 +144,7 @@
                 data : {
                     'id' : idnya,
                     'divisi' : "3",
-                    'tb' : "tb_divisinubdah"
+                    'tb' : "tb_divisimadin"
                 },
                 dataType: 'json',
                 success: function(data){
@@ -155,7 +155,7 @@
 							type: "success"
                                 }).then(okay => {
                                     if (okay) {
-                                        nubdzah();
+                                        madin();
                                     }
                             });
                     }
@@ -163,15 +163,15 @@
             });
         });
 
-        $('#bt-save-madin').on('click', function(){
+        $('#bt-save-nubdzah').on('click', function(){
             var idnya = $("#id").val();
             $.ajax({
                 url: '<?= site_url('Cdivisi/pindahDivisi') ?>',
                 type: 'POST',
                 data : {
                     'id' : idnya,
-                    'divisi' : "2",
-                    'tb' : "tb_divisinubdah"
+                    'divisi' : "1",
+                    'tb' : "tb_divisimadin"
                 },
                 dataType: 'json',
                 success: function(data){
@@ -182,7 +182,7 @@
 							type: "success"
                                 }).then(okay => {
                                     if (okay) {
-                                        nubdzah();
+                                        madin();
                                     }
                             });
                     }
@@ -192,8 +192,8 @@
 
     });
 
-    function formSimpanNubdzah() {
-        $.post('<?= site_url('Cdivisi/formSimpanNubdzah')?>', function(Res) {
+    function formSimpanMadin() {
+        $.post('<?= site_url('Cdivisi/formSimpanMadin')?>', function(Res) {
             $('#ini_isinya').html(Res);
         })
     };

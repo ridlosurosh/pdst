@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Divisi Nubdzah </h1>
+                <h1>Divisi Tahfidz </h1>
             </div>
         </div>
     </div>
@@ -12,7 +12,7 @@
 		<div class="card-body table-responsive p-1">
 			<table id="example" class="table table-hover text-nowrap ">
                 <h3 class="card-title">
-                    <a class="btn btn-sm btn-block bg-teal" href="#" onclick="formSimpanNubdzah()">
+                    <a class="btn btn-sm btn-block bg-teal" href="#" onclick="formSimpanTahfidz()">
                         <i class="fas fa-plus"></i> Tambah Data
                     </a>
                     </h3>
@@ -48,15 +48,15 @@
                         <input type="hidden" name="id" id="id" value="">
                         <div class="row">
                             <div class="col-md-12">
-                                <a href="#" id="bt-save-tahfidz">
+                                <a href="#" id="bt-save-madin">
                                     <button type="button" class="mb-2 btn btn-info btn-block">
                                     <i class="fa fa-check"></i>
-                                    PINDAK KE DIVISI TAHFIDZ</button>
+                                    PINDAK KE DIVISI MADIN</button>
                                 </a>
-                                <a href="#" id="bt-save-madin">
+                                <a href="#" id="bt-save-nubdzah">
                                     <button type="button" class="mb-2 btn btn-success btn-block">
                                     <i class="fa fa-check"></i>
-                                    PINDAK KE DIVISI MADIN</button>
+                                    PINDAK KE DIVISI NUBDZAH</button>
                                 </a>
                             </div>
                         </div>
@@ -76,7 +76,7 @@
 			"lengthChange": false,
             
             "ajax": {
-                "url": "<?php echo site_url('Cdivisi/nubdzahAll')?>",
+                "url": "<?php echo site_url('Cdivisi/tahfidzAll')?>",
                 "type": "POST"
             },
 
@@ -113,7 +113,7 @@
                                 type: 'POST',
                                 data: {
                                     id: id,
-                                    tb : "tb_divisinubdah"
+                                    tb : "tb_divisitahfidz"
                                 },
                                 dataType: 'json'
                             })
@@ -125,7 +125,7 @@
                                         type: "success"
                                     }).then(okay => {
                                         if (okay) {
-                                            nubdzah();
+                                            tahfidz();
                                         }
                                     });
                                 // }
@@ -136,33 +136,6 @@
         });
 
 
-        $('#bt-save-tahfidz').on('click', function(){
-            var idnya = $("#id").val();
-            $.ajax({
-                url: '<?= site_url('Cdivisi/pindahDivisi') ?>',
-                type: 'POST',
-                data : {
-                    'id' : idnya,
-                    'divisi' : "3",
-                    'tb' : "tb_divisinubdah"
-                },
-                dataType: 'json',
-                success: function(data){
-                    $('#modal').modal('hide');
-                    if(data.status) {
-                        swal.fire({
-							title: data.pesan,
-							type: "success"
-                                }).then(okay => {
-                                    if (okay) {
-                                        nubdzah();
-                                    }
-                            });
-                    }
-                }
-            });
-        });
-
         $('#bt-save-madin').on('click', function(){
             var idnya = $("#id").val();
             $.ajax({
@@ -171,7 +144,7 @@
                 data : {
                     'id' : idnya,
                     'divisi' : "2",
-                    'tb' : "tb_divisinubdah"
+                    'tb' : "tb_divisitahfidz"
                 },
                 dataType: 'json',
                 success: function(data){
@@ -182,7 +155,34 @@
 							type: "success"
                                 }).then(okay => {
                                     if (okay) {
-                                        nubdzah();
+                                        tahfidz();
+                                    }
+                            });
+                    }
+                }
+            });
+        });
+
+        $('#bt-save-nubdzah').on('click', function(){
+            var idnya = $("#id").val();
+            $.ajax({
+                url: '<?= site_url('Cdivisi/pindahDivisi') ?>',
+                type: 'POST',
+                data : {
+                    'id' : idnya,
+                    'divisi' : "1",
+                    'tb' : "tb_divisitahfidz"
+                },
+                dataType: 'json',
+                success: function(data){
+                    $('#modal').modal('hide');
+                    if(data.status) {
+                        swal.fire({
+							title: data.pesan,
+							type: "success"
+                                }).then(okay => {
+                                    if (okay) {
+                                        tahfidz();
                                     }
                             });
                     }
@@ -192,8 +192,8 @@
 
     });
 
-    function formSimpanNubdzah() {
-        $.post('<?= site_url('Cdivisi/formSimpanNubdzah')?>', function(Res) {
+    function formSimpanTahfidz() {
+        $.post('<?= site_url('Cdivisi/formSimpanTahfidz')?>', function(Res) {
             $('#ini_isinya').html(Res);
         })
     };

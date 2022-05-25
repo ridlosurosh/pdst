@@ -1,9 +1,9 @@
 <?php
 class Mdivisi extends CI_Model {
 
-	function _get_datatables_query($table, $tblJoin,$tableJoin,$column_search,$order)
+	function _get_datatables_query($table, $tblJoin,$tableJoin,$column_search,$order,$tableWhere)
 	{
-		$this->db->from($table)->join($tblJoin,$tableJoin)->where('tb_divisinubdah.status', 'aktif');
+		$this->db->from($table)->join($tblJoin,$tableJoin)->where($tableWhere, 'aktif');
 
 		$i = 0;
 	
@@ -39,18 +39,18 @@ class Mdivisi extends CI_Model {
 		}
 	}
 
-	function get_datatables($table, $tblJoin,$tableJoin,$column_search,$order)
+	function get_datatables($table, $tblJoin,$tableJoin,$column_search,$order,$tableWhere)
 	{
-		$this->_get_datatables_query($table, $tblJoin,$tableJoin,$column_search,$order);
+		$this->_get_datatables_query($table, $tblJoin,$tableJoin,$column_search,$order,$tableWhere);
 		if($_POST['length'] != -1)
-		$this->db->limit($_POST['length'], $_POST['start'])->where('tb_divisinubdah.status', 'aktif');
+		$this->db->limit($_POST['length'], $_POST['start'])->where($tableWhere, 'aktif');
 		$query = $this->db->get();
 		return $query->result();
 	}
 
-	function count_filtered($table, $tblJoin,$tableJoin,$column_search,$order)
+	function count_filtered($table, $tblJoin,$tableJoin,$column_search,$order,$tableWhere)
 	{
-		$this->_get_datatables_query($table, $tblJoin,$tableJoin,$column_search,$order);
+		$this->_get_datatables_query($table, $tblJoin,$tableJoin,$column_search,$order,$tableWhere);
 		$query = $this->db->get();
 		return $query->num_rows();
 	}

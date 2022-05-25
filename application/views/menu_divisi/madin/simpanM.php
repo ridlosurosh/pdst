@@ -8,7 +8,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Tambah Divisi Nubdzah </h1>
+                <h1>Tambah Divisi Madin </h1>
             </div>
         </div>
     </div>
@@ -17,6 +17,8 @@
     <div class="container-fluid">
         <div class="container-fluid" >
             <form id="simpan_data_santri">
+                <input type="hidden" name="tb" value="tb_divisimadin">
+                <input type="hidden" name="divisi" value="madin">
                 <div class="card">
                     <div class="body" style="padding:30px 25px;margin-bottom:-15px;margin-top: -10px" id="">
                         <div class="row clearfix">
@@ -27,7 +29,7 @@
                             </div>
                             <div class="col-md-4" >
                                 <div class="form-line" style="margin-bottom:8px;">
-                                    <input type="text" class="form-control search_santri" name="search_santri" id="search_santri" placeholder="Nama Santri" autocomplete="off">
+                                    <input type="text" class="form-control search_santri" name="search_santri" id="search_santri" placeholder="Nama Santri Madin" autocomplete="off">
                                     <input type="hidden"id="nomor_urut_santri" name="nomor_urut_santri" value="0">
                                 </div>
                             </div>
@@ -183,7 +185,7 @@ $(function() {
 							type: "success"
                                 }).then(okay => {
                                     if (okay) {
-                                        nubdzah();
+                                        madin();
                                     }
                             });
                     } else {

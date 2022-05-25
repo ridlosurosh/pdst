@@ -246,7 +246,7 @@ if (isset($this->session->userdata['logged_in'])) {
 									</a>
 								</li>
 								<li class="nav-item">
-									<a href="#" class="nav-link" onclick="tahfid()" style="color: #333;">
+									<a href="#" class="nav-link" onclick="tahfidz()" style="color: #333;">
 										<i class="far fa-circle nav-icon"></i>
 										<p>
 											Tahfidz
@@ -457,6 +457,18 @@ if (isset($this->session->userdata['logged_in'])) {
 		// Menu Devisi
 		function nubdzah() {
 			$.post('<?= site_url('Cdivisi/nubdzah') ?>',function(Res) {
+				$('#ini_isinya').html(Res);
+			})
+		}
+
+		function madin() {
+			$.post('<?= site_url('Cdivisi/madin') ?>',function(Res) {
+				$('#ini_isinya').html(Res);
+			})
+		}
+
+		function tahfidz() {
+			$.post('<?= site_url('Cdivisi/tahfidz') ?>',function(Res) {
 				$('#ini_isinya').html(Res);
 			})
 		}
