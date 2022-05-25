@@ -219,13 +219,41 @@ if (isset($this->session->userdata['logged_in'])) {
 								</li> -->
 							</ul>
 						</li>
-						<li class="nav-item">
-							<a href="#" class="nav-link" onclick="menu_divisi()" style="color: #333;">
-								<i class="fas fa-arrows-alt nav-icon"></i>
-								<p>
+
+						<li class="nav-item has-treeview">
+							<a href="#" class="nav-link menu" style="color: #333;">
+							<i class="fas fa-arrows-alt nav-icon"></i>
+								<p>	
 									Divisi
+									<i class="right fas fa-angle-left"></i>
 								</p>
 							</a>
+							<ul class="nav nav-treeview">
+							<li class="nav-item">
+									<a href="#" class="nav-link" onclick="nubdzah()" style="color: #333;">
+									<i class="far fa-circle nav-icon"></i>
+										<p>
+											Nubdzah
+										</p>
+									</a>
+								</li>
+								<li class="nav-item">
+									<a href="#" class="nav-link" onclick="madin()" style="color: #333;">
+									<i class="far fa-circle nav-icon"></i>
+										<p>
+											Madin
+										</p>
+									</a>
+								</li>
+								<li class="nav-item">
+									<a href="#" class="nav-link" onclick="tahfid()" style="color: #333;">
+										<i class="far fa-circle nav-icon"></i>
+										<p>
+											Tahfidz
+										</p>
+									</a>
+								</li>
+							</ul>
 						</li>
 						<li class="nav-header">MASTER PROSES</li>
 						<li class="nav-item">
@@ -424,6 +452,13 @@ if (isset($this->session->userdata['logged_in'])) {
 			$.post('<?= site_url('Cexport_pdf/cetak_person') ?>', function(Res) {
 				$('#ini_isinya').html(Res);
 			});
+		}
+
+		// Menu Devisi
+		function nubdzah() {
+			$.post('<?= site_url('Cdivisi/nubdzah') ?>',function(Res) {
+				$('#ini_isinya').html(Res);
+			})
 		}
 
 		$(document).ready(function() {
