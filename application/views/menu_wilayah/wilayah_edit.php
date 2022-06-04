@@ -1,45 +1,44 @@
-<section class="content-header">
-	<div class="container-fluid">
-		<div class="row mb-2">
-			<div class="col-sm-6">
-				<h1>Wilayah</h1>
+<div class="container-fluid">
+	<div class="page-header">
+		<div class="row">
+			<div class="col-lg-6">
+				<h3>Wilayah</h3>
 			</div>
 		</div>
 	</div>
-</section>
-<section class="content mt-2">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-12">
-				<form id="form_edit_wilayah">
-					<div class="card">
-						<div class="card-body">
-							<div class="row">
-								<div class="col-md-6">
-									<input type="hidden" name="idwilayah" value="<?= $id_wilayah ?>">
-									<div class="form-group row">
-										<label for="nama_wilayah" class="col-form-label">Nama Wilayah</label>
-										<input type="text" class="form-control" id="nama_wilayah" name="nama_wilayah" value="<?= $nama_wilayah ?>">
-									</div>
+</div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-12">
+			<form id="form_edit_wilayah">
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-md-6">
+								<input type="hidden" name="idwilayah" value="<?= $id_wilayah ?>">
+								<div class="form-group row">
+									<label for="nama_wilayah" class="col-form-label">Nama Wilayah</label>
+									<input type="text" class="form-control" id="nama_wilayah" name="nama_wilayah" value="<?= $nama_wilayah ?>">
 								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="kepala_wilayah" class="col-form-label">Kepala Wilayah</label>
-										<input type="text" class="form-control" id="kepala_wilayah" name="kepala_wilayah" value="<?= $kepala_wilayah ?>">
-									</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="kepala_wilayah" class="col-form-label">Kepala Wilayah</label>
+									<input type="text" class="form-control" id="kepala_wilayah" name="kepala_wilayah" value="<?= $kepala_wilayah ?>">
 								</div>
 							</div>
 						</div>
-						<div class="card-footer">
-							<button type="button" class="btn btn-sm btn-danger" onclick="menu_wilayah()"><i class="fas fa-reply"></i> Kembali Ke data Wilayah</button>
-							<button class="btn btn-sm btn-primary  float-right"><i class="fas fa-edit"></i> Edit</button>
-						</div>
 					</div>
-				</form>
-			</div>
+					<div class="card-footer">
+						<button type="button" class="btn btn-sm btn-danger" onclick="menu_wilayah()"><i class="fas fa-reply"></i> Kembali Ke data Wilayah</button>
+						<button class="btn btn-sm btn-primary  float-right"><i class="fas fa-edit"></i> Edit</button>
+					</div>
+				</div>
+			</form>
 		</div>
 	</div>
-</section>
+</div>
+
 <script>
 	$.validator.addMethod("valueNotEquals", function(value, element, arg) {
 		return arg !== value;
@@ -56,22 +55,13 @@
 				required: true
 			},
 		},
-		messages: {
-			nama_wilayah: {
-				required: "Tidak Boleh Kosong"
-			},
-			kepala_wilayah: {
-				required: "Tidak Boleh Kosong"
-			}
+		errorPlacement: function(element) {
+			// error.addClass('invalid-feedback');
+			// element.closest('.form-group').append(error);
 		},
-		errorElement: 'span',
-		errorPlacement: function(error, element) {
-			error.addClass('invalid-feedback');
-			element.closest('.form-group').append(error);
+		highlight: function(element, errorClass, validClass) {
+		    $(element).addClass('is-invalid');
 		},
-		// highlight: function(element, errorClass, validClass) {
-		//     $(element).addClass('is-invalid');
-		// },
 		unhighlight: function(element, errorClass, validClass) {
 			$(element).removeClass('is-invalid');
 		},

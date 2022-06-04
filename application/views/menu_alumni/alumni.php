@@ -1,55 +1,54 @@
-<section class="content-header">
-	<div class="container-fluid">
-		<div class="row mb-2">
-			<div class="col-sm-6">
-				<h1>Alumni</h1>
+<div class="container-fluid">
+	<div class="page-header">
+		<div class="row">
+			<div class="col-lg-6">
+				<h3>Alumni</h3>
 			</div>
 		</div>
 	</div>
-</section>
-
-<section class="content">
-	<div class="contianer-fluid">
-		<div class="card">
-			<div class="card-body p-1">
-				<!-- <h3 class="card-title"><a class="btn btn-block btn-sm bg-teal" href="#" onclick="tambah_alumni()"><i class="fas fa-plus "></i> Tambah Data</a></h3> -->
-				<table id="example1" class="table">
-					<thead>
-						<tr>
-							<th>NO</th>
-							<th>NIUP</th>
-							<th>NAMA</th>
-							<th>ALAMAT</th>
-							<th>TANGGAL KELUAR</th>
-							<th>AKSI</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php
-						$no = 1;
-						foreach ($alumni as $value) { ?>
+</div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="card mt-2 p-2">
+				<div class="table-responsive">
+					<table id="example1" class="table">
+						<thead>
 							<tr>
-								<td><?= $no++ ?></td>
-								<td><?= $value->niup ?></td>
-								<td><?= $value->nama ?></td>
-								<td><?= $value->alamat_lengkap ?></td>
-								<td><?= $value->tgl_berhenti ?></td>
-								<td>
-									<div class="btn-group">
-										<button type="button" class="btn btn-sm btn-info" title="Info" onclick="detail_alumni('<?= $value->id_person ?>')">
-											<i class="fas fa-info-circle"></i>
-										</button>
-									</div>
-								</td>
+								<th width="40">#</th>
+								<th>NO</th>
+								<th>NIUP</th>
+								<th>NAMA</th>
+								<th>ALAMAT</th>
+								<th>TANGGAL KELUAR</th>
 							</tr>
-						<?php } ?>
-					</tbody>
-				</table>
+						</thead>
+						<tbody>
+							<?php
+							$no = 1;
+							foreach ($alumni as $value) { ?>
+								<tr>
+									<td>
+										<div class="btn-group">
+											<button type="button" class="btn btn-sm btn-primary" title="Detail" onclick="detail_alumni('<?= $value->id_person ?>')">
+												<i class="fas fa-info-circle"></i>
+											</button>
+										</div>
+									</td>
+									<td><?= $no++ ?></td>
+									<td><?= $value->niup ?></td>
+									<td><?= $value->nama ?></td>
+									<td><?= $value->alamat_lengkap ?></td>
+									<td><?= $value->tgl_berhenti ?></td>
+								</tr>
+							<?php } ?>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
-</section>
-
+</div>
 <script>
 	$(function() {
 		$("#example1").DataTable({

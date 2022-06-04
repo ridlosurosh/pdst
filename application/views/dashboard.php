@@ -6,488 +6,301 @@ if (isset($this->session->userdata['logged_in'])) {
 	header("location:log-in");
 }
 ?>
-
+<html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>PDST NAA</title>
-	<link rel="shortcut icon" href="<?= site_url() ?>plugin/dist/img/pdst.png" type="image/x-icon">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="<?= site_url() ?>plugin/fontawesome-free/css/all.min.css">
-	<!-- Ekko Lightbox -->
-	<!-- <link rel="stylesheet" href="<?= site_url() ?>plugin/ekko-lightbox/ekko-lightbox.css"> -->
-	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-	<link rel="stylesheet" href="<?= site_url() ?>plugin/dist/css/adminlte.min.css">
-	<link rel="stylesheet" href="<?= site_url() ?>plugin/icheck-bootstrap/icheck-bootstrap.min.css">
-	<link rel="stylesheet" href="<?= site_url() ?>plugin/panah/style.css">
-
-	<!-- DataTables -->
-	<link rel="stylesheet" href="<?= site_url() ?>plugin/datatables-bs4/css/dataTables.bootstrap4.min.css">
-	<link rel="stylesheet" href="<?= site_url() ?>plugin/datatables-responsive/css/responsive.bootstrap4.min.css">
-	<link rel="stylesheet" href="<?= site_url() ?>plugin/datatables-buttons/css/buttons.bootstrap4.min.css">
-
-	<link rel="stylesheet" href="<?= site_url() ?>plugin/sweetalert2/sweetalert2.min.css">
-	<link rel="stylesheet" href="<?= site_url() ?>plugin/select2/css/select2.min.css">
-	<link rel="stylesheet" href="<?= site_url() ?>plugin/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-	<!-- daterange picker -->
-	<link rel="stylesheet" href="<?= site_url() ?>plugin/daterangepicker/daterangepicker.css">
-	<link rel="stylesheet" href="<?= site_url() ?>plugin/EasyAutocomplete/easy-autocomplete.min.css">
-	<link rel="stylesheet" href="<?= site_url() ?>plugin/EasyAutocomplete/easy-autocomplete.themes.min.css">
-	<link rel="stylesheet" type="text/css" href="<?= site_url() ?>plugin/jquery-ui/jquery-ui.min.css">
-	<link rel="stylesheet" href="<?= site_url() ?>plugin/Ionicons/css/ionicons.min.css">
-	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-	<!-- <style>
-		.main-sidebar,
-		.main-sidebar::before {
-			transition: margin-left .3s ease-in-out, width .3s ease-in-out;
-			width: 200px;
-		}
-
-		body:not(.sidebar-mini-md) .content-wrapper,
-		body:not(.sidebar-mini-md) .main-footer,
-		body:not(.sidebar-mini-md) .main-header {
-			transition: margin-left .3s ease-in-out;
-			margin-left: 200px;
-		}
-	</style> -->
-
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Cuba admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+  <meta name="keywords" content="admin template, Cuba admin template, dashboard template, flat admin template, responsive admin template, web app">
+  <meta name="author" content="pixelstrap">
+  <link rel="icon" href="<?= site_url() ?>assets/images/favicon.png" type="image/x-icon">
+  <link rel="shortcut icon" href="<?= site_url() ?>assets/images/favicon.png" type="image/x-icon">
+  <title>PDST NAA</title>
+  <!-- Google font-->
+  <link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900&amp;display=swap" rel="stylesheet">
+  <!-- Font Awesome-->
+  <link rel="stylesheet" type="text/css" href="<?= site_url() ?>assets/css/fontawesome.css">
+  <!-- ico-font-->
+  <link rel="stylesheet" type="text/css" href="<?= site_url() ?>assets/css/icofont.css">
+  <!-- Themify icon-->
+  <link rel="stylesheet" type="text/css" href="<?= site_url() ?>assets/css/themify.css">
+  <!-- Flag icon-->
+  <link rel="stylesheet" type="text/css" href="<?= site_url() ?>assets/css/flag-icon.css">
+  <!-- Feather icon-->
+  <link rel="stylesheet" type="text/css" href="<?= site_url() ?>assets/css/feather-icon.css">
+  <link rel="stylesheet" href="<?= site_url() ?>assets/fontawesome-free/css/all.min.css">
+  <!-- Plugins css start-->
+  <link rel="stylesheet" type="text/css" href="<?= site_url() ?>assets/css/prism.css">
+  <link rel="stylesheet" type="text/css" href="<?= site_url() ?>assets/css/whether-icon.css">
+  <link rel="stylesheet" type="text/css" href="<?= site_url() ?>assets/css/owlcarousel.css">
+  <link rel="stylesheet" href="<?= site_url() ?>plugin/datatables-bs4/css/dataTables.bootstrap4.css">
+  <link rel="stylesheet" href="<?= site_url() ?>plugin/EasyAutocomplete/easy-autocomplete.min.css">
+  <link rel="stylesheet" href="<?= site_url() ?>plugin/EasyAutocomplete/easy-autocomplete.themes.min.css">
+  <link rel="stylesheet" href="<?= site_url() ?>assets/js/parsleyjs/parsley.css">
+  <link rel="stylesheet" href="<?= site_url() ?>plugin/sweetalert2/sweetalert2.min.css">
+  <link rel="stylesheet" href="<?= site_url() ?>plugin/select2/css/select2.min.css">
+  <link rel="stylesheet" href="<?= site_url() ?>plugin/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+  <link rel="stylesheet" type="text/css" href="<?= site_url() ?>assets/css/date-picker.css">
+  <!-- Plugins css Ends-->
+  <!-- Bootstrap css-->
+  <link rel="stylesheet" type="text/css" href="<?= site_url() ?>assets/css/bootstrap.css">
+  <!-- App css-->
+  <link rel="stylesheet" type="text/css" href="<?= site_url() ?>assets/css/style.css">
+  <link id="color" rel="stylesheet" href="<?= site_url() ?>assets/css/color-1.css" media="screen">
+  <!-- Responsive css-->
+  <link rel="stylesheet" type="text/css" href="<?= site_url() ?>assets/css/responsive.css">
 </head>
+<body>
+  <!-- Loader starts-->
+  <div class="loader-wrapper">
+    <div class="loader-index"><span></span></div>
+    <svg>
+      <defs></defs>
+      <filter id="goo">
+        <fegaussianblur in="SourceGraphic" stddeviation="11" result="blur"></fegaussianblur>
+        <fecolormatrix in="blur" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo">    </fecolormatrix>
+      </filter>
+    </svg>
+  </div>
+  <!-- Loader ends-->
+  <!-- page-wrapper Start-->
+  <div class="page-wrapper compact-wrapper" id="pageWrapper">
+    <!-- Page Header Start-->
+    <div class="page-main-header">
+      <div class="main-header-right row m-2">
+        <div class="main-header-left">
+          <div class="logo-wrapper"><a href="index.html"><img class="img-fluid" src="<?= site_url() ?>assets/images/logo/logo.png" alt=""></a></div>
+        </div>
+        <div class="toggle-sidebar"><i class="status_toggle middle" data-feather="grid" id="sidebar-toggle"></i></div>
+        <div class="left-menu-header col">
+          <ul>
+            <li>
+              <form class="form-inline search-form">
+                <!-- <div class="search-bg"><i class="fa fa-search"></i></div>
+                <input class="form-control-plaintext" placeholder="Search here....."> -->
+              </form>
+            </li>
+          </ul>
+        </div>
+        <div class="nav-right col pull-right right-menu">
+          <ul class="nav-menus">
+            <li><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()"><i data-feather="maximize"></i></a></li>
+            <li class="onhover-dropdown p-0">
+              <div class="media profile-media"><img class="b-r-10" src="<?= site_url() ?>assets/images/dashboard/Profile.jpg" alt="">
+                <div class="media-body"><span>Emay Walter</span>
+                  <p class="mb-0 font-roboto">Admin <i class="middle fa fa-angle-down"></i></p>
+                </div>
+              </div>
+              <ul class="profile-dropdown onhover-show-div">
+                <li><i data-feather="user"></i><span>Account </span></li>
+                <li><i data-feather="mail"></i><span>Inbox</span></li>
+                <li><i data-feather="file-text"></i><span>Taskboard</span></li>
+                <li><i data-feather="settings"></i><span>Settings</span></li>
+                <li onclick="logout()"><i data-feather="log-out"> </i><span>Log Out</span></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div class="d-lg-none mobile-toggle pull-right"><i data-feather="more-horizontal"></i></div>
+      </div>
+    </div>
+    <!-- Page Header Ends                              -->
+    <!-- Page Body Start-->
+    <div class="page-body-wrapper horizontal-menu">
+      <!-- Page Sidebar Start-->
+      <header class="main-nav">
+        <div class="logo-wrapper"><a href="#"><img class="img-fluid" src="<?= site_url() ?>assets/images/logo/logo.png" alt=""></a></div>
+        <div class="logo-icon-wrapper"><a href="#"><img class="img-fluid" src="<?= site_url() ?>assets/images/logo/logo-icon.png" alt=""></a></div>
+        <nav>
+          <div class="main-navbar">
+            <div id="mainnav">
+              <ul class="nav-menu custom-scrollbar">
+                <li class="back-btn">
+                  <div class="mobile-back text-right">
+                    <span>Back</span>
+                    <i class="fa fa-angle-right pl-2" aria-hidden="true"></i>
+                  </div>
+                </li>
+                <li>
+                  <a class="nav-link" href="#" onclick="menu_halaman_utama()"><i data-feather="home"></i><span>Dashboard</span></a>
+                </li>
+                <li class="dropdown">
+                  <a class="nav-link menu-title" href="#"><i data-feather="user-check"></i><span>Data Person</span></a>
+                  <ul class="nav-submenu menu-content">
+                    <li><a href="#" onclick="menu_santri()">Santri</a></li>
+                    <li><a href="#" onclick="pengurus()">Pengurus</a></li>
+                    <li><a href="#" onclick="menu_pengajar()">Pengajar</a></li>
+                    <li><a href="#" onclick="karyawan()">Karyawan</a></li>
+                    <li><a href="#" onclick="alumni()">Alumni</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a class="nav-link menu-title" href="#"><i data-feather="map"></i><span>Data Domisili</span></a>
+                  <ul class="nav-submenu menu-content">
+                    <li><a href="#" onclick="menu_wilayah()">Wilayah</a></li>
+                    <li><a href="#" onclick="menu_blok()">Block</a></li>
+                    <li><a href="#" onclick="menu_kamar()">Kamar</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a class="nav-link menu-title" href="#"><i data-feather="move"></i><span>Data Divisi</span></a>
+                  <ul class="nav-submenu menu-content">
+                    <li><a href="#">Nubdzah</a></li>
+                    <li><a href="#">Tahfidz</a></li>
+                    <li><a href="#">Madin</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a class="nav-link menu-title" href="#"><i data-feather="paperclip"></i><span>Proses Data</span></a>
+                  <ul class="nav-submenu menu-content">
+                    <li><a href="#">Atur Periode</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a class="nav-link menu-title" href="#"><i data-feather="layers"></i><span>Laporan</span></a>
+                  <ul class="nav-submenu menu-content">
+                    <li><a href="#">Atur Periode</a></li>
+                    <li><a href="#">Cetak Santri</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
+      <div class="page-body" id="ini_isinya">
 
-<body class="hold-transition sidebar-mini text-sm layout-fixed layout-navbar-fixed">
-	<div class="wrapper">
-		<nav class="main-header navbar navbar-expand navbar-dark navbar-teal elevation-2 border-bottom-0">
-			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a class="nav-link" data-widget="pushmenu" href="#" style="color: #fff;"><i class="fas fa-bars"></i></a>
-				</li>
-			</ul>
 
-			<ul class="navbar-nav ml-auto">
-				<li class="nav-item dropdown">
-					<a class="nav-link" data-toggle="dropdown" href="#" style="color: #fff;">
-						<h4>
-							<i class="fa fa-user-circle" style="margin-right: 5px;"></i>
-							<span class="fa-pull-right" style="font-weight: bold; font-size: medium;">user</span>
-						</h4>
-					</a>
-					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right dropdown-menu-left">
-						<span class="dropdown-item dropdown-header  ">
-							<h5>Profile</h5>
-						</span>
-						<div class="card-body pt-3 ">
-							<div class="row">
-								<div class="col-7">
-									<h3 class="lead"><b><?= $nama_user ?></b></h3>
-									<h6 class="widget-user-desc text-sm"><i class="small fas fa-lg fa-building"></i> <?= $alamat ?></h6>
-									<h6 class="widget-user-desc text-sm"><i class="small fas fa-lg fa-user"></i> <?= $jabatan ?></h6>
-									<!-- <ul class="ml-4 mb-0 fa-ul text-muted ">
-										<li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> alamat</li><br>
-										<li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span>ijnn</li>
-									</ul> -->
-								</div>
-								<div class="col-5 text-center">
-									<img src="<?= site_url() ?>../gambar/foto/<?= $foto ?>" alt="" class="img-circle img-fluid elevation-1 " style="opacity: 2;">
-								</div>
-							</div>
-						</div>
-						<div class="card-footer">
-							<div class="text offset-4 ">
-								<a href="<?= site_url('clogin/logout') ?>" class="btn btn-sm bg-gradient-danger">
-									<i class="fa fa-sign-out-alt"></i> Keluar
-								</a>
-							</div>
-						</div>
-					</div>
-					<!-- <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-3">
-						<h4 class="widget-user-username txet-center"><?= $nama_user ?></h4>
-						<h5 class="widget-user-desc">Ketua Umum</h5>
-						<a href="<?= site_url('Clogin/logout') ?>" class="btn btn-danger btn-sm mt-4" style="margin-left: 90px;">Log-out</a>
+      </div>
+      <footer class="footer">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-6 footer-copyright">
+              <p class="mb-0">Copyright <?= date('Y') ?> © PDST NAA All rights reserved.</p>
+            </div>
+            <div class="col-md-6">
+              <p class="pull-right mb-0">I <i class="fa fa-heart font-secondary"></i> NAA</p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <!-- latest jquery-->
+  <script src="<?= site_url() ?>assets/js/jquery-3.5.1.min.js"></script>
+  <script src="<?= site_url() ?>plugin/EasyAutocomplete/jquery.easy-autocomplete.min.js"></script>
+  <!-- Bootstrap js-->
+  <script src="<?= site_url() ?>assets/js/bootstrap/popper.min.js"></script>
+  <script src="<?= site_url() ?>assets/js/bootstrap/bootstrap.js"></script>
+  <!-- feather icon js-->
+  
 
-					</div> -->
-				</li>
-			</ul>
-		</nav>
+  <!-- Sidebar jquery-->
+  <script src="<?= site_url() ?>assets/js/sidebar-menu.js"></script>
+  <script src="<?= site_url() ?>assets/js/config.js"></script>
+  <script src="<?= site_url() ?>plugin/chart.js/Chart.min.js"></script>
+  <!-- Plugins JS start-->
+  <script src="<?= site_url() ?>plugin/jquery-validation/jquery.validate.min.js"></script>
+  <script src="<?= site_url() ?>plugin/jquery-validation/additional-methods.min.js"></script>
+  <script src="<?= site_url() ?>assets/js/prism/prism.min.js"></script>
+  <script src="<?= site_url() ?>assets/js/clipboard/clipboard.min.js"></script>
+  <script src="<?= site_url() ?>assets/js/custom-card/custom-card.js"></script>
+  <script src="<?= site_url() ?>assets/js/form-validation-custom.js"></script>
+  <script src="<?= site_url() ?>assets/js/datepicker/date-picker/datepicker.js"></script>
+  <script src="<?= site_url() ?>assets/js/datepicker/date-picker/datepicker.en.js"></script>
+  <script src="<?= site_url() ?>assets/js/datepicker/date-picker/datepicker.custom.js"></script>
+  <script src="<?= site_url() ?>assets/js/tooltip-init.js"></script>
+  <script src="<?= site_url() ?>assets/js/owlcarousel/owl.carousel.js"></script>
+  <script src="<?= site_url() ?>assets/js/general-widget.js"></script>
+  <script src="<?= site_url() ?>plugin/datatables/jquery.dataTables.js"></script>
+  <script src="<?= site_url() ?>plugin/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+  <script src="<?= site_url() ?>plugin/sweetalert2/sweetalert2.all.min.js"></script>
+  <script src="<?= site_url() ?>plugin/select2/js/select2.full.min.js"></script>
+  <!-- Plugins JS Ends-->
+  <!-- Theme js-->
+  <script src="<?= site_url() ?>assets/js/script.js"></script>
+  <!-- <script src="<?= site_url() ?>assets/js/theme-customizer/customizer.js"></script> -->
+  <!-- login js-->
+  <!-- Plugin used-->
+  <script>
+    $(function() {
+      menu_halaman_utama();
+    });
 
-		<aside class="main-sidebar sidebar-light-teal elevation-4">
-			<a href="#" class="brand-link navbar-teal elevation-3 border-bottom-0" onclick="menu_halaman_utama()">
-				<img src="<?= site_url() ?>plugin/dist/img/naa_logo.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-4">
-				<span class="brand-text" style="color: #fff;"><b>PDST NAA</b></span>
-			</a>
-			<div class="sidebar">
-				<nav class="mt-4">
-					<ul class="nav nav-pills nav-sidebar flex-column nav-compact" data-widget="treeview" role="menu" data-accordion="false">
-						<li class="nav-item">
-							<a href="#" class="nav-link menu active" onclick="menu_halaman_utama()" style="color: #333;">
-								<i class="nav-icon fas fa-home"></i>
-								<p>
-									Dashboard
-								</p>
-							</a>
-						</li>
-						<li class="nav-header">DATA POKOK</li>
-						<li class="nav-item has-treeview">
-							<a href="#" class="nav-link menu " style="color: #333;">
-								<i class="nav-icon fas fa-user-graduate"></i>
-								<p>
-									Data Person
-									<i class="right fas fa-angle-left"></i>
-								</p>
-							</a>
-							<ul class="nav nav-treeview">
-								<li class="nav-item">
-									<a href="#" class="nav-link" onclick="menu_santri()" style="color: #333;">
-										<i class="nav-icon fas fa-graduation-cap"></i>
-										<p>
-											Santri
-										</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="#" class="nav-link" onclick="menu_koordinator()" style="color: #333;">
-										<i class="fas fa-user-graduate nav-icon"></i>
-										<p>
-											Pengurus
-										</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="#" class="nav-link" onclick="menu_pengajar()" style="color: #333;">
-										<i class="fas fa-book nav-icon"></i>
-										<p>
-											Pengajar
-										</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="#" class="nav-link" onclick="karyawan()" style="color: #333;">
-										<i class="fas fa-user-tie nav-icon"></i>
-										<p>
-											Karyawan
-										</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="#" class="nav-link" onclick="alumni()" style="color: #333;">
-										<i class="fas fa-walking nav-icon"></i>
-										<p>
-											Alumni
-										</p>
-									</a>
-								</li>
-							</ul>
-						</li>
-						<li class="nav-item has-treeview">
-							<a href="#" class="nav-link menu" style="color: #333;">
-								<i class="fas fa-sitemap nav-icon"></i>
-								<p>
-									Data Domisili
-									<i class="right fas fa-angle-left"></i>
-								</p>
-							</a>
-							<ul class="nav nav-treeview">
-								<li class="nav-item">
-									<a href="#" class="nav-link" onclick="menu_wilayah()" style="color: #333;">
-										<i class="nav-icon fas fa-map-marked-alt"></i>
-										<p>
-											Wilayah
-										</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="#" class="nav-link" onclick="menu_blok()" style="color: #333;">
-										<i class="nav-icon fas fa-cubes"></i>
-										<p>
-											Block
-										</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="#" class="nav-link" onclick="menu_kamar()" style="color: #333;">
-										<i class="nav-icon fas fa-person-booth"></i>
-										<p>
-											Kamar
-										</p>
-									</a>
-								</li>
-								<!-- <li class="nav-item">
-									<a href="#" class="nav-link" onclick="menu_lembaga()" style="color: #333;">
-										<i class="fas fa-university nav-icon"></i>
-										<p>
-											Lembaga
-										</p>
-									</a>
-								</li> -->
-							</ul>
-						</li>
+    function menu_halaman_utama() {
+      $.post('<?= site_url('halaman_utama') ?>', function(Res) {
+        $('#ini_isinya').html(Res);
+      });
+    }
 
-						<li class="nav-item has-treeview">
-							<a href="#" class="nav-link menu" style="color: #333;">
-							<i class="fas fa-arrows-alt nav-icon"></i>
-								<p>	
-									Divisi
-									<i class="right fas fa-angle-left"></i>
-								</p>
-							</a>
-							<ul class="nav nav-treeview">
-							<li class="nav-item">
-									<a href="#" class="nav-link" onclick="nubdzah()" style="color: #333;">
-									<i class="far fa-circle nav-icon"></i>
-										<p>
-											Nubdzah
-										</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="#" class="nav-link" onclick="madin()" style="color: #333;">
-									<i class="far fa-circle nav-icon"></i>
-										<p>
-											Madin
-										</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="#" class="nav-link" onclick="tahfidz()" style="color: #333;">
-										<i class="far fa-circle nav-icon"></i>
-										<p>
-											Tahfidz
-										</p>
-									</a>
-								</li>
-							</ul>
-						</li>
-						<li class="nav-header">MASTER PROSES</li>
-						<li class="nav-item">
-							<a href="#" onclick="menu_periode()" class="nav-link menu" style="color: #333;">
-								<i class="nav-icon fas fa-clock"></i>
-								<p>
-									Atur Periode
-								</p>
-							</a>
-						</li>
-						<!-- <li class="nav-item">
-							<a href="#" class="nav-link menu" onclick="menu_history()" style="color: #333;">
-								<i class="fas fa-history nav-icon"></i>
-								<p>
-									Penempatan Kamar
-								</p>
-							</a>
-						</li> -->
-						<li class="nav-header">LAPORAN DATA</li>
-						<li class="nav-item">
-							<a href="#" class="nav-link menu" onclick="menu_grafik()" style="color: #333;">
-								<i class="fas fa-chart-pie nav-icon"></i>
-								<p>
-									Grafik
-								</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="#" class="nav-link menu" onclick="cetak_person()" style="color: #333;">
-								<i class="fas  fa-clipboard nav-icon"></i>
-								<p>
-									Cetak Person
-								</p>
-							</a>
-						</li>
-					</ul>
-				</nav>
-			</div>
-		</aside>
-		<div class="content-wrapper" id="ini_isinya">
+    // Santri
+    function menu_santri() {
+      $.post('<?= site_url('santri') ?>', function(Res) {
+        $('#ini_isinya').html(Res);
+      });
+    }
+    // End Santri
 
-		</div>
-	</div>
+    // pengurus
+    function pengurus() {
+      $.post('<?= site_url('pengurus') ?>', function(Res) {
+        $('#ini_isinya').html(Res);
+      });
+    }
+    // end pengurus
 
-	<!-- jQuery -->
-	<script src="<?= site_url() ?>plugin/jquery/jquery.min.js"></script>
-	<script src="<?= site_url() ?>plugin/jquery/jQuery.print.min.js"></script>
-	<script src="<?= site_url() ?>plugin/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<!-- Ekko Lightbox -->
-	<!-- <script src="<?= site_url() ?>plugin/ekko-lightbox/ekko-lightbox.min.js"></script> -->
-	<script src="<?= site_url() ?>plugin/dist/js/adminlte.min.js"></script>
-	<script src="<?= site_url() ?>plugin/dist/js/demo.js"></script>
-	<!-- date-range-picker -->
-	<script src="<?= site_url() ?>plugin/moment/moment.min.js"></script>
-	<script src="<?= site_url() ?>plugin/inputmask/jquery.inputmask.min.js"></script>
-	<script src="<?= site_url() ?>plugin/daterangepicker/daterangepicker.js"></script>
+    // pengajar
+    function menu_pengajar() {
+      $.post('<?= site_url('pengajar') ?>', function(Res) {
+        $('#ini_isinya').html(Res);
+      });
+    }
+    // end pengajar
 
-	<script src="<?= site_url() ?>plugin/EasyAutocomplete/jquery.easy-autocomplete.min.js"></script>
-	<script src="<?= site_url() ?>plugin/select2/js/select2.full.min.js"></script>
-	<script src="<?= site_url() ?>plugin/chart.js/Chart.min.js"></script>
-	<!-- DataTables  & Plugins -->
-	<script src="<?= site_url() ?>plugin/datatables/jquery.dataTables.min.js"></script>
-	<script src="<?= site_url() ?>plugin/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-	<script src="<?= site_url() ?>plugin/datatables-responsive/js/dataTables.responsive.min.js"></script>
-	<script src="<?= site_url() ?>plugin/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-	<script src="<?= site_url() ?>plugin/datatables-buttons/js/dataTables.buttons.min.js"></script>
-	<script src="<?= site_url() ?>plugin/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-	<script src="<?= site_url() ?>plugin/jszip/jszip.min.js"></script>
-	<script src="<?= site_url() ?>plugin/pdfmake/pdfmake.min.js"></script>
-	<script src="<?= site_url() ?>plugin/pdfmake/vfs_fonts.js"></script>
-	<script src="<?= site_url() ?>plugin/datatables-buttons/js/buttons.html5.min.js"></script>
-	<script src="<?= site_url() ?>plugin/datatables-buttons/js/buttons.print.min.js"></script>
-	<script src="<?= site_url() ?>plugin/datatables-buttons/js/buttons.colVis.min.js"></script>
-	<script src="<?= site_url() ?>plugin/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-	<!-- jquery-validation -->
-	<script src="<?= site_url() ?>plugin/jquery-validation/jquery.validate.min.js"></script>
-	<script src="<?= site_url() ?>plugin/jquery-validation/additional-methods.min.js"></script>
-	<!-- sweetalert -->
-	<script src="<?= site_url() ?>plugin/sweetalert2/sweetalert2.all.min.js"></script>
-	<script type="text/javascript" src="<?= site_url() ?>plugin/jquery-ui/jquery-ui.min.js"></script>
-	<script>
-		$(function() {
-			menu_halaman_utama();
-		});
+    // karyawan
+    function karyawan() {
+      $.post('<?= site_url('karyawan') ?>', function(Res) {
+        $('#ini_isinya').html(Res);
+      });
+    }
+    // end karyawan
 
-		function menu_halaman_utama() {
-			$.post('<?= site_url('halaman_utama') ?>', function(Res) {
-				$('#ini_isinya').html(Res);
-			});
-		}
+    // alumni
+    function alumni() {
+      $.post('<?= site_url('alumni') ?>', function(Res) {
+        $('#ini_isinya').html(Res);
+      });
+    }
+    // end alumni
 
-		// Santri
-		function menu_santri() {
-			$.post('<?= site_url('santri') ?>', function(Res) {
-				$('#ini_isinya').html(Res);
-			});
-		}
-		// End Santri
-		// pengurus
-		function pengurus() {
-			$.post('<?= site_url('pengurus') ?>', function(Res) {
-				$('#ini_isinya').html(Res);
-			});
-		}
-		// end pengurus
-		// pengajar
-		function menu_pengajar() {
-			$.post('<?= site_url('pengajar') ?>', function(Res) {
-				$('#ini_isinya').html(Res);
-			});
-		}
-		// end pengajar
-		// karyawan
-		function karyawan() {
-			$.post('<?= site_url('karyawan') ?>', function(Res) {
-				$('#ini_isinya').html(Res);
-			});
-		}
-		// end karyawan
-		// alumni
-		function alumni() {
-			$.post('<?= site_url('alumni') ?>', function(Res) {
-				$('#ini_isinya').html(Res);
-			});
-		}
-		// end alumni
-		// Wilayah
-		function menu_wilayah() {
-			$.post('<?= site_url('wilayah') ?>', function(Res) {
-				$('#ini_isinya').html(Res);
-			});
-		}
-		//End Wilayah
-		// Blok
-		function menu_blok() {
-			$.post('<?= site_url('block') ?>', function(Res) {
-				$('#ini_isinya').html(Res);
-			});
-		}
-		// End Blok 
-		// Kamar
-		function menu_kamar() {
-			$.post('<?= site_url('kamar') ?>', function(Res) {
-				$('#ini_isinya').html(Res);
-			});
-		}
-		// End Kamar
-		// History
-		function menu_history() {
-			$.post('<?= site_url('history') ?>', function(Res) {
-				$('#ini_isinya').html(Res);
-			});
-		}
-		// End History
-		// Lembaga
-		// function menu_lembaga() {
-		// 	$.post('<?= site_url('lembaga') ?>', function(Res) {
-		// 		$('#ini_isinya').html(Res);
-		// 	});
-		// }
-		// End Lembaga
-		// Divisi
-		function menu_divisi() {
-			$.post('<?= site_url('divisi') ?>', function(Res) {
-				$('#ini_isinya').html(Res);
-			});
-		}
-		// Divisi
-		// Periode
-		function menu_periode() {
-			$.post('<?= site_url('periode') ?>', function(Res) {
-				$('#ini_isinya').html(Res);
-			});
-		}
-		// Periode
-		// Koordinator
-		function menu_koordinator() {
-			$.post('<?= site_url('koordinator') ?>', function(Res) {
-				$('#ini_isinya').html(Res);
-			});
-		}
-		// koordinator
-		function menu_terima() {
-			$.post('<?= site_url('terima') ?>', function(Res) {
-				$('#ini_isinya').html(Res);
-			});
-		}
+    // Wilayah
+    function menu_wilayah() {
+      $.post('<?= site_url('wilayah') ?>', function(Res) {
+        $('#ini_isinya').html(Res);
+      });
+    }
+    //End Wilayah
 
-		function menu_grafik() {
-			$.post('<?= site_url('Cgrafik/menu_grafik') ?>', function(Res) {
-				$('#ini_isinya').html(Res);
-			});
-		}
+    // Blok
+    function menu_blok() {
+      $.post('<?= site_url('block') ?>', function(Res) {
+        $('#ini_isinya').html(Res);
+      });
+    }
+    // End Blok
 
-		function cetak_person() {
-			$.post('<?= site_url('Cexport_pdf/cetak_person') ?>', function(Res) {
-				$('#ini_isinya').html(Res);
-			});
-		}
+    // Kamar
+    function menu_kamar() {
+      $.post('<?= site_url('kamar') ?>', function(Res) {
+        $('#ini_isinya').html(Res);
+      });
+    }
 
-		// Menu Devisi
-		function nubdzah() {
-			$.post('<?= site_url('Cdivisi/nubdzah') ?>',function(Res) {
-				$('#ini_isinya').html(Res);
-			})
-		}
-
-		function madin() {
-			$.post('<?= site_url('Cdivisi/madin') ?>',function(Res) {
-				$('#ini_isinya').html(Res);
-			})
-		}
-
-		function tahfidz() {
-			$.post('<?= site_url('Cdivisi/tahfidz') ?>',function(Res) {
-				$('#ini_isinya').html(Res);
-			})
-		}
-
-		$(document).ready(function() {
-			$('.menu').click(function() {
-				// $('li').removeClass('menu-open');
-				// $(this).addClass('menu-open');
-				// if ($('ul li ').attr('class') === "menu-open") {
-				// } else {
-				// $('ul li ').addClass('');
-				// }
-				$('.menu').removeClass('active');
-				$(this).addClass('active');
-				$('ul').find('ul').css('display', 'none');
-				$('ul').next('ul').css('display', 'block');
-			});
-		});
-	</script>
+    function logout() {
+     window.location.href="<?= site_url('Clogin/logout') ?>";
+   }
+ </script>
 </body>
-
 </html>

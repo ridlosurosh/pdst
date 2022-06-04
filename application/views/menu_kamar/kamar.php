@@ -1,50 +1,66 @@
-<section class="content-header">
-	<div class="container-fluid">
-		<div class="row mb-2">
-			<div class="col-sm-6">
-				<h1>Kamar</h1>
+<div class="container-fluid">
+	<div class="page-header">
+		<div class="row">
+			<div class="col-lg-6">
+				<h3>Kamar</h3>
 			</div>
 		</div>
 	</div>
-</section>
+</div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-12">
+			<a href="#" class="btn btn-sm btn-primary active" onclick="tambah_kamar()"><i class="fas fa-plus"></i> Tambah</a>
+			<div class="card mt-2 p-2">
+				<div class="table-responsive">
+					<table id="example1" class="table">
+						<thead>
+							<tr>
+								<th width="100">#</th>
+								<th>NO</th>
+								<th>NAMA KAMAR</th>
+								<th>BLOCK</th>
+								<th>WILAYAH</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+							$no = 1;
+							foreach ($kamar as $value) { ?>
+								<tr title="<?= $value->nama_kamar ?>">
+									<td>
+										<div class="dropdown-basic">
+											<div class="dropdown">
+												<button type="button" class="dropbtn btn-xs btn-primary active" title="Konfigurasi"><i class="fas fa-cog"></i>
+												</button>
+												<div class="dropdown-content">
+													<a href="#" onclick="info('<?= $value->id_kamar ?>')">Atur Kamar</a>
+													<a href="#" onclick="form_edit_kamar('<?= $value->id_kamar ?>')">Edit</a>
+													<a href="Ckamar/cetak?id=<?= $value->id_kamar ?>" target="_blank">Cetak Data</a>
+												</div>
+											</div>
+										</div>
+									</td>
+									<td><?= $no++ ?></td>
+									<td><?= $value->nama_kamar ?></td>
+									<td><?= $value->nama_blok ?></td>
+									<td><?= $value->nama_wilayah ?></td>
+								</tr>
+							<?php } ?>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
 <section class="content">
 	<div class="card">
 		<div class="card-body table-responsive p-1">
-			<table id="example1" class="table table-hover text-nowrap ">
-				<h3 class="card-title"><a class="btn btn-sm bg-teal" href="#" onclick="tambah_kamar()"><i class="fas fa-plus"></i> Tambah Data</a></h3>
-				<thead>
-					<tr>
-						<th>NO</th>
-						<th>NAMA KAMAR</th>
-						<th>BLOCK</th>
-						<th>WILAYAH</th>
-						<th>AKSI</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php
-					$no = 1;
-					foreach ($kamar as $value) { ?>
-						<tr title="<?= $value->nama_kamar ?>">
-							<td><?= $no++ ?></td>
-							<td><?= $value->nama_kamar ?></td>
-							<td><?= $value->nama_blok ?></td>
-							<td><?= $value->nama_wilayah ?></td>
-							<td>
-								<div class="btn-group">
-									<button type="button" class="btn btn-info" title="Info" onclick="info('<?= $value->id_kamar ?>')">
-										<i class="fas fa-info-circle"></i>
-									</button>
-									<button type="button" class="btn btn-warning" title="Edit" onclick="form_edit_kamar('<?= $value->id_kamar ?>')">
-										<i class="fas fa-edit"></i>
-									</button>
-									<a title="Cetak Penduduk Kamar" class="btn btn-secondary" href="Ckamar/cetak?id=<?= $value->id_kamar ?>" target="_blank"><i class="fas fa-print"></i></a>
-								</div>
-							</td>
-						</tr>
-					<?php } ?>
-				</tbody>
-			</table>
+			
 		</div>
 	</div>
 </section>

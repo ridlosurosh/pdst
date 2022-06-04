@@ -1,13 +1,12 @@
-<section class="content-header">
-	<div class="container-fluid">
-		<div class="row mb-2">
-			<div class="col-sm-6">
-				<h1>Block</h1>
+<div class="container-fluid">
+	<div class="page-header">
+		<div class="row">
+			<div class="col-lg-6">
+				<h3>Block</h3>
 			</div>
 		</div>
 	</div>
-</section>
-<section class="content mt-2">
+</div>
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-12">
@@ -50,7 +49,6 @@
 			</div>
 		</div>
 	</div>
-</section>
 <script>
 	$.validator.addMethod("valueNotEquals", function(value, element, arg) {
 		return arg !== value;
@@ -77,12 +75,12 @@
 		},
 		errorElement: 'span',
 		errorPlacement: function(error, element) {
-			error.addClass('invalid-feedback');
-			element.closest('.form-group').append(error);
+			// error.addClass('invalid-feedback');
+			// element.closest('.form-group').append(error);
 		},
-		// highlight: function(element, errorClass, validClass) {
-		//     $(element).addClass('is-invalid');
-		// },
+		highlight: function(element, errorClass, validClass) {
+		    $(element).addClass('is-invalid');
+		},
 		unhighlight: function(element, errorClass, validClass) {
 			$(element).removeClass('is-invalid');
 		},

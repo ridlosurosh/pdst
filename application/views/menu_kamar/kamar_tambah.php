@@ -1,57 +1,55 @@
-<section class="content-header">
-	<div class="container-fluid">
-		<div class="row mb-2">
-			<div class="col-sm-6">
-				<h1>Kamar</h1>
+<div class="container-fluid">
+	<div class="page-header">
+		<div class="row">
+			<div class="col-lg-6">
+				<h3>Kamar</h3>
 			</div>
 		</div>
 	</div>
-</section>
-<section class="content">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-12">
-				<form id="form_tambah_kamar">
-					<div class="card">
-						<div class="card-body">
-							<div class="row">
-								<div class="col-sm-4">
-									<div class="form-group">
-										<label for="nama_kamar" class="col-form-label">Nama Kamar</label>
-										<input type="text" class="form-control" id="nama_kamar" name="nama_kamar" required>
-									</div>
+</div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-12">
+			<form id="form_tambah_kamar">
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label for="nama_kamar" class="col-form-label">Nama Kamar</label>
+									<input type="text" class="form-control" id="nama_kamar" name="nama_kamar" required>
 								</div>
-								<div class="col-sm-4">
-									<div class="form-group">
-										<label for="" class="col-form-label">Wilayah</label>
-										<select name="nama_wilayah" id="wilayah" class="form-control select2">
-											<option value="default">Pilih wilayah</option>
-											<?php foreach ($wilayah as $value) { ?>
-												<option value="<?= $value->id_wilayah ?>"><?= $value->nama_wilayah ?></option>
-											<?php } ?>
-										</select>
-									</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label for="" class="col-form-label">Wilayah</label>
+									<select name="nama_wilayah" id="wilayah" class="form-control select2">
+										<option value="default">Pilih wilayah</option>
+										<?php foreach ($wilayah as $value) { ?>
+											<option value="<?= $value->id_wilayah ?>"><?= $value->nama_wilayah ?></option>
+										<?php } ?>
+									</select>
 								</div>
-								<div class="col-sm-4">
-									<div class="form-group">
-										<label for="nama_blok" class="col-form-label">Blok</label>
-										<select class="form-control select2" name="nama_blok" id="nama_blok">
-											<option value="default">Pilih Block</option>
-										</select>
-									</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label for="nama_blok" class="col-form-label">Blok</label>
+									<select class="form-control select2" name="nama_blok" id="nama_blok">
+										<option value="default">Pilih Block</option>
+									</select>
 								</div>
 							</div>
 						</div>
-						<div class="card-footer">
-							<button type="button" class="btn btn-sm btn-danger" onclick="menu_kamar()"><i class="fas fa-reply"></i> Kembali Ke Data Kamar</button>
-							<button class="btn btn-sm btn-primary  float-right"><i class="fas fa-save"></i> Simpan</button>
-						</div>
 					</div>
-				</form>
-			</div>
+					<div class="card-footer">
+						<button type="button" class="btn btn-sm btn-danger" onclick="menu_kamar()"><i class="fas fa-reply"></i> Kembali Ke Data Kamar</button>
+						<button class="btn btn-sm btn-primary  float-right"><i class="fas fa-save"></i> Simpan</button>
+					</div>
+				</div>
+			</form>
 		</div>
 	</div>
-</section>
+</div>
 <script>
 	$(document).ready(function() {
 		$('#wilayah').change(function() {
@@ -118,12 +116,12 @@
 		},
 		errorElement: 'span',
 		errorPlacement: function(error, element) {
-			error.addClass('invalid-feedback');
-			element.closest('.form-group').append(error);
+			// error.addClass('invalid-feedback');
+			// element.closest('.form-group').append(error);
 		},
-		// highlight: function(element, errorClass, validClass) {
-		//     $(element).addClass('is-invalid');
-		// },
+		highlight: function(element, errorClass, validClass) {
+		    $(element).addClass('is-invalid');
+		},
 		unhighlight: function(element, errorClass, validClass) {
 			$(element).removeClass('is-invalid');
 		},

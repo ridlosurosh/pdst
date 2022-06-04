@@ -1,28 +1,28 @@
-<section class="content-header">
-	<div class="container-fluid">
-		<div class="row mb-2">
-			<div class="col-sm-6">
-				<h1>Karyawan</h1>
+<div class="container-fluid">
+	<div class="page-header">
+		<div class="row">
+			<div class="col-lg-6">
+				<h3>Karyawan</h3>
 			</div>
 		</div>
 	</div>
-</section>
-
-<section class="content">
-	<div class="contianer-fluid">
-		<div class="card">
-			<div class="card-body p-1">
-				<h3 class="card-title"><a class="btn btn-block btn-sm bg-teal" href="#" onclick="tambah_data_karyawan()"><i class="fas fa-plus "></i> Tambah Data</a></h3>
-				<table id="example1" class="table">
+</div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-12">
+			<a class="btn btn-sm btn-primary active" href="#" onclick="tambah_data_karyawan()"><i class="fas fa-plus "></i> Tambah</a>
+			<div class="card mt-2 p-2">
+				<div class="table-responsive">
+					<table id="example1" class="table">
 					<thead>
 						<tr>
+							<th width="100">#</th>
 							<th>NO</th>
 							<th>NIUP</th>
 							<th>NAMA</th>
 							<th>INSTANSI</th>
 							<th>TANGGAL DIANGKAT</th>
 							<th>TANGGAL BERHENTI</th>
-							<th>AKSI</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -30,34 +30,33 @@
 						$no = 1;
 						foreach ($karyawan as $value) { ?>
 							<tr>
+								<td>
+									<div class="dropdown-basic">
+											<div class="dropdown">
+												<button type="button" class="dropbtn btn-xs btn-primary active" title="Konfigurasi"><i class="fas fa-cog"></i>
+												</button>
+												<div class="dropdown-content">
+													<a href="#" onclick="form_edit_karyawan('<?= $value->id_karyawan ?>')">Edit</a>
+													<a href="#" onclick="nonaktifkan_karyawan('<?= $value->id_karyawan ?>')">Nonaktifkan</a>
+												</div>
+											</div>
+										</div>
+								</td>
 								<td><?= $no++ ?></td>
 								<td><?= $value->niup ?></td>
 								<td><?= $value->nama ?></td>
 								<td><?= $value->instansi ?></td>
 								<td><?= $value->tgl_diangkat ?></td>
 								<td><?= $value->tgl_berhenti ?></td>
-								<td>
-									<div class="btn-group">
-										<button type="button" class="btn btn-sm btn-info" title="Info" onclick="detail_karyawan('<?= $value->id_karyawan ?>')">
-											<i class="fas fa-info-circle"></i>
-										</button>
-										<button type="button" class="btn btn-sm btn-warning" title="Edit" onclick="form_edit_karyawan('<?= $value->id_karyawan ?>')">
-											<i class=" fas fa-edit"></i>
-										</button>
-										<button type="button" class="btn btn-sm btn-danger" title="Nonaktifkan" onclick="nonaktifkan_karyawan('<?= $value->id_karyawan ?>')">
-											<i class="fas fa-user-slash"></i>
-										</button>
-									</div>
-								</td>
 							</tr>
 						<?php } ?>
 					</tbody>
 				</table>
+				</div>
 			</div>
 		</div>
 	</div>
-
-</section>
+</div>
 
 <script>
 	$(function() {
