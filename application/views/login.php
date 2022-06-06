@@ -1,133 +1,168 @@
 
-<!doctype html>
-<html class="fixed">
-
-<head>
-
-    <!-- Basic -->
-    <meta charset="UTF-8">
-
-    <title>Login</title>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cuba admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+    <meta name="keywords" content="admin template, Cuba admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="pixelstrap">
     <link rel="shortcut icon" href="<?= site_url() ?>plugin/dist/img/pdst.png" type="image/x-icon">
-    <meta name="keywords" content="HTML5 Admin Template" />
-    <meta name="description" content="Porto Admin - Responsive HTML5 Template">
-    <meta name="author" content="okler.net">
-
-    <!-- Mobile Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-
-    <!-- Web Fonts  -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,600,800,900|Shadows+Into+Light"
-        rel="stylesheet" type="text/css">
-
-    <!-- Vendor CSS -->
-    <link rel="stylesheet" href="<?= site_url() ?>plugin/asset_login/vendor/bootstrap/css/bootstrap.css" />
-    <link rel="stylesheet" href="<?= site_url() ?>plugin/asset_login/vendor/animate/animate.css">
-
-    <link rel="stylesheet" href="<?= site_url() ?>plugin/asset_login/vendor/font-awesome/css/all.min.css" />
-    <link rel="stylesheet" href="<?= site_url() ?>plugin/asset_login/vendor/magnific-popup/magnific-popup.css" />
-    <link rel="stylesheet" href="<?= site_url() ?>plugin/asset_login/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" />
+    <title>PDST NAA | Login</title>
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900&amp;display=swap" rel="stylesheet">
+    <!-- Font Awesome-->
+    <link rel="stylesheet" type="text/css" href="<?= site_url() ?>assets/css/fontawesome.css">
+    <link rel="stylesheet" type="text/css" href="<?= site_url() ?>assets/fontawesome-free/css/all.min.css">
+    <!-- ico-font-->
+    <link rel="stylesheet" type="text/css" href="<?= site_url() ?>assets/css/icofont.css">
+    <!-- Themify icon-->
+    <link rel="stylesheet" type="text/css" href="<?= site_url() ?>assets/css/themify.css">
+    <!-- Flag icon-->
+    <link rel="stylesheet" type="text/css" href="<?= site_url() ?>assets/css/flag-icon.css">
+    <!-- Feather icon-->
+    <link rel="stylesheet" type="text/css" href="<?= site_url() ?>assets/css/feather-icon.css">
+    <!-- Plugins css start-->
     <link rel="stylesheet" href="<?= site_url() ?>plugin/sweetalert2/sweetalert2.min.css">
-    <!-- Theme CSS -->
-    <link rel="stylesheet" href="<?= site_url() ?>plugin/asset_login/css/theme.css" />
-
-    <!-- Skin CSS -->
-    <link rel="stylesheet" href="<?= site_url() ?>plugin/asset_login/css/skins/default.css" />
-
-    <!-- Theme Custom CSS -->
-    <link rel="stylesheet" href="<?= site_url() ?>plugin/asset_login/css/custom.css">
-
-    <!-- Head Libs -->
-    <script src="<?= site_url() ?>plugin/asset_login/vendor/modernizr/modernizr.js"></script>
-    <style>
-        body {
-            background: #FFFFFF !important;
-        }
-
-        .card-custom {
-            background: #ffffff !important;
-            border: 0px !important;
-            box-shadow: none !important;
-        }
-
-        .custom-form {
-            background: #FFFFFF;
-            border: 1px solid #D0D0D0;
-            box-sizing: border-box;
-            border-radius: 4px;
-            font-weight: 400;
-            font-size: 14px;
-            line-height: 140%;
-        }
-
-        .custom-button {
-            background: #279588;
-            border-radius: 8px;
-            color: #ffffff;
-        }
-
-        .custom-button:hover {
-            background: #FBA040;
-        }
-    </style>
-</head>
-
-<body>
-    <section class="body-sign">
-        <div class="center-sign">
-            <a href="/" class="logo">
-                <center> <img src="<?= site_url() ?>plugin/dist/img/pdst.png" height="54" alt="Porto Admin" /></center>
-            </a>
-            <div class="panel card-sign">
-                <div class="card-body  card-custom">
-                    <form id="form_login">
-                        <div class="form-group mb-3 ">
-                            <div class="input-group">
-                                <input name="username" id="username" autocomplete="off" type="text" class="custom-form form-control form-control-lg" placeholder="Username" />
-                            </div>
+    <!-- Plugins css Ends-->
+    <!-- Bootstrap css-->
+    <link rel="stylesheet" type="text/css" href="<?= site_url() ?>assets/css/bootstrap.css">
+    <!-- App css-->
+    <link rel="stylesheet" type="text/css" href="<?= site_url() ?>assets/css/style.css">
+    <link id="color" rel="stylesheet" href="<?= site_url() ?>assets/css/color-1.css" media="screen">
+    <!-- Responsive css-->
+    <link rel="stylesheet" type="text/css" href="<?= site_url() ?>assets/css/responsive.css">
+  </head>
+  <body>
+    <!-- Loader starts-->
+    <div class="loader-wrapper">
+      <div class="loader-index"><span></span></div>
+      <svg>
+        <defs></defs>
+        <filter id="goo">
+          <fegaussianblur in="SourceGraphic" stddeviation="11" result="blur"></fegaussianblur>
+          <fecolormatrix in="blur" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo">    </fecolormatrix>
+        </filter>
+      </svg>
+    </div>
+    <!-- Loader ends-->
+    <!-- page-wrapper Start-->
+    <div class="page-wrapper">
+      <div class="container-fluid p-0">
+        <!-- login page with video background start-->
+        <div class="auth-bg-video">
+          <video id="bgvid" poster="<?= site_url() ?>assets/images/other-images/coming-soon-bg.jpg" playsinline="" autoplay="" muted="" loop="">
+            <source src="<?= site_url() ?>assets/video/auth-bg.MP4" type="video/mp4">
+          </video>
+          <div class="authentication-box">
+            <div class="mt-4">
+              <div class="card-body">
+                <div class="cont text-center">
+                  <div> 
+                    <form class="theme-form form_login">
+                      <h4>LOGIN</h4>
+                      <h6>Silakan Masukkan Username dan password anda</h6>
+                      <div class="form-group">
+                        <label class="col-form-label pt-0">Username</label>
+                        <input class="form-control username" name="username" type="text" autocomplete="off">
+                      </div>
+                      <div class="form-group">
+                        <label class="col-form-label">Password</label>
+                        <input class="form-control password" name="password" type="password">
+                      </div>
+                      <div class="form-group row mt-5 mb-0">
+                        <button type="button" class="btn btn-primary btn-block btn_login" type="submit">LOGIN</button>
+                      </div>
+                      
+                      <div class="social mt-5">
+                        <div class="row btn-showcase">
+                          <div class="col-md-4 col-sm-6">
+                            <a href="https://www.facebook.com/OfficialPonPesNurulAbrorAlRobbaniyin/" class="btn social-btn btn-fb" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
+                          </div>
+                          <div class="col-md-4 col-sm-6">
+                            <a href="https://www.youtube.com/c/PPNurulAbrorAlRobbaniyin" class="btn social-btn btn-twitter" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>
+                          </div>
+                          <div class="col-md-4 col-sm-6">
+                            <a href="https://www.instagram.com/ponpesnurulabroralrobbaniyin/?hl=en" class="btn social-btn btn-google" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+                          </div>
                         </div>
-                        <div class="form-group mb-3 ">
-                            <div class="input-group">
-                                <input name="password" id="password" autocomplete="off" type="password" class="custom-form form-control form-control-lg" placeholder="Password" />
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm-12 text-right">
-                                <input type="button" class="w-100 btn custom-button mt-2" id="btn_login" value="Masuk" />
-                            </div>
-                        </div>
+                      </div>
                     </form>
+                  </div>
+                  <div class="sub-cont">
+                    <div class="img">
+                      <div class="img__text m--up">
+                        <h2>Selamat Datang</h2>
+                        <p>Di Aplikasi Pusat Data Santri Nurul Abror Al-Robbaniyin</p>
+                      </div>
+                      <div class="img__text m--in">
+                        <h2>Selamat Datang</h2>
+                        <p>Di Aplikasi Pusat Data Santri Nurul Abror Al-Robbaniyin</p>
+                      </div>
+                      <div class="img__btn"><span class="m--up">PDST NAA</span><span class="m--in">Login</span></div>
+                    </div>
+                    <div>
+                      <!-- <form class="theme-form form_login">
+                      <h4>LOGIN</h4>
+                      <h6>Silakan Masukkan Username dan password anda</h6>
+                      <div class="form-group">
+                        <label class="col-form-label pt-0">Username</label>
+                        <input class="form-control username" name="username" type="text">
+                      </div>
+                      <div class="form-group">
+                        <label class="col-form-label">Password</label>
+                        <input class="form-control password" name="password" type="password">
+                      </div>
+                      <div class="form-group row mt-5 mb-0">
+                        <button type="button" class="btn btn-primary btn-block btn_login" type="submit">LOGIN</button>
+                      </div>
+                      
+                      <div class="social mt-5">
+                        <div class="row btn-showcase">
+                          <div class="col-md-4 col-sm-6">
+                            <a href="#" class="btn social-btn btn-fb"><i class="fab fa-facebook"></i> Facebook</a>
+                          </div>
+                          <div class="col-md-4 col-sm-6">
+                            <a href="#" class="btn social-btn btn-twitter"><i class="fab fa-youtube"></i> YouTube</a>
+                          </div>
+                          <div class="col-md-4 col-sm-6">
+                            <a href="#" class="btn social-btn btn-google"><i class="fab fa-instagram"></i> Instagram</a>
+                          </div>
+                        </div>
+                      </div>
+                    </form> -->
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
-
-            <p class="text-center text-muted mt-3 mb-3">&copy; Copyright 2022. All Rights Reserved.</p>
+          </div>
         </div>
-    </section>
-    <!-- end: page -->
-
-
-
-    <!-- Vendor -->
-    <script src="<?= site_url() ?>plugin/asset_login/vendor/jquery/jquery.js"></script>
-    <script src="<?= site_url() ?>plugin/asset_login/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
-    <script src="<?= site_url() ?>plugin/asset_login/vendor/popper/umd/popper.min.js"></script>
-    <script src="<?= site_url() ?>plugin/asset_login/vendor/bootstrap/js/bootstrap.js"></script>
-    <script src="<?= site_url() ?>plugin/asset_login/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-    <script src="<?= site_url() ?>plugin/asset_login/vendor/common/common.js"></script>
-    <script src="<?= site_url() ?>plugin/asset_login/vendor/nanoscroller/nanoscroller.js"></script>
-    <script src="<?= site_url() ?>plugin/asset_login/vendor/magnific-popup/jquery.magnific-popup.js"></script>
-    <script src="<?= site_url() ?>plugin/asset_login/vendor/jquery-placeholder/jquery.placeholder.js"></script>
+        <!-- login page with video background end-->
+      </div>
+    </div>
+    
+    <!-- latest jquery-->
+    <script src="<?= site_url() ?>assets/js/jquery-3.5.1.min.js"></script>
+    <!-- Bootstrap js-->
+    <script src="<?= site_url() ?>assets/js/bootstrap/popper.min.js"></script>
+    <script src="<?= site_url() ?>assets/js/bootstrap/bootstrap.js"></script>
+    <!-- feather icon js-->
+    <script src="<?= site_url() ?>assets/js/icons/feather-icon/feather.min.js"></script>
+    <script src="<?= site_url() ?>assets/js/icons/feather-icon/feather-icon.js"></script>
+    <!-- Sidebar jquery-->
+    <script src="<?= site_url() ?>assets/js/sidebar-menu.js"></script>
+    <script src="<?= site_url() ?>assets/js/config.js"></script>
+    <!-- Plugins JS start-->
+    <script src="<?= site_url() ?>assets/js/login.js"></script>
     <script src="<?= site_url() ?>plugin/sweetalert2/sweetalert2.all.min.js"></script>
-
-    <!-- Theme Base, Components and Settings -->
-    <script src="<?= site_url() ?>plugin/asset_login/js/theme.js"></script>
-
-    <!-- Theme Custom -->
-    <script src="<?= site_url() ?>plugin/asset_login/js/custom.js"></script>
-
-    <!-- Theme Initialization Files -->
-    <script src="<?= site_url() ?>plugin/asset_login/js/theme.init.js"></script>
+    <!-- Plugins JS Ends-->
+    <!-- Theme js-->
+    <script src="<?= site_url() ?>assets/js/script.js"></script>
+    <!-- login js-->
+    <!-- Plugin used-->
     <script>
         var username, password, dataAkun, baseUrl_admin = "<?= site_url('admin') ?>",
             baseUrl_user = "<?= site_url('user') ?>", baseUrl_members = "<?= site_url('members') ?>";
@@ -142,28 +177,28 @@
             })
         }
         $(document).ready(function() {
-            $("#username").focus();
-            $("#username").keypress(function(e) {
+            $(".username").focus();
+            $(".username").keypress(function(e) {
                 keyCode = e.keyCode ? e.keyCode : e.which;
                 if (keyCode === 13) {
-                    $("#password").focus();
+                    $(".password").focus();
                 }
             });
-            $("#password").keypress(function(e) {
+            $(".password").keypress(function(e) {
                 keyCode = e.keyCode ? e.keyCode : e.which;
                 if (keyCode === 13) {
-                    $("#btn_login").click();
+                    $(".btn_login").click();
                 }
             });
-            $("#btn_login").click(function(e) {
-                username = $("#username").val();
-                password = $("#password").val();
+            $(".btn_login").click(function(e) {
+                username = $(".username").val();
+                password = $(".password").val();
                 if (username === "") {
                     tampil_pesan("Username tidak boleh kosong");
-                    $("#username").focus();
+                    $(".username").focus();
                 } else if (password === "") {
                     tampil_pesan("Password tidak boleh kosong");
-                    $("#password").focus();
+                    $(".password").focus();
                 } else {
                     $.ajax({});
                     $.ajax({
@@ -210,8 +245,8 @@
                                 
                             } else {
                                 tampil_pesan(data.pesan);
-                                $("#username").val("").focus();
-                                $("#password").val("").focus();
+                                $(".username").val("").focus();
+                                $(".password").val("").focus();
                             }
                         }
                     });
@@ -219,7 +254,5 @@
             });
         });
     </script>
-</body>
-
+  </body>
 </html>
-
