@@ -1,66 +1,68 @@
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1>Divisi Madin </h1>
+<div class="container-fluid">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-lg-6">
+                <h3>Divisi Madin</h3>
             </div>
         </div>
     </div>
-</section>
-<section class="content">
-    <div class="card">
-		<div class="card-body table-responsive p-1">
-			<table id="example" class="table table-hover text-nowrap ">
-                <h3 class="card-title">
-                    <a class="btn btn-sm btn-block bg-teal" href="#" onclick="formSimpanMadin()">
-                        <i class="fas fa-plus"></i> Tambah Data
-                    </a>
-                    </h3>
-				<thead>
-                    <tr>
-                        <th>NO</th>
-                        <th>NIUP</th>
-                        <th>NAMA</th>
-                        <th>ALAMAT</th>
-                        <th>TANGGAL MASUK</th>
-                        <th>AKSI</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <a class="btn btn-sm btn-primary active" href="#" onclick="formSimpanMadin()">
+                <i class="fas fa-plus"></i> Tambah
+            </a>
+            <div class="card mt-2">
+                <div class="card-body table-responsive p-1">
+                    <table id="example" class="table table-hover text-nowrap ">
+                        <thead>
+                            <tr>
+                                <th>NO</th>
+                                <th>NIUP</th>
+                                <th>NAMA</th>
+                                <th>ALAMAT</th>
+                                <th>TANGGAL MASUK</th>
+                                <th>AKSI</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-    </div>    
-</section>
+    </div>
+</div>
 
 
 
 <div class="modal fade" id="modal" data-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">PINDAH KE DIVISI</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+            <div class="modal-header">
+                <h4 class="modal-title">PINDAH KE DIVISI</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" name="id" id="id" value="">
+                <div class="row">
+                    <div class="col-md-12">
+                        <a href="#" id="bt-save-tahfidz">
+                            <button type="button" class="mb-2 btn btn-info btn-block">
+                                <i class="fa fa-check"></i>
+                            PINDAH KE DIVISI TAHFIDZ</button>
+                        </a>
+                        <a href="#" id="bt-save-nubdzah">
+                            <button type="button" class="mb-2 btn btn-success btn-block">
+                                <i class="fa fa-check"></i>
+                            PINDAH KE DIVISI NUBDZAH</button>
+                        </a>
+                    </div>
                 </div>
-                <div class="modal-body">
-                        <input type="hidden" name="id" id="id" value="">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <a href="#" id="bt-save-tahfidz">
-                                    <button type="button" class="mb-2 btn btn-info btn-block">
-                                    <i class="fa fa-check"></i>
-                                    PINDAK KE DIVISI TAHFIDZ</button>
-                                </a>
-                                <a href="#" id="bt-save-nubdzah">
-                                    <button type="button" class="mb-2 btn btn-success btn-block">
-                                    <i class="fa fa-check"></i>
-                                    PINDAK KE DIVISI NUBDZAH</button>
-                                </a>
-                            </div>
-                        </div>
-                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -71,9 +73,9 @@
             "processing": true, 
             "serverSide": true, 
             "order": [], 
-			"ordering":false,
-			"info":false,
-			"lengthChange": false,
+            "ordering":false,
+            "info":false,
+            "lengthChange": false,
             
             "ajax": {
                 "url": "<?php echo site_url('Cdivisi/madinAll')?>",
@@ -97,7 +99,7 @@
 
         $("#example").on('click','#bt-hapus', function(){
             var id = $(this).attr("data");
-                swal.fire({
+            swal.fire({
                 title: 'PDST NAA',
                 text: "Anda Yakin Untuk Menghapus Santri Ini ?",
                 type: 'warning',
@@ -109,15 +111,15 @@
                 preConfirm: function() {
                     return new Promise(function(resolve) {
                         $.ajax({
-                                url: 'Cdivisi/nonaktif',
-                                type: 'POST',
-                                data: {
-                                    id: id,
-                                    tb : "tb_divisimadin"
-                                },
-                                dataType: 'json'
-                            })
-                            .fail(function(data) {
+                            url: 'Cdivisi/nonaktif',
+                            type: 'POST',
+                            data: {
+                                id: id,
+                                tb : "tb_divisimadin"
+                            },
+                            dataType: 'json'
+                        })
+                        .fail(function(data) {
                                 // if (data.status) {
                                     swal.fire({
                                         title: "PDST NAA",
@@ -151,16 +153,16 @@
                     $('#modal').modal('hide');
                     if(data.status) {
                         swal.fire({
-							title: data.pesan,
-							type: "success"
-                                }).then(okay => {
-                                    if (okay) {
-                                        madin();
-                                    }
-                            });
-                    }
-                }
-            });
+                           title: data.pesan,
+                           type: "success"
+                       }).then(okay => {
+                        if (okay) {
+                            madin();
+                        }
+                    });
+                   }
+               }
+           });
         });
 
         $('#bt-save-nubdzah').on('click', function(){
@@ -178,24 +180,24 @@
                     $('#modal').modal('hide');
                     if(data.status) {
                         swal.fire({
-							title: data.pesan,
-							type: "success"
-                                }).then(okay => {
-                                    if (okay) {
-                                        madin();
-                                    }
-                            });
-                    }
-                }
-            });
+                           title: data.pesan,
+                           type: "success"
+                       }).then(okay => {
+                        if (okay) {
+                            madin();
+                        }
+                    });
+                   }
+               }
+           });
         });
 
     });
 
-    function formSimpanMadin() {
-        $.post('<?= site_url('Cdivisi/formSimpanMadin')?>', function(Res) {
-            $('#ini_isinya').html(Res);
-        })
-    };
+function formSimpanMadin() {
+    $.post('<?= site_url('Cdivisi/formSimpanMadin')?>', function(Res) {
+        $('#ini_isinya').html(Res);
+    })
+};
 
 </script>

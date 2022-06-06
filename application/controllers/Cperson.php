@@ -26,27 +26,24 @@ class Cperson extends CI_Controller
 		foreach ($list as $field) {
 			$no++;
 			$row = array();
+            $row[] = '
+                    <div class="dropdown-basic">
+                        <div class="dropdown">
+                            <button type="button" class="dropbtn btn-xs btn-primary active" title="Konfigurasi"><i class="fas fa-cog"></i></button>
+                                <div class="dropdown-content">
+                                    <a href="#" data="'.$field->id_person.'" id="bt-detail">Detail</a>
+                                    <a href="#" data="'.$field->id_person.'" id="bt-edit">Edit</a>
+                                    <a href="#" data="'.$field->id_person.'" id="bt-berkas">Upload Berkas</a>
+                                    <a href="#" data="'.$field->id_person.'" id="bt-print">Cetak Formulir</a>
+                                    <a href="#" data="'.$field->id_person.'" id="bt-hapus">Nonaktifkan</a>
+                                </div>
+                        </div>
+                    </div>
+            ';
 			$row[] = $no;
 			$row[] = $field->niup;
 			$row[] = $field->nama;
 			$row[] = $field->alamat_lengkap;
-            $row[] = '
-                        <button type="button" id="bt-detail" class="btn btn-sm rounded-circle btn-info" title="Detail" data="'.$field->id_person.'">
-                            <i class="fas fa-info-circle"></i>
-                        </button>
-                        <button type="button" id="bt-edit" class="btn btn-sm rounded-circle btn-warning text-light" title="Edit" data="'.$field->id_person.'">
-                            <i class="fas fa-pencil-alt"></i>
-                        </button>
-                        <button type="button" id="bt-berkas" class="btn btn-sm rounded-circle btn-primary" title="Upload" data="'.$field->id_person.'">
-                            <i class="fas fa-image"></i>
-                        </button>
-                        <button type="button" id="bt-print" class="btn btn-sm rounded-circle btn-secondary" title="Cetak" data="'.$field->id_person.'">
-                            <i class="fas fa-print"></i>
-                        </button>
-                        <button type="button" id="bt-hapus" class="btn btn-sm rounded-circle btn-danger" title="Hapus" data="'.$field->id_person.'">
-                            <i class="fas fa-user-slash"></i>
-                        </button>';
-
 			$data[] = $row;
 		}
 
@@ -370,7 +367,7 @@ class Cperson extends CI_Controller
             'niup' => $kodenya . $niupnya,
             'status' => "aktif",
             'tgl_daftar' => date('Y-m-d H:i:s'),
-            'qr_code_niup' => $imgname
+            'qr_code' => $imgname
         );
         $this->Mperson->simpan_santri_v2(array('id_person' => $id), $data1);
     }
@@ -697,7 +694,7 @@ class Cperson extends CI_Controller
 
         $data1 = array(
             'niup' => $t,
-            'qr_code_niup' => $imgname
+            'qr_code' => $imgname
         );
         $this->Mperson->simpan_santri_v2(array('id_person' => $id), $data1);
     }

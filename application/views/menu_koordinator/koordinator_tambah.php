@@ -1,103 +1,95 @@
 <style>
-	#toggle {
-		position: absolute;
-		top: 55px;
-		right: 20px;
-		transform: translateY(-50%);
-		width: 30px;
-		height: 30px;
-		background: url(plugin/dist/img/show.png);
-		background-size: cover;
-		cursor: pointer;
-	}
+#toggle {
+	position: absolute;
+	top: 55px;
+	right: 20px;
+	transform: translateY(-50%);
+	width: 30px;
+	height: 30px;
+	background: url(plugin/dist/img/show.png);
+	background-size: cover;
+	cursor: pointer;
+}
 
-	#toggle.hide {
-		background: url(plugin/dist/img/hide.png);
-		background-size: cover;
-	}
+#toggle.hide {
+	background: url(plugin/dist/img/hide.png);
+	background-size: cover;
+}
 
-	.ui-datepicker {
-		z-index: 9999 !important;
-	}
+.ui-datepicker {
+	z-index: 9999 !important;
+}
 
-	.ui-autocomplete {
-		z-index: 5000;
-	}
+.ui-autocomplete {
+	z-index: 5000;
+}
 </style>
 <input type="hidden" id="oo" value="<?= $periode ?>">
-<section class="content-header">
-	<div class="container-fluid">
-		<div class="row mb-2">
-			<div class="col-sm-6">
-				<h1> Tambah Pengurus Pada Periode <i class="text-blue"><?= substr($periode, 0, 4)  ?> - <?= substr($periode, 7, 11)  ?></i> </h1>
-			</div>
-		</div>
-	</div>
-</section>
-<section class="content">
-	<div class="container-fluid">
+<div class="container-fluid">
+	<div class="page-header">
 		<div class="row">
-			<div class="col-md-3">
-				<div class="card">
-					<div class="card-body">
-						<h3 class="profile-username text-center mt-3">Struktur Pengurus</h3>
-						<ul class="list-group list-group-unbordered mb-3 mt-4">
-							<?php foreach ($jabatan as $value) { ?>
-								<!-- <li class="list-group-item"> -->
-								<button class="btn btn-xs btn-primary float-right mt-2" onclick="modal('<?= $value->nm_jabatan ?>','<?= $value->id_jabatan ?>')"><?= $value->nm_jabatan ?></button>
-								<!-- </li> -->
-							<?php } ?>
-
-
-					</div>
+			<div class="col-lg-12">
+				<h3>Tambah Pengurus Pada Periode <i class="text-primary"><?= substr($periode, 0, 4)  ?> - <?= substr($periode, 7, 11)  ?></i></h3>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-3">
+			<div class="card">
+				<div class="card-body">
+					<h6>Struktur Pengurus</h6>
+					<?php foreach ($jabatan as $value) { ?>
+						<button class="btn btn-xs btn-primary mb-2" style="width: 100%;" onclick="modal('<?= $value->nm_jabatan ?>','<?= $value->id_jabatan ?>')"><?= $value->nm_jabatan ?></button>
+					<?php } ?>
 				</div>
 			</div>
-			<div class="col-md-9">
-				<div class="card">
-					<div class="card-body table-responsive p-1">
-						<table id="example1" class="table table-hover text-nowrap ">
-							<!-- <h3 class="card-title"><a class="btn btn-sm btn-block bg-teal" href="#" data-toggle="modal" data-target="#staticBackdrop"><i class="fas fa-plus"></i> Tambah</a></h3> -->
-							<thead>
-								<tr>
-									<th>NO</th>
-									<th>JABATAN</th>
-									<th>NAMA</th>
-									<th>AKSI</th>
-								</tr>
-							</thead>
-							<tbody>
-								<?php
-								$no = 1;
-								foreach ($pengurus as $value) {
+		</div>
+		<div class="col-md-9">
+			<div class="card">
+				<div class="card-body table-responsive p-1">
+					<table id="example1" class="table table-hover text-nowrap ">
+						<thead>
+							<tr>
+								<th>NO</th>
+								<th>JABATAN</th>
+								<th>NAMA</th>
+								<th>AKSI</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+							$no = 1;
+							foreach ($pengurus as $value) {
 								?>
-									<tr>
-										<td><?= $no++ ?></td>
-										<td><?= $value->nm_jabatan ?></td>
-										<td><?= $value->nama ?></td>
+								<tr>
+									<td><?= $no++ ?></td>
+									<td><?= $value->nm_jabatan ?></td>
+									<td><?= $value->nama ?></td>
 
-										<td>
-											<div class="btn-group">
-												<button type="button" class="btn btn-sm btn-info" title="Info" onclick="bio_koordinator('<?= $value->id_person ?>','<?= $id_periode ?>','<?= $periode ?>')">
-													<i class="fas fa-info-circle"></i>
-												</button>
-												<button type="button" class="btn btn-sm btn-danger" title="Nonaktifkan" onclick="nonaktifkan('<?= $value->id_pengurus ?>')">
-													<i class="fas fa-user-slash"></i>
-												</button>
-												<button type="button" class="btn btn-sm btn-warning" title="Setting Password" onclick="modal_akun('<?= $value->id_pengurus ?>')">
-													<i class="fas fa-cog"></i>
-												</button>
-											</div>
-										</td>
-									</tr>
-								<?php } ?>
-							</tbody>
-						</table>
-					</div>
+									<td>
+										<div class="btn-group">
+											<button type="button" class="btn btn-sm btn-primary" title="Info" onclick="bio_koordinator('<?= $value->id_person ?>','<?= $id_periode ?>','<?= $periode ?>')">
+												<i class="fas fa-info-circle"></i>
+											</button>
+											<button type="button" class="btn btn-sm btn-danger" title="Nonaktifkan" onclick="nonaktifkan('<?= $value->id_pengurus ?>')">
+												<i class="fas fa-user-slash"></i>
+											</button>
+											<button type="button" class="btn btn-sm btn-warning" title="Setting Password" onclick="modal_akun('<?= $value->id_pengurus ?>')">
+												<i class="fas fa-cog"></i>
+											</button>
+										</div>
+									</td>
+								</tr>
+							<?php } ?>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
 	</div>
-</section>
+</div>
 
 <div class="modal fade" id="staticBackdrop" aria-labelledby="staticBackdropLabel" aria-hidden="true" data-backdrop="static">
 	<div class="modal-dialog modal-lg">
@@ -263,24 +255,24 @@
 			preConfirm: function() {
 				return new Promise(function(resolve) {
 					$.ajax({
-							url: 'Ckoordinator/nonaktifkan_koordinator',
-							type: 'POST',
-							data: {
-								id: id
-							},
-							dataType: 'json'
-						})
-						.fail(function() {
-							swal.fire({
-								title: "PDST NAA",
-								text: "Pengurus Sukses Dinonaktifkan",
-								type: "success"
-							}).then(okay => {
-								if (okay) {
-									tambah_koordinator($('#periode').val(), $('#oo').val());
-								}
-							});
+						url: 'Ckoordinator/nonaktifkan_koordinator',
+						type: 'POST',
+						data: {
+							id: id
+						},
+						dataType: 'json'
+					})
+					.fail(function() {
+						swal.fire({
+							title: "PDST NAA",
+							text: "Pengurus Sukses Dinonaktifkan",
+							type: "success"
+						}).then(okay => {
+							if (okay) {
+								tambah_koordinator($('#periode').val(), $('#oo').val());
+							}
 						});
+					});
 				});
 			}
 		});
@@ -351,9 +343,9 @@
 			create: function() {
 				$(this).data('ui-autocomplete')._renderItem = function(ul, item) {
 					return $("<li></li>")
-						.data("item.autocomplete", item)
-						.append("<a class='nav-link active'><strong>" + item.nama + "</strong> <br/><small>Niup : " + item.niup + "</small></a>")
-						.appendTo(ul);
+					.data("item.autocomplete", item)
+					.append("<a class='nav-link active'><strong>" + item.nama + "</strong> <br/><small>Niup : " + item.niup + "</small></a>")
+					.appendTo(ul);
 				};
 			}
 		});

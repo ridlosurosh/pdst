@@ -1,58 +1,57 @@
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1>Pengajar</h1>
+<div class="container-fluid">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-lg-6">
+                <h3>Pengajar</h3>
             </div>
         </div>
     </div>
-</section>
-
-<section class="content">
-    <div class="container-fluid">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Edit Pengajar Nubdzah</h3>
-            </div>
-            <form id="edit_pengajar">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <input type="hidden" name="idpengajar" value="<?= $id_guru_nubdah ?>">
-                            <div class="form-group">
-                                <label class="col-form-label" for="nama_pengajar">Pilih Nama Pengajar</label>
-                                <input type="text" class="form-control" name="nama_pengajar" id="nama_pengajar" value="<?= $nama ?>" readonly>
-                                <input type="hidden" name="id_person" id="id_pengajar" value="<?= $id_person ?>">
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <form id="edit_pengajar">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="hidden" name="idpengajar" value="<?= $id_guru_nubdah ?>">
+                                <div class="form-group">
+                                    <label class="col-form-label" for="nama_pengajar">Pilih Nama Pengajar</label>
+                                    <input type="text" class="form-control" name="nama_pengajar" id="nama_pengajar" value="<?= $nama ?>" readonly>
+                                    <input type="hidden" name="id_person" id="id_pengajar" value="<?= $id_person ?>">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="tanggal" class="col-form-label">Tanggal Pengangkatan</label>
-                                <div class="form-line">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="tanggal" class="col-form-label">Tanggal Pengangkatan</label>
+                                    <div class="form-line">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" name="tgl_diangkat" id="tgl" placeholder="" value="<?= $tgl_diangkat ?>" autocomplete="off">
                                         </div>
-                                        <input type="text" class="form-control" name="tgl_diangkat" id="tgl" placeholder="" value="<?= $tgl_diangkat ?>" autocomplete="off">
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-form-label" for="alamat">Alamat</label>
-                            <textarea name="alamat" class="form-control" id="alamat" cols="150" rows="2" readonly><?= $alamat_lengkap ?></textarea>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-form-label" for="alamat">Alamat</label>
+                                    <textarea name="alamat" class="form-control" id="alamat" cols="150" rows="2" readonly><?= $alamat_lengkap ?></textarea>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="card-footer">
-                    <button type="button" class="btn btn-sm btn-default bg-danger" onclick="menu_pengajar()"><i class="fas fa-reply"></i> Keluar</button>
-                    <button class="btn btn-sm btn-primary float-right"><i class="fas fa-save"></i> Simpan</button>
-                </div>
-            </form>
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-sm btn-default bg-danger" onclick="menu_pengajar()"><i class="fas fa-reply"></i> Keluar</button>
+                        <button class="btn btn-sm btn-primary float-right"><i class="fas fa-save"></i> Simpan</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</section>
-
+</div>
 <script>
     $(function() {
         $('#tgl').datepicker({
@@ -122,8 +121,11 @@
         },
         errorElement: 'span',
         errorPlacement: function(error, element) {
-            error.addClass('invalid-feedback');
-            element.closest('.form-group').append(error);
+            // error.addClass('invalid-feedback');
+            // element.closest('.form-group').append(error);
+        },
+        highlight: function(element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
         },
         unhighlight: function(element, errorClass, validClass) {
             $(element).removeClass('is-invalid');

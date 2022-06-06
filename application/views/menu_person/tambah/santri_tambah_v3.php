@@ -20,20 +20,19 @@ if ($santri->desa_w == "") {
     $desa_w = $santri->desa_w;
 }
 ?>
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1>Identitas Wali dari <span class="text-danger"><?= $santri->nama ?></span></h1>
+<div class="container-fluid">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>Identitas Wali dari <span class="text-danger"><?= $santri->nama ?></span></h3>
             </div>
         </div>
     </div>
-</section>
+</div>
 <input type="hidden" id="prov" value="<?= $prov_w ?>">
 <input type="hidden" id="kab" value="<?= $kab_w ?>">
 <input type="hidden" id="kec" value="<?= $kec_w ?>">
 <input type="hidden" id="des" value="<?= $desa_w ?>">
-<section class="content mt-2">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -691,8 +690,8 @@ if ($santri->desa_w == "") {
                         <div class="card-footer">
                             <button type="button" class="btn btn-danger" onclick="dibatalkan('<?= $santri->id_person ?>')"><i class="fas fa-times"></i> Batal</button>
                             <div class="float-right">
-                                <button type="button" class="btn btn-info" onclick="kembali_pole('<?= $santri->id_person ?>')"><i class="fas fa-arrow-left"></i> Kembali</button>
-                                <button class="btn btn-info">Simpan dan Lanjut <i class="fas fa-arrow-right"></i></button>
+                                <button type="button" class="btn btn-primary active" onclick="kembali_pole('<?= $santri->id_person ?>')"><i class="fas fa-arrow-left"></i> Kembali</button>
+                                <button class="btn btn-primary active">Simpan dan Lanjut <i class="fas fa-arrow-right"></i></button>
                             </div>
                         </div>
                     </div>
@@ -700,7 +699,6 @@ if ($santri->desa_w == "") {
             </div>
         </div>
     </div>
-</section>
 <script>
     $(document).ready(function() {
         $("#nik_w, #hp_w, #telp_w, #pos_w").keypress(function(e) {
@@ -952,12 +950,12 @@ if ($santri->desa_w == "") {
         },
         errorElement: 'span',
         errorPlacement: function(error, element) {
-            error.addClass('invalid-feedback');
-            element.closest('.form-group').append(error);
+            // error.addClass('invalid-feedback');
+            // element.closest('.form-group').append(error);
         },
-        // highlight: function(element, errorClass, validClass) {
-        //     $(element).addClass('is-invalid');
-        // },
+        highlight: function(element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
         unhighlight: function(element, errorClass, validClass) {
             $(element).removeClass('is-invalid');
         },

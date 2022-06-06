@@ -124,6 +124,8 @@ foreach ($kamar as $jc) {
         borderWidth: 2,
         pointStrokeColor: 'rgb(0, 153, 255)',
         pointHighlightFill: '#fff',
+        borderRadius: 4,
+        borderSkipped: false,
         pointHighlightStroke: 'rgb(0, 153, 255)',
         data: <?php echo json_encode($jmlsantri); ?>
       }]

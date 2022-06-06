@@ -1,12 +1,12 @@
-<section class="content-header">
-	<div class="container-fluid">
-		<div class="row mb-2">
-			<div class="col-sm-6">
-				<h1>Cetak Person</h1>
+<div class="container-fluid">
+	<div class="page-header">
+		<div class="row">
+			<div class="col-lg-6">
+				<h3>Cetak Person</h3>
 			</div>
 		</div>
 	</div>
-</section>
+</div>
 <section class="content mt-2">
 	<div class="container-fluid">
 		<div class="row">
@@ -14,9 +14,9 @@
 				<div class="card card-indigo card-outline">
 					<a class="d-block w-100" data-toggle="collapse" href="#collapseOne">
 						<div class="card-header">
-							<h4 class="card-title w-100">
+							<h6 class="card-title w-100">
 								1. Cetak Person Setiap Tahun Angkatan
-							</h4>
+							</h6>
 						</div>
 					</a>
 					<div id="collapseOne" class="collapse" data-parent="#accordion">
@@ -115,9 +115,9 @@
 				<div class="card card-primary card-outline">
 					<a class="d-block w-100" data-toggle="collapse" href="#collapseTwo">
 						<div class="card-header">
-							<h4 class="card-title w-100">
+							<h6 class="card-title w-100">
 								2. Cetak Person Setiap Provinsi
-							</h4>
+							</h6>
 						</div>
 					</a>
 					<div id="collapseTwo" class="collapse" data-parent="#accordion">
@@ -216,9 +216,9 @@
 				<div class="card card-teal card-outline">
 					<a class="d-block w-100" data-toggle="collapse" href="#collapseThree">
 						<div class="card-header">
-							<h4 class="card-title w-100">
+							<h6 class="card-title w-100">
 								3. Cetak Person Setiap Kabupaten
-							</h4>
+							</h6>
 						</div>
 					</a>
 					<div id="collapseThree" class="collapse" data-parent="#accordion">
@@ -364,9 +364,9 @@
 				<div class="card card-purple card-outline">
 					<a class="d-block w-100" data-toggle="collapse" href="#collapseFour">
 						<div class="card-header">
-							<h4 class="card-title w-100">
+							<h6 class="card-title w-100">
 								4. Cetak Person Setiap Kecamatan
-							</h4>
+							</h6>
 						</div>
 					</a>
 					<div id="collapseFour" class="collapse" data-parent="#accordion">
@@ -558,9 +558,9 @@
 				<div class="card card-warning card-outline">
 					<a class="d-block w-100" data-toggle="collapse" href="#collapseFive">
 						<div class="card-header">
-							<h4 class="card-title w-100">
+							<h6 class="card-title w-100">
 								5. Cetak Pengurus
-							</h4>
+							</h6>
 						</div>
 					</a>
 					<div id="collapseFive" class="collapse" data-parent="#accordion">
@@ -659,9 +659,9 @@
 				<div class="card card-orange card-outline">
 					<a class="d-block w-100" data-toggle="collapse" href="#collapseSix">
 						<div class="card-header">
-							<h4 class="card-title w-100">
+							<h6 class="card-title w-100">
 								6. Cetak Pengajar
-							</h4>
+							</h6>
 						</div>
 					</a>
 					<div id="collapseSix" class="collapse" data-parent="#accordion">
@@ -748,9 +748,9 @@
 				<div class="card card-secondary card-outline">
 					<a class="d-block w-100" data-toggle="collapse" href="#collapseSeven">
 						<div class="card-header">
-							<h4 class="card-title w-100">
+							<h6 class="card-title w-100">
 								7. Cetak Karyawan
-							</h4>
+							</h6>
 						</div>
 					</a>
 					<div id="collapseSeven" class="collapse" data-parent="#accordion">
@@ -841,9 +841,9 @@
 				<div class="card card-dark card-outline">
 					<a class="d-block w-100" data-toggle="collapse" href="#collapseEight">
 						<div class="card-header">
-							<h4 class="card-title w-100">
+							<h6 class="card-title w-100">
 								8. Cetak Alumni
-							</h4>
+							</h6>
 						</div>
 					</a>
 					<div id="collapseEight" class="collapse" data-parent="#accordion">

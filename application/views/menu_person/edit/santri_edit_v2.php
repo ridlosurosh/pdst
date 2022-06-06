@@ -11,17 +11,15 @@ if (empty($ibu->tanggal_lahir)) {
     $waktu_i = explode("-", $ibu->tanggal_lahir);
 }
 ?>
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-12">
-                <h1>Identitas Orang Tua dari <span class="text-danger"><?= $santri->nama ?></span></h1>
+<div class="container-fluid">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>Identitas Orang Tua dari <span class="text-danger"><?= $santri->nama ?></span></h3>
             </div>
         </div>
     </div>
-</section>
-
-<section class="content">
+</div>
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -99,7 +97,7 @@ if (empty($ibu->tanggal_lahir)) {
                                         <label for="">TAHUN LAHIR AYAH</label>
                                         <select name="tahun_lahir_a" id="" class="form-control">
                                             <option value="default">Pilih Tahun</option>
-                                            <?php for ($th = 1950; $th < date("Y") + 5; $th++) {
+                                            <?php for ($th = 1900; $th < date("Y") + 5; $th++) {
                                                 if ($waktu_a[0] == $th) {
                                             ?>
                                                     <option selected value="<?= $th ?>"><?= $th ?></option>
@@ -463,7 +461,7 @@ if (empty($ibu->tanggal_lahir)) {
                                         <label for="">TAHUN LAHIR IBU</label>
                                         <select name="tahun_lahir_i" id="" class="form-control">
                                             <option value="default">Pilih Tahun</option>
-                                            <?php for ($th = 1950; $th < date("Y") + 5; $th++) {
+                                            <?php for ($th = 1900; $th < date("Y") + 5; $th++) {
                                                 if ($waktu_i[0] == $th) {
                                             ?>
                                                     <option selected value="<?= $th ?>"><?= $th ?></option>
@@ -776,8 +774,8 @@ if (empty($ibu->tanggal_lahir)) {
                         <div class="card-footer">
                             <button type="button" class="btn btn-danger" onclick="menu_santri()"><i class="fas fa-reply"></i> Kembali Ke Data Santri</button>
                             <div class="float-right">
-                                <button type="button" onclick="kembali_lun('<?= $santri->id_person ?>')" class="btn btn-info"><i class="fas fa-arrow-left"></i> Kembali</button>
-                                <button class="btn btn-info">Simpan dan Lanjut <i class="fas fa-arrow-right"></i></button>
+                                <button type="button" onclick="kembali_lun('<?= $santri->id_person ?>')" class="btn btn-primary active"><i class="fas fa-arrow-left"></i> Kembali</button>
+                                <button class="btn btn-primary active">Simpan dan Lanjut <i class="fas fa-arrow-right"></i></button>
                             </div>
                         </div>
                     </div>
@@ -785,7 +783,6 @@ if (empty($ibu->tanggal_lahir)) {
             </div>
         </div>
     </div>
-</section>
 <script>
     function kembali_lun(id) {
         $.post('<?= site_url('Cperson/form_edit_santri') ?>', {
@@ -913,12 +910,12 @@ if (empty($ibu->tanggal_lahir)) {
         },
         errorElement: 'span',
         errorPlacement: function(error, element) {
-            error.addClass('invalid-feedback');
-            element.closest('.form-group').append(error);
+            // error.addClass('invalid-feedback');
+            // element.closest('.form-group').append(error);
         },
-        // highlight: function(element, errorClass, validClass) {
-        //     $(element).addClass('is-invalid');
-        // },
+        highlight: function(element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
         unhighlight: function(element, errorClass, validClass) {
             $(element).removeClass('is-invalid');
         },

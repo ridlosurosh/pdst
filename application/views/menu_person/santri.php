@@ -1,22 +1,21 @@
-<section class="content-header">
-	<div class="container-fluid">
-		<div class="row mb-2">
-			<div class="col-sm-6">
-				<h1 class="m-0 text-dark">Santri</h1>
+<div class="container-fluid">
+	<div class="page-header">
+		<div class="row">
+			<div class="col-lg-6">
+				<h3>Santri</h3>
 			</div>
 		</div>
 	</div>
-</section>
-
-<section class="content">
-	<div class="col-sm-3"></div>
-	<div class="contianer-fluid">
-		<div class="card">
-			<div class="card-body p-2">
-				<h3 class="card-title"><a class="btn btn-block btn-sm bg-teal btn-circle" id="tambah_santri" data="0" href="#" onclick="tambah_santri()"><i class="fas fa-plus "></i> Tambah Data</a></h3>
+</div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-12">
+			<a class="btn btn-sm btn-primary active" id="tambah_santri" data="0" href="#" onclick="tambah_santri()"><i class="fas fa-plus "></i> Tambah</a>
+			<div class="card mt-2 p-2">
 				<table id="example1" class="table">
 					<thead>
 						<tr>
+							<th width="100">#</th>
 							<th>
 								NO
 							</th>
@@ -29,9 +28,6 @@
 							<th>
 								ALAMAT
 							</th>
-							<th>
-								AKSI
-							</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -40,12 +36,11 @@
 			</div>
 		</div>
 	</div>
-</section>
+</div>
 <script>
 	var table;
 	$(document).ready(function() {
 		table = $('#example1').DataTable({ 
-
             "processing": true, 
             "serverSide": true, 
             "order": [], 

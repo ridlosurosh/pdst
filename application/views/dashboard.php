@@ -36,6 +36,7 @@ if (isset($this->session->userdata['logged_in'])) {
   <link rel="stylesheet" type="text/css" href="<?= site_url() ?>assets/css/whether-icon.css">
   <link rel="stylesheet" type="text/css" href="<?= site_url() ?>assets/css/owlcarousel.css">
   <link rel="stylesheet" href="<?= site_url() ?>plugin/datatables-bs4/css/dataTables.bootstrap4.css">
+  <link rel="stylesheet" href="<?= site_url() ?>plugin/daterangepicker/daterangepicker.css">
   <link rel="stylesheet" href="<?= site_url() ?>plugin/EasyAutocomplete/easy-autocomplete.min.css">
   <link rel="stylesheet" href="<?= site_url() ?>plugin/EasyAutocomplete/easy-autocomplete.themes.min.css">
   <link rel="stylesheet" href="<?= site_url() ?>assets/js/parsleyjs/parsley.css">
@@ -88,8 +89,8 @@ if (isset($this->session->userdata['logged_in'])) {
           <ul class="nav-menus">
             <li><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()"><i data-feather="maximize"></i></a></li>
             <li class="onhover-dropdown p-0">
-              <div class="media profile-media"><img class="b-r-10" src="<?= site_url() ?>assets/images/dashboard/Profile.jpg" alt="">
-                <div class="media-body"><span>Emay Walter</span>
+              <div class="media profile-media"><img class="b-r-10" src="<?= site_url() ?>../gambar/foto/<?= $foto ?>" alt="">
+                <div class="media-body"><span><?= $nama_user ?></span>
                   <p class="mb-0 font-roboto">Admin <i class="middle fa fa-angle-down"></i></p>
                 </div>
               </div>
@@ -147,22 +148,22 @@ if (isset($this->session->userdata['logged_in'])) {
                 <li class="dropdown">
                   <a class="nav-link menu-title" href="#"><i data-feather="move"></i><span>Data Divisi</span></a>
                   <ul class="nav-submenu menu-content">
-                    <li><a href="#">Nubdzah</a></li>
-                    <li><a href="#">Tahfidz</a></li>
-                    <li><a href="#">Madin</a></li>
+                    <li><a href="#" onclick="nubdzah()">Nubdzah</a></li>
+                    <li><a href="#" onclick="tahfidz()">Tahfidz</a></li>
+                    <li><a href="#" onclick="madin()">Madin</a></li>
                   </ul>
                 </li>
                 <li class="dropdown">
                   <a class="nav-link menu-title" href="#"><i data-feather="paperclip"></i><span>Proses Data</span></a>
                   <ul class="nav-submenu menu-content">
-                    <li><a href="#">Atur Periode</a></li>
+                    <li><a href="#" onclick="menu_periode()">Atur Periode</a></li>
                   </ul>
                 </li>
                 <li class="dropdown">
                   <a class="nav-link menu-title" href="#"><i data-feather="layers"></i><span>Laporan</span></a>
                   <ul class="nav-submenu menu-content">
-                    <li><a href="#">Atur Periode</a></li>
-                    <li><a href="#">Cetak Santri</a></li>
+                    <li><a href="#" onclick="menu_grafik()">Grafik</a></li>
+                    <li><a href="#" onclick="cetak_person()">Cetak Santri</a></li>
                   </ul>
                 </li>
               </ul>
@@ -208,6 +209,9 @@ if (isset($this->session->userdata['logged_in'])) {
   <script src="<?= site_url() ?>assets/js/clipboard/clipboard.min.js"></script>
   <script src="<?= site_url() ?>assets/js/custom-card/custom-card.js"></script>
   <script src="<?= site_url() ?>assets/js/form-validation-custom.js"></script>
+  <script src="<?= site_url() ?>plugin/moment/moment.min.js"></script>
+  <script src="<?= site_url() ?>plugin/inputmask/jquery.inputmask.min.js"></script>
+  <script src="<?= site_url() ?>plugin/daterangepicker/daterangepicker.js"></script>
   <script src="<?= site_url() ?>assets/js/datepicker/date-picker/datepicker.js"></script>
   <script src="<?= site_url() ?>assets/js/datepicker/date-picker/datepicker.en.js"></script>
   <script src="<?= site_url() ?>assets/js/datepicker/date-picker/datepicker.custom.js"></script>
@@ -245,7 +249,7 @@ if (isset($this->session->userdata['logged_in'])) {
 
     // pengurus
     function pengurus() {
-      $.post('<?= site_url('pengurus') ?>', function(Res) {
+      $.post('<?= site_url('koordinator') ?>', function(Res) {
         $('#ini_isinya').html(Res);
       });
     }
@@ -294,6 +298,45 @@ if (isset($this->session->userdata['logged_in'])) {
     // Kamar
     function menu_kamar() {
       $.post('<?= site_url('kamar') ?>', function(Res) {
+        $('#ini_isinya').html(Res);
+      });
+    }
+
+    // Menu Devisi
+    function nubdzah() {
+      $.post('<?= site_url('Cdivisi/nubdzah') ?>',function(Res) {
+        $('#ini_isinya').html(Res);
+      })
+    }
+
+    function madin() {
+      $.post('<?= site_url('Cdivisi/madin') ?>',function(Res) {
+        $('#ini_isinya').html(Res);
+      })
+    }
+
+    function tahfidz() {
+      $.post('<?= site_url('Cdivisi/tahfidz') ?>',function(Res) {
+        $('#ini_isinya').html(Res);
+      })
+    }
+
+    // Periode
+    function menu_periode() {
+      $.post('<?= site_url('periode') ?>', function(Res) {
+        $('#ini_isinya').html(Res);
+      });
+    }
+    // Periode
+
+    function menu_grafik() {
+      $.post('<?= site_url('Cgrafik/menu_grafik') ?>', function(Res) {
+        $('#ini_isinya').html(Res);
+      });
+    }
+
+    function cetak_person() {
+      $.post('<?= site_url('Cexport_pdf/cetak_person') ?>', function(Res) {
         $('#ini_isinya').html(Res);
       });
     }

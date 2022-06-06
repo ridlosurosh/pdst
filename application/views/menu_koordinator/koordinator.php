@@ -1,70 +1,49 @@
-<section class="content-header">
-	<div class="container-fluid">
-		<div class="row mb-2">
-			<div class="col-sm-6">
-				<h1>Pengurus</h1>
+<div class="container-fluid">
+	<div class="page-header">
+		<div class="row">
+			<div class="col-lg-6">
+				<h3>Pengurus</h3>
 			</div>
 		</div>
 	</div>
-</section>
-<section class="content">
-	<div class="card">
-		<div class="card-body table-responsive p-1">
-			<table id="example1" class="table table-hover text-nowrap ">
-				<h3 class="card-title"><a class="btn btn-sm btn-block bg-teal" href="#" data-toggle="modal" data-target="#staticBackdrop"><i class="fas fa-plus"></i> Tambah Data</a></h3>
-				<thead>
-					<tr>
-						<th>NO</th>
-						<th>TAHUN PRIODE</th>
-						<!-- <th>NIUP</th>
-						<th>NAMA</th>
-						<th>JABATAN</th>
-						<th>MASA BAKTI</th>
-						<th>STATUS</th> -->
-						<th>AKSI</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php
-					$no = 1;
-					foreach ($priode as $value) { ?>
-						<tr>
-							<td><?= $no++ ?></td>
-							<!-- <td><?= $value->niup ?></td>
-							<td><?= $value->nama ?></td>
-							<td><?= $value->nm_jabatan ?></td> -->
-							<td><?= $value->periode ?></td>
-							<!-- <?php
-									if ($value->status == 'aktif') {
-										$st = "<span class='badge bg-primary'>Aktif</span>";
-									} else {
-										$st = "<span class='badge bg-danger'>Tidak Aktif</span>";
-									}
-									?>
-							<td><?= $st ?></td> -->
-							<td>
-								<div class="btn-group">
-									<button type="button" class="btn btn-sm btn-info" title="Info" onclick="tambah_koordinator('<?= $value->id_periode ?>','<?= $value->periode ?>')">
-										<i class="fas fa-cog"></i> Setting Pengurus
-									</button>
-									<!-- <button type="button" class="btn btn-sm btn-info" title="Info" onclick="detail_koordinator('<?= $value->id_pengurus ?>')">
-										<i class="fas fa-info-circle"></i>
-									</button>
-									<button type="button" class="btn btn-sm btn-warning" title="Edit" onclick="form_edit_koordinator('<?= $value->id_pengurus ?>')">
-										<i class="fas fa-edit"></i>
-									</button>
-									<button type="button" class="btn btn-sm btn-danger" title="Nonaktifkan" onclick="nonaktifkan('<?= $value->id_pengurus ?>')">
-										<i class="fas fa-user-slash"></i>
-									</button> -->
-								</div>
-							</td>
-						</tr>
-					<?php } ?>
-				</tbody>
-			</table>
+</div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-12">
+			<a class="btn btn-sm btn-primary active" href="#" data-toggle="modal" data-target="#staticBackdrop"><i class="fas fa-plus"></i> Tambah</a>
+			<div class="card mt-2 p-2">
+				<div class="card-body table-responsive">
+					<table id="example1" class="table">
+						<thead>
+							<tr>
+								<th>NO</th>
+								<th>TAHUN PRIODE</th>
+								<th>AKSI</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+							$no = 1;
+							foreach ($priode as $value) { ?>
+								<tr>
+									<td><?= $no++ ?></td>
+									<td><?= $value->periode ?></td>
+									<td>
+										<div class="btn-group">
+											<button type="button" class="btn btn-sm btn-primary active" title="Info" onclick="tambah_koordinator('<?= $value->id_periode ?>','<?= $value->periode ?>')">
+												<i class="fas fa-cog"></i> Setting Pengurus
+											</button>
+										</div>
+									</td>
+								</tr>
+							<?php } ?>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
-</section>
+</div>
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" aria-labelledby="staticBackdropLabel" aria-hidden="true" data-backdrop="static">
 	<div class="modal-dialog modal-lg">

@@ -1,61 +1,86 @@
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Grafik</h1>
-
+<div class="container-fluid">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-lg-6">
+                <h3>Grafik</h3>
             </div>
-            <div class="col-sm-6"><button class="float-right btn bg-gradient-info" onclick="grafik_pertahun()"><i class="fas fa-columns"></i> Grafik Pertahun</button></div>
         </div>
     </div>
-</section>
-<section class="content ">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="row float-right">
-                                    <div class="row">
-                                        <div class="col-8">
-                                            <select name="" id="tahun" class="form-control  col-12">
-                                                <?php
-                                                for ($i = 2021; $i <= date("Y") + 10; $i++) { ?>
-                                                    <option value="<?= $i ?>"><?= $i ?></option>
-                                                <?php }
-                                                ?>
-                                            </select>
-                                        </div>
-                                        <div class="col-4">
-                                            <button id="btn_print" onclick="printCanvas()" class="btn bg-gradient-secondary float-right">
-                                                <i class="fas fa-print"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
+</div>
+<div class="container-fluid">
+    <div class="row mb-2">
+        <div class="col-md-12">
+            <div class="float-right">
+                <div class="row mb-2">
+                    <div class="col-md-12">
+                        <button class="btn btn-primary btn-sm active" onclick="grafik_pertahun()" style="width: 100%;">Grafik Pertahun</button>
                     </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col">
-                                <h6> <span class="offset-4 text-bold span" style="color:dimgrey"> </span> </h6>
-                                <div class="chart" id="graph-container">
-                                    <canvas id="barChart" style="min-height: 350px; height: 350px; max-height: 350px; max-width: 100%;"></canvas>
-                                </div>
-                            </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-12">
+                        <button id="btn_print" onclick="printCanvas()" class="btn btn-primary active float-right" style="width: 100%;">
+                            <i class="fas fa-print"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-12">
+                        <select name="" id="tahun" class="form-control  col-12" style="width: 100%;">
+                            <?php
+                            for ($i = 2021; $i <= date("Y") + 10; $i++) { 
 
-                        </div>
+                            if ($i == date('Y')) {
+                                $tahun = "selected";
+                            }else{
+                                $tahun = "";
+                            }
+
+                            ?>
+                                <option <?= $tahun ?> value="<?= $i ?>"><?= $i ?></option>
+                            <?php }
+                            ?>
+                        </select>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</section>
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="row float-right">
+                                <div class="row">
+                                    <div class="col-8">
+
+                                    </div>
+                                    <div class="col-4">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h6> <span class="offset-4 text-bold span" style="color:dimgrey"> </span> </h6>
+                            <div class="chart" id="graph-container">
+                                <canvas id="barChart" style="min-height: 350px; height: 350px; max-height: 350px; max-width: 100%;"></canvas>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <script>
@@ -102,13 +127,14 @@
             labels: wilayah,
             datasets: [{
                 label: 'santri',
-                backgroundColor: 'rgba(115, 115, 115 , 0.9)',
-                borderColor: 'rgba(115, 115, 115 , 0.9)',
+                backgroundColor: 'rgb(115,102,255, 0.5)',
+                borderColor: 'rgb(115,102,255)',
                 pointRadius: false,
-                pointColor: '#3b8bba',
-                pointStrokeColor: 'rgba(115, 115, 115 , 0.9)',
+                borderWidth: 2,
+                pointColor: 'rgb(115,102,255)',
+                pointStrokeColor: 'rgb(115,102,255)',
                 pointHighlightFill: '#fff',
-                pointHighlightStroke: 'rgba(115, 115, 115 , 0.9)',
+                pointHighlightStroke: 'rgb(115,102,255)',
                 data: jml
             }]
         };

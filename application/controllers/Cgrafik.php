@@ -24,7 +24,7 @@ class Cgrafik extends CI_Controller
         $data = $this->Mgrafik->grafik_tahun();
         if ($data == null) {
             $da[] = '0';
-            $dat[] = 'Harap Di Isi Bos qqq Kunjungan Pertahun Lagi KOsong OK HEHE';
+            $dat[] = 'Data tidak ada, harap isi data';
         } else {
             foreach ($data as $value) {
                 $dat[] = $value->tahun;
@@ -40,7 +40,7 @@ class Cgrafik extends CI_Controller
         $data = $this->Mgrafik->grafik_perwilayah($tahun);
         if ($data == null) {
             $date[] = '0';
-            $dat[] = 'harap di isi bos qqq Kunjungan PUtra Putri  Lagi KOsong OK';
+            $dat[] = 'Data tidak ada, harap isi data';
         } else {
             foreach ($data as $value) {
                 $dat[] = $value->nama_wilayah;

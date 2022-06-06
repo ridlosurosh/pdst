@@ -22,20 +22,19 @@ if ($santri->desa == "") {
 }
 $waktu = explode("-", $santri->tanggal_lahir);
 ?>
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1>Data Diri</h1>
+<div class="container-fluid">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-lg-6">
+                <h3>Data Diri</h3>
             </div>
         </div>
     </div>
-</section>
+</div>
 <input type="hidden" name="prov" id="prov" value="<?= $prov ?>">
 <input type="hidden" name="kabi" id="kab" value="<?= $kab ?>">
 <input type="hidden" name="kec" id="kec" value="<?= $kec ?>">
 <input type="hidden" name="desa" id="des" value="<?= $desa ?>">
-<section class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -455,14 +454,13 @@ $waktu = explode("-", $santri->tanggal_lahir);
                         </div>
                         <div class="card-footer">
                             <button type="button" class="btn btn-danger" onclick="batalkan('<?= $santri->id_person ?>')"><i class="fas fa-times"></i> Batal</button>
-                            <button class="btn btn-info float-right">Simpan dan Lanjut <i class="fas fa-arrow-right"></i></button>
+                            <button class="btn btn-primary active float-right">Simpan dan Lanjut <i class="fas fa-arrow-right"></i></button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-</section>
 <script>
     // $(document).ready(function() {
     //     $("#nik, #ank_ke, #sdr, #pos").keypress(function(e) {
@@ -514,10 +512,10 @@ $waktu = explode("-", $santri->tanggal_lahir);
                 valueNotEquals: "default"
             },
             ank_ke: {
-                valueNotEquals: "0"
+                required: true
             },
             sdr: {
-                valueNotEquals: "0"
+                required: true
             },
             alamat_lengkap: {
                 required: true
@@ -592,12 +590,12 @@ $waktu = explode("-", $santri->tanggal_lahir);
         },
         errorElement: 'span',
         errorPlacement: function(error, element) {
-            error.addClass('invalid-feedback');
-            element.closest('.form-group').append(error);
+            // error.addClass('invalid-feedback');
+            // element.closest('.form-group').append(error);
         },
-        // highlight: function(element, errorClass, validClass) {
-        //     $(element).addClass('is-invalid');
-        // },
+        highlight: function(element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
         unhighlight: function(element, errorClass, validClass) {
             $(element).removeClass('is-invalid');
         },
